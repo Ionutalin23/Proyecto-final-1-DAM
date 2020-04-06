@@ -23,7 +23,7 @@ import java.awt.SystemColor;
 public class MenuVista extends JFrame {
 	private MenuControlador controlador;
 	private MenuModelo modelo;
-	private JLabel lblAnexos;
+	private JLabel lblAnexos; 
 
 	public MenuVista() {
 		getContentPane().setBackground(Color.LIGHT_GRAY);
@@ -44,7 +44,7 @@ public class MenuVista extends JFrame {
 		pnlBtnAnx.setBounds(39, 217, 283, 27);
 		pnlMed.add(pnlBtnAnx);
 		pnlBtnAnx.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(43, 43, 43), null, null, null));
-		pnlBtnAnx.setBackground(new Color(89, 89, 89));
+		pnlBtnAnx.setBackground(new Color(128, 0, 0));
 		pnlBtnAnx.setLayout(null);
 
 		lblAnexos = new JLabel("Anexos");
@@ -53,27 +53,27 @@ public class MenuVista extends JFrame {
 		lblAnexos.setBackground(new Color(205, 92, 92));
 		lblAnexos.setHorizontalAlignment(SwingConstants.CENTER);
 		lblAnexos.setFont(new Font("Century Gothic", Font.BOLD, 13));
-		lblAnexos.setForeground(new Color(255, 255, 255));
+		lblAnexos.setForeground(Color.WHITE);
 
 		lblAnexos.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				pnlBtnAnx.setBackground(new Color(128, 128, 128));
+				pnlBtnAnx.setBackground(new Color(178, 34, 34));
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				pnlBtnAnx.setBackground(new Color(89, 89, 89));
+				pnlBtnAnx.setBackground(new Color(153, 0, 0));
 			}
 
 			@Override
 			public void mousePressed(MouseEvent e) {
-				pnlBtnAnx.setBackground(new Color(128, 128, 128));
+				pnlBtnAnx.setBackground(new Color(205, 92, 92));
 			}
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				pnlBtnAnx.setBackground(new Color(128, 128, 128));
+				pnlBtnAnx.setBackground(new Color(178, 34, 34));
 			}
 //			@Override
 //			public void mouseClicked(MouseEvent e) {
@@ -85,7 +85,7 @@ public class MenuVista extends JFrame {
 		JPanel pnlBtnTuto = new JPanel();
 		pnlBtnTuto.setLayout(null);
 		pnlBtnTuto.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(43, 43, 43), null, null, null));
-		pnlBtnTuto.setBackground(new Color(89, 89, 89));
+		pnlBtnTuto.setBackground(new Color(128, 0, 0));
 		pnlBtnTuto.setBounds(39, 285, 283, 27);
 		pnlMed.add(pnlBtnTuto);
 
@@ -95,27 +95,27 @@ public class MenuVista extends JFrame {
 		lblTuto.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTuto.setForeground(Color.WHITE);
 		lblTuto.setFont(new Font("Century Gothic", Font.BOLD, 13));
-		lblTuto.setBackground(new Color(43, 43, 43));
+		lblTuto.setBackground(new Color(205, 92, 92));
 
 		lblTuto.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				pnlBtnTuto.setBackground(new Color(128, 128, 128));
+				pnlBtnTuto.setBackground(new Color(178, 34, 34));
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				pnlBtnTuto.setBackground(new Color(89, 89, 89));
+				pnlBtnTuto.setBackground(new Color(153, 0, 0));
 			}
 
 			@Override
 			public void mousePressed(MouseEvent e) {
-				pnlBtnTuto.setBackground(new Color(128, 128, 128));
+				pnlBtnTuto.setBackground(new Color(205, 92, 92));
 			}
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				pnlBtnTuto.setBackground(new Color(128, 128, 128));
+				pnlBtnTuto.setBackground(new Color(178, 34, 34));
 			}
 //			@Override
 //			public void mouseClicked(MouseEvent e) {
@@ -129,7 +129,7 @@ public class MenuVista extends JFrame {
 		JPanel pnlBtnEmp = new JPanel();
 		pnlBtnEmp.setLayout(null);
 		pnlBtnEmp.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(43, 43, 43), null, null, null));
-		pnlBtnEmp.setBackground(new Color(89, 89, 89));
+		pnlBtnEmp.setBackground(new Color(128, 0, 0));
 		pnlBtnEmp.setBounds(39, 357, 283, 27);
 		pnlMed.add(pnlBtnEmp);
 
@@ -139,27 +139,27 @@ public class MenuVista extends JFrame {
 		lblEmp.setHorizontalAlignment(SwingConstants.CENTER);
 		lblEmp.setForeground(Color.WHITE);
 		lblEmp.setFont(new Font("Century Gothic", Font.BOLD, 13));
-		lblEmp.setBackground(new Color(43, 43, 43));
+		lblEmp.setBackground(new Color(205, 92, 92));
 
 		lblEmp.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				pnlBtnEmp.setBackground(new Color(128, 128, 128));
+				pnlBtnEmp.setBackground(new Color(178, 34, 34));
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				pnlBtnEmp.setBackground(new Color(89, 89, 89));
+				pnlBtnEmp.setBackground(new Color(153, 0, 0));
 			}
 
 			@Override
 			public void mousePressed(MouseEvent e) {
-				pnlBtnEmp.setBackground(new Color(128, 128, 128));
+				pnlBtnEmp.setBackground(new Color(205, 92, 92));
 			}
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				pnlBtnEmp.setBackground(new Color(128, 128, 128));
+				pnlBtnEmp.setBackground(new Color(178, 34, 34));
 			}
 //			@Override
 //			public void mouseClicked(MouseEvent e) {
@@ -173,7 +173,7 @@ public class MenuVista extends JFrame {
 		JPanel pnlBtnAl = new JPanel();
 		pnlBtnAl.setLayout(null);
 		pnlBtnAl.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(43, 43, 43), null, null, null));
-		pnlBtnAl.setBackground(new Color(89, 89, 89));
+		pnlBtnAl.setBackground(new Color(128, 0, 0));
 		pnlBtnAl.setBounds(39, 426, 283, 27);
 		pnlMed.add(pnlBtnAl);
 
@@ -183,27 +183,27 @@ public class MenuVista extends JFrame {
 		lblAl.setHorizontalAlignment(SwingConstants.CENTER);
 		lblAl.setForeground(Color.WHITE);
 		lblAl.setFont(new Font("Century Gothic", Font.BOLD, 13));
-		lblAl.setBackground(new Color(43, 43, 43));
+		lblAl.setBackground(new Color(205, 92, 92));
 
 		lblAl.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				pnlBtnAl.setBackground(new Color(128, 128, 128));
+				pnlBtnAl.setBackground(new Color(178, 34, 34));
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				pnlBtnAl.setBackground(new Color(89, 89, 89));
+				pnlBtnAl.setBackground(new Color(153, 0, 0));
 			}
 
 			@Override
 			public void mousePressed(MouseEvent e) {
-				pnlBtnAl.setBackground(new Color(128, 128, 128));
+				pnlBtnAl.setBackground(new Color(205, 92, 92));
 			}
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				pnlBtnAl.setBackground(new Color(128, 128, 128));
+				pnlBtnAl.setBackground(new Color(178, 34, 34));
 			}
 //			@Override
 //			public void mouseClicked(MouseEvent e) {
@@ -217,7 +217,7 @@ public class MenuVista extends JFrame {
 		JPanel pnlBtnGrup = new JPanel();
 		pnlBtnGrup.setLayout(null);
 		pnlBtnGrup.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(43, 43, 43), null, null, null));
-		pnlBtnGrup.setBackground(new Color(89, 89, 89));
+		pnlBtnGrup.setBackground(new Color(128, 0, 0));
 		pnlBtnGrup.setBounds(39, 496, 283, 27);
 		pnlMed.add(pnlBtnGrup);
 
@@ -227,27 +227,27 @@ public class MenuVista extends JFrame {
 		lblGrup.setHorizontalAlignment(SwingConstants.CENTER);
 		lblGrup.setForeground(Color.WHITE);
 		lblGrup.setFont(new Font("Century Gothic", Font.BOLD, 13));
-		lblGrup.setBackground(new Color(43, 43, 43));
+		lblGrup.setBackground(new Color(205, 92, 92));
 
 		lblGrup.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				pnlBtnGrup.setBackground(new Color(128, 128, 128));
+				pnlBtnGrup.setBackground(new Color(178, 34, 34));
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				pnlBtnGrup.setBackground(new Color(89, 89, 89));
+				pnlBtnGrup.setBackground(new Color(153, 0, 0));
 			}
 
 			@Override
 			public void mousePressed(MouseEvent e) {
-				pnlBtnGrup.setBackground(new Color(128, 128, 128));
+				pnlBtnGrup.setBackground(new Color(205, 92, 92));
 			}
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				pnlBtnGrup.setBackground(new Color(128, 128, 128));
+				pnlBtnGrup.setBackground(new Color(178, 34, 34));
 			}
 //			@Override
 //			public void mouseClicked(MouseEvent e) {
@@ -263,7 +263,7 @@ public class MenuVista extends JFrame {
 		getContentPane().add(pnlBtnLgo);
 		pnlBtnLgo.setLayout(null);
 		pnlBtnLgo.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(43, 43, 43), null, null, null));
-		pnlBtnLgo.setBackground(new Color(89, 89, 89));
+		pnlBtnLgo.setBackground(new Color(128, 0, 0));
 
 		JLabel lblALgo = new JLabel("Logout");
 		lblALgo.setBounds(0, 0, 139, 27);
@@ -271,27 +271,27 @@ public class MenuVista extends JFrame {
 		lblALgo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblALgo.setForeground(Color.WHITE);
 		lblALgo.setFont(new Font("Century Gothic", Font.BOLD, 13));
-		lblALgo.setBackground(new Color(43, 43, 43));
+		lblALgo.setBackground(new Color(205, 92, 92));
 
 		lblALgo.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				pnlBtnLgo.setBackground(new Color(128, 128, 128));
+				pnlBtnLgo.setBackground(new Color(178, 34, 34));
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				pnlBtnLgo.setBackground(new Color(89, 89, 89));
+				pnlBtnLgo.setBackground(new Color(153, 0, 0));
 			}
 
 			@Override
 			public void mousePressed(MouseEvent e) {
-				pnlBtnLgo.setBackground(new Color(128, 128, 128));
+				pnlBtnLgo.setBackground(new Color(205, 92, 92));
 			}
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				pnlBtnLgo.setBackground(new Color(128, 128, 128));
+				pnlBtnLgo.setBackground(new Color(178, 34, 34));
 			}
 //			@Override
 //			public void mouseClicked(MouseEvent e) {
@@ -302,16 +302,22 @@ public class MenuVista extends JFrame {
 //			}
 		});
 
+		
 		JLabel lblmsg = new JLabel("Logged as: Pedro Camacho");
 		lblmsg.setForeground(SystemColor.textHighlightText);
 		lblmsg.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblmsg.setBounds(0, 0, 157, 27);
 		getContentPane().add(lblmsg);
+		
+		JLabel lblICO = new JLabel("");
+		lblICO.setBounds(0, 510, 185, 56);
+		lblICO.setIcon(new ImageIcon(MenuVista.class.getResource("/img/logo_uem.png")));
+		getContentPane().add(lblICO);
 
 		JLabel lblBg = new JLabel("");
 		lblBg.setForeground(SystemColor.window);
 		lblBg.setIcon(null);
-		lblBg.setBackground(new Color(43, 43, 43));
+		lblBg.setBackground(new Color(255, 99, 71));
 		lblBg.setBounds(0, 0, 682, 566);
 		getContentPane().add(lblBg);
 
