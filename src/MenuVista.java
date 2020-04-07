@@ -75,8 +75,8 @@ public class MenuVista extends JFrame {
 
 //			@Override
 //			public void mouseClicked(MouseEvent e) {
-//				PruebaVista vista = new PruebaVista();
-//				MenuControlador.CambiarPantalla(vista);
+//				Busqueda_Anexos vista = new Busqueda_Anexos();
+//				controlador.CambiarPantalla(vista);
 //			}
 		});
 
@@ -112,8 +112,8 @@ public class MenuVista extends JFrame {
 
 //			@Override
 //			public void mouseClicked(MouseEvent e) {
-//				PruebaVista vista = new PruebaVista();
-//				MenuControlador.CambiarPantalla(vista);
+//				Busqueda_Tutores vista = new Busqueda_Tutores();
+//				controlador.CambiarPantalla(vista);
 //			}
 		});
 
@@ -153,8 +153,8 @@ public class MenuVista extends JFrame {
 
 //			@Override
 //			public void mouseClicked(MouseEvent e) {
-//				PruebaVista vista = new PruebaVista();
-//				MenuControlador.CambiarPantalla(vista);
+//				Busqueda_Empresas vista = new Busqueda_Empresas();
+//				controlador.CambiarPantalla(vista);
 //			}
 		});
 
@@ -194,8 +194,8 @@ public class MenuVista extends JFrame {
 
 //			@Override
 //			public void mouseClicked(MouseEvent e) {
-//				PruebaVista vista = new PruebaVista();
-//				MenuControlador.CambiarPantalla(vista);
+//				Busqueda_Alumnos vista = new Busqueda_Alumnos();
+//				controlador.CambiarPantalla(vista);
 //			}
 		});
 
@@ -235,13 +235,13 @@ public class MenuVista extends JFrame {
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				lblAlmnBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/Btn.png")));
+				lblGrupBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/Btn.png")));
 			}
 
 //			@Override
 //			public void mouseClicked(MouseEvent e) {
-//				PruebaVista vista = new PruebaVista();
-//				MenuControlador.CambiarPantalla(vista);
+//				Busqueda_Grupos vista = new Busqueda_Grupos();
+//				controlador.CambiarPantalla(vista);
 //			}
 		});
 
@@ -282,8 +282,8 @@ public class MenuVista extends JFrame {
 
 //			@Override
 //			public void mouseClicked(MouseEvent e) {
-//				PruebaVista vista = new PruebaVista();
-//				MenuControlador.CambiarPantalla(vista);
+//				Ventana_Login vista = new Ventana_Login();
+//				controlador.CambiarPantalla(vista);
 //			}
 		});
 
