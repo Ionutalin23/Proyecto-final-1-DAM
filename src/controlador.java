@@ -1,14 +1,14 @@
 
 
-public class MenuControlador {
+public class controlador {
 	private MenuVista vista;
-	private MenuModelo modelo;
+	private modelo modelo;
 	
 	
 	public void setVista(MenuVista vista) {
 		this.vista = vista;
 	}
-	public void setModelo(MenuModelo modelo) {
+	public void setModelo(modelo modelo) {
 		this.modelo = modelo;
 	}
 //	public static void CambiarPantalla(PruebaVista vista2) {

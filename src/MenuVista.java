@@ -21,60 +21,58 @@ import javax.swing.border.Border;
 import java.awt.SystemColor;
 
 public class MenuVista extends JFrame {
-	private MenuControlador controlador;
-	private MenuModelo modelo;
+	private controlador controlador;
+	private modelo modelo;
 	private JLabel lblAnexos; 
 
 	public MenuVista() {
 		getContentPane().setBackground(Color.LIGHT_GRAY);
-		getContentPane().setLayout(null);
 		getContentPane().setBounds(100, 400, 800, 550);
 		setTitle("Menu");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 700, 613);
 		getContentPane().setLayout(null);
+		getContentPane().setLayout(null);
 
 		JPanel pnlMed = new JPanel();
-		pnlMed.setBackground(SystemColor.textHighlightText);
 		pnlMed.setBounds(181, 0, 363, 566);
+		pnlMed.setBackground(SystemColor.textHighlightText);
 		getContentPane().add(pnlMed);
 		pnlMed.setLayout(null);
 
-		JPanel pnlBtnAnx = new JPanel();
-		pnlBtnAnx.setBounds(39, 217, 283, 27);
-		pnlMed.add(pnlBtnAnx);
-		pnlBtnAnx.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(43, 43, 43), null, null, null));
-		pnlBtnAnx.setBackground(new Color(128, 0, 0));
-		pnlBtnAnx.setLayout(null);
-
 		lblAnexos = new JLabel("Anexos");
-		lblAnexos.setBounds(0, 0, 283, 27);
-		pnlBtnAnx.add(lblAnexos);
+		lblAnexos.setBounds(39, 217, 283, 27);
+		pnlMed.add(lblAnexos);
 		lblAnexos.setBackground(new Color(205, 92, 92));
 		lblAnexos.setHorizontalAlignment(SwingConstants.CENTER);
 		lblAnexos.setFont(new Font("Century Gothic", Font.BOLD, 13));
-		lblAnexos.setForeground(Color.WHITE);
+		lblAnexos.setForeground(new Color(255, 255, 255));
 
-		lblAnexos.addMouseListener(new MouseAdapter() {
+		JLabel lblAnxBtn = new JLabel("");
+		lblAnxBtn.setBounds(39, 217, 283, 27);
+		pnlMed.add(lblAnxBtn);
+		lblAnxBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/Btn.png")));
+		lblAnxBtn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				pnlBtnAnx.setBackground(new Color(178, 34, 34));
+				lblAnxBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/Btn2.png")));
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				pnlBtnAnx.setBackground(new Color(153, 0, 0));
+				lblAnxBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/Btn.png")));
 			}
 
 			@Override
 			public void mousePressed(MouseEvent e) {
-				pnlBtnAnx.setBackground(new Color(205, 92, 92));
+				lblAnxBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/Btn3.png")));
 			}
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				pnlBtnAnx.setBackground(new Color(178, 34, 34));
+				lblAnxBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/Btn.png")));
 			}
+
 //			@Override
 //			public void mouseClicked(MouseEvent e) {
 //				PruebaVista vista = new PruebaVista();
@@ -82,231 +80,222 @@ public class MenuVista extends JFrame {
 //			}
 		});
 
-		JPanel pnlBtnTuto = new JPanel();
-		pnlBtnTuto.setLayout(null);
-		pnlBtnTuto.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(43, 43, 43), null, null, null));
-		pnlBtnTuto.setBackground(new Color(128, 0, 0));
-		pnlBtnTuto.setBounds(39, 285, 283, 27);
-		pnlMed.add(pnlBtnTuto);
-
 		JLabel lblTuto = new JLabel("Tutores");
-		lblTuto.setBounds(0, 0, 283, 27);
-		pnlBtnTuto.add(lblTuto);
+		lblTuto.setBounds(39, 284, 283, 27);
+		pnlMed.add(lblTuto);
 		lblTuto.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTuto.setForeground(Color.WHITE);
 		lblTuto.setFont(new Font("Century Gothic", Font.BOLD, 13));
-		lblTuto.setBackground(new Color(205, 92, 92));
+		lblTuto.setBackground(new Color(43, 43, 43));
 
-		lblTuto.addMouseListener(new MouseAdapter() {
+		JLabel lblTutoBtn = new JLabel("");
+		lblTutoBtn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				pnlBtnTuto.setBackground(new Color(178, 34, 34));
+				lblTutoBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/Btn2.png")));
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				pnlBtnTuto.setBackground(new Color(153, 0, 0));
+				lblTutoBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/Btn.png")));
 			}
 
 			@Override
 			public void mousePressed(MouseEvent e) {
-				pnlBtnTuto.setBackground(new Color(205, 92, 92));
+				lblTutoBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/Btn3.png")));
 			}
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				pnlBtnTuto.setBackground(new Color(178, 34, 34));
+				lblTutoBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/Btn.png")));
 			}
+
 //			@Override
 //			public void mouseClicked(MouseEvent e) {
-//				Ventana_Admin admin = new Ventana_Admin();
-//				admin.setVisible(true);
-//				admin.setDefaultCloseOperation(EXIT_ON_CLOSE);
-//				dispose();
+//				PruebaVista vista = new PruebaVista();
+//				MenuControlador.CambiarPantalla(vista);
 //			}
 		});
 
-		JPanel pnlBtnEmp = new JPanel();
-		pnlBtnEmp.setLayout(null);
-		pnlBtnEmp.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(43, 43, 43), null, null, null));
-		pnlBtnEmp.setBackground(new Color(128, 0, 0));
-		pnlBtnEmp.setBounds(39, 357, 283, 27);
-		pnlMed.add(pnlBtnEmp);
+		lblTutoBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/Btn.png")));
+		lblTutoBtn.setBounds(39, 284, 283, 27);
+		pnlMed.add(lblTutoBtn);
 
 		JLabel lblEmp = new JLabel("Empresas");
-		lblEmp.setBounds(0, 0, 283, 27);
-		pnlBtnEmp.add(lblEmp);
+		lblEmp.setBounds(39, 347, 283, 27);
+		pnlMed.add(lblEmp);
 		lblEmp.setHorizontalAlignment(SwingConstants.CENTER);
 		lblEmp.setForeground(Color.WHITE);
 		lblEmp.setFont(new Font("Century Gothic", Font.BOLD, 13));
-		lblEmp.setBackground(new Color(205, 92, 92));
+		lblEmp.setBackground(new Color(43, 43, 43));
 
-		lblEmp.addMouseListener(new MouseAdapter() {
+		JLabel lblEmpBtn = new JLabel("");
+		lblEmpBtn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				pnlBtnEmp.setBackground(new Color(178, 34, 34));
+				lblEmpBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/Btn2.png")));
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				pnlBtnEmp.setBackground(new Color(153, 0, 0));
+				lblEmpBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/Btn.png")));
 			}
 
 			@Override
 			public void mousePressed(MouseEvent e) {
-				pnlBtnEmp.setBackground(new Color(205, 92, 92));
+				lblEmpBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/Btn3.png")));
 			}
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				pnlBtnEmp.setBackground(new Color(178, 34, 34));
+				lblEmpBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/Btn.png")));
 			}
+
 //			@Override
 //			public void mouseClicked(MouseEvent e) {
-//				Ventana_Admin admin = new Ventana_Admin();
-//				admin.setVisible(true);
-//				admin.setDefaultCloseOperation(EXIT_ON_CLOSE);
-//				dispose();
+//				PruebaVista vista = new PruebaVista();
+//				MenuControlador.CambiarPantalla(vista);
 //			}
 		});
 
-		JPanel pnlBtnAl = new JPanel();
-		pnlBtnAl.setLayout(null);
-		pnlBtnAl.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(43, 43, 43), null, null, null));
-		pnlBtnAl.setBackground(new Color(128, 0, 0));
-		pnlBtnAl.setBounds(39, 426, 283, 27);
-		pnlMed.add(pnlBtnAl);
+		lblEmpBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/Btn.png")));
+		lblEmpBtn.setBounds(39, 347, 283, 27);
+		pnlMed.add(lblEmpBtn);
 
 		JLabel lblAl = new JLabel("Alumnos");
-		lblAl.setBounds(0, 0, 283, 27);
-		pnlBtnAl.add(lblAl);
+		lblAl.setBounds(39, 412, 283, 27);
+		pnlMed.add(lblAl);
 		lblAl.setHorizontalAlignment(SwingConstants.CENTER);
 		lblAl.setForeground(Color.WHITE);
 		lblAl.setFont(new Font("Century Gothic", Font.BOLD, 13));
-		lblAl.setBackground(new Color(205, 92, 92));
+		lblAl.setBackground(new Color(43, 43, 43));
 
-		lblAl.addMouseListener(new MouseAdapter() {
+		JLabel lblAlmnBtn = new JLabel("");
+		lblAlmnBtn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				pnlBtnAl.setBackground(new Color(178, 34, 34));
+				lblAlmnBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/Btn2.png")));
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				pnlBtnAl.setBackground(new Color(153, 0, 0));
+				lblAlmnBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/Btn.png")));
 			}
 
 			@Override
 			public void mousePressed(MouseEvent e) {
-				pnlBtnAl.setBackground(new Color(205, 92, 92));
+				lblAlmnBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/Btn3.png")));
 			}
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				pnlBtnAl.setBackground(new Color(178, 34, 34));
+				lblAlmnBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/Btn.png")));
 			}
+
 //			@Override
 //			public void mouseClicked(MouseEvent e) {
-//				Ventana_Admin admin = new Ventana_Admin();
-//				admin.setVisible(true);
-//				admin.setDefaultCloseOperation(EXIT_ON_CLOSE);
-//				dispose();
+//				PruebaVista vista = new PruebaVista();
+//				MenuControlador.CambiarPantalla(vista);
 //			}
 		});
 
-		JPanel pnlBtnGrup = new JPanel();
-		pnlBtnGrup.setLayout(null);
-		pnlBtnGrup.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(43, 43, 43), null, null, null));
-		pnlBtnGrup.setBackground(new Color(128, 0, 0));
-		pnlBtnGrup.setBounds(39, 496, 283, 27);
-		pnlMed.add(pnlBtnGrup);
+		lblAlmnBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/Btn.png")));
+		lblAlmnBtn.setBounds(39, 412, 283, 27);
+		pnlMed.add(lblAlmnBtn);
+
+		JLabel lblProf = new JLabel("");
+		lblProf.setBounds(100, 26, 166, 148);
+		pnlMed.add(lblProf);
+		lblProf.setIcon(new ImageIcon(MenuVista.class.getResource("/img/img.png")));
 
 		JLabel lblGrup = new JLabel("Grupos");
-		lblGrup.setBounds(0, 0, 283, 27);
-		pnlBtnGrup.add(lblGrup);
+		lblGrup.setBounds(39, 481, 283, 27);
+		pnlMed.add(lblGrup);
 		lblGrup.setHorizontalAlignment(SwingConstants.CENTER);
 		lblGrup.setForeground(Color.WHITE);
 		lblGrup.setFont(new Font("Century Gothic", Font.BOLD, 13));
-		lblGrup.setBackground(new Color(205, 92, 92));
+		lblGrup.setBackground(new Color(43, 43, 43));
 
-		lblGrup.addMouseListener(new MouseAdapter() {
+		JLabel lblGrupBtn = new JLabel("");
+		lblGrupBtn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				pnlBtnGrup.setBackground(new Color(178, 34, 34));
+				lblGrupBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/Btn2.png")));
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				pnlBtnGrup.setBackground(new Color(153, 0, 0));
+				lblGrupBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/Btn.png")));
 			}
 
 			@Override
 			public void mousePressed(MouseEvent e) {
-				pnlBtnGrup.setBackground(new Color(205, 92, 92));
+				lblGrupBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/Btn3.png")));
 			}
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				pnlBtnGrup.setBackground(new Color(178, 34, 34));
+				lblAlmnBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/Btn.png")));
 			}
+
 //			@Override
 //			public void mouseClicked(MouseEvent e) {
-//				Ventana_Admin admin = new Ventana_Admin();
-//				admin.setVisible(true);
-//				admin.setDefaultCloseOperation(EXIT_ON_CLOSE);
-//				dispose();
+//				PruebaVista vista = new PruebaVista();
+//				MenuControlador.CambiarPantalla(vista);
 //			}
 		});
 
-		JPanel pnlBtnLgo = new JPanel();
-		pnlBtnLgo.setBounds(543, 0, 139, 27);
-		getContentPane().add(pnlBtnLgo);
-		pnlBtnLgo.setLayout(null);
-		pnlBtnLgo.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(43, 43, 43), null, null, null));
-		pnlBtnLgo.setBackground(new Color(128, 0, 0));
+		lblGrupBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/Btn.png")));
+		lblGrupBtn.setBounds(39, 481, 283, 27);
+		pnlMed.add(lblGrupBtn);
 
 		JLabel lblALgo = new JLabel("Logout");
-		lblALgo.setBounds(0, 0, 139, 27);
-		pnlBtnLgo.add(lblALgo);
+		lblALgo.setBounds(543, 0, 139, 27);
+		getContentPane().add(lblALgo);
 		lblALgo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblALgo.setForeground(Color.WHITE);
 		lblALgo.setFont(new Font("Century Gothic", Font.BOLD, 13));
-		lblALgo.setBackground(new Color(205, 92, 92));
-
-		lblALgo.addMouseListener(new MouseAdapter() {
+		lblALgo.setBackground(new Color(43, 43, 43));
+		
+		JLabel lblLgoBtn = new JLabel("");
+		lblLgoBtn.setBounds(546, 0, 136, 27);
+		lblLgoBtn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				pnlBtnLgo.setBackground(new Color(178, 34, 34));
+				lblLgoBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/BtnLgo2.png")));
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				pnlBtnLgo.setBackground(new Color(153, 0, 0));
+				lblLgoBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/BtnLgo.png")));
 			}
 
 			@Override
 			public void mousePressed(MouseEvent e) {
-				pnlBtnLgo.setBackground(new Color(205, 92, 92));
+				lblLgoBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/BtnLgo3.png")));
 			}
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				pnlBtnLgo.setBackground(new Color(178, 34, 34));
+				lblLgoBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/BtnLgo.png")));
 			}
+
 //			@Override
 //			public void mouseClicked(MouseEvent e) {
-//				Ventana_Admin admin = new Ventana_Admin();
-//				admin.setVisible(true);
-//				admin.setDefaultCloseOperation(EXIT_ON_CLOSE);
-//				dispose();
+//				PruebaVista vista = new PruebaVista();
+//				MenuControlador.CambiarPantalla(vista);
 //			}
 		});
 
 		
+		lblLgoBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/BtnLgo.png")));
+		getContentPane().add(lblLgoBtn);
+		
 		JLabel lblmsg = new JLabel("Logged as: Pedro Camacho");
+		lblmsg.setFont(new Font("Century Gothic", Font.PLAIN, 12));
 		lblmsg.setForeground(SystemColor.textHighlightText);
 		lblmsg.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblmsg.setBounds(0, 0, 157, 27);
+		lblmsg.setBounds(-9, 0, 178, 27);
 		getContentPane().add(lblmsg);
 		
 		JLabel lblICO = new JLabel("");
@@ -318,21 +307,17 @@ public class MenuVista extends JFrame {
 		lblBg.setForeground(SystemColor.window);
 		lblBg.setIcon(null);
 		lblBg.setBackground(new Color(255, 99, 71));
-		lblBg.setBounds(0, 0, 682, 566);
+		lblBg.setBounds(10, 0, 682, 566);
 		getContentPane().add(lblBg);
 
-		JLabel lblProf = new JLabel("");
-		lblProf.setBounds(100, 26, 166, 148);
-		pnlMed.add(lblProf);
-		lblProf.setIcon(new ImageIcon(MenuVista.class.getResource("/img/img.png")));
 
 	}
 
-	public void setControlador(MenuControlador controlador) {
+	public void setControlador(controlador controlador) {
 		this.controlador = controlador;
 	}
 
-	public void setModelo(MenuModelo modelo) {
+	public void setModelo(modelo modelo) {
 		this.modelo = modelo;
 	}
 }

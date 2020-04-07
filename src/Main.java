@@ -1,11 +1,11 @@
 
 
-public class MenuMain {
+public class Main {
 
 	public static void main(String[] args) {
 		
-		MenuControlador cont = new MenuControlador();
-		MenuModelo modelo = new MenuModelo();
+		controlador cont = new controlador();
+		modelo modelo = new modelo();
 		MenuVista vista = new MenuVista();
 		
 		cont.setModelo(modelo);
