@@ -79,6 +79,9 @@ public class MenuVista extends JFrame {
 			public void mouseReleased(MouseEvent e) {
 				lblAnxBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/Btn.png")));
 			}
+			public void mouseClicked(MouseEvent e) {
+				miControlador.BusquedaAnexos();
+			}
 
 //			@Override
 //			public void mouseClicked(MouseEvent e) {
@@ -115,6 +118,9 @@ public class MenuVista extends JFrame {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				lblTutoBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/Btn.png")));
+			}
+			public void mouseClicked(MouseEvent e) {
+				miControlador.BusquedaTutores();
 			}
 
 //			@Override
@@ -157,6 +163,11 @@ public class MenuVista extends JFrame {
 			public void mouseReleased(MouseEvent e) {
 				lblEmpBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/Btn.png")));
 			}
+			public void mouseClicked(MouseEvent e) {
+				miControlador.BusquedaEmpresas();
+			}
+
+			
 
 //			@Override
 //			public void mouseClicked(MouseEvent e) {
@@ -197,6 +208,9 @@ public class MenuVista extends JFrame {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				lblAlmnBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/Btn.png")));
+			}
+			public void mouseClicked(MouseEvent e) {
+				miControlador.BusquedaAlumnos();
 			}
 
 //			@Override
@@ -243,6 +257,9 @@ public class MenuVista extends JFrame {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				lblGrupBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/Btn.png")));
+			}
+			public void mouseClicked(MouseEvent e) {
+				miControlador.BusquedaGrupos();
 			}
 
 //			@Override

@@ -23,25 +23,19 @@ public class Busqueda_Grupos extends JFrame {
 	private JButton btnNewButton_2;
 	private JTextField textField;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Busqueda_Grupos frame = new Busqueda_Grupos();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+	private controlador miControlador;
+	private modelo miModelo;
+	
+	public void setControlador(controlador miControlador) {
+		this.miControlador = miControlador;
 	}
 
-	/**
-	 * Create the frame.
-	 */
+
+
+	public void setModelo(modelo miModelo) {
+		this.miModelo = miModelo;
+	}
+	
 	public Busqueda_Grupos() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 400, 888, 664);
@@ -151,6 +145,11 @@ public class Busqueda_Grupos extends JFrame {
 		contentPane.add(lblNewLabel_1);
 		
 		JButton btnNewButton_5 = new JButton("<-");
+		btnNewButton_5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				miControlador.back3();
+			}
+		});
 		btnNewButton_5.setForeground(Color.WHITE);
 		btnNewButton_5.setBackground(Color.GRAY);
 		btnNewButton_5.setFont(new Font("Tahoma", Font.BOLD, 11));

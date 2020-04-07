@@ -22,27 +22,27 @@ public class Busqueda_Alumnos extends JFrame {
 	private JButton btnNewButton_1;
 	private JButton btnNewButton_2;
 	private JTextField textField;
+	
+	private controlador miControlador;
+	private modelo miModelo;
+	
+	
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Busqueda_Alumnos frame = new Busqueda_Alumnos();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+	public void setControlador(controlador miControlador) {
+		this.miControlador = miControlador;
 	}
 
-	/**
-	 * Create the frame.
-	 */
+
+
+	public void setModelo(modelo miModelo) {
+		this.miModelo = miModelo;
+	}
+
+
+
 	public Busqueda_Alumnos() {
+		
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 400, 888, 664);
 		contentPane = new JPanel();
@@ -151,6 +151,11 @@ public class Busqueda_Alumnos extends JFrame {
 		contentPane.add(lblNewLabel_1);
 		
 		JButton btnNewButton_5 = new JButton("<-");
+		btnNewButton_5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				miControlador.back1();
+			}
+		});
 		btnNewButton_5.setBackground(Color.GRAY);
 		btnNewButton_5.setForeground(Color.WHITE);
 		btnNewButton_5.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -158,6 +163,11 @@ public class Busqueda_Alumnos extends JFrame {
 		contentPane.add(btnNewButton_5);
 		
 		JButton btnNewButton_6 = new JButton("Logout");
+		btnNewButton_6.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				miControlador.logout2();
+			}
+		});
 		btnNewButton_6.setBackground(Color.DARK_GRAY);
 		btnNewButton_6.setForeground(Color.WHITE);
 		btnNewButton_6.setBounds(780, 11, 82, 23);
