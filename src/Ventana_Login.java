@@ -30,6 +30,7 @@ public class Ventana_Login {
 	private JLabel lblLogin;
 	private JPasswordField passwordField;
 	private JTextField textField;
+	
 	private controlador miControlador;
 	private modelo miModelo;
 	
@@ -40,19 +41,9 @@ public class Ventana_Login {
 		this.miModelo = miModelo;
 	}
 	
-	
-	/**
-	 * Create the application.
-	 */
 	public Ventana_Login() {
-		initialize();
-	}
-
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
 		frame = new JFrame();
+		frame.setTitle("Acceder");
 		frame.setBounds(100, 400, 800, 550);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
@@ -102,6 +93,11 @@ public class Ventana_Login {
 		frame.getContentPane().add(lblPasswdText);
 		
 		lblLogin = new JLabel("LOGIN");
+		lblLogin.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				miControlador.menu();
+			}
+		});
 		lblLogin.setHorizontalAlignment(SwingConstants.CENTER);
 		lblLogin.setFont(new Font("Century Gothic", Font.BOLD, 15));
 		lblLogin.setForeground(Color.WHITE);

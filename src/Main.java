@@ -5,14 +5,15 @@ public class Main {
 		
 		controlador miControlador = new controlador();
 		modelo miModelo = new modelo();
-		Ventana_Login miVista = new Ventana_Login();
+		Ventana_Login vista_ventana_login = new Ventana_Login();
 		
 		miControlador.setModelo(miModelo);
-		miControlador.setVista(miVista);
+		miControlador.setVista(vista_ventana_login);
 		
-		miModelo.setVista(miVista);
-		miVista.setControlador(miControlador);
-		miVista.setModelo(miModelo);
+		miModelo.setVista(vista_ventana_login);
+		vista_ventana_login.setControlador(miControlador);
+		vista_ventana_login.setModelo(miModelo);
+		
 		
 		
 	}
