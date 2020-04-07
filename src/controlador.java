@@ -8,6 +8,10 @@ public class controlador {
 	private Busqueda_Empresas busquedaEmpresas;
 	private Busqueda_Grupos busquedaGrupos;
 	private Busqueda_Tutores busquedaTutores;
+	private Vista_Info_Alumno vista_info_alumno;
+	private Vista_Info_Empresa vista_info_empresa;
+	private Vista_Info_Tutor vista_info_tutor;
+	private Vista_Info_Grupo vista_info_grupo;
 	
 	
 	
@@ -34,6 +38,27 @@ public class controlador {
 	}
 	public void setVista(MenuVista vista_ventana_menu) {
 		this.vista_ventana_menu = vista_ventana_menu;
+	}
+	public void setVista_info_alumno(Vista_Info_Alumno vista_info_alumno) {
+		this.vista_info_alumno = vista_info_alumno;
+	}
+
+
+
+	public void setVista_info_empresa(Vista_Info_Empresa vista_info_empresa) {
+		this.vista_info_empresa = vista_info_empresa;
+	}
+
+
+
+	public void setVista_info_tutor(Vista_Info_Tutor vista_info_tutor) {
+		this.vista_info_tutor = vista_info_tutor;
+	}
+
+
+
+	public void setVista_info_grupo(Vista_Info_Grupo vista_info_grupo) {
+		this.vista_info_grupo = vista_info_grupo;
 	}
 	public void menu() {
 		vista_ventana_login.frame.setVisible(false);
@@ -107,7 +132,31 @@ public class controlador {
 		busquedaTutores.setVisible(false);
 		vista_ventana_login.frame.setVisible(true);
 	}
+	public void nuevoAlumno() {
+		busquedaAlumnos.setVisible(false);
+		vista_info_alumno.setVisible(true);
+	}
+	public void nuevaEmpresa() {
+		busquedaEmpresas.setVisible(false);
+		vista_info_empresa.setVisible(true);
+	}
+	public void nuevoGrupo() {
+		busquedaGrupos.setVisible(false);
+		vista_info_grupo.setVisible(true);
+		
+	}
+	public void nuevoTutor() {
+		busquedaTutores.setVisible(false);
+		vista_info_tutor.setVisible(true);
+	}
+
+	
+	
+	
+	
+
+
+
+
 }
-	
-	
-	
+

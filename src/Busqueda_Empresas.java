@@ -80,6 +80,7 @@ public class Busqueda_Empresas extends JFrame {
 		btnNewButton.setBackground(Color.DARK_GRAY);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				miControlador.nuevaEmpresa();
 			}
 		});
 		btnNewButton.setBounds(728, 591, 134, 23);

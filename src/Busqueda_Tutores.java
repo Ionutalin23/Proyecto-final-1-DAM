@@ -81,6 +81,7 @@ public class Busqueda_Tutores extends JFrame {
 		btnNewButton.setBackground(Color.DARK_GRAY);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				miControlador.nuevoTutor();
 			}
 		});
 		btnNewButton.setBounds(740, 591, 122, 23);

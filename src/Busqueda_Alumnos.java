@@ -86,6 +86,7 @@ public class Busqueda_Alumnos extends JFrame {
 		btnNewButton.setForeground(Color.WHITE);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				miControlador.nuevoAlumno();
 			}
 		});
 		btnNewButton.setBounds(740, 591, 122, 23);

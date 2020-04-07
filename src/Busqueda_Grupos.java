@@ -80,6 +80,7 @@ public class Busqueda_Grupos extends JFrame {
 		btnNewButton.setBackground(Color.DARK_GRAY);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				miControlador.nuevoGrupo();
 			}
 		});
 		btnNewButton.setBounds(740, 591, 122, 23);
