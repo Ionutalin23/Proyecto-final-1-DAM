@@ -280,11 +280,10 @@ public class MenuVista extends JFrame {
 				lblLgoBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/BtnLgo.png")));
 			}
 
-//			@Override
-//			public void mouseClicked(MouseEvent e) {
-//				Ventana_Login vista = new Ventana_Login();
-//				controlador.CambiarPantalla(vista);
-//			}
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				controlador.logout();
+			}
 		});
 
 		

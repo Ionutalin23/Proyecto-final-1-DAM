@@ -14,7 +14,12 @@ public class controlador {
 		this.vista_ventana_menu = vista_ventana_menu;
 	}
 	public void menu() {
-		
+		vista_ventana_login.frame.setVisible(false);
+		vista_ventana_menu.setVisible(true);
+	}
+	public void logout() {
+		vista_ventana_menu.setVisible(false);
+		vista_ventana_login.frame.setVisible(true);
 	}
 }
 	
