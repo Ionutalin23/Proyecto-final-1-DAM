@@ -93,11 +93,6 @@ public class Ventana_Login {
 		frame.getContentPane().add(lblPasswdText);
 		
 		lblLogin = new JLabel("LOGIN");
-		lblLogin.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
-				miControlador.menu();
-			}
-		});
 		lblLogin.setHorizontalAlignment(SwingConstants.CENTER);
 		lblLogin.setFont(new Font("Century Gothic", Font.BOLD, 15));
 		lblLogin.setForeground(Color.WHITE);
@@ -121,6 +116,9 @@ public class Ventana_Login {
 			@Override
 			public void mouseExited(MouseEvent e) {
 				lblLoginButton.setIcon(new ImageIcon(img_buttonLogin));
+			}
+			public void mouseClicked(MouseEvent e) {
+				miControlador.menu();
 			}
 		});
 		lblLoginButton.setBounds(348, 427, 118, 47);
