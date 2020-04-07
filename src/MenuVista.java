@@ -76,7 +76,7 @@ public class MenuVista extends JFrame {
 //			@Override
 //			public void mouseClicked(MouseEvent e) {
 //				Busqueda_Anexos vista = new Busqueda_Anexos();
-//				controlador.CambiarPantalla(vista);
+//				vista.setVisible(true);
 //			}
 		});
 
@@ -113,7 +113,7 @@ public class MenuVista extends JFrame {
 //			@Override
 //			public void mouseClicked(MouseEvent e) {
 //				Busqueda_Tutores vista = new Busqueda_Tutores();
-//				controlador.CambiarPantalla(vista);
+//				vista.setVisible(true);
 //			}
 		});
 
@@ -154,7 +154,7 @@ public class MenuVista extends JFrame {
 //			@Override
 //			public void mouseClicked(MouseEvent e) {
 //				Busqueda_Empresas vista = new Busqueda_Empresas();
-//				controlador.CambiarPantalla(vista);
+//				vista.setVisible(true);
 //			}
 		});
 
@@ -195,7 +195,7 @@ public class MenuVista extends JFrame {
 //			@Override
 //			public void mouseClicked(MouseEvent e) {
 //				Busqueda_Alumnos vista = new Busqueda_Alumnos();
-//				controlador.CambiarPantalla(vista);
+//				vista.setVisible(true);
 //			}
 		});
 
@@ -241,7 +241,7 @@ public class MenuVista extends JFrame {
 //			@Override
 //			public void mouseClicked(MouseEvent e) {
 //				Busqueda_Grupos vista = new Busqueda_Grupos();
-//				controlador.CambiarPantalla(vista);
+//				vista.setVisible(true);
 //			}
 		});
 
@@ -283,7 +283,7 @@ public class MenuVista extends JFrame {
 //			@Override
 //			public void mouseClicked(MouseEvent e) {
 //				Ventana_Login vista = new Ventana_Login();
-//				controlador.CambiarPantalla(vista);
+//				vista.setVisible(true);
 //			}
 		});
 
