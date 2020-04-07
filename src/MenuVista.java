@@ -23,7 +23,13 @@ import java.awt.SystemColor;
 public class MenuVista extends JFrame {
 	private controlador controlador;
 	private modelo modelo;
-	private JLabel lblAnexos; 
+	private JLabel lblAnexos;
+	Image button1 = new ImageIcon(getClass().getResource("/img/boton1.png")).getImage().getScaledInstance(110, 48,
+			Image.SCALE_SMOOTH);
+	Image button2 = new ImageIcon(getClass().getResource("/img/boton2.png")).getImage().getScaledInstance(110, 48,
+			Image.SCALE_SMOOTH);
+	Image button3 = new ImageIcon(getClass().getResource("/img/boton3.png")).getImage().getScaledInstance(110, 48,
+			Image.SCALE_SMOOTH);
 
 	public MenuVista() {
 		getContentPane().setBackground(Color.LIGHT_GRAY);
@@ -36,7 +42,7 @@ public class MenuVista extends JFrame {
 
 		JPanel pnlMed = new JPanel();
 		pnlMed.setBounds(181, 0, 363, 566);
-		pnlMed.setBackground(SystemColor.textHighlightText);
+		pnlMed.setBackground(new Color(255, 255, 255,200));
 		getContentPane().add(pnlMed);
 		pnlMed.setLayout(null);
 
@@ -249,55 +255,47 @@ public class MenuVista extends JFrame {
 		lblGrupBtn.setBounds(39, 481, 283, 27);
 		pnlMed.add(lblGrupBtn);
 
-		JLabel lblALgo = new JLabel("Logout");
-		lblALgo.setBounds(543, 0, 139, 27);
-		getContentPane().add(lblALgo);
-		lblALgo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblALgo.setForeground(Color.WHITE);
-		lblALgo.setFont(new Font("Century Gothic", Font.BOLD, 13));
-		lblALgo.setBackground(new Color(43, 43, 43));
-		
-		JLabel lblLgoBtn = new JLabel("");
-		lblLgoBtn.setBounds(546, 0, 136, 27);
-		lblLgoBtn.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				lblLgoBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/BtnLgo2.png")));
-			}
+		JLabel lblLogout = new JLabel("LOGOUT");
+		lblLogout.setIcon(null);
+		lblLogout.setBounds(578, 13, 92, 27);
+		getContentPane().add(lblLogout);
+		lblLogout.setHorizontalAlignment(SwingConstants.CENTER);
+		lblLogout.setForeground(Color.WHITE);
+		lblLogout.setBackground(new Color(205, 92, 92));
 
-			@Override
-			public void mouseExited(MouseEvent e) {
-				lblLgoBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/BtnLgo.png")));
-			}
-
+		JLabel lblLogoutButton = new JLabel("");
+		lblLogoutButton.setBounds(578, 13, 92, 27);
+		getContentPane().add(lblLogoutButton);
+		lblLogoutButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				lblLgoBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/BtnLgo3.png")));
+				lblLogoutButton.setIcon(new ImageIcon(button3));
 			}
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				lblLgoBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/BtnLgo.png")));
+				lblLogoutButton.setIcon(new ImageIcon(button2));
 			}
 
-//			@Override
-//			public void mouseClicked(MouseEvent e) {
-//				Ventana_Login vista = new Ventana_Login();
-//				vista.setVisible(true);
-//			}
-		});
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				lblLogoutButton.setIcon(new ImageIcon(button2));
+			}
 
-		
-		lblLgoBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/BtnLgo.png")));
-		getContentPane().add(lblLgoBtn);
-		
+			@Override
+			public void mouseExited(MouseEvent e) {
+				lblLogoutButton.setIcon(new ImageIcon(button1));
+			}
+		});
+		lblLogoutButton.setIcon(new ImageIcon(button1));
+
 		JLabel lblmsg = new JLabel("Logged as: Pedro Camacho");
 		lblmsg.setFont(new Font("Century Gothic", Font.PLAIN, 12));
 		lblmsg.setForeground(SystemColor.textHighlightText);
 		lblmsg.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblmsg.setBounds(-9, 0, 178, 27);
 		getContentPane().add(lblmsg);
-		
+
 		JLabel lblICO = new JLabel("");
 		lblICO.setBounds(0, 510, 185, 56);
 		lblICO.setIcon(new ImageIcon(MenuVista.class.getResource("/img/logo_uem.png")));
@@ -305,11 +303,10 @@ public class MenuVista extends JFrame {
 
 		JLabel lblBg = new JLabel("");
 		lblBg.setForeground(SystemColor.window);
-		lblBg.setIcon(null);
+		lblBg.setIcon(new ImageIcon(MenuVista.class.getResource("/img/uem.jpg")));
 		lblBg.setBackground(new Color(255, 99, 71));
-		lblBg.setBounds(10, 0, 682, 566);
+		lblBg.setBounds(1, 0, 681, 566);
 		getContentPane().add(lblBg);
-
 
 	}
 
