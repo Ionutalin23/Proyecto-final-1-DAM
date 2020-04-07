@@ -1,6 +1,8 @@
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -30,8 +32,17 @@ public class Vista_Info_Empresa extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 888, 664);
 		getContentPane().setLayout(null);
+		
 		ImageIcon ico =new ImageIcon(getClass().getResource("/images/logo.png"));
 		ImageIcon ico2 =new ImageIcon(getClass().getResource("/images/uni2.jpg"));
+		
+		Image button1= new ImageIcon(getClass().getResource("/images/boton1.png")).getImage().getScaledInstance(110, 48, Image.SCALE_SMOOTH);
+		Image button2= new ImageIcon(getClass().getResource("/images/boton2.png")).getImage().getScaledInstance(110, 48, Image.SCALE_SMOOTH);
+		Image button3= new ImageIcon(getClass().getResource("/images/boton3.png")).getImage().getScaledInstance(110, 48, Image.SCALE_SMOOTH);
+		
+		Image back1= new ImageIcon(getClass().getResource("/images/back1.png")).getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH);
+		Image back2= new ImageIcon(getClass().getResource("/images/back2.png")).getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH);
+		Image back3= new ImageIcon(getClass().getResource("/images/back3.png")).getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH);
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(255, 99, 71));
@@ -117,37 +128,87 @@ public class Vista_Info_Empresa extends JFrame {
 		txtTel.setBounds(35, 304, 267, 22);
 		pnlContenido.add(txtTel);
 		
-		pnlCrear = new JPanel();
-		pnlCrear.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(153, 0, 0), null, null, null));
-		pnlCrear.setBackground(new Color(128, 0, 0));
-		pnlCrear.setBounds(148, 492, 114, 27);
-		pnlContenido.add(pnlCrear);
-		pnlCrear.setLayout(null);
-		
 		JLabel lblCrear = new JLabel("CREAR");
 		lblCrear.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCrear.setForeground(Color.WHITE);
 		lblCrear.setBackground(new Color(205, 92, 92));
-		lblCrear.setBounds(0, 0, 114, 27);
-		pnlCrear.add(lblCrear);
+		lblCrear.setBounds(134, 487, 109, 48);
+		pnlContenido.add(lblCrear);
 		
-		JPanel pnlLogout = new JPanel();
-		pnlLogout.setLayout(null);
-		pnlLogout.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(153, 0, 0), null, null, null));
-		pnlLogout.setBackground(new Color(128, 0, 0));
-		pnlLogout.setBounds(301, 13, 92, 27);
-		pnlContenido.add(pnlLogout);
+		JLabel lblCrearButton = new JLabel("");
+		lblCrearButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				lblCrearButton.setIcon(new ImageIcon(button3));
+			}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				lblCrearButton.setIcon(new ImageIcon(button2));
+			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				lblCrearButton.setIcon(new ImageIcon(button2));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				lblCrearButton.setIcon(new ImageIcon(button1));
+			}
+		});
+		lblCrearButton.setBounds(134, 487, 110, 48);
+		pnlContenido.add(lblCrearButton);
+		lblCrearButton.setIcon(new ImageIcon(button1));
 		
 		lblLogout = new JLabel("LOGOUT");
 		lblLogout.setHorizontalAlignment(SwingConstants.CENTER);
 		lblLogout.setForeground(Color.WHITE);
 		lblLogout.setBackground(new Color(205, 92, 92));
-		lblLogout.setBounds(0, 0, 92, 27);
-		pnlLogout.add(lblLogout);
+		lblLogout.setBounds(301, 13, 92, 27);
+		pnlContenido.add(lblLogout);
+		
+		JLabel lblLogoutButton = new JLabel("");
+		lblLogoutButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				lblLogoutButton.setIcon(new ImageIcon(button3));
+			}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				lblLogoutButton.setIcon(new ImageIcon(button2));
+			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				lblLogoutButton.setIcon(new ImageIcon(button2));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				lblLogoutButton.setIcon(new ImageIcon(button1));
+			}
+		});
+		lblLogoutButton.setBounds(301, 13, 92, 27);
+		pnlContenido.add(lblLogoutButton);
+		lblLogoutButton.setIcon(new ImageIcon(button1));
 		
 		lblBack = new JLabel("");
-		lblBack.setIcon(new ImageIcon(Vista_Info_Tutor.class.getResource("/images/back-arrow.png")));
-		lblBack.setBounds(35, 13, 34, 16);
+		lblBack.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				lblBack.setIcon(new ImageIcon(back3));
+			}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				lblBack.setIcon(new ImageIcon(back2));
+			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				lblBack.setIcon(new ImageIcon(back2));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				lblBack.setIcon(new ImageIcon(back1));
+			}
+		});
+		lblBack.setIcon(new ImageIcon(Vista_Info_Alumno.class.getResource("/images/back1.png")));
+		lblBack.setBounds(35, 13, 24, 24);
 		pnlContenido.add(lblBack);
 		
 		JLabel lblLocalidad = new JLabel("LOCALIDAD:");

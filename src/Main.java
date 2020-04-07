@@ -29,6 +29,8 @@ public class Main {
 		vista_info_tutor.setModelo(miModelo);
 		vista_info_empresa.setControlador(miControlador);
 		vista_info_empresa.setModelo(miModelo);
+		
+		vista_info_empresa.setVisible(true);
 
 	}
 
