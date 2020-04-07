@@ -11,8 +11,4 @@ public class controlador {
 	public void setModelo(modelo modelo) {
 		this.modelo = modelo;
 	}
-//	public static void CambiarPantalla(PruebaVista vista2) {
-//		vista2.setVisible(true);
-//		
-//	}
 }
