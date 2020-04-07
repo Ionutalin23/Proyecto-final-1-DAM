@@ -47,7 +47,7 @@ public class MenuVista extends JFrame {
 		pnlMed.setLayout(null);
 
 		lblAnexos = new JLabel("Anexos");
-		lblAnexos.setBounds(98, 241, 283, 27);
+		lblAnexos.setBounds(83, 241, 283, 27);
 		pnlMed.add(lblAnexos);
 		lblAnexos.setBackground(new Color(205, 92, 92));
 		lblAnexos.setHorizontalAlignment(SwingConstants.CENTER);
@@ -55,7 +55,7 @@ public class MenuVista extends JFrame {
 		lblAnexos.setForeground(new Color(255, 255, 255));
 
 		JLabel lblAnxBtn = new JLabel("");
-		lblAnxBtn.setBounds(98, 241, 283, 27);
+		lblAnxBtn.setBounds(83, 241, 283, 27);
 		pnlMed.add(lblAnxBtn);
 		lblAnxBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/Btn.png")));
 		lblAnxBtn.addMouseListener(new MouseAdapter() {
@@ -87,7 +87,7 @@ public class MenuVista extends JFrame {
 		});
 
 		JLabel lblTuto = new JLabel("Tutores");
-		lblTuto.setBounds(98, 308, 283, 27);
+		lblTuto.setBounds(83, 308, 283, 27);
 		pnlMed.add(lblTuto);
 		lblTuto.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTuto.setForeground(Color.WHITE);
@@ -124,11 +124,11 @@ public class MenuVista extends JFrame {
 		});
 
 		lblTutoBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/Btn.png")));
-		lblTutoBtn.setBounds(98, 308, 283, 27);
+		lblTutoBtn.setBounds(83, 308, 283, 27);
 		pnlMed.add(lblTutoBtn);
 
 		JLabel lblEmp = new JLabel("Empresas");
-		lblEmp.setBounds(98, 371, 283, 27);
+		lblEmp.setBounds(83, 371, 283, 27);
 		pnlMed.add(lblEmp);
 		lblEmp.setHorizontalAlignment(SwingConstants.CENTER);
 		lblEmp.setForeground(Color.WHITE);
@@ -165,11 +165,11 @@ public class MenuVista extends JFrame {
 		});
 
 		lblEmpBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/Btn.png")));
-		lblEmpBtn.setBounds(98, 371, 283, 27);
+		lblEmpBtn.setBounds(83, 371, 283, 27);
 		pnlMed.add(lblEmpBtn);
 
 		JLabel lblAl = new JLabel("Alumnos");
-		lblAl.setBounds(98, 436, 283, 27);
+		lblAl.setBounds(83, 436, 283, 27);
 		pnlMed.add(lblAl);
 		lblAl.setHorizontalAlignment(SwingConstants.CENTER);
 		lblAl.setForeground(Color.WHITE);
@@ -206,16 +206,16 @@ public class MenuVista extends JFrame {
 		});
 
 		lblAlmnBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/Btn.png")));
-		lblAlmnBtn.setBounds(98, 436, 283, 27);
+		lblAlmnBtn.setBounds(83, 436, 283, 27);
 		pnlMed.add(lblAlmnBtn);
 
 		JLabel lblProf = new JLabel("");
-		lblProf.setBounds(159, 50, 166, 148);
+		lblProf.setBounds(146, 50, 166, 148);
 		pnlMed.add(lblProf);
 		lblProf.setIcon(new ImageIcon(MenuVista.class.getResource("/img/img.png")));
 
 		JLabel lblGrup = new JLabel("Grupos");
-		lblGrup.setBounds(98, 505, 283, 27);
+		lblGrup.setBounds(83, 505, 283, 27);
 		pnlMed.add(lblGrup);
 		lblGrup.setHorizontalAlignment(SwingConstants.CENTER);
 		lblGrup.setForeground(Color.WHITE);
@@ -252,7 +252,7 @@ public class MenuVista extends JFrame {
 		});
 
 		lblGrupBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/Btn.png")));
-		lblGrupBtn.setBounds(98, 505, 283, 27);
+		lblGrupBtn.setBounds(83, 505, 283, 27);
 		pnlMed.add(lblGrupBtn);
 
 		JLabel lblLogout = new JLabel("LOGOUT");
