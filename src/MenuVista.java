@@ -36,18 +36,18 @@ public class MenuVista extends JFrame {
 		getContentPane().setBounds(100, 400, 800, 550);
 		setTitle("Menu");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 700, 613);
+		setBounds(100, 100, 888, 664);
 		getContentPane().setLayout(null);
 		getContentPane().setLayout(null);
 
 		JPanel pnlMed = new JPanel();
-		pnlMed.setBounds(181, 0, 363, 566);
+		pnlMed.setBounds(193, 0, 448, 617);
 		pnlMed.setBackground(new Color(255, 255, 255,200));
 		getContentPane().add(pnlMed);
 		pnlMed.setLayout(null);
 
 		lblAnexos = new JLabel("Anexos");
-		lblAnexos.setBounds(39, 217, 283, 27);
+		lblAnexos.setBounds(98, 241, 283, 27);
 		pnlMed.add(lblAnexos);
 		lblAnexos.setBackground(new Color(205, 92, 92));
 		lblAnexos.setHorizontalAlignment(SwingConstants.CENTER);
@@ -55,7 +55,7 @@ public class MenuVista extends JFrame {
 		lblAnexos.setForeground(new Color(255, 255, 255));
 
 		JLabel lblAnxBtn = new JLabel("");
-		lblAnxBtn.setBounds(39, 217, 283, 27);
+		lblAnxBtn.setBounds(98, 241, 283, 27);
 		pnlMed.add(lblAnxBtn);
 		lblAnxBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/Btn.png")));
 		lblAnxBtn.addMouseListener(new MouseAdapter() {
@@ -87,7 +87,7 @@ public class MenuVista extends JFrame {
 		});
 
 		JLabel lblTuto = new JLabel("Tutores");
-		lblTuto.setBounds(39, 284, 283, 27);
+		lblTuto.setBounds(98, 308, 283, 27);
 		pnlMed.add(lblTuto);
 		lblTuto.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTuto.setForeground(Color.WHITE);
@@ -124,11 +124,11 @@ public class MenuVista extends JFrame {
 		});
 
 		lblTutoBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/Btn.png")));
-		lblTutoBtn.setBounds(39, 284, 283, 27);
+		lblTutoBtn.setBounds(98, 308, 283, 27);
 		pnlMed.add(lblTutoBtn);
 
 		JLabel lblEmp = new JLabel("Empresas");
-		lblEmp.setBounds(39, 347, 283, 27);
+		lblEmp.setBounds(98, 371, 283, 27);
 		pnlMed.add(lblEmp);
 		lblEmp.setHorizontalAlignment(SwingConstants.CENTER);
 		lblEmp.setForeground(Color.WHITE);
@@ -165,11 +165,11 @@ public class MenuVista extends JFrame {
 		});
 
 		lblEmpBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/Btn.png")));
-		lblEmpBtn.setBounds(39, 347, 283, 27);
+		lblEmpBtn.setBounds(98, 371, 283, 27);
 		pnlMed.add(lblEmpBtn);
 
 		JLabel lblAl = new JLabel("Alumnos");
-		lblAl.setBounds(39, 412, 283, 27);
+		lblAl.setBounds(98, 436, 283, 27);
 		pnlMed.add(lblAl);
 		lblAl.setHorizontalAlignment(SwingConstants.CENTER);
 		lblAl.setForeground(Color.WHITE);
@@ -206,16 +206,16 @@ public class MenuVista extends JFrame {
 		});
 
 		lblAlmnBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/Btn.png")));
-		lblAlmnBtn.setBounds(39, 412, 283, 27);
+		lblAlmnBtn.setBounds(98, 436, 283, 27);
 		pnlMed.add(lblAlmnBtn);
 
 		JLabel lblProf = new JLabel("");
-		lblProf.setBounds(100, 26, 166, 148);
+		lblProf.setBounds(159, 50, 166, 148);
 		pnlMed.add(lblProf);
 		lblProf.setIcon(new ImageIcon(MenuVista.class.getResource("/img/img.png")));
 
 		JLabel lblGrup = new JLabel("Grupos");
-		lblGrup.setBounds(39, 481, 283, 27);
+		lblGrup.setBounds(98, 505, 283, 27);
 		pnlMed.add(lblGrup);
 		lblGrup.setHorizontalAlignment(SwingConstants.CENTER);
 		lblGrup.setForeground(Color.WHITE);
@@ -252,19 +252,19 @@ public class MenuVista extends JFrame {
 		});
 
 		lblGrupBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/Btn.png")));
-		lblGrupBtn.setBounds(39, 481, 283, 27);
+		lblGrupBtn.setBounds(98, 505, 283, 27);
 		pnlMed.add(lblGrupBtn);
 
 		JLabel lblLogout = new JLabel("LOGOUT");
 		lblLogout.setIcon(null);
-		lblLogout.setBounds(578, 13, 92, 27);
+		lblLogout.setBounds(753, 13, 92, 27);
 		getContentPane().add(lblLogout);
 		lblLogout.setHorizontalAlignment(SwingConstants.CENTER);
 		lblLogout.setForeground(Color.WHITE);
 		lblLogout.setBackground(new Color(205, 92, 92));
 
 		JLabel lblLogoutButton = new JLabel("");
-		lblLogoutButton.setBounds(578, 13, 92, 27);
+		lblLogoutButton.setBounds(753, 13, 92, 27);
 		getContentPane().add(lblLogoutButton);
 		lblLogoutButton.addMouseListener(new MouseAdapter() {
 			@Override
@@ -297,7 +297,7 @@ public class MenuVista extends JFrame {
 		getContentPane().add(lblmsg);
 
 		JLabel lblICO = new JLabel("");
-		lblICO.setBounds(0, 510, 185, 56);
+		lblICO.setBounds(-4, 561, 185, 56);
 		lblICO.setIcon(new ImageIcon(MenuVista.class.getResource("/img/logo_uem.png")));
 		getContentPane().add(lblICO);
 
@@ -305,7 +305,7 @@ public class MenuVista extends JFrame {
 		lblBg.setForeground(SystemColor.window);
 		lblBg.setIcon(new ImageIcon(MenuVista.class.getResource("/img/uem.jpg")));
 		lblBg.setBackground(new Color(255, 99, 71));
-		lblBg.setBounds(1, 0, 681, 566);
+		lblBg.setBounds(1, 0,888, 664);
 		getContentPane().add(lblBg);
 
 	}
