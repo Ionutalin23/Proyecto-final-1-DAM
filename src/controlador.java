@@ -149,6 +149,44 @@ public class controlador {
 		busquedaTutores.setVisible(false);
 		vista_info_tutor.setVisible(true);
 	}
+	public void logout6() {
+		vista_info_alumno.setVisible(false);
+		vista_ventana_login.frame.setVisible(true);
+	}
+	public void logout7() {
+		vista_info_empresa.setVisible(false);
+		vista_ventana_login.frame.setVisible(true);
+		
+	}
+	public void logout8() {
+		vista_info_grupo.setVisible(false);
+		vista_ventana_login.frame.setVisible(true);
+		
+	}
+	public void logout9() {
+		vista_info_tutor.setVisible(false);
+		vista_ventana_login.frame.setVisible(true);
+	}
+	public void back5() {
+		vista_info_alumno.setVisible(false);
+		busquedaAlumnos.setVisible(true);
+		
+	}
+	public void back6() {
+		vista_info_empresa.setVisible(false);
+		busquedaEmpresas.setVisible(true);
+		
+	}
+	public void back7() {
+		vista_info_grupo.setVisible(false);
+		busquedaGrupos.setVisible(true);
+		
+	}
+	public void back8() {
+		vista_info_tutor.setVisible(false);
+		busquedaTutores.setVisible(true);
+		
+	}
 
 	
 	

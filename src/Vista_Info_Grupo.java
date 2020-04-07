@@ -179,6 +179,9 @@ public class Vista_Info_Grupo extends JFrame {
 			public void mouseExited(MouseEvent e) {
 				lblLogoutButton.setIcon(new ImageIcon(button1));
 			}
+			public void mouseClicked(MouseEvent e) {
+				miControlador.logout8();
+			}
 		});
 		lblLogoutButton.setBounds(301, 13, 92, 27);
 		pnlContenido.add(lblLogoutButton);
@@ -201,6 +204,9 @@ public class Vista_Info_Grupo extends JFrame {
 			@Override
 			public void mouseExited(MouseEvent e) {
 				lblBack.setIcon(new ImageIcon(back1));
+			}
+			public void mouseClicked(MouseEvent e) {
+				miControlador.back7();
 			}
 		});
 		lblBack.setIcon(new ImageIcon(Vista_Info_Alumno.class.getResource("/images/back1.png")));
