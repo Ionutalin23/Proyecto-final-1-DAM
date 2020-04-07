@@ -11,8 +11,8 @@ import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
 
 public class Vista_Info_Alumno extends JFrame {
-	private Controlador miControlador;
-	private Modelo miModelo;
+	private controlador miControlador;
+	private modelo miModelo;
 	private JTextField txtDni;
 	private JTextField txtName;
 	private JTextField txtApellidos;
@@ -170,11 +170,11 @@ public class Vista_Info_Alumno extends JFrame {
 	
 	}
 
-	public void setControlador(Controlador miControlador) {
+	public void setControlador(controlador miControlador) {
 		this.miControlador = miControlador;
 	}
 
-	public void setModelo(Modelo miModelo) {
+	public void setModelo(modelo miModelo) {
 		this.miModelo = miModelo;
 	}
 }

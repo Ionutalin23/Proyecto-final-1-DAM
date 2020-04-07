@@ -11,8 +11,8 @@ import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
 
 public class Vista_Info_Grupo extends JFrame {
-	private Controlador miControlador;
-	private Modelo miModelo;
+	private controlador miControlador;
+	private modelo miModelo;
 	private JTextField txtCodGrupo;
 	private JTextField txtName;
 	private JTextField txtNomCiclo;
@@ -65,7 +65,7 @@ public class Vista_Info_Grupo extends JFrame {
 		
 		JLabel lblTitle = new JLabel("Informaci\u00F3n del grupo:");
 		lblTitle.setForeground(new Color(255, 255, 255));
-		lblTitle.setFont(new Font("Tahoma", Font.BOLD, 24));
+		lblTitle.setFont(new Font("Century Gothic", Font.BOLD, 24));
 		lblTitle.setBounds(35, 82, 296, 29);
 		pnlContenido.add(lblTitle);
 		
@@ -156,11 +156,11 @@ public class Vista_Info_Grupo extends JFrame {
 	
 	}
 
-	public void setControlador(Controlador miControlador) {
+	public void setControlador(controlador miControlador) {
 		this.miControlador = miControlador;
 	}
 
-	public void setModelo(Modelo miModelo) {
+	public void setModelo(modelo miModelo) {
 		this.miModelo = miModelo;
 	}
 }

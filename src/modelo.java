@@ -1,5 +1,5 @@
 
-public class Modelo {
+public class modelo {
 	private Vista_Info_Tutor vista_info_tutor;
 	private Vista_Info_Empresa vista_info_empresa;
 	private Vista_Info_Alumno vista_info_alumno;

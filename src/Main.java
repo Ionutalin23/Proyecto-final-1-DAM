@@ -2,8 +2,8 @@
 public class Main {
 
 	public static void main(String[] args) {
-		Controlador miControlador= new Controlador();
-		Modelo miModelo= new Modelo();
+		controlador miControlador= new controlador();
+		modelo miModelo= new modelo();
 		Vista_Info_Alumno vista_info_alumno=new Vista_Info_Alumno();
 		Vista_Info_Grupo vista_info_grupo=new Vista_Info_Grupo();
 		Vista_Info_Tutor vista_info_tutor=new Vista_Info_Tutor();

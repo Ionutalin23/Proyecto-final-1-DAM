@@ -1,6 +1,6 @@
 
-public class Controlador {
-	private Modelo miModelo;
+public class controlador {
+	private modelo miModelo;
 	private Vista_Info_Alumno vista_info_alumno;
 	private Vista_Info_Empresa vista_info_empresa;
 	private Vista_Info_Tutor vista_info_tutor;
@@ -32,7 +32,7 @@ public class Controlador {
 
 
 
-	public void setModelo(Modelo miModelo) {
+	public void setModelo(modelo miModelo) {
 		this.miModelo = miModelo;
 	}
 
