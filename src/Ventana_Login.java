@@ -28,11 +28,12 @@ public class Ventana_Login {
 	private Image img_buttonLogin3 = new ImageIcon(Ventana_Login.class.getResource("/img/loginbutton3.png")).getImage().getScaledInstance(110, 48, Image.SCALE_SMOOTH);
 	private Image img_bg = new ImageIcon(Ventana_Login.class.getResource("/img/bg9.jpg")).getImage().getScaledInstance(800, 590, Image.SCALE_SMOOTH);
 	private JLabel lblLogin;
-	private JPasswordField passwordField;
-	private JTextField textField;
+	private JPasswordField txtPassword;
+	private JTextField txtUsuario;
 	
 	private controlador miControlador;
 	private modelo miModelo;
+	private JLabel lblRespuesta;
 	
 	public void setControlador(controlador miControlador) {
 		this.miControlador = miControlador;
@@ -59,10 +60,10 @@ public class Ventana_Login {
 		panel.add(lblIconUsr);
 		lblIconUsr.setIcon(new ImageIcon(img_usr));
 		
-		textField = new JTextField();
-		textField.setColumns(10);
-		textField.setBounds(38, 0, 177, 36);
-		panel.add(textField);
+		txtUsuario = new JTextField();
+		txtUsuario.setColumns(10);
+		txtUsuario.setBounds(38, 0, 177, 36);
+		panel.add(txtUsuario);
 		
 		Panel panel_1 = new Panel();
 		panel_1.setBackground(Color.WHITE);
@@ -76,9 +77,9 @@ public class Ventana_Login {
 		panel_1.add(lblIconPasswd);
 		lblIconPasswd.setIcon(new ImageIcon(img_passwd));
 		
-		passwordField = new JPasswordField();
-		passwordField.setBounds(42, 0, 173, 36);
-		panel_1.add(passwordField);
+		txtPassword = new JPasswordField();
+		txtPassword.setBounds(42, 0, 173, 36);
+		panel_1.add(txtPassword);
 		
 		JLabel lblUsrText = new JLabel("USUARIO:");
 		lblUsrText.setForeground(Color.WHITE);
@@ -118,7 +119,7 @@ public class Ventana_Login {
 				lblLoginButton.setIcon(new ImageIcon(img_buttonLogin));
 			}
 			public void mouseClicked(MouseEvent e) {
-				miControlador.menu();
+				miControlador.login();
 			}
 		});
 		lblLoginButton.setBounds(348, 427, 118, 47);
@@ -134,5 +135,17 @@ public class Ventana_Login {
 		lblBgColor.setBounds(0, 0, 784, 511);
 		frame.getContentPane().add(lblBgColor);
 		lblBgColor.setIcon(new ImageIcon(img_bg));
+		
+		lblRespuesta = new JLabel("");
+		lblRespuesta.setBounds(290, 396, 215, 26);
+		frame.getContentPane().add(lblRespuesta);
+	}
+	public String getUsuario() {
+		
+		return txtUsuario.getText();
+	}
+	public String getPassword() {
+		
+		return String.valueOf(txtPassword.getPassword());
 	}
 }

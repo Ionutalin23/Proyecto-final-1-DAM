@@ -60,9 +60,13 @@ public class controlador {
 	public void setVista_info_grupo(Vista_Info_Grupo vista_info_grupo) {
 		this.vista_info_grupo = vista_info_grupo;
 	}
-	public void menu() {
-		vista_ventana_login.frame.setVisible(false);
-		vista_ventana_menu.setVisible(true);
+	public void login() {
+		String usuario = vista_ventana_login.getUsuario();
+		String password = vista_ventana_login.getPassword();
+		
+		miModelo.login(usuario,password);
+//		vista_ventana_login.frame.setVisible(false);
+//		vista_ventana_menu.setVisible(true);
 	}
 	public void logout() {
 		vista_ventana_menu.setVisible(false);

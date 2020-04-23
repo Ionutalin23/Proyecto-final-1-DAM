@@ -15,6 +15,7 @@ public class modelo {
 	private Vista_Info_Grupo vista_info_grupo;
 	
 	
+	
 
 	public void setVista(Busqueda_Alumnos busquedaAlumnos) {
 		this.busquedaAlumnos = busquedaAlumnos;
@@ -57,5 +58,10 @@ public class modelo {
 
 	public void setVista_info_grupo(Vista_Info_Grupo vista_info_grupo) {
 		this.vista_info_grupo = vista_info_grupo;
+	}
+
+	public void login(String usuario, String password) {
+		
+		
 	}
 }
