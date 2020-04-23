@@ -65,8 +65,11 @@ public class controlador {
 		String password = vista_ventana_login.getPassword();
 		
 		miModelo.login(usuario,password);
-//		vista_ventana_login.frame.setVisible(false);
-//		vista_ventana_menu.setVisible(true);
+	}
+	public void acceso() {
+		vista_ventana_login.frame.setVisible(false);
+		vista_ventana_menu.setVisible(true);
+		
 	}
 	public void logout() {
 		vista_ventana_menu.setVisible(false);
