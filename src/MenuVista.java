@@ -33,7 +33,6 @@ public class MenuVista extends JFrame {
 	Image button3 = new ImageIcon(getClass().getResource("/img/boton3.png")).getImage().getScaledInstance(110, 48,
 			Image.SCALE_SMOOTH);
 	private JLabel lblLogout;
-	private JLabel lblmsg;
 	private JLabel lblUser;
 
 	public MenuVista() {
@@ -355,7 +354,7 @@ public class MenuVista extends JFrame {
 	}
 
 	public void actualizarLogged() {
-		lblmsg.setText("Logged as: "+miModelo.getUSR());
+		lblUser.setText("Logged as: "+miModelo.getUSR());
 	}
 	public void cambiarTutor() {
 		lblTuto.setVisible(false);
