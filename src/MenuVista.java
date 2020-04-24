@@ -21,8 +21,8 @@ import javax.swing.border.Border;
 import java.awt.SystemColor;
 
 public class MenuVista extends JFrame {
-	private controlador controlador;
-	private modelo modelo;
+	private controlador miControlador;
+	private modelo miModelo;
 	private JLabel lblAnexos;
 	Image button1 = new ImageIcon(getClass().getResource("/img/boton1.png")).getImage().getScaledInstance(110, 48,
 			Image.SCALE_SMOOTH);
@@ -30,6 +30,7 @@ public class MenuVista extends JFrame {
 			Image.SCALE_SMOOTH);
 	Image button3 = new ImageIcon(getClass().getResource("/img/boton3.png")).getImage().getScaledInstance(110, 48,
 			Image.SCALE_SMOOTH);
+	private JLabel lblLogout;
 
 	public MenuVista() {
 		getContentPane().setBackground(Color.LIGHT_GRAY);
@@ -78,6 +79,9 @@ public class MenuVista extends JFrame {
 			public void mouseReleased(MouseEvent e) {
 				lblAnxBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/Btn.png")));
 			}
+			public void mouseClicked(MouseEvent e) {
+				miControlador.BusquedaAnexos();
+			}
 
 //			@Override
 //			public void mouseClicked(MouseEvent e) {
@@ -114,6 +118,9 @@ public class MenuVista extends JFrame {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				lblTutoBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/Btn.png")));
+			}
+			public void mouseClicked(MouseEvent e) {
+				miControlador.BusquedaTutores();
 			}
 
 //			@Override
@@ -156,6 +163,11 @@ public class MenuVista extends JFrame {
 			public void mouseReleased(MouseEvent e) {
 				lblEmpBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/Btn.png")));
 			}
+			public void mouseClicked(MouseEvent e) {
+				miControlador.BusquedaEmpresas();
+			}
+
+			
 
 //			@Override
 //			public void mouseClicked(MouseEvent e) {
@@ -196,6 +208,9 @@ public class MenuVista extends JFrame {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				lblAlmnBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/Btn.png")));
+			}
+			public void mouseClicked(MouseEvent e) {
+				miControlador.BusquedaAlumnos();
 			}
 
 //			@Override
@@ -243,6 +258,9 @@ public class MenuVista extends JFrame {
 			public void mouseReleased(MouseEvent e) {
 				lblGrupBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/Btn.png")));
 			}
+			public void mouseClicked(MouseEvent e) {
+				miControlador.BusquedaGrupos();
+			}
 
 //			@Override
 //			public void mouseClicked(MouseEvent e) {
@@ -255,13 +273,13 @@ public class MenuVista extends JFrame {
 		lblGrupBtn.setBounds(83, 505, 283, 27);
 		pnlMed.add(lblGrupBtn);
 
-		JLabel lblLogout = new JLabel("LOGOUT");
-		lblLogout.setIcon(null);
+		lblLogout = new JLabel("LOGOUT");
 		lblLogout.setBounds(753, 13, 92, 27);
 		getContentPane().add(lblLogout);
 		lblLogout.setHorizontalAlignment(SwingConstants.CENTER);
 		lblLogout.setForeground(Color.WHITE);
 		lblLogout.setBackground(new Color(205, 92, 92));
+		
 
 		JLabel lblLogoutButton = new JLabel("");
 		lblLogoutButton.setBounds(753, 13, 92, 27);
@@ -286,6 +304,10 @@ public class MenuVista extends JFrame {
 			public void mouseExited(MouseEvent e) {
 				lblLogoutButton.setIcon(new ImageIcon(button1));
 			}
+			public void mouseClicked(MouseEvent e) {
+				miControlador.logout();
+			}
+			
 		});
 		lblLogoutButton.setIcon(new ImageIcon(button1));
 
@@ -310,11 +332,11 @@ public class MenuVista extends JFrame {
 
 	}
 
-	public void setControlador(controlador controlador) {
-		this.controlador = controlador;
+	public void setControlador(controlador miControlador) {
+		this.miControlador = miControlador;
 	}
 
-	public void setModelo(modelo modelo) {
-		this.modelo = modelo;
+	public void setModelo(modelo miModelo) {
+		this.miModelo = miModelo;
 	}
 }
