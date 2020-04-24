@@ -21,7 +21,7 @@ public class modelo {
 
 	private String bd = "PI";
 	private String login = "SYSTEM";
-	private String pwd = "pass";
+	private String pwd = "Gormiti2001";
 	private String url = "jdbc:oracle:thin:@localhost:1521:XE";
 	private Connection conexion;
 	private int fallos;
@@ -122,12 +122,15 @@ public class modelo {
 			stm.setString(1, usuario);
 			stm.setString(2, password);
 			ResultSet rst = stm.executeQuery();
-			rst.next();
-			if (rst.getString("ROL").equals("Tutor")) {
-				this.rol = "Tutor";
-			} else {
-				this.rol = "Director";
+			
+			if (rst.next()) {
+				if (rst.getString("ROL").equals("Tutor")) {
+					this.rol = "Tutor";
+				} else if (rst.getString("ROL").equals("Director")){
+					this.rol = "Director";
+				}
 			}
+			
 			rst.close();
 			stm.close();
 
