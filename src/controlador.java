@@ -66,10 +66,20 @@ public class controlador {
 		
 		miModelo.login(usuario,password);
 	}
-	public void acceso() {
+	public void rol() {
+		String usuario = vista_ventana_login.getUsuario();
+		String password = vista_ventana_login.getPassword();
+		
+		miModelo.rol(usuario,password);
+	}
+	public void accesoTut() {
 		vista_ventana_login.frame.setVisible(false);
 		vista_ventana_menu.setVisible(true);
 		
+	}
+	public void accesoDir() {
+		vista_ventana_login.frame.setVisible(false);
+		busquedaAnexos.setVisible(true);
 	}
 	public void logout() {
 		vista_ventana_menu.setVisible(false);

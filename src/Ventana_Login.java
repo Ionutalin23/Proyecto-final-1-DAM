@@ -138,7 +138,9 @@ public class Ventana_Login {
 			}
 
 			public void mouseClicked(MouseEvent e) {
+				miControlador.rol();
 				miControlador.login();
+				
 			}
 		});
 		lblLoginButton.setBounds(348, 427, 118, 47);
@@ -170,11 +172,17 @@ public class Ventana_Login {
 		String resultado = miModelo.getResultado();
 		if (resultado.equals("Correcto")) {
 			lblRespuesta.setText("");
-			miControlador.acceso();
+			if (miModelo.getRol().contentEquals("Director")) {
+				miControlador.accesoDir();
+			} else {
+				miControlador.accesoTut();
+			}
+			
 		} else if (resultado.equals("Incorrecto")) {
 			lblRespuesta.setText("Usuario o contraseña incorrectos!!");
 		} else {
 			System.exit(0);
 		}
 	}
+	
 }

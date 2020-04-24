@@ -18,18 +18,19 @@ public class modelo {
 	private Vista_Info_Empresa vista_info_empresa;
 	private Vista_Info_Alumno vista_info_alumno;
 	private Vista_Info_Grupo vista_info_grupo;
-	
+
 	private String bd = "PI";
 	private String login = "SYSTEM";
-	private String pwd = "password";
+	private String pwd = "Gormiti2001";
 	private String url = "jdbc:oracle:thin:@localhost:1521:XE";
 	private Connection conexion;
 	private int fallos;
 	private String resultado;
-	
-	
+
+	private String rol;
+
 	public modelo() {
-		
+
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			conexion = DriverManager.getConnection(url, login, pwd);
@@ -39,9 +40,6 @@ public class modelo {
 			e.printStackTrace();
 		}
 	}
-
-	
-	
 
 	public void setVista(Busqueda_Alumnos busquedaAlumnos) {
 		this.busquedaAlumnos = busquedaAlumnos;
@@ -66,10 +64,11 @@ public class modelo {
 	public void setVista(Ventana_Login vista_ventana_login) {
 		this.vista_ventana_login = vista_ventana_login;
 	}
-	
+
 	public void setVista(MenuVista vista_ventana_menu) {
 		this.vista_ventana_menu = vista_ventana_menu;
 	}
+
 	public void setVista_info_tutor(Vista_Info_Tutor vista_info_tutor) {
 		this.vista_info_tutor = vista_info_tutor;
 	}
@@ -87,19 +86,19 @@ public class modelo {
 	}
 
 	public void login(String usuario, String password) {
-		String SQL="select * from PI.USERS WHERE USR=? AND PWD=?";
+		String SQL = "select * from PI.USERS WHERE USR=? AND PWD=?";
 		try {
-			PreparedStatement stm=conexion.prepareStatement(SQL);
+			PreparedStatement stm = conexion.prepareStatement(SQL);
 			stm.setString(1, usuario);
 			stm.setString(2, password);
-			ResultSet rst=stm.executeQuery();
-			if(rst.next()) {
-				resultado= "Correcto";
-				fallos=0;
+			ResultSet rst = stm.executeQuery();
+			if (rst.next()) {
+				resultado = "Correcto";
+				fallos = 0;
 				vista_ventana_login.actualizar();
-			}else {
+			} else {
 				fallos++;
-				if (fallos==3) {
+				if (fallos == 3) {
 					resultado = "Cerrar";
 					vista_ventana_login.actualizar();
 				}
@@ -108,18 +107,46 @@ public class modelo {
 			}
 			rst.close();
 			stm.close();
-			
-		}
-		catch (Exception e) {
+
+		} catch (Exception e) {
 			System.out.println(" – Error Statement -");
 			e.printStackTrace();
 		}
-		
+
+	}
+
+	public void rol(String usuario, String password) {
+		String SQL = "select rol from PI.USERS WHERE USR=? AND PWD=?";
+		try {
+			PreparedStatement stm = conexion.prepareStatement(SQL);
+			stm.setString(1, usuario);
+			stm.setString(2, password);
+			ResultSet rst = stm.executeQuery();
+			rst.next();
+			if (rst.getString("ROL").equals("Tutor")) {
+				this.rol = "Tutor";
+			} else {
+				this.rol = "Director";
+			}
+			rst.close();
+			stm.close();
+
+		} catch (Exception e) {
+			System.out.println(" – Error Statement -");
+			e.printStackTrace();
+		}
+
+	}
+
+	public String getRol() {
+		return this.rol;
+
 	}
 
 	public String getResultado() {
 		return this.resultado;
 	}
+
 	public void finalizar() {
 		try {
 			conexion.close();
