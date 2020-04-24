@@ -25,6 +25,7 @@ public class Vista_Info_Tutor extends JFrame {
 	private JPanel pnlCrear;
 	private JLabel lblLogout;
 	private JLabel lblBack;
+	private JLabel lblUser;
 	
 	public Vista_Info_Tutor() {
 		setTitle("");
@@ -55,7 +56,7 @@ public class Vista_Info_Tutor extends JFrame {
 		panel.add(pnlUser);
 		pnlUser.setLayout(null);
 		
-		JLabel lblUser = new JLabel("Logged as: Pedro Camacho");
+		lblUser = new JLabel("Logged as: Pedro Camacho");
 		lblUser.setForeground(new Color(255, 255, 255));
 		lblUser.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblUser.setHorizontalAlignment(SwingConstants.CENTER);
@@ -230,5 +231,11 @@ public class Vista_Info_Tutor extends JFrame {
 
 	public void setModelo(modelo miModelo) {
 		this.miModelo = miModelo;
+	}
+
+	public void actualizarLogged() {
+		
+		lblUser.setText("Logged as: "+miModelo.getUSR());
+		
 	}
 }
