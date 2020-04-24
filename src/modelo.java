@@ -149,7 +149,7 @@ public class modelo {
 	}
 
 	public String getUSR() {
-		return USR;
+		return this.USR;
 	}
 	public String getResultado() {
 		return this.resultado;

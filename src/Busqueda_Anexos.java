@@ -37,6 +37,7 @@ public class Busqueda_Anexos extends JFrame {
 	private JLabel CreateNewLbl;
 	private JLabel CreateNewBtn;
 	private JLabel SearchBtn;
+	private JLabel lblUser;
 	
 // 	Setting Images ======================== (Check all images are linked to correct folder to avoid null pointer exception)
 	private Image img_bg = new ImageIcon(getClass().getResource("/img/bg9.jpg")).getImage().getScaledInstance(888, 664, Image.SCALE_SMOOTH);
@@ -78,6 +79,13 @@ public class Busqueda_Anexos extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
+		lblUser = new JLabel("Logged as: Pedro Camacho");
+		lblUser.setBounds(560, 7, 208, 27);
+		contentPane.add(lblUser);
+		lblUser.setForeground(new Color(255, 255, 255));
+		lblUser.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblUser.setHorizontalAlignment(SwingConstants.CENTER);
 
 //		Table View ========================
 		JScrollPane TableView = new JScrollPane();
@@ -277,11 +285,12 @@ public class Busqueda_Anexos extends JFrame {
 		lblLogoutButton.setIcon(new ImageIcon(button1));
 		
 //		User Name Label ========================
-		JLabel UserLbl = new JLabel("John DOE SMITH");
-		UserLbl.setForeground(Color.WHITE);
-		UserLbl.setFont(new Font("Tahoma", Font.BOLD, 13));
-		UserLbl.setBounds(657, 10, 113, 23);
-		contentPane.add(UserLbl);
+		JPanel pnlUser = new JPanel();
+		pnlUser.setForeground(new Color(240, 248, 255));
+		pnlUser.setBackground(new Color(192, 192, 192,190));
+		pnlUser.setBounds(560, 7, 208, 27);
+		getContentPane().add(pnlUser);
+		pnlUser.setLayout(null);
 
 //		Window Title ========================
 		JLabel WindowTitle = new JLabel("Anexos");
@@ -295,5 +304,10 @@ public class Busqueda_Anexos extends JFrame {
 		lblBgColor.setBounds(0, 0, 888, 664);
 		getContentPane().add(lblBgColor);
 		lblBgColor.setIcon(new ImageIcon(img_bg));
+	}
+
+	public void actualizarLogged() {
+		lblUser.setText("Logged as: "+miModelo.getUSR());
+		
 	}
 }

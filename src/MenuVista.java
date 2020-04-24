@@ -34,6 +34,7 @@ public class MenuVista extends JFrame {
 			Image.SCALE_SMOOTH);
 	private JLabel lblLogout;
 	private JLabel lblmsg;
+	private JLabel lblUser;
 
 	public MenuVista() {
 		getContentPane().setBackground(Color.LIGHT_GRAY);
@@ -45,7 +46,7 @@ public class MenuVista extends JFrame {
 		getContentPane().setLayout(null);
 
 		JPanel pnlMed = new JPanel();
-		pnlMed.setBounds(193, 0, 448, 617);
+		pnlMed.setBounds(207, 0, 448, 617);
 		pnlMed.setBackground(new Color(255, 255, 255, 200));
 		getContentPane().add(pnlMed);
 		pnlMed.setLayout(null);
@@ -317,12 +318,19 @@ public class MenuVista extends JFrame {
 		});
 		lblLogoutButton.setIcon(new ImageIcon(button1));
 
-		lblmsg = new JLabel("Logged as: GUEST");
-		lblmsg.setFont(new Font("Century Gothic", Font.PLAIN, 12));
-		lblmsg.setForeground(SystemColor.textHighlightText);
-		lblmsg.setHorizontalAlignment(SwingConstants.CENTER);
-		lblmsg.setBounds(12, 0, 178, 27);
-		getContentPane().add(lblmsg);
+		JPanel pnlUser = new JPanel();
+		pnlUser.setForeground(new Color(240, 248, 255));
+		pnlUser.setBackground(new Color(192, 192, 192,190));
+		pnlUser.setBounds(0, 0, 208, 27);
+		getContentPane().add(pnlUser);
+		pnlUser.setLayout(null);
+		
+		lblUser = new JLabel("Logged as: Pedro Camacho");
+		lblUser.setForeground(new Color(255, 255, 255));
+		lblUser.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblUser.setHorizontalAlignment(SwingConstants.CENTER);
+		lblUser.setBounds(0, 0, 208, 27);
+		pnlUser.add(lblUser);
 
 		JLabel lblICO = new JLabel("");
 		lblICO.setBounds(-4, 561, 185, 56);

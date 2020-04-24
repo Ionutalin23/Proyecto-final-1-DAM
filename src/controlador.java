@@ -86,6 +86,11 @@ public class controlador {
 		vista_info_empresa.actualizarLogged();
 		vista_info_grupo.actualizarLogged();
 		vista_info_tutor.actualizarLogged();
+		busquedaAlumnos.actualizarLogged();
+		busquedaAnexos.actualizarLogged();
+		busquedaEmpresas.actualizarLogged();
+		busquedaGrupos.actualizarLogged();
+		busquedaTutores.actualizarLogged();
 
 	}
 
@@ -98,6 +103,11 @@ public class controlador {
 		vista_info_empresa.actualizarLogged();
 		vista_info_grupo.actualizarLogged();
 		vista_info_tutor.actualizarLogged();
+		busquedaAlumnos.actualizarLogged();
+		busquedaAnexos.actualizarLogged();
+		busquedaEmpresas.actualizarLogged();
+		busquedaGrupos.actualizarLogged();
+		busquedaTutores.actualizarLogged();
 	}
 
 	public void logout() {
