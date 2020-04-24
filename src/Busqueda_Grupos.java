@@ -19,23 +19,21 @@ public class Busqueda_Grupos extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
-	private JButton btnNewButton_1;
-	private JButton btnNewButton_2;
-	private JTextField textField;
+	private JButton ModifyBtn;
+	private JButton DeleteBtn;
+	private JTextField SearchField;
 
 	private controlador miControlador;
 	private modelo miModelo;
-	
+
 	public void setControlador(controlador miControlador) {
 		this.miControlador = miControlador;
 	}
 
-
-
 	public void setModelo(modelo miModelo) {
 		this.miModelo = miModelo;
 	}
-	
+
 	public Busqueda_Grupos() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 400, 888, 664);
@@ -44,135 +42,120 @@ public class Busqueda_Grupos extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 228, 852, 359);
-		contentPane.add(scrollPane);
-		
+
+		JScrollPane TableView = new JScrollPane();
+		TableView.setBounds(10, 137, 852, 443);
+		contentPane.add(TableView);
+
 		table = new JTable();
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{"1", "Benjamin", "Buford"},
-				{"1", "Dan", "Taylor"},
-				{"1", "Jules", "Winnfield"},
-				{"2", "Vito", "Corleone"},
-				{"2", "Marty", "McFly"},
-				{"2", "Vincent", "Vega"},
-				{"3", "Mia", "Wallace"},
-				{"3", "Nicky", "Koskoff"},
-				{"3", "Donnie", "Azoff"},
-				{"4", "Kirk", "Lazarus"},
-				{"4", "Less", "Grossman"},
-				{"4", "Alpa", "Chino"},
-				{"5", "Tugg", "Speedman"},
-				{"5", "Carole", "Baskin"},
-				{"5", "Joe", "Exotic"},
-				{"5", "Doc", "Antle"},
-			},
-			new String[] {
-				"GRUPO", "NOMBRE", "APELLIDO"
-			}
-		));
-		scrollPane.setViewportView(table);
-		
-		JButton btnNewButton = new JButton("Nuevo Grupo");
-		btnNewButton.setForeground(Color.WHITE);
-		btnNewButton.setBackground(Color.DARK_GRAY);
-		btnNewButton.addActionListener(new ActionListener() {
+		table.setModel(
+				new DefaultTableModel(
+						new Object[][] { { "1", "Benjamin", "Buford" }, { "1", "Dan", "Taylor" },
+								{ "1", "Jules", "Winnfield" }, { "2", "Vito", "Corleone" }, { "2", "Marty", "McFly" },
+								{ "2", "Vincent", "Vega" }, { "3", "Mia", "Wallace" }, { "3", "Nicky", "Koskoff" },
+								{ "3", "Donnie", "Azoff" }, { "4", "Kirk", "Lazarus" }, { "4", "Less", "Grossman" },
+								{ "4", "Alpa", "Chino" }, { "5", "Tugg", "Speedman" }, { "5", "Carole", "Baskin" },
+								{ "5", "Joe", "Exotic" }, { "5", "Doc", "Antle" }, },
+						new String[] { "GRUPO", "NOMBRE", "APELLIDO" }));
+		TableView.setViewportView(table);
+
+		JButton CreateNewBtn = new JButton("Nuevo Grupo");
+		CreateNewBtn.setForeground(Color.WHITE);
+		CreateNewBtn.setBackground(Color.DARK_GRAY);
+		CreateNewBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				miControlador.nuevoGrupo();
+				miControlador.nuevoTutor();
 			}
 		});
-		btnNewButton.setBounds(740, 591, 122, 23);
-		contentPane.add(btnNewButton);
-		
-		btnNewButton_1 = new JButton("Modificar");
-		btnNewButton_1.setForeground(Color.BLACK);
-		btnNewButton_1.setBackground(new Color(255, 255, 102));
-		btnNewButton_1.addActionListener(new ActionListener() {
+		CreateNewBtn.setBounds(740, 591, 122, 23);
+		contentPane.add(CreateNewBtn);
+
+		ModifyBtn = new JButton("Modificar");
+		ModifyBtn.setForeground(Color.BLACK);
+		ModifyBtn.setBackground(new Color(255, 255, 102));
+		ModifyBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnNewButton_1.setBounds(10, 591, 89, 23);
-		contentPane.add(btnNewButton_1);
-		
-		btnNewButton_2 = new JButton("Eliminar");
-		btnNewButton_2.setForeground(Color.BLACK);
-		btnNewButton_2.setBackground(new Color(255, 0, 0));
-		btnNewButton_2.setBounds(109, 591, 89, 23);
-		contentPane.add(btnNewButton_2);
-		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBackground(Color.GRAY);
-		comboBox.setForeground(Color.WHITE);
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"DAM-2020"}));
-		comboBox.setBounds(650, 195, 96, 22);
-		contentPane.add(comboBox);
-		
-		JButton btnNewButton_3 = new JButton("Crear Vista");
-		btnNewButton_3.setForeground(Color.WHITE);
-		btnNewButton_3.setBackground(Color.DARK_GRAY);
-		btnNewButton_3.setBounds(756, 195, 106, 23);
-		contentPane.add(btnNewButton_3);
-		
-		textField = new JTextField();
-		textField.setBounds(186, 103, 296, 23);
-		contentPane.add(textField);
-		textField.setColumns(10);
-		
-		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setForeground(Color.WHITE);
-		comboBox_1.setBackground(Color.GRAY);
-		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"Grupo", "Centro", "Edad"}));
-		comboBox_1.setBounds(545, 103, 71, 22);
-		contentPane.add(comboBox_1);
-		
-		JLabel lblNewLabel = new JLabel("Filter by:");
-		lblNewLabel.setForeground(Color.BLACK);
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblNewLabel.setBounds(492, 107, 62, 14);
-		contentPane.add(lblNewLabel);
-		
-		JButton btnNewButton_4 = new JButton("Search");
-		btnNewButton_4.setBackground(Color.DARK_GRAY);
-		btnNewButton_4.setForeground(Color.WHITE);
-		btnNewButton_4.setBounds(391, 137, 89, 23);
-		contentPane.add(btnNewButton_4);
-		
-		JLabel lblNewLabel_1 = new JLabel("BUSQUEDA:");
-		lblNewLabel_1.setForeground(Color.BLACK);
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblNewLabel_1.setBounds(186, 74, 106, 31);
-		contentPane.add(lblNewLabel_1);
-		
-		JButton btnNewButton_5 = new JButton("<-");
-		btnNewButton_5.addActionListener(new ActionListener() {
+		ModifyBtn.setBounds(10, 591, 89, 23);
+		contentPane.add(ModifyBtn);
+
+		DeleteBtn = new JButton("Eliminar");
+		DeleteBtn.setForeground(Color.BLACK);
+		DeleteBtn.setBackground(new Color(255, 0, 0));
+		DeleteBtn.setBounds(109, 591, 89, 23);
+		contentPane.add(DeleteBtn);
+
+		JComboBox ViewComboBox = new JComboBox();
+		ViewComboBox.setBackground(Color.GRAY);
+		ViewComboBox.setForeground(Color.WHITE);
+		ViewComboBox.setModel(new DefaultComboBoxModel(new String[] { "DAM-2020" }));
+		ViewComboBox.setBounds(648, 104, 96, 22);
+		contentPane.add(ViewComboBox);
+
+		JButton CreateViewBtn = new JButton("Crear Vista");
+		CreateViewBtn.setBackground(Color.DARK_GRAY);
+		CreateViewBtn.setForeground(Color.WHITE);
+		CreateViewBtn.setBounds(754, 104, 106, 23);
+		contentPane.add(CreateViewBtn);
+
+		SearchField = new JTextField();
+		SearchField.setBounds(10, 103, 271, 23);
+		contentPane.add(SearchField);
+		SearchField.setColumns(10);
+
+		JComboBox FilterComboBox = new JComboBox();
+		FilterComboBox.setForeground(Color.WHITE);
+		FilterComboBox.setBackground(Color.GRAY);
+		FilterComboBox.setModel(new DefaultComboBoxModel(new String[] { "Nombre", "Apellido", "Grupo" }));
+		FilterComboBox.setBounds(367, 103, 71, 22);
+		contentPane.add(FilterComboBox);
+
+		JLabel FilterbyLbl = new JLabel("Filter by:");
+		FilterbyLbl.setFont(new Font("Tahoma", Font.BOLD, 11));
+		FilterbyLbl.setBounds(309, 107, 62, 14);
+		contentPane.add(FilterbyLbl);
+
+		JButton BackBtn = new JButton("<-");
+		BackBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				miControlador.back3();
+				miControlador.back4();
 			}
 		});
-		btnNewButton_5.setForeground(Color.WHITE);
-		btnNewButton_5.setBackground(Color.GRAY);
-		btnNewButton_5.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnNewButton_5.setBounds(10, 11, 57, 23);
-		contentPane.add(btnNewButton_5);
-		
-		JButton btnNewButton_6 = new JButton("Logout");
-		btnNewButton_6.setBackground(Color.DARK_GRAY);
-		btnNewButton_6.setForeground(Color.WHITE);
-		btnNewButton_6.setBounds(780, 11, 82, 23);
-		contentPane.add(btnNewButton_6);
-		
-		JLabel lblNewLabel_2 = new JLabel("John DOE SMITH");
-		lblNewLabel_2.setForeground(Color.BLACK);
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblNewLabel_2.setBounds(657, 10, 113, 23);
-		contentPane.add(lblNewLabel_2);
-		
-		JLabel lblNewLabel_3 = new JLabel("Grupos");
-		lblNewLabel_3.setForeground(Color.BLACK);
-		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 18));
-		lblNewLabel_3.setBounds(400, 12, 71, 22);
-		contentPane.add(lblNewLabel_3);
+		BackBtn.setForeground(Color.WHITE);
+		BackBtn.setBackground(Color.GRAY);
+		BackBtn.setFont(new Font("Tahoma", Font.BOLD, 11));
+		BackBtn.setBounds(10, 11, 57, 23);
+		contentPane.add(BackBtn);
+
+		JButton LogoutBtn = new JButton("Logout");
+		LogoutBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				miControlador.logout5();
+			}
+		});
+		LogoutBtn.setBackground(Color.DARK_GRAY);
+		LogoutBtn.setForeground(Color.WHITE);
+		LogoutBtn.setBounds(780, 11, 82, 23);
+		contentPane.add(LogoutBtn);
+
+		JLabel UserLbl = new JLabel("John DOE SMITH");
+		UserLbl.setFont(new Font("Tahoma", Font.BOLD, 13));
+		UserLbl.setBounds(657, 10, 113, 23);
+		contentPane.add(UserLbl);
+
+		JLabel WindowTitle = new JLabel("Grupos");
+		WindowTitle.setForeground(Color.BLACK);
+		WindowTitle.setFont(new Font("Tahoma", Font.BOLD, 18));
+		WindowTitle.setBounds(400, 8, 71, 22);
+		contentPane.add(WindowTitle);
+
+		JButton SearchBtn = new JButton("New button");
+		SearchBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		SearchBtn.setBounds(279, 103, 25, 23);
+		contentPane.add(SearchBtn);
 	}
 }
