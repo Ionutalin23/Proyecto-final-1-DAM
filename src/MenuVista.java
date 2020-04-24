@@ -350,8 +350,8 @@ public class MenuVista extends JFrame {
 		lblmsg.setText("Logged as: "+miModelo.getUSR());
 	}
 	public void cambiarTutor() {
-		lblTuto.setVisible(true);
-		lblTutoBtn.setVisible(true);
+		lblTuto.setVisible(false);
+		lblTutoBtn.setVisible(false);
 
 	}
 }

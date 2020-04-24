@@ -90,8 +90,13 @@ public class controlador {
 
 	public void accesoDir() {
 		vista_ventana_login.frame.setVisible(false);
-
 		vista_ventana_menu.setVisible(true);
+		
+		vista_ventana_menu.actualizarLogged();
+		vista_info_alumno.actualizarLogged();
+		vista_info_empresa.actualizarLogged();
+		vista_info_grupo.actualizarLogged();
+		vista_info_tutor.actualizarLogged();
 	}
 
 	public void logout() {
