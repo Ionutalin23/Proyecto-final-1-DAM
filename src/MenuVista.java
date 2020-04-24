@@ -35,6 +35,9 @@ public class MenuVista extends JFrame {
 	private JLabel lblLogout;
 	private JLabel lblmsg;
 	private JLabel lblUser;
+	private JLabel lblEstadist;
+	private JLabel lblEnConstruccion;
+	private JLabel lblStatsBtn;
 
 	public MenuVista() {
 		getContentPane().setBackground(Color.LIGHT_GRAY);
@@ -46,7 +49,7 @@ public class MenuVista extends JFrame {
 		getContentPane().setLayout(null);
 
 		JPanel pnlMed = new JPanel();
-		pnlMed.setBounds(207, 0, 448, 617);
+		pnlMed.setBounds(193, 0, 448, 617);
 		pnlMed.setBackground(new Color(255, 255, 255, 200));
 		getContentPane().add(pnlMed);
 		pnlMed.setLayout(null);
@@ -275,6 +278,56 @@ public class MenuVista extends JFrame {
 //				vista.setVisible(true);
 //			}
 		});
+		
+		lblEstadist = new JLabel("Estad\u00EDsticas");
+		lblEstadist.setHorizontalAlignment(SwingConstants.CENTER);
+		lblEstadist.setForeground(Color.WHITE);
+		lblEstadist.setFont(new Font("Century Gothic", Font.BOLD, 13));
+		lblEstadist.setBackground(new Color(43, 43, 43));
+		lblEstadist.setBounds(83, 561, 283, 27);
+		pnlMed.add(lblEstadist);
+		
+		lblEnConstruccion = new JLabel("EN CONSTRUCCION");
+		lblEnConstruccion.setForeground(Color.RED);
+		lblEnConstruccion.setHorizontalAlignment(SwingConstants.CENTER);
+		lblEnConstruccion.setVisible(false);
+		lblStatsBtn = new JLabel("");
+		lblStatsBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/Btn.png")));
+		lblStatsBtn.setBounds(83, 561, 283, 27);
+		pnlMed.add(lblStatsBtn);
+		lblStatsBtn.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				lblStatsBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/Btn2.png")));
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				lblStatsBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/Btn.png")));
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				lblStatsBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/Btn3.png")));
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				lblStatsBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/Btn.png")));
+			}
+
+			public void mouseClicked(MouseEvent e) {
+				lblEnConstruccion.setVisible(true);
+			}
+
+//			@Override
+//			public void mouseClicked(MouseEvent e) {
+//				Busqueda_Grupos vista = new Busqueda_Grupos();
+//				vista.setVisible(true);
+//			}
+		});
+		lblEnConstruccion.setBounds(121, 588, 218, 16);
+		pnlMed.add(lblEnConstruccion);
 
 		lblGrupBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/Btn.png")));
 		lblGrupBtn.setBounds(83, 505, 283, 27);
@@ -355,11 +408,11 @@ public class MenuVista extends JFrame {
 	}
 
 	public void actualizarLogged() {
-		lblmsg.setText("Logged as: "+miModelo.getUSR());
+		lblUser.setText("Logged as: "+miModelo.getUSR());
 	}
 	public void cambiarTutor() {
-		lblTuto.setVisible(false);
-		lblTutoBtn.setVisible(false);
-
+		lblEnConstruccion.setVisible(false);
+		lblEstadist.setVisible(false);
+		lblStatsBtn.setVisible(false);
 	}
 }
