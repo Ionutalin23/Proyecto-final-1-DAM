@@ -24,6 +24,8 @@ public class MenuVista extends JFrame {
 	private controlador miControlador;
 	private modelo miModelo;
 	private JLabel lblAnexos;
+	private JLabel lblTutoBtn;
+	private JLabel lblTuto;
 	Image button1 = new ImageIcon(getClass().getResource("/img/boton1.png")).getImage().getScaledInstance(110, 48,
 			Image.SCALE_SMOOTH);
 	Image button2 = new ImageIcon(getClass().getResource("/img/boton2.png")).getImage().getScaledInstance(110, 48,
@@ -44,7 +46,7 @@ public class MenuVista extends JFrame {
 
 		JPanel pnlMed = new JPanel();
 		pnlMed.setBounds(193, 0, 448, 617);
-		pnlMed.setBackground(new Color(255, 255, 255,200));
+		pnlMed.setBackground(new Color(255, 255, 255, 200));
 		getContentPane().add(pnlMed);
 		pnlMed.setLayout(null);
 
@@ -80,6 +82,7 @@ public class MenuVista extends JFrame {
 			public void mouseReleased(MouseEvent e) {
 				lblAnxBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/Btn.png")));
 			}
+
 			public void mouseClicked(MouseEvent e) {
 				miControlador.BusquedaAnexos();
 			}
@@ -91,7 +94,7 @@ public class MenuVista extends JFrame {
 //			}
 		});
 
-		JLabel lblTuto = new JLabel("Tutores");
+		lblTuto = new JLabel("Tutores");
 		lblTuto.setBounds(83, 308, 283, 27);
 		pnlMed.add(lblTuto);
 		lblTuto.setHorizontalAlignment(SwingConstants.CENTER);
@@ -99,7 +102,7 @@ public class MenuVista extends JFrame {
 		lblTuto.setFont(new Font("Century Gothic", Font.BOLD, 13));
 		lblTuto.setBackground(new Color(43, 43, 43));
 
-		JLabel lblTutoBtn = new JLabel("");
+		lblTutoBtn = new JLabel("");
 		lblTutoBtn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
@@ -120,6 +123,7 @@ public class MenuVista extends JFrame {
 			public void mouseReleased(MouseEvent e) {
 				lblTutoBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/Btn.png")));
 			}
+
 			public void mouseClicked(MouseEvent e) {
 				miControlador.BusquedaTutores();
 			}
@@ -164,11 +168,10 @@ public class MenuVista extends JFrame {
 			public void mouseReleased(MouseEvent e) {
 				lblEmpBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/Btn.png")));
 			}
+
 			public void mouseClicked(MouseEvent e) {
 				miControlador.BusquedaEmpresas();
 			}
-
-			
 
 //			@Override
 //			public void mouseClicked(MouseEvent e) {
@@ -210,6 +213,7 @@ public class MenuVista extends JFrame {
 			public void mouseReleased(MouseEvent e) {
 				lblAlmnBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/Btn.png")));
 			}
+
 			public void mouseClicked(MouseEvent e) {
 				miControlador.BusquedaAlumnos();
 			}
@@ -259,6 +263,7 @@ public class MenuVista extends JFrame {
 			public void mouseReleased(MouseEvent e) {
 				lblGrupBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/Btn.png")));
 			}
+
 			public void mouseClicked(MouseEvent e) {
 				miControlador.BusquedaGrupos();
 			}
@@ -280,7 +285,6 @@ public class MenuVista extends JFrame {
 		lblLogout.setHorizontalAlignment(SwingConstants.CENTER);
 		lblLogout.setForeground(Color.WHITE);
 		lblLogout.setBackground(new Color(205, 92, 92));
-		
 
 		JLabel lblLogoutButton = new JLabel("");
 		lblLogoutButton.setBounds(753, 13, 92, 27);
@@ -305,10 +309,11 @@ public class MenuVista extends JFrame {
 			public void mouseExited(MouseEvent e) {
 				lblLogoutButton.setIcon(new ImageIcon(button1));
 			}
+
 			public void mouseClicked(MouseEvent e) {
 				miControlador.logout();
 			}
-			
+
 		});
 		lblLogoutButton.setIcon(new ImageIcon(button1));
 
@@ -328,7 +333,7 @@ public class MenuVista extends JFrame {
 		lblBg.setForeground(SystemColor.window);
 		lblBg.setIcon(new ImageIcon(MenuVista.class.getResource("/img/uem.jpg")));
 		lblBg.setBackground(new Color(255, 99, 71));
-		lblBg.setBounds(1, 0,888, 664);
+		lblBg.setBounds(1, 0, 888, 664);
 		getContentPane().add(lblBg);
 
 	}
@@ -343,5 +348,10 @@ public class MenuVista extends JFrame {
 
 	public void actualizarLogged() {
 		lblmsg.setText("Logged as: "+miModelo.getUSR());
+	}
+	public void cambiarTutor() {
+		lblTuto.setVisible(true);
+		lblTutoBtn.setVisible(true);
+
 	}
 }
