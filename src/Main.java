@@ -1,5 +1,3 @@
-
-
 import java.awt.EventQueue;
 
 public class Main {
@@ -60,8 +58,6 @@ public class Main {
 		vista_info_alumno.setControlador(miControlador);
 		vista_info_alumno.setModelo(miModelo);
 		
-		
-		
 		busquedaAlumnos.setModelo(miModelo);
 		busquedaAlumnos.setControlador(miControlador);
 
@@ -86,15 +82,3 @@ public class Main {
 		vista_ventana_login.frame.setVisible(true);
 	}
 }
-
-
-		
-		
-		
-		
-		
-		
-		
-		
-		
-	

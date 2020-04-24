@@ -1,4 +1,5 @@
 import java.awt.Color;
+
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -8,41 +9,68 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.Image;
 
 public class Busqueda_Alumnos extends JFrame {
 
+//	GUI Content ========================
 	private JPanel contentPane;
 	private JTable table;
-	private JButton btnNewButton_1;
-	private JButton btnNewButton_2;
-	private JTextField textField;
+	private JTextField SearchField;
+	private JLabel lblLogout;
+	private JLabel ModifyBtn;
+	private JLabel ModifyLbl;
+	private JLabel DeleteBtn;
+	private JLabel DeleteLbl;
+	private JLabel CreateViewLbl;
+	private JLabel CreateViewBtn;
+	private JLabel CreateNewLbl;
+	private JLabel CreateNewBtn;
+	private JLabel SearchBtn;
 	
+// 	Setting Images ======================== (Check all images are linked to correct folder to avoid null pointer exception)
+	private Image img_bg = new ImageIcon(getClass().getResource("/img/bg9.jpg")).getImage().getScaledInstance(888, 664, Image.SCALE_SMOOTH);
+	private Image img_buttonBack1 = new ImageIcon(getClass().getResource("/images/back1.png")).getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH);
+	private Image img_buttonBack2 = new ImageIcon(getClass().getResource("/images/back2.png")).getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH);
+	private Image img_buttonBack3 = new ImageIcon(getClass().getResource("/images/back3.png")).getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH);
+	private Image button1 = new ImageIcon(getClass().getResource("/img/boton1.png")).getImage().getScaledInstance(110, 48, Image.SCALE_SMOOTH);
+	private Image button2 = new ImageIcon(getClass().getResource("/img/boton2.png")).getImage().getScaledInstance(110, 48, Image.SCALE_SMOOTH);
+	private Image button3 = new ImageIcon(getClass().getResource("/img/boton3.png")).getImage().getScaledInstance(110, 48, Image.SCALE_SMOOTH);
+	private Image img_ButtonEliminar = new ImageIcon(getClass().getResource("/images/Btn_Eliminar.jpg")).getImage().getScaledInstance(88, 23, Image.SCALE_SMOOTH);
+	private Image img_ButtonEliminarHover = new ImageIcon(getClass().getResource("/images/Btn_Eliminar_Hover.jpg")).getImage().getScaledInstance(88, 23, Image.SCALE_SMOOTH);
+	private Image img_ButtonModificar = new ImageIcon(getClass().getResource("/images/Btn_Modificar.jpg")).getImage().getScaledInstance(88, 23, Image.SCALE_SMOOTH);
+	private Image img_ButtonModificarHover = new ImageIcon(getClass().getResource("/images/Btn_Modificar_Hover.jpg")).getImage().getScaledInstance(88, 23, Image.SCALE_SMOOTH);
+	private Image img_default1Button = new ImageIcon(getClass().getResource("/images/Btn_default1.jpg")).getImage().getScaledInstance(106, 23, Image.SCALE_SMOOTH);
+	private Image img_default1ButtonHover = new ImageIcon(getClass().getResource("/images/Btn_default1_Hover.jpg")).getImage().getScaledInstance(106, 23, Image.SCALE_SMOOTH);
+	private Image img_default2Button = new ImageIcon(getClass().getResource("/images/Btn_default3.jpg")).getImage().getScaledInstance(122, 23, Image.SCALE_SMOOTH);
+	private Image img_default2ButtonHover = new ImageIcon(getClass().getResource("/images/Btn_default3_Hover.jpg")).getImage().getScaledInstance(122, 23, Image.SCALE_SMOOTH);
+	private Image img_SearchLupa = new ImageIcon(getClass().getResource("/images/SearchIcon.png")).getImage().getScaledInstance(25, 23, Image.SCALE_SMOOTH);
+
+// 	MVC ========================
 	private controlador miControlador;
 	private modelo miModelo;
-	
-	
 
 	public void setControlador(controlador miControlador) {
 		this.miControlador = miControlador;
 	}
 
-
-
 	public void setModelo(modelo miModelo) {
 		this.miModelo = miModelo;
 	}
 
-
-
+//	Frame ========================
 	public Busqueda_Alumnos() {
-		
-		
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 400, 888, 664);
 		contentPane = new JPanel();
@@ -50,140 +78,246 @@ public class Busqueda_Alumnos extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 223, 852, 357);
-		contentPane.add(scrollPane);
-		
+
+//		Table View ========================
+		JScrollPane TableView = new JScrollPane();
+		TableView.setBounds(10, 137, 852, 443);
+		contentPane.add(TableView);
+
 		table = new JTable();
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{"Benjamin", "Buford", "1"},
-				{"Dan", "Taylor", "1"},
-				{"Jules", "Winnfield", "1"},
-				{"Vito", "Corleone", "2"},
-				{"Marty", "McFly", "2"},
-				{"Vincent", "Vega", "2"},
-				{"Mia", "Wallace", "3"},
-				{"Nicky", "Koskoff", "3"},
-				{"Donnie", "Azoff", "3"},
-				{"Kirk", "Lazarus", "4"},
-				{"Less", "Grossman", "4"},
-				{"Alpa", "Chino", "4"},
-				{"Tugg", "Speedman", "5"},
-				{"Carole", "Baskin", "5"},
-				{"Joe", "Exotic", "5"},
-				{"Doc", "Antle", "5"},
-			},
-			new String[] {
-				"NOMBRE", "APELLIDO", "CENTRO"
-			}
-		));
-		scrollPane.setViewportView(table);
+		table.setModel(
+				new DefaultTableModel(
+						new Object[][] { { "Benjamin", "Buford", "1" }, { "Dan", "Taylor", "1" },
+								{ "Jules", "Winnfield", "1" }, { "Vito", "Corleone", "2" }, { "Marty", "McFly", "2" },
+								{ "Vincent", "Vega", "2" }, { "Mia", "Wallace", "3" }, { "Nicky", "Koskoff", "3" },
+								{ "Donnie", "Azoff", "3" }, { "Kirk", "Lazarus", "4" }, { "Less", "Grossman", "4" },
+								{ "Alpa", "Chino", "4" }, { "Tugg", "Speedman", "5" }, { "Carole", "Baskin", "5" },
+								{ "Joe", "Exotic", "5" }, { "Doc", "Antle", "5" }, },
+						new String[] { "NOMBRE", "APELLIDO", "CENTRO" }));
+		TableView.setViewportView(table);
 		
-		JButton btnNewButton = new JButton("Nuevo Alumno");
-		btnNewButton.setBackground(Color.DARK_GRAY);
-		btnNewButton.setForeground(Color.WHITE);
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				miControlador.nuevoAlumno();
-			}
-		});
-		btnNewButton.setBounds(740, 591, 122, 23);
-		contentPane.add(btnNewButton);
+//		Create New Button ========================
+		CreateNewLbl = new JLabel("Nuevo Alumno");
+		CreateNewLbl.setBounds(763, 591, 91, 23);
+		CreateNewLbl.setFont(new Font("Century Gothic", Font.PLAIN, 12));
+		CreateNewLbl.setForeground(Color.BLACK);
+		contentPane.add(CreateNewLbl);
 		
-		btnNewButton_1 = new JButton("Modificar");
-		btnNewButton_1.setForeground(Color.BLACK);
-		btnNewButton_1.setBackground(new Color(255, 255, 102));
-		btnNewButton_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		CreateNewBtn = new JLabel("");
+		CreateNewBtn.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				CreateNewBtn.setIcon(new ImageIcon(img_default2ButtonHover));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				CreateNewBtn.setIcon(new ImageIcon(img_default2Button));
+			}
+			public void mouseClicked(MouseEvent e) {
+				miControlador.nuevoTutor();
 			}
 		});
-		btnNewButton_1.setBounds(10, 591, 89, 23);
-		contentPane.add(btnNewButton_1);
+		CreateNewBtn.setBounds(740, 591, 122, 23);
+		contentPane.add(CreateNewBtn);
+		CreateNewBtn.setIcon(new ImageIcon(img_default2Button));
+
+//		Modify Table Button ========================
+		ModifyLbl = new JLabel("Modificar");
+		ModifyLbl.setBounds(29, 591, 62, 23);
+		ModifyLbl.setFont(new Font("Century Gothic", Font.PLAIN, 12));
+		ModifyLbl.setForeground(Color.BLACK);
+		contentPane.add(ModifyLbl);
 		
-		btnNewButton_2 = new JButton("Eliminar");
-		btnNewButton_2.setForeground(Color.BLACK);
-		btnNewButton_2.setBackground(new Color(255, 0, 0));
-		btnNewButton_2.setBounds(109, 591, 89, 23);
-		contentPane.add(btnNewButton_2);
+		ModifyBtn = new JLabel("");
+		ModifyBtn.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				ModifyBtn.setIcon(new ImageIcon(img_ButtonModificarHover));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				ModifyBtn.setIcon(new ImageIcon(img_ButtonModificar));
+			}
+			public void mouseClicked(MouseEvent e) {
+				//ADD METHOD FOR MODIFYING SELECTED CELL
+			}
+		});
+		ModifyBtn.setBounds(10, 591, 89, 23);
+		contentPane.add(ModifyBtn);
+		ModifyBtn.setIcon(new ImageIcon(img_ButtonModificar));
+
+//		Delete Button ========================
+		DeleteLbl = new JLabel("Eliminar");
+		DeleteLbl.setBounds(128, 591, 51, 23);
+		DeleteLbl.setFont(new Font("Century Gothic", Font.PLAIN, 12));
+		DeleteLbl.setForeground(Color.BLACK);
+		contentPane.add(DeleteLbl);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setForeground(Color.WHITE);
-		comboBox.setBackground(Color.GRAY);
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"DAM-2020"}));
-		comboBox.setBounds(646, 190, 96, 22);
-		contentPane.add(comboBox);
+		DeleteBtn = new JLabel("");
+		DeleteBtn.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				DeleteBtn.setIcon(new ImageIcon(img_ButtonEliminarHover));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				DeleteBtn.setIcon(new ImageIcon(img_ButtonEliminar));
+			}
+			public void mouseClicked(MouseEvent e) {
+				//ADD METHOD FOR DELETING SELECTED CELL
+			}
+		});
+		DeleteBtn.setBounds(109, 591, 89, 23);
+		contentPane.add(DeleteBtn);
+		DeleteBtn.setIcon(new ImageIcon(img_ButtonEliminar));
+
+//		View Combo Box ========================
+		JComboBox ViewComboBox = new JComboBox();
+		ViewComboBox.setBackground(Color.GRAY);
+		ViewComboBox.setForeground(Color.WHITE);
+		ViewComboBox.setModel(new DefaultComboBoxModel(new String[] { "DAM-2020" }));
+		ViewComboBox.setBounds(648, 104, 96, 22);
+		contentPane.add(ViewComboBox);
 		
-		JButton btnNewButton_3 = new JButton("Crear Vista");
-		btnNewButton_3.setBackground(Color.DARK_GRAY);
-		btnNewButton_3.setForeground(Color.WHITE);
-		btnNewButton_3.setBounds(752, 190, 106, 23);
-		contentPane.add(btnNewButton_3);
+//		Create New View Button ========================
+		CreateViewLbl = new JLabel("Crear Vista");
+		CreateViewLbl.setBounds(775, 104, 71, 23);
+		CreateViewLbl.setFont(new Font("Century Gothic", Font.PLAIN, 12));
+		CreateViewLbl.setForeground(Color.BLACK);
+		contentPane.add(CreateViewLbl);
 		
-		textField = new JTextField();
-		textField.setBounds(186, 103, 296, 23);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		CreateViewBtn = new JLabel("");
+		CreateViewBtn.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				CreateViewBtn.setIcon(new ImageIcon(img_default1ButtonHover));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				CreateViewBtn.setIcon(new ImageIcon(img_default1Button));
+			}
+			public void mouseClicked(MouseEvent e) {
+				//ADD METHOD FOR CREATING VIEW
+			}
+		});
+		CreateViewBtn.setBounds(754, 104, 106, 23);
+		contentPane.add(CreateViewBtn);
+		CreateViewBtn.setIcon(new ImageIcon(img_default1Button));
+
+//		Search Field ========================
+		SearchField = new JTextField();
+		SearchField.setBounds(10, 103, 271, 23);
+		contentPane.add(SearchField);
+		SearchField.setColumns(10);
 		
-		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setForeground(Color.WHITE);
-		comboBox_1.setBackground(Color.GRAY);
-		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"Centro"}));
-		comboBox_1.setBounds(545, 103, 71, 22);
-		contentPane.add(comboBox_1);
+//		Search Button ========================
+		SearchBtn = new JLabel("");
+		SearchBtn.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				//ADD METHOD FOR SEARCH
+			}
+		});
+		SearchBtn.setBounds(282, 103, 25, 23);
+		contentPane.add(SearchBtn);
+		SearchBtn.setIcon(new ImageIcon(img_SearchLupa));
 		
-		JLabel lblNewLabel = new JLabel("Filter by:");
-		lblNewLabel.setForeground(Color.BLACK);
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblNewLabel.setBounds(492, 107, 62, 14);
-		contentPane.add(lblNewLabel);
+//		Search Filter Combo Box ========================
+		JComboBox FilterComboBox = new JComboBox();
+		FilterComboBox.setForeground(Color.WHITE);
+		FilterComboBox.setBackground(Color.GRAY);
+		FilterComboBox.setModel(new DefaultComboBoxModel(new String[] { "Nombre", "Apellido", "Centro" }));
+		FilterComboBox.setBounds(367, 103, 71, 22);
+		contentPane.add(FilterComboBox);
 		
-		JButton btnNewButton_4 = new JButton("Search");
-		btnNewButton_4.setBackground(Color.DARK_GRAY);
-		btnNewButton_4.setForeground(Color.WHITE);
-		btnNewButton_4.setBounds(391, 137, 89, 23);
-		contentPane.add(btnNewButton_4);
-		
-		JLabel lblNewLabel_1 = new JLabel("BUSQUEDA:");
-		lblNewLabel_1.setForeground(Color.BLACK);
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblNewLabel_1.setBounds(186, 72, 106, 31);
-		contentPane.add(lblNewLabel_1);
-		
-		JButton btnNewButton_5 = new JButton("<-");
-		btnNewButton_5.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+//		Filter By Label ========================
+		JLabel FilterbyLbl = new JLabel("Filter by:");
+		FilterbyLbl.setFont(new Font("Tahoma", Font.BOLD, 11));
+		FilterbyLbl.setBounds(309, 107, 62, 14);
+		contentPane.add(FilterbyLbl);
+
+//		Back Button ========================
+		JLabel BackBtn = new JLabel("");
+		BackBtn.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				BackBtn.setIcon(new ImageIcon(img_buttonBack3));
+			}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				BackBtn.setIcon(new ImageIcon(img_buttonBack2));
+			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				BackBtn.setIcon(new ImageIcon(img_buttonBack2));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				BackBtn.setIcon(new ImageIcon(img_buttonBack1));
+			}
+			public void mouseClicked(MouseEvent e) {
 				miControlador.back1();
 			}
 		});
-		btnNewButton_5.setBackground(Color.GRAY);
-		btnNewButton_5.setForeground(Color.WHITE);
-		btnNewButton_5.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnNewButton_5.setBounds(10, 11, 57, 23);
-		contentPane.add(btnNewButton_5);
+		BackBtn.setBounds(10, 11, 57, 23);
+		contentPane.add(BackBtn);
+		BackBtn.setIcon(new ImageIcon(img_buttonBack1));
 		
-		JButton btnNewButton_6 = new JButton("Logout");
-		btnNewButton_6.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+//		Logout Button ========================
+		lblLogout = new JLabel("LOGOUT");
+		lblLogout.setBounds(780, 11, 82, 23);
+		getContentPane().add(lblLogout);
+		lblLogout.setHorizontalAlignment(SwingConstants.CENTER);
+		lblLogout.setForeground(Color.WHITE);
+		lblLogout.setBackground(new Color(205, 92, 92));
+		
+		JLabel lblLogoutButton = new JLabel("");
+		lblLogoutButton.setBounds(780, 11, 82, 23);
+		getContentPane().add(lblLogoutButton);
+		lblLogoutButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				lblLogoutButton.setIcon(new ImageIcon(button3));
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				lblLogoutButton.setIcon(new ImageIcon(button2));
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				lblLogoutButton.setIcon(new ImageIcon(button2));
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				lblLogoutButton.setIcon(new ImageIcon(button1));
+			}
+			public void mouseClicked(MouseEvent e) {
 				miControlador.logout2();
 			}
+			
 		});
-		btnNewButton_6.setBackground(Color.DARK_GRAY);
-		btnNewButton_6.setForeground(Color.WHITE);
-		btnNewButton_6.setBounds(780, 11, 82, 23);
-		contentPane.add(btnNewButton_6);
+		lblLogoutButton.setIcon(new ImageIcon(button1));
 		
-		JLabel lblNewLabel_2 = new JLabel("John DOE SMITH");
-		lblNewLabel_2.setForeground(Color.BLACK);
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblNewLabel_2.setBounds(657, 10, 113, 23);
-		contentPane.add(lblNewLabel_2);
-		
-		JLabel lblNewLabel_3 = new JLabel("Alumnos");
-		lblNewLabel_3.setForeground(Color.BLACK);
-		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 18));
-		lblNewLabel_3.setBounds(395, 15, 82, 14);
-		contentPane.add(lblNewLabel_3);
+//		User Name Label ========================
+		JLabel UserLbl = new JLabel("John DOE SMITH");
+		UserLbl.setForeground(Color.WHITE);
+		UserLbl.setFont(new Font("Tahoma", Font.BOLD, 13));
+		UserLbl.setBounds(657, 10, 113, 23);
+		contentPane.add(UserLbl);
+
+//		Window Title ========================
+		JLabel WindowTitle = new JLabel("Alumnos");
+		WindowTitle.setForeground(Color.WHITE);
+		WindowTitle.setFont(new Font("Tahoma", Font.BOLD, 18));
+		WindowTitle.setBounds(389, 12, 82, 14);
+		contentPane.add(WindowTitle);
+
+//		Background Image ========================
+		JLabel lblBgColor = new JLabel("");
+		lblBgColor.setBounds(0, 0, 888, 664);
+		getContentPane().add(lblBgColor);
+		lblBgColor.setIcon(new ImageIcon(img_bg));
 	}
 }
