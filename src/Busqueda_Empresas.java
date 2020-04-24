@@ -253,7 +253,7 @@ public class Busqueda_Empresas extends JFrame {
 				BackBtn.setIcon(new ImageIcon(img_buttonBack1));
 			}
 			public void mouseClicked(MouseEvent e) {
-				miControlador.back1();
+				miControlador.back2();
 			}
 		});
 		BackBtn.setBounds(10, 11, 57, 23);
@@ -292,7 +292,7 @@ public class Busqueda_Empresas extends JFrame {
 				lblLogoutButton.setIcon(new ImageIcon(button1));
 			}
 			public void mouseClicked(MouseEvent e) {
-				miControlador.logout2();
+				miControlador.logout3();
 			}
 			
 		});

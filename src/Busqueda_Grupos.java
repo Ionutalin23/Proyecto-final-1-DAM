@@ -255,7 +255,7 @@ public class Busqueda_Grupos extends JFrame {
 				BackBtn.setIcon(new ImageIcon(img_buttonBack1));
 			}
 			public void mouseClicked(MouseEvent e) {
-				miControlador.back1();
+				miControlador.back3();
 			}
 		});
 		BackBtn.setBounds(10, 11, 57, 23);
@@ -294,7 +294,7 @@ public class Busqueda_Grupos extends JFrame {
 				lblLogoutButton.setIcon(new ImageIcon(button1));
 			}
 			public void mouseClicked(MouseEvent e) {
-				miControlador.logout2();
+				miControlador.logout4();
 			}
 			
 		});
