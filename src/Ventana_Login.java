@@ -16,6 +16,9 @@ import javax.swing.JPasswordField;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Date;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Ventana_Login {
 
@@ -56,10 +59,10 @@ public class Ventana_Login {
 		frame.setBounds(100, 400, 800, 550);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		
-				lblRespuesta = new JLabel("");
-				lblRespuesta.setBounds(290, 396, 215, 26);
-				frame.getContentPane().add(lblRespuesta);
+
+		lblRespuesta = new JLabel("");
+		lblRespuesta.setBounds(290, 396, 215, 26);
+		frame.getContentPane().add(lblRespuesta);
 
 		Panel panel = new Panel();
 		panel.setBackground(Color.WHITE);
@@ -166,10 +169,11 @@ public class Ventana_Login {
 	public void actualizar() {
 		String resultado = miModelo.getResultado();
 		if (resultado.equals("Correcto")) {
+			lblRespuesta.setText("");
 			miControlador.acceso();
 		} else if (resultado.equals("Incorrecto")) {
-			lblRespuesta.setText("Usuario o contraseña incorrectos !!");
-		}else {
+			lblRespuesta.setText("Usuario o contraseña incorrectos!!");
+		} else {
 			System.exit(0);
 		}
 	}
