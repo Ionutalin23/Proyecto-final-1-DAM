@@ -48,7 +48,7 @@ public class MenuVista extends JFrame {
 		getContentPane().setLayout(null);
 
 		JPanel pnlMed = new JPanel();
-		pnlMed.setBounds(193, 0, 448, 617);
+		pnlMed.setBounds(208, 0, 448, 617);
 		pnlMed.setBackground(new Color(255, 255, 255, 200));
 		getContentPane().add(pnlMed);
 		pnlMed.setLayout(null);
