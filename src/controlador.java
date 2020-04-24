@@ -70,6 +70,8 @@ public class controlador {
 		vista_ventana_login.frame.setVisible(false);
 		vista_ventana_menu.setVisible(true);
 		
+		vista_ventana_menu.actualizarLogged();
+		
 	}
 	public void logout() {
 		vista_ventana_menu.setVisible(false);
