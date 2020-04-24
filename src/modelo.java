@@ -26,6 +26,7 @@ public class modelo {
 	private Connection conexion;
 	private int fallos;
 	private String resultado;
+	private String USR;
 	
 	
 	public modelo() {
@@ -94,6 +95,7 @@ public class modelo {
 			stm.setString(2, password);
 			ResultSet rst=stm.executeQuery();
 			if(rst.next()) {
+				USR = rst.getString(1);
 				resultado= "Correcto";
 				fallos=0;
 				vista_ventana_login.actualizar();
@@ -117,6 +119,9 @@ public class modelo {
 		
 	}
 
+	public String getUSR() {
+		return USR;
+	}
 	public String getResultado() {
 		return this.resultado;
 	}

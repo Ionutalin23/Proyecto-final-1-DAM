@@ -31,6 +31,7 @@ public class MenuVista extends JFrame {
 	Image button3 = new ImageIcon(getClass().getResource("/img/boton3.png")).getImage().getScaledInstance(110, 48,
 			Image.SCALE_SMOOTH);
 	private JLabel lblLogout;
+	private JLabel lblmsg;
 
 	public MenuVista() {
 		getContentPane().setBackground(Color.LIGHT_GRAY);
@@ -311,11 +312,11 @@ public class MenuVista extends JFrame {
 		});
 		lblLogoutButton.setIcon(new ImageIcon(button1));
 
-		JLabel lblmsg = new JLabel("Logged as: Pedro Camacho");
+		lblmsg = new JLabel("Logged as: GUEST");
 		lblmsg.setFont(new Font("Century Gothic", Font.PLAIN, 12));
 		lblmsg.setForeground(SystemColor.textHighlightText);
-		lblmsg.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblmsg.setBounds(-9, 0, 178, 27);
+		lblmsg.setHorizontalAlignment(SwingConstants.CENTER);
+		lblmsg.setBounds(12, 0, 178, 27);
 		getContentPane().add(lblmsg);
 
 		JLabel lblICO = new JLabel("");
@@ -338,5 +339,9 @@ public class MenuVista extends JFrame {
 
 	public void setModelo(modelo miModelo) {
 		this.miModelo = miModelo;
+	}
+
+	public void actualizarLogged() {
+		lblmsg.setText("Logged as: "+miModelo.getUSR());
 	}
 }

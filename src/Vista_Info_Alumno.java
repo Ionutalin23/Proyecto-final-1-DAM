@@ -243,4 +243,8 @@ public class Vista_Info_Alumno extends JFrame {
 	public void setModelo(modelo miModelo) {
 		this.miModelo = miModelo;
 	}
+
+	public void actualizarLogged() {
+		lblUser.setText("Logged as: "+miModelo.getUSR());
+	}
 }
