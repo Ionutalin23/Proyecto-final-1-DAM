@@ -1,3 +1,5 @@
+package vista;
+
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JButton;
@@ -11,6 +13,10 @@ import javax.swing.JTextField;
 import java.awt.Color;
 import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
+
+import controlador.controlador;
+import modelo.modelo;
+
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JList;

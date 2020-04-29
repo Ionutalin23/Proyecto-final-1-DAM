@@ -1,3 +1,5 @@
+package vista;
+
 import java.awt.Color;
 
 import java.awt.EventQueue;
@@ -7,6 +9,10 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import controlador.controlador;
+import modelo.modelo;
+
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;

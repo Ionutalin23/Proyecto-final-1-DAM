@@ -1,3 +1,5 @@
+package modelo;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -8,6 +10,18 @@ import java.sql.Statement;
 
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+
+import vista.Busqueda_Alumnos;
+import vista.Busqueda_Anexos;
+import vista.Busqueda_Empresas;
+import vista.Busqueda_Grupos;
+import vista.Busqueda_Tutores;
+import vista.MenuVista;
+import vista.Ventana_Login;
+import vista.Vista_Info_Alumno;
+import vista.Vista_Info_Empresa;
+import vista.Vista_Info_Grupo;
+import vista.Vista_Info_Tutor;
 
 public class modelo {
 

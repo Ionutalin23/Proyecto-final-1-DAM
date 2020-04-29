@@ -1,3 +1,5 @@
+package vista;
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -11,6 +13,10 @@ import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.border.BevelBorder;
+
+import controlador.controlador;
+import modelo.modelo;
+
 import javax.swing.SwingConstants;
 import javax.swing.JPasswordField;
 import java.awt.Toolkit;
@@ -22,7 +28,7 @@ import java.util.TimerTask;
 
 public class Ventana_Login {
 
-	JFrame frame;
+	public JFrame frame;
 	private Image img_usr = new ImageIcon(Ventana_Login.class.getResource("/img/usr.png")).getImage()
 			.getScaledInstance(40, 40, Image.SCALE_SMOOTH);
 	private Image img_passwd = new ImageIcon(Ventana_Login.class.getResource("/img/passwd.png")).getImage()

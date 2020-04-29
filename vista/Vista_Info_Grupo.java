@@ -1,3 +1,5 @@
+package vista;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
@@ -11,6 +13,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
+
+import controlador.controlador;
+import modelo.modelo;
 
 public class Vista_Info_Grupo extends JFrame {
 	private controlador miControlador;
