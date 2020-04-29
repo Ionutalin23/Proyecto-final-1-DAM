@@ -11,9 +11,12 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
@@ -93,19 +96,26 @@ public class Busqueda_Anexos extends JFrame {
 		contentPane.add(TableView);
 
 		table = new JTable();
-		table.setModel(new DefaultTableModel(
-				new Object[][] { { "Benjamin", "Buford", "Completado" }, { "Dan", "Taylor", "Completado" },
-						{ "Jules", "Winnfield", "Completado" }, { "Vito", "Corleone", "Completado" },
-						{ "Marty", "McFly", "Completado" }, { "Vincent", "Vega", "Completado" },
-						{ "Mia", "Wallace", "Completado" }, { "Nicky", "Koskoff", "Completado" },
-						{ "Donnie", "Azoff", "Completado" }, { "Kirk", "Lazarus", "Completado" },
-						{ "Less", "Grossman", "Incompleto" }, { "Alpa", "Chino", "Incompleto" },
-						{ "Tugg", "Speedman", "Incompleto" }, { "Carole", "Baskin", "Incompleto" },
-						{ "Joe", "Exotic", "Incompleto" }, { "Doc", "Antle", "Incompleto" }, },
-				new String[] { "NOMBRE", "APELLIDO", "ANEXO 1" }));
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+//		table.setModel(new DefaultTableModel(
+//				new Object[][] { { "Benjamin", "Buford", "Completado" }, { "Dan", "Taylor", "Completado" },
+//						{ "Jules", "Winnfield", "Completado" }, { "Vito", "Corleone", "Completado" },
+//						{ "Marty", "McFly", "Completado" }, { "Vincent", "Vega", "Completado" },
+//						{ "Mia", "Wallace", "Completado" }, { "Nicky", "Koskoff", "Completado" },
+//						{ "Donnie", "Azoff", "Completado" }, { "Kirk", "Lazarus", "Completado" },
+//						{ "Less", "Grossman", "Incompleto" }, { "Alpa", "Chino", "Incompleto" },
+//						{ "Tugg", "Speedman", "Incompleto" }, { "Carole", "Baskin", "Incompleto" },
+//						{ "Joe", "Exotic", "Incompleto" }, { "Doc", "Antle", "Incompleto" }, },
+//				new String[] { "NOMBRE", "APELLIDO", "ANEXO 1" }));
 		TableView.setViewportView(table);
+		
+		addWindowListener(new WindowAdapter() {
+			public void windowActivated(WindowEvent e) {
+				table.setModel(miModelo.getTabla());
+			}
+		});
 
-//		Modify Table Button ========================
+		//Modify Table Button ========================
 		ModifyLbl = new JLabel("Modificar");
 		ModifyLbl.setBounds(29, 591, 62, 23);
 		ModifyLbl.setFont(new Font("Century Gothic", Font.PLAIN, 12));
