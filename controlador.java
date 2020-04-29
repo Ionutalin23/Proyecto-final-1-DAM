@@ -1,5 +1,3 @@
-
-
 public class controlador {
 	private modelo miModelo;
 	private Ventana_Login vista_ventana_login;
