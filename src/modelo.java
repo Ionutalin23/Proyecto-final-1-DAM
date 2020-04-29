@@ -3,8 +3,12 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 public class modelo {
 
@@ -29,6 +33,7 @@ public class modelo {
 	private String resultado;
 	private String USR;
 	private String rol;
+	private String SQLanexo2_1 = "SELECT nombre, apellidos, anexo_2_1 FROM PI.alumno, PI.practica WHERE num_exp=alumno_num_exp";
 
 	public modelo() {
 
@@ -92,11 +97,11 @@ public class modelo {
 			PreparedStatement stm = conexion.prepareStatement(SQL);
 			stm.setString(1, usuario);
 			stm.setString(2, password);
-			ResultSet rst=stm.executeQuery();
-			if(rst.next()) {
+			ResultSet rst = stm.executeQuery();
+			if (rst.next()) {
 				USR = rst.getString(1);
-				resultado= "Correcto";
-				fallos=0;
+				resultado = "Correcto";
+				fallos = 0;
 				vista_ventana_login.actualizar();
 			} else {
 				fallos++;
@@ -124,15 +129,15 @@ public class modelo {
 			stm.setString(1, usuario);
 			stm.setString(2, password);
 			ResultSet rst = stm.executeQuery();
-			
+
 			if (rst.next()) {
 				if (rst.getString("ROL").equals("Tutor")) {
 					this.rol = "Tutor";
-				} else if (rst.getString("ROL").equals("Director")){
+				} else if (rst.getString("ROL").equals("Director")) {
 					this.rol = "Director";
 				}
 			}
-			
+
 			rst.close();
 			stm.close();
 
@@ -151,6 +156,7 @@ public class modelo {
 	public String getUSR() {
 		return this.USR;
 	}
+
 	public String getResultado() {
 		return this.resultado;
 	}
@@ -161,5 +167,63 @@ public class modelo {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	private int getColumnas() {
+		int num = 0;
+		try {
+			PreparedStatement pst = conexion.prepareStatement(SQLanexo2_1);
+			ResultSet rs = pst.executeQuery();
+			ResultSetMetaData rsmd = rs.getMetaData();
+			num = rsmd.getColumnCount();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return num;
+	}
+	
+	private int getFilas() {
+		int numFilas = 0;
+		try {
+			PreparedStatement pst = conexion.prepareStatement(SQLanexo2_1);
+			ResultSet rs = pst.executeQuery();
+			while (rs.next()) {
+				numFilas++;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return numFilas;
+	}
+
+	public TableModel getTabla() {
+		int numColumnas=getColumnas();
+		int numFilas=getFilas();
+		
+		String[] cabecera= new String[numColumnas];
+		
+		Object[][] contenido=new Object[numFilas][numColumnas];
+		
+		try {
+			PreparedStatement pst= conexion.prepareStatement(SQLanexo2_1);
+			ResultSet rs=pst.executeQuery();
+			ResultSetMetaData rsmd= rs.getMetaData();
+			for (int i = 0; i < numColumnas; i++) {
+				cabecera[i]= rsmd.getColumnName(i+1);
+			}
+			int fila=0;
+			while (rs.next()) {
+				for (int column = 1; column <= numColumnas; column++) {
+					contenido[fila][column -1] =rs.getString(column);
+				}
+			fila++;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		 
+		return new DefaultTableModel(contenido,cabecera);
+		
+		
 	}
 }
