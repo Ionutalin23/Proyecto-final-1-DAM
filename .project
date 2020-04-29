@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
+<<<<<<< HEAD
 	<name>Tarea3_PI_TABLAS</name>
+=======
+<<<<<<< HEAD
+	<name>Tarea3_TABLAS_PI</name>
+=======
+	<name>Tarea2_PI_LOGIN</name>
+>>>>>>> refs/remotes/choose_remote_name/master
+>>>>>>> branch 'master' of https://github.com/DAM-UEM-1920/uf6-1-tarea-3-tablas-pi-runtimeterror.git
 	<comment></comment>
 	<projects>
 	</projects>
