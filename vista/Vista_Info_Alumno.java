@@ -1,39 +1,42 @@
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+package vista;
+
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
-import java.awt.Color;
 import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
-import javax.swing.ImageIcon;
-import javax.swing.JPanel;
-import javax.swing.JList;
 
-public class Vista_Info_Tutor extends JFrame {
+import controlador.controlador;
+import modelo.modelo;
+
+public class Vista_Info_Alumno extends JFrame {
 	private controlador miControlador;
 	private modelo miModelo;
 	private JTextField txtDni;
 	private JTextField txtName;
 	private JTextField txtApellidos;
-	private JTextField txtCodCentro;
+	private JTextField txtNacim;
 	private JPanel pnlCrear;
 	private JLabel lblLogout;
 	private JLabel lblBack;
+	private JTextField txtNacionalidad;
 	private JLabel lblUser;
 	
-	public Vista_Info_Tutor() {
+	public Vista_Info_Alumno() {
 		setTitle("");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 888, 664);
 		getContentPane().setLayout(null);
-		
 		ImageIcon ico =new ImageIcon(getClass().getResource("/images/logo.png"));
+		ImageIcon ico2 =new ImageIcon(getClass().getResource("/images/uni2.jpg"));
 		
 		Image button1= new ImageIcon(getClass().getResource("/images/boton1.png")).getImage().getScaledInstance(110, 48, Image.SCALE_SMOOTH);
 		Image button2= new ImageIcon(getClass().getResource("/images/boton2.png")).getImage().getScaledInstance(110, 48, Image.SCALE_SMOOTH);
@@ -77,10 +80,10 @@ public class Vista_Info_Tutor extends JFrame {
 		pnlContenido.setBackground(new Color(226,106,106,240));
 		pnlContenido.setLayout(null);
 		
-		JLabel lblTitle = new JLabel("Informaci\u00F3n del tutor:");
+		JLabel lblTitle = new JLabel("Informaci\u00F3n del alumno:");
 		lblTitle.setForeground(new Color(255, 255, 255));
 		lblTitle.setFont(new Font("Century Gothic", Font.BOLD, 24));
-		lblTitle.setBounds(35, 82, 267, 29);
+		lblTitle.setBounds(35, 82, 296, 29);
 		pnlContenido.add(lblTitle);
 		
 		JLabel lblDni = new JLabel("DNI:");
@@ -116,16 +119,86 @@ public class Vista_Info_Tutor extends JFrame {
 		txtApellidos.setBounds(35, 304, 267, 22);
 		pnlContenido.add(txtApellidos);
 		
-		JLabel lblCodCentro = new JLabel("C\u00D3DIGO DE CENTRO:");
-		lblCodCentro.setForeground(Color.BLACK);
-		lblCodCentro.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblCodCentro.setBounds(35, 339, 157, 16);
-		pnlContenido.add(lblCodCentro);
+		JLabel lblNacim = new JLabel("FECHA DE NACIMIENTO:");
+		lblNacim.setForeground(Color.BLACK);
+		lblNacim.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblNacim.setBounds(35, 339, 177, 16);
+		pnlContenido.add(lblNacim);
 		
-		txtCodCentro = new JTextField();
-		txtCodCentro.setColumns(10);
-		txtCodCentro.setBounds(35, 368, 267, 22);
-		pnlContenido.add(txtCodCentro);
+		txtNacim = new JTextField();
+		txtNacim.setColumns(10);
+		txtNacim.setBounds(35, 368, 267, 22);
+		pnlContenido.add(txtNacim);
+		
+		lblLogout = new JLabel("LOGOUT");
+		lblLogout.setHorizontalAlignment(SwingConstants.CENTER);
+		lblLogout.setForeground(Color.WHITE);
+		lblLogout.setBackground(new Color(205, 92, 92));
+		lblLogout.setBounds(301, 13, 92, 27);
+		pnlContenido.add(lblLogout);
+		
+		JLabel lblLogoutButton = new JLabel("");
+		lblLogoutButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				lblLogoutButton.setIcon(new ImageIcon(button3));
+			}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				lblLogoutButton.setIcon(new ImageIcon(button2));
+			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				lblLogoutButton.setIcon(new ImageIcon(button2));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				lblLogoutButton.setIcon(new ImageIcon(button1));
+			}
+			public void mouseClicked(MouseEvent e) {
+				miControlador.logout6();
+			}
+		});
+		lblLogoutButton.setBounds(301, 13, 92, 27);
+		pnlContenido.add(lblLogoutButton);
+		lblLogoutButton.setIcon(new ImageIcon(button1));
+		
+		lblBack = new JLabel("");
+		lblBack.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				lblBack.setIcon(new ImageIcon(back3));
+			}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				lblBack.setIcon(new ImageIcon(back2));
+			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				lblBack.setIcon(new ImageIcon(back2));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				lblBack.setIcon(new ImageIcon(back1));
+			}
+			public void mouseClicked(MouseEvent e) {
+				miControlador.back5();
+			}
+		});
+		lblBack.setIcon(new ImageIcon(Vista_Info_Alumno.class.getResource("/images/back1.png")));
+		lblBack.setBounds(35, 13, 24, 24);
+		pnlContenido.add(lblBack);
+		
+		JLabel lblNacionalidad = new JLabel("NACIONALIDAD:");
+		lblNacionalidad.setForeground(Color.BLACK);
+		lblNacionalidad.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblNacionalidad.setBounds(35, 404, 131, 16);
+		pnlContenido.add(lblNacionalidad);
+		
+		txtNacionalidad = new JTextField();
+		txtNacionalidad.setColumns(10);
+		txtNacionalidad.setBounds(35, 433, 267, 22);
+		pnlContenido.add(txtNacionalidad);
 		
 		JLabel lblCrear = new JLabel("CREAR");
 		lblCrear.setHorizontalAlignment(SwingConstants.CENTER);
@@ -157,70 +230,13 @@ public class Vista_Info_Tutor extends JFrame {
 		pnlContenido.add(lblCrearButton);
 		lblCrearButton.setIcon(new ImageIcon(button1));
 		
-		lblLogout = new JLabel("LOGOUT");
-		lblLogout.setHorizontalAlignment(SwingConstants.CENTER);
-		lblLogout.setForeground(Color.WHITE);
-		lblLogout.setBackground(new Color(205, 92, 92));
-		lblLogout.setBounds(301, 13, 92, 27);
-		pnlContenido.add(lblLogout);
-		
-		JLabel lblLogoutButton = new JLabel("");
-		lblLogoutButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				lblLogoutButton.setIcon(new ImageIcon(button3));
-			}
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				lblLogoutButton.setIcon(new ImageIcon(button2));
-			}
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				lblLogoutButton.setIcon(new ImageIcon(button2));
-			}
-			@Override
-			public void mouseExited(MouseEvent e) {
-				lblLogoutButton.setIcon(new ImageIcon(button1));
-			}
-			public void mouseClicked(MouseEvent e) {
-				miControlador.logout9();
-			}
-		});
-		lblLogoutButton.setBounds(301, 13, 92, 27);
-		pnlContenido.add(lblLogoutButton);
-		lblLogoutButton.setIcon(new ImageIcon(button1));
-		
-		lblBack = new JLabel("");
-		lblBack.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				lblBack.setIcon(new ImageIcon(back3));
-			}
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				lblBack.setIcon(new ImageIcon(back2));
-			}
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				lblBack.setIcon(new ImageIcon(back2));
-			}
-			@Override
-			public void mouseExited(MouseEvent e) {
-				lblBack.setIcon(new ImageIcon(back1));
-			}
-			public void mouseClicked(MouseEvent e) {
-				miControlador.back8();
-			}
-		});
-		lblBack.setIcon(new ImageIcon(Vista_Info_Alumno.class.getResource("/images/back1.png")));
-		lblBack.setBounds(35, 13, 24, 24);
-		pnlContenido.add(lblBack);
-		
-		JLabel lblFondo = new JLabel("");
-		lblFondo.setIcon(new ImageIcon(Vista_Info_Tutor.class.getResource("/images/uni.jpg")));
-		lblFondo.setHorizontalAlignment(SwingConstants.LEFT);
-		lblFondo.setBounds(0, 0, 870, 617);
-		panel.add(lblFondo);
+		JLabel lblPortada = new JLabel("");
+		lblPortada.setHorizontalAlignment(SwingConstants.LEFT);
+		lblPortada.setBounds(0, 0, 870, 617);
+		panel.add(lblPortada);
+		ImageIcon img2=new ImageIcon(ico2.getImage().getScaledInstance(lblPortada.getWidth(), lblPortada.getHeight(), Image.SCALE_SMOOTH));
+		lblPortada.setIcon(new ImageIcon(Vista_Info_Alumno.class.getResource("/images/resi.jpg")));
+		lblPortada.setBackground(new Color(0, 0, 0));
 		
 	
 	}
@@ -234,8 +250,6 @@ public class Vista_Info_Tutor extends JFrame {
 	}
 
 	public void actualizarLogged() {
-		
 		lblUser.setText("Logged as: "+miModelo.getUSR());
-		
 	}
 }

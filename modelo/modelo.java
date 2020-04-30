@@ -1,3 +1,5 @@
+package modelo;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -8,6 +10,18 @@ import java.sql.Statement;
 
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+
+import vista.Busqueda_Alumnos;
+import vista.Busqueda_Anexos;
+import vista.Busqueda_Empresas;
+import vista.Busqueda_Grupos;
+import vista.Busqueda_Tutores;
+import vista.MenuVista;
+import vista.Ventana_Login;
+import vista.Vista_Info_Alumno;
+import vista.Vista_Info_Empresa;
+import vista.Vista_Info_Grupo;
+import vista.Vista_Info_Tutor;
 
 public class modelo {
 
@@ -25,7 +39,7 @@ public class modelo {
 
 	private String bd = "PI";
 	private String login = "SYSTEM";
-	private String pwd = "Gormiti2001";
+	private String pwd = "password";
 	private String url = "jdbc:oracle:thin:@localhost:1521:XE";
 	private Connection conexion;
 	private int fallos;
@@ -33,7 +47,6 @@ public class modelo {
 	private String USR;
 	private String rol;
 	private String SQLanexo2_1 = "SELECT nombre, apellidos, anexo_2_1 FROM PI.alumno, PI.practica WHERE num_exp=alumno_num_exp";
-	private String SQLTutores = "SELECT nombre, apellidos, nombre_ciclo FROM PI.Tutor TU, PI.Grupo GR, PI.Gestiona GE WHERE TU.dni_tutor = GE.tutor_dni_tutor AND GE.grupo_cod_grupo = GR.cod_grupo";
 
 	public modelo() {
 
@@ -181,7 +194,7 @@ public class modelo {
 		}
 		return num;
 	}
-
+	
 	private int getFilas() {
 		int numFilas = 0;
 		try {
@@ -197,32 +210,33 @@ public class modelo {
 	}
 
 	public TableModel getTabla() {
-		int numColumnas = getColumnas();
-		int numFilas = getFilas();
-
-		String[] cabecera = new String[numColumnas];
-
-		Object[][] contenido = new Object[numFilas][numColumnas];
-
+		int numColumnas=getColumnas();
+		int numFilas=getFilas();
+		
+		String[] cabecera= new String[numColumnas];
+		
+		Object[][] contenido=new Object[numFilas][numColumnas];
+		
 		try {
-			PreparedStatement pst = conexion.prepareStatement(SQLanexo2_1);
-			ResultSet rs = pst.executeQuery();
-			ResultSetMetaData rsmd = rs.getMetaData();
+			PreparedStatement pst= conexion.prepareStatement(SQLanexo2_1);
+			ResultSet rs=pst.executeQuery();
+			ResultSetMetaData rsmd= rs.getMetaData();
 			for (int i = 0; i < numColumnas; i++) {
-				cabecera[i] = rsmd.getColumnName(i + 1);
+				cabecera[i]= rsmd.getColumnName(i+1);
 			}
-			int fila = 0;
+			int fila=0;
 			while (rs.next()) {
 				for (int column = 1; column <= numColumnas; column++) {
-					contenido[fila][column - 1] = rs.getString(column);
+					contenido[fila][column -1] =rs.getString(column);
 				}
-				fila++;
+			fila++;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
-		return new DefaultTableModel(contenido, cabecera);
-
+		 
+		return new DefaultTableModel(contenido,cabecera);
+		
+		
 	}
 }

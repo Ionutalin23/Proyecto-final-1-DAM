@@ -1,4 +1,19 @@
+package controlador;
+
 import java.awt.EventQueue;
+
+import modelo.modelo;
+import vista.Busqueda_Alumnos;
+import vista.Busqueda_Anexos;
+import vista.Busqueda_Empresas;
+import vista.Busqueda_Grupos;
+import vista.Busqueda_Tutores;
+import vista.MenuVista;
+import vista.Ventana_Login;
+import vista.Vista_Info_Alumno;
+import vista.Vista_Info_Empresa;
+import vista.Vista_Info_Grupo;
+import vista.Vista_Info_Tutor;
 
 public class Main {
 	public static void main(String[] args) {

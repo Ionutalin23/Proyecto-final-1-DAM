@@ -1,3 +1,5 @@
+package vista;
+
 import java.awt.Color;
 
 import java.awt.EventQueue;
@@ -7,6 +9,10 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import controlador.controlador;
+import modelo.modelo;
+
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -21,7 +27,7 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Image;
 
-public class Busqueda_Grupos extends JFrame {
+public class Busqueda_Empresas extends JFrame {
 
 //	GUI Content ========================
 	private JPanel contentPane;
@@ -70,7 +76,7 @@ public class Busqueda_Grupos extends JFrame {
 	}
 
 //	Frame ========================
-	public Busqueda_Grupos() {
+	public Busqueda_Empresas() {
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 400, 888, 664);
@@ -93,20 +99,18 @@ public class Busqueda_Grupos extends JFrame {
 		contentPane.add(TableView);
 
 		table = new JTable();
-		table.setModel(
-				new DefaultTableModel(
-						new Object[][] { { "1", "Benjamin", "Buford" }, { "1", "Dan", "Taylor" },
-								{ "1", "Jules", "Winnfield" }, { "2", "Vito", "Corleone" }, { "2", "Marty", "McFly" },
-								{ "2", "Vincent", "Vega" }, { "3", "Mia", "Wallace" }, { "3", "Nicky", "Koskoff" },
-								{ "3", "Donnie", "Azoff" }, { "4", "Kirk", "Lazarus" }, { "4", "Less", "Grossman" },
-								{ "4", "Alpa", "Chino" }, { "5", "Tugg", "Speedman" }, { "5", "Carole", "Baskin" },
-								{ "5", "Joe", "Exotic" }, { "5", "Doc", "Antle" }, },
-						new String[] { "GRUPO", "NOMBRE", "APELLIDO" }));
+		table.setModel(new DefaultTableModel(new Object[][] { { "Facebook", "Benjamin", "Buford" },
+				{ "Facebook", "Dan", "Taylor" }, { "Facebook", "Jules", "Winnfield" },
+				{ "Facebook", "Vito", "Corleone" }, { "Facebook", "Marty", "McFly" }, { "Google", "Vincent", "Vega" },
+				{ "Google", "Mia", "Wallace" }, { "Google", "Nicky", "Koskoff" }, { "Google", "Donnie", "Azoff" },
+				{ "Google", "Kirk", "Lazarus" }, { "Google", "Less", "Grossman" }, { "Snapchat", "Alpa", "Chino" },
+				{ "Snapchat", "Tugg", "Speedman" }, { "Snapchat", "Carole", "Baskin" }, { "Snapchat", "Joe", "Exotic" },
+				{ "Snapchat", "Doc", "Antle" }, }, new String[] { "EMPRESA", "NOMBRE", "APELLIDO" }));
 		TableView.setViewportView(table);
 		
 //		Create New Button ========================
-		CreateNewLbl = new JLabel("Nuevo Grupo");
-		CreateNewLbl.setBounds(763, 591, 91, 23);
+		CreateNewLbl = new JLabel("Nueva Empresa");
+		CreateNewLbl.setBounds(754, 591, 91, 23);
 		CreateNewLbl.setFont(new Font("Century Gothic", Font.PLAIN, 12));
 		CreateNewLbl.setForeground(Color.BLACK);
 		contentPane.add(CreateNewLbl);
@@ -233,7 +237,7 @@ public class Busqueda_Grupos extends JFrame {
 		JComboBox FilterComboBox = new JComboBox();
 		FilterComboBox.setForeground(Color.WHITE);
 		FilterComboBox.setBackground(Color.GRAY);
-		FilterComboBox.setModel(new DefaultComboBoxModel(new String[] { "Nombre", "Apellido", "Grupo" }));
+		FilterComboBox.setModel(new DefaultComboBoxModel(new String[] { "Empresa", "Nombre", "Apellido" }));
 		FilterComboBox.setBounds(367, 103, 71, 22);
 		contentPane.add(FilterComboBox);
 		
@@ -263,7 +267,7 @@ public class Busqueda_Grupos extends JFrame {
 				BackBtn.setIcon(new ImageIcon(img_buttonBack1));
 			}
 			public void mouseClicked(MouseEvent e) {
-				miControlador.back3();
+				miControlador.back2();
 			}
 		});
 		BackBtn.setBounds(10, 11, 57, 23);
@@ -302,7 +306,7 @@ public class Busqueda_Grupos extends JFrame {
 				lblLogoutButton.setIcon(new ImageIcon(button1));
 			}
 			public void mouseClicked(MouseEvent e) {
-				miControlador.logout4();
+				miControlador.logout3();
 			}
 			
 		});
@@ -317,10 +321,10 @@ public class Busqueda_Grupos extends JFrame {
 		pnlUser.setLayout(null);
 
 //		Window Title ========================
-		JLabel WindowTitle = new JLabel("Grupos");
+		JLabel WindowTitle = new JLabel("Empresas");
 		WindowTitle.setForeground(Color.WHITE);
 		WindowTitle.setFont(new Font("Tahoma", Font.BOLD, 18));
-		WindowTitle.setBounds(389, 12, 82, 22);
+		WindowTitle.setBounds(389, 12, 96, 22);
 		contentPane.add(WindowTitle);
 
 //		Background Image ========================
