@@ -39,7 +39,7 @@ public class modelo {
 
 	private String bd = "PI";
 	private String login = "SYSTEM";
-	private String pwd = "Gormiti2001";
+	private String pwd = "sysadmin";
 	private String url = "jdbc:oracle:thin:@localhost:1521:XE";
 	private Connection conexion;
 	private int fallos;
@@ -50,6 +50,7 @@ public class modelo {
 	private String SQLanexo1 = "SELECT cod_centro, localidad, director, anexo_1 FROM PI.centro, PI.colabora WHERE cod_centro=centro_cod_centro";
 	private String SQLTut = "SELECT nombre, apellidos, nombre_ciclo FROM PI.Tutor TU, PI.Grupo GR, PI.Gestiona GE WHERE TU.dni_tutor = GE.tutor_dni_tutor AND GE.grupo_cod_grupo = GR.cod_grupo";
 	private String SQLTut_2 = "SELECT nombre, apellidos,clave_ciclo, nombre_ciclo FROM PI.Tutor TU, PI.Grupo GR, PI.Gestiona GE WHERE TU.dni_tutor = GE.tutor_dni_tutor AND GE.grupo_cod_grupo = GR.cod_grupo AND nombre_ciclo ='DAM'";
+	private String SQLEmp = "SELECT * FROM empresa";
 
 	public modelo() {
 
@@ -373,4 +374,9 @@ public class modelo {
 		return new DefaultTableModel(contenido, cabecera);
 
 	}
+
+	public String getSQLEmp() {
+		return SQLEmp;
+	}
+
 }
