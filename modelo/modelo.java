@@ -39,7 +39,7 @@ public class modelo {
 
 	private String bd = "PI";
 	private String login = "SYSTEM";
-	private String pwd = "Gormiti2001";
+	private String pwd = "password";
 	private String url = "jdbc:oracle:thin:@localhost:1521:XE";
 	private Connection conexion;
 	private int fallos;
