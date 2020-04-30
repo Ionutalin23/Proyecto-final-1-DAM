@@ -54,7 +54,7 @@ public class modelo {
 			+ "AND PR.empresa_cif=E.cif AND PR.alumno_num_exp=A.num_exp";
 	private String SQLTut = "SELECT nombre, apellidos, nombre_ciclo FROM PI.Tutor TU, PI.Grupo GR, PI.Gestiona GE WHERE TU.dni_tutor = GE.tutor_dni_tutor AND GE.grupo_cod_grupo = GR.cod_grupo";
 	private String SQLTut_2 = "SELECT nombre, apellidos,clave_ciclo, nombre_ciclo FROM PI.Tutor TU, PI.Grupo GR, PI.Gestiona GE WHERE TU.dni_tutor = GE.tutor_dni_tutor AND GE.grupo_cod_grupo = GR.cod_grupo AND nombre_ciclo ='DAM'";
-	private String SQAlumnos = "SELECT * FROM alumnos";
+	private String SQAlumnos = "SELECT * FROM PI.alumno";
 
 	public modelo() {
 

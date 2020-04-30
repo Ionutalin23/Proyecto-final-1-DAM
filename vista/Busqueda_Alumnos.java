@@ -107,7 +107,7 @@ public class Busqueda_Alumnos extends JFrame {
 		
 		addWindowListener(new WindowAdapter() {
 			public void windowActivated(WindowEvent e) {
-				String SQL=miModelo.getSQLanexo1();
+				String SQL=miModelo.getSQLalumnos();
 				table.setModel(miModelo.getTabla(SQL));
 			}
 		});
