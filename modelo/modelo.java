@@ -48,12 +48,13 @@ public class modelo {
 	private String rol;
 	private String SQLanexo2_1 = "SELECT nombre, apellidos, anexo_2_1 FROM PI.alumno, PI.practica WHERE num_exp=alumno_num_exp";
 	private String SQLanexo1 = "SELECT cod_centro, localidad, director, anexo_1 FROM PI.centro, PI.colabora WHERE cod_centro=centro_cod_centro";
-	private String SQLanexo2_2="SELECT A.nombre, A.apellidos, E.nombre \"EMPRESA\", PR.horario, G.Anexo_2_2 FROM PI.alumno A, PI.pertenece P, PI.grupo GR, PI.gestiona G, PI.Tutor T, PI.centro C, "
+	private String SQLanexo2_2 = "SELECT A.nombre, A.apellidos, E.nombre \"EMPRESA\", PR.horario, G.Anexo_2_2 FROM PI.alumno A, PI.pertenece P, PI.grupo GR, PI.gestiona G, PI.Tutor T, PI.centro C, "
 			+ "PI.colabora CO, PI.Empresa E, PI.practica PR WHERE A.num_exp=P.alumno_num_exp AND T.dni_tutor=G.tutor_dni_tutor AND C.cod_centro=T.centro_cod_centro AND CO.empresa_cif=E.cif "
-			+ "AND P.grupo_cod_grupo=GR.cod_grupo AND G.grupo_cod_grupo=GR.cod_grupo AND CO.centro_cod_centro=C.cod_centro\n" + 
-			"AND PR.empresa_cif=E.cif AND PR.alumno_num_exp=A.num_exp";
+			+ "AND P.grupo_cod_grupo=GR.cod_grupo AND G.grupo_cod_grupo=GR.cod_grupo AND CO.centro_cod_centro=C.cod_centro\n"
+			+ "AND PR.empresa_cif=E.cif AND PR.alumno_num_exp=A.num_exp";
 	private String SQLTut = "SELECT nombre, apellidos, nombre_ciclo FROM PI.Tutor TU, PI.Grupo GR, PI.Gestiona GE WHERE TU.dni_tutor = GE.tutor_dni_tutor AND GE.grupo_cod_grupo = GR.cod_grupo";
 	private String SQLTut_2 = "SELECT nombre, apellidos,clave_ciclo, nombre_ciclo FROM PI.Tutor TU, PI.Grupo GR, PI.Gestiona GE WHERE TU.dni_tutor = GE.tutor_dni_tutor AND GE.grupo_cod_grupo = GR.cod_grupo AND nombre_ciclo ='DAM'";
+	private String SQAlumnos = "SELECT * FROM alumnos";
 
 	public modelo() {
 
@@ -204,10 +205,14 @@ public class modelo {
 	public String getSQTUT_2() {
 		return SQLTut_2;
 	}
+
 	public String getSQLanexo2_2() {
 		return SQLanexo2_2;
 	}
 
+	public String getSQLalumnos() {
+		return SQAlumnos;
+	}
 
 //	private int getColumnasAnexo2_1() {
 //		int num = 0;
