@@ -194,7 +194,7 @@ INSERT INTO alumno(dni, nombre, apellidos, num_exp, nacionalidad, fecha_nacim) V
 INSERT INTO centro(cod_centro, localidad, director, DAT) VALUES(4, 'villaviciosa', 'Ana','Juan');
 INSERT INTO centro(cod_centro, localidad, director, DAT) VALUES(5, 'Alcobendas', 'Maria','Rosana');
 INSERT INTO centro(cod_centro, localidad, director, DAT) VALUES(6, 'Valencia', 'Marta','Elena');
-INSERT INTO centro(cod_centro, localidad, director, DAT) VALUES(7, 'Santa Cruz de Tenerife', 'Pedro','Jose Antonio');
+INSERT INTO centro(cod_centro, localidad, director, DAT) VALUES(7, 'Santa Cruz', 'Pedro','Jose Antonio');
 INSERT INTO centro(cod_centro, localidad, director, DAT) VALUES(8, 'Malaga', 'Gloria','Calos');
 
 INSERT INTO USERS(USR, PWD, ROL) VALUES('Pedro Camacho', 'MiUniEsLaMejor', 'Tutor');
@@ -205,16 +205,16 @@ INSERT INTO USERS(USR, PWD, ROL) VALUES('Felipe Delgado', 'Practicas', 'Tutor');
 INSERT INTO USERS(USR, PWD, ROL) VALUES('Ana Manzaneda', 'SuperDirectora', 'Director');
 INSERT INTO USERS(USR, PWD, ROL) VALUES('Gloria Martin', 'NosVemosEnJunioo', 'Director');
 
-INSERT INTO empresa(cif, nombre, direccion, telefono, localidad, resp_empresa, email) VALUES('I19000000', 'Sonimar Informatica S.A.', 'C/General Zabala Nº6', 654737382, 'Madrid','Arturo Velazquez','SonimarArturo@gmail.com');
-INSERT INTO empresa(cif, nombre, direccion, telefono, localidad, resp_empresa, email) VALUES('I18000000', 'DreamSoft Coneccting S.A.', 'AVD/Alcalde Jose Aranda Nº53', 657856746, 'Madrid','Lucia Goya','DreamLucia@gmail.com');
-INSERT INTO empresa(cif, nombre, direccion, telefono, localidad, resp_empresa, email) VALUES('I17000000', 'Diseñopaginaweb S.A.', 'C/Villalovos Nº20', 637463546, 'Mostoles','Oscar Murillo','DiseñosOscar@gmail.com');
-INSERT INTO empresa(cif, nombre, direccion, telefono, localidad, resp_empresa, email) VALUES('I16000000', 'Akerman S.A.', 'C/Santa Engracia Nº96', 609898767, 'Valencia','Miguel Greco','AkermanMiguel@gmail.com');
-INSERT INTO empresa(cif, nombre, direccion, telefono, localidad, resp_empresa, email) VALUES('I15000000', 'SoftAMD S.A.', 'C/Martin Martinez Nº24', 600699611, 'Santa Cruz de Tenerife','Adrian Picasso','SoftAdrian@gmail.com');
-INSERT INTO empresa(cif, nombre, direccion, telefono, localidad, resp_empresa, email) VALUES('M14000000', 'Adeslas Salud S.A.', 'C/Villalobos Nº112', 600699611, 'Madrid','Ave Maria','hola@gmail.com');
-INSERT INTO empresa(cif, nombre, direccion, telefono, localidad, resp_empresa, email) VALUES('M13000000', 'Quiron Salud S.A.', 'C/Coruña Nº206', 600699611, 'Madrid','Yolanda Dali','QuironYolanda@gmail.com');
-INSERT INTO empresa(cif, nombre, direccion, telefono, localidad, resp_empresa, email) VALUES('M12000000', 'Policlinica de Poniente S.A.', 'C/Velazquez Nº56', 600699611, 'VillaPobreza','Javier Zurbaran','PoliclinicaJavier@gmail.com');
-INSERT INTO empresa(cif, nombre, direccion, telefono, localidad, resp_empresa, email) VALUES('M11000000', 'Colegio Farmaceuticos S.A.', 'c/Soroya Nº33', 600699611, 'Valencia','Eduardo Miro','ColegioEduardo@gmail.com');
-INSERT INTO empresa(cif, nombre, direccion, telefono, localidad, resp_empresa, email) VALUES('M10000000', 'Asebio S.A.', 'c/Cesar Manrique Nº15', 600699611, 'Santa Cruz de Tenerife','Ricardo Tapies','AsebioRicardo@gmail.com');
+INSERT INTO empresa(cif, nombre, direccion, telefono, localidad, resp_empresa, email) VALUES('I19000000', 'Sonimar S.A.', 'C/Zabala Nº6', 654737382, 'Madrid','Arturo Velazquez','SArturo@gmail.com');
+INSERT INTO empresa(cif, nombre, direccion, telefono, localidad, resp_empresa, email) VALUES('I18000000', 'Coneccting S.A.', 'AVD/ Aranda Nº53', 657856746, 'Madrid','Lucia Goya','DLucia@gmail.com');
+INSERT INTO empresa(cif, nombre, direccion, telefono, localidad, resp_empresa, email) VALUES('I17000000', 'Diseñoweb S.A.', 'C/Villalovos Nº20', 637463546, 'Mostoles','Oscar Murillo','DOscar@gmail.com');
+INSERT INTO empresa(cif, nombre, direccion, telefono, localidad, resp_empresa, email) VALUES('I16000000', 'Akerman S.A.', 'C/San Andres Nº96', 609898767, 'Valencia','Miguel Greco','AkermanMiguel@gmail.com');
+INSERT INTO empresa(cif, nombre, direccion, telefono, localidad, resp_empresa, email) VALUES('I15000000', 'SoftAMD S.A.', 'C/Marin Nº24', 600699611, 'Santa Cruz','Adrian Picasso','SAdrian@gmail.com');
+INSERT INTO empresa(cif, nombre, direccion, telefono, localidad, resp_empresa, email) VALUES('M14000000', 'Adeslas S.A.', 'C/Villalobos Nº112', 600699611, 'Madrid','Ave Maria','hola@gmail.com');
+INSERT INTO empresa(cif, nombre, direccion, telefono, localidad, resp_empresa, email) VALUES('M13000000', 'Quiron S.A.', 'C/Coruña Nº206', 600699611, 'Madrid','Yolanda Dali','QYolanda@gmail.com');
+INSERT INTO empresa(cif, nombre, direccion, telefono, localidad, resp_empresa, email) VALUES('M12000000', 'Pol Poniente S.A.', 'C/Velazquez Nº56', 600699611, 'VillaPobreza','Javier Zurbaran','PJavier@gmail.com');
+INSERT INTO empresa(cif, nombre, direccion, telefono, localidad, resp_empresa, email) VALUES('M11000000', 'Clg. Farma S.A.', 'c/Soroya Nº33', 600699611, 'Valencia','Eduardo Miro','CEduardo@gmail.com');
+INSERT INTO empresa(cif, nombre, direccion, telefono, localidad, resp_empresa, email) VALUES('M10000000', 'Asebio S.A.', 'c/Manrique Nº15', 600699611, 'Santa Cruz de Tenerife','Ricardo Tapies','ARicardo@gmail.com');
 
 
 INSERT INTO grupo(cod_grupo, nom_grupo, clave_ciclo, nombre_ciclo) VALUES(0001, 'DAAAM-2020', 0050, 'DAMM');
@@ -253,17 +253,17 @@ INSERT INTO gestiona(tutor_dni_tutor, grupo_cod_grupo, anexo_2_2, acad) VALUES('
 INSERT INTO gestiona(tutor_dni_tutor, grupo_cod_grupo, anexo_2_2, acad) VALUES('18000001D',0004, '2/7/15', '2019-2020');
 INSERT INTO gestiona(tutor_dni_tutor, grupo_cod_grupo, anexo_2_2, acad) VALUES('19000001E',0005, '2/7/15', '2019-2020');
 
-INSERT INTO practica(empresa_cif, alumno_num_exp, anexo_2_1, anexo_3,anexo_7, anexo_8, fecha_ini, fecha_fin, horario,tutor,acad) VALUES('I19000000', 1111112, '2/7/15', '2/7/15', '2/7/15', '2/7/15', '2/7/15', '3/7/15', 'de 9 a 5', 'Pedro ','2019-2020');
+INSERT INTO practica(empresa_cif, alumno_num_exp, anexo_2_1, anexo_3,anexo_7, anexo_8, fecha_ini, fecha_fin, horario,tutore,acad) VALUES('I19000000', 1111112, '2/7/15', '2/7/15', '2/7/15', '2/7/15', '2/7/15', '3/7/15', 'de 9 a 5', 'Pedro ','2019-2020');
 INSERT INTO practica(empresa_cif, alumno_num_exp, anexo_2_1, anexo_3,anexo_7, anexo_8, fecha_ini, fecha_fin, horario,tutore,acad) VALUES('I18000000', 1111113, '2/7/15', '2/7/15', '2/7/15', '2/7/15', '2/7/15', '3/7/15', 'de 9 a 5', 'Raul','2019-2020');
 INSERT INTO practica(empresa_cif, alumno_num_exp, anexo_2_1, anexo_3,anexo_7, anexo_8, fecha_ini, fecha_fin, horario,tutore,acad) VALUES('I17000000', 1111114, '2/7/15', '2/7/15', '2/7/15', '2/7/15', '2/7/15', '3/7/15', 'de 9 a 5', 'Ernesto','2019-2020');
 INSERT INTO practica(empresa_cif, alumno_num_exp, anexo_2_1, anexo_3,anexo_7, anexo_8, fecha_ini, fecha_fin, horario,tutore,acad) VALUES('I16000000', 1111115, '2/7/15', '2/7/15', '2/7/15', '2/7/15', '2/7/15', '3/7/15', 'de 9 a 5', 'Antonio','2019-2020');
 INSERT INTO practica(empresa_cif, alumno_num_exp, anexo_2_1, anexo_3,anexo_7, anexo_8, fecha_ini, fecha_fin, horario,tutore,acad) VALUES('I15000000', 1111116, '2/7/15', '2/7/15', '2/7/15', '2/7/15', '2/7/15', '3/7/15', 'de 9 a 5', 'Felipe','2019-2020');
-INSERT INTO practica(empresa_cif, alumno_num_exp, anexo_2_1, anexo_3,anexo_7, anexo_8, fecha_ini, fecha_fin, horario,tutor,acad) VALUES('I19000000', 1111117, '2/7/15', '2/7/15', '2/7/15', '2/7/15', '2/7/15', '3/7/15', 'de 9 a 5', 'Pedro ','2019-2020');
+INSERT INTO practica(empresa_cif, alumno_num_exp, anexo_2_1, anexo_3,anexo_7, anexo_8, fecha_ini, fecha_fin, horario,tutore,acad) VALUES('I19000000', 1111117, '2/7/15', '2/7/15', '2/7/15', '2/7/15', '2/7/15', '3/7/15', 'de 9 a 5', 'Pedro ','2019-2020');
 INSERT INTO practica(empresa_cif, alumno_num_exp, anexo_2_1, anexo_3,anexo_7, anexo_8, fecha_ini, fecha_fin, horario,tutore,acad) VALUES('I18000000', 1111118, '2/7/15', '2/7/15', '2/7/15', '2/7/15', '2/7/15', '3/7/15', 'de 9 a 5', 'Raul','2019-2020');
 INSERT INTO practica(empresa_cif, alumno_num_exp, anexo_2_1, anexo_3,anexo_7, anexo_8, fecha_ini, fecha_fin, horario,tutore,acad) VALUES('I17000000', 1111119, '2/7/15', '2/7/15', '2/7/15', '2/7/15', '2/7/15', '3/7/15', 'de 9 a 5', 'Ernesto','2019-2020');
 INSERT INTO practica(empresa_cif, alumno_num_exp, anexo_2_1, anexo_3,anexo_7, anexo_8, fecha_ini, fecha_fin, horario,tutore,acad) VALUES('I16000000', 1111120, '2/7/15', '2/7/15', '2/7/15', '2/7/15', '2/7/15', '3/7/15', 'de 9 a 5', 'Antonio','2019-2020');
 INSERT INTO practica(empresa_cif, alumno_num_exp, anexo_2_1, anexo_3,anexo_7, anexo_8, fecha_ini, fecha_fin, horario,tutore,acad) VALUES('I15000000', 1111121, '2/7/15', '2/7/15', '2/7/15', '2/7/15', '2/7/15', '3/7/15', 'de 9 a 5', 'Felipe','2019-2020');
-INSERT INTO practica(empresa_cif, alumno_num_exp, anexo_2_1, anexo_3,anexo_7, anexo_8, fecha_ini, fecha_fin, horario,tutor,acad) VALUES('I19000000', 1111122, '2/7/15', '2/7/15', '2/7/15', '2/7/15', '2/7/15', '3/7/15', 'de 9 a 5', 'Pedro ','2019-2020');
+INSERT INTO practica(empresa_cif, alumno_num_exp, anexo_2_1, anexo_3,anexo_7, anexo_8, fecha_ini, fecha_fin, horario,tutore,acad) VALUES('I19000000', 1111122, '2/7/15', '2/7/15', '2/7/15', '2/7/15', '2/7/15', '3/7/15', 'de 9 a 5', 'Pedro ','2019-2020');
 INSERT INTO practica(empresa_cif, alumno_num_exp, anexo_2_1, anexo_3,anexo_7, anexo_8, fecha_ini, fecha_fin, horario,tutore,acad) VALUES('I18000000', 1111123, '2/7/15', '2/7/15', '2/7/15', '2/7/15', '2/7/15', '3/7/15', 'de 9 a 5', 'Raul','2019-2020');
 INSERT INTO practica(empresa_cif, alumno_num_exp, anexo_2_1, anexo_3,anexo_7, anexo_8, fecha_ini, fecha_fin, horario,tutore,acad) VALUES('I17000000', 1111124, '2/7/15', '2/7/15', '2/7/15', '2/7/15', '2/7/15', '3/7/15', 'de 9 a 5', 'Ernesto','2019-2020');
 INSERT INTO practica(empresa_cif, alumno_num_exp, anexo_2_1, anexo_3,anexo_7, anexo_8, fecha_ini, fecha_fin, horario,tutore,acad) VALUES('I16000000', 1111125, '2/7/15', '2/7/15', '2/7/15', '2/7/15', '2/7/15', '3/7/15', 'de 9 a 5', 'Antonio','2019-2020');
