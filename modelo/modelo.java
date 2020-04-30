@@ -37,9 +37,9 @@ public class modelo {
 	private Vista_Info_Alumno vista_info_alumno;
 	private Vista_Info_Grupo vista_info_grupo;
 
-	private String bd = "TEMA7";
+	private String bd = "PI";
 	private String login = "SYSTEM";
-	private String pwd = "Al065227";
+	private String pwd = "password";
 	private String url = "jdbc:oracle:thin:@localhost:1521:XE";
 	private Connection conexion;
 	private int fallos;
@@ -52,9 +52,12 @@ public class modelo {
 			+ "PI.colabora CO, PI.Empresa E, PI.practica PR WHERE A.num_exp=P.alumno_num_exp AND T.dni_tutor=G.tutor_dni_tutor AND C.cod_centro=T.centro_cod_centro AND CO.empresa_cif=E.cif "
 			+ "AND P.grupo_cod_grupo=GR.cod_grupo AND G.grupo_cod_grupo=GR.cod_grupo AND CO.centro_cod_centro=C.cod_centro\n"
 			+ "AND PR.empresa_cif=E.cif AND PR.alumno_num_exp=A.num_exp";
+	private String SQLanexo3="SELECT A.nombre, A.apellidos, A.dni, PR.anexo_3 FROM PI.alumno A, PI.practica PR WHERE num_exp=alumno_num_exp";
+	private String SQLanexo7="SELECT A.nombre, A.apellidos, PR.anexo_7 FROM PI.alumno A, PI.practica PR WHERE A.num_exp=PR.alumno_num_exp";
+	private String SQLanexo8="SELECT A.nombre, A.apellidos,CONCAT(C.localidad,CONCAT(',',C.cod_centro)) \"CENTRO\", E.Nombre \"EMPRESA\", PR.anexo_8 FROM PI.alumno A, PI.practica PR, PI.empresa E, PI.centro C, PI.colabora CO WHERE num_exp=alumno_num_exp AND PR.empresa_cif=E.cif\n" + 
+			"AND CO.empresa_cif=E.cif AND C.cod_centro=CO.centro_cod_centro";
 	private String SQLTut = "SELECT nombre, apellidos, nombre_ciclo FROM PI.Tutor TU, PI.Grupo GR, PI.Gestiona GE WHERE TU.dni_tutor = GE.tutor_dni_tutor AND GE.grupo_cod_grupo = GR.cod_grupo";
 	private String SQLTut_2 = "SELECT nombre, apellidos,clave_ciclo, nombre_ciclo FROM PI.Tutor TU, PI.Grupo GR, PI.Gestiona GE WHERE TU.dni_tutor = GE.tutor_dni_tutor AND GE.grupo_cod_grupo = GR.cod_grupo AND nombre_ciclo ='DAM'";
-
 	private String SQAlumno = "SELECT * FROM PI.alumno";
 
 	public modelo() {
@@ -209,6 +212,20 @@ public class modelo {
 
 	public String getSQLanexo2_2() {
 		return SQLanexo2_2;
+	}
+	
+
+	public String getSQLanexo3() {
+		return SQLanexo3;
+	}
+	
+	
+	public String getSQLanexo7() {
+		return SQLanexo7;
+	}
+
+	public String getSQLanexo8() {
+		return SQLanexo8;
 	}
 
 	public String getSQLalumnos() {
