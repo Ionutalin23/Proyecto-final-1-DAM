@@ -59,6 +59,8 @@ public class modelo {
 	private String SQLTut = "SELECT nombre, apellidos, nombre_ciclo FROM PI.Tutor TU, PI.Grupo GR, PI.Gestiona GE WHERE TU.dni_tutor = GE.tutor_dni_tutor AND GE.grupo_cod_grupo = GR.cod_grupo";
 	private String SQLTut_2 = "SELECT nombre, apellidos,clave_ciclo, nombre_ciclo FROM PI.Tutor TU, PI.Grupo GR, PI.Gestiona GE WHERE TU.dni_tutor = GE.tutor_dni_tutor AND GE.grupo_cod_grupo = GR.cod_grupo AND nombre_ciclo ='DAM'";
 	private String SQAlumno = "SELECT * FROM PI.alumno";
+	private String SQLEmp = "SELECT * FROM PI.empresa";
+
 
 	public modelo() {
 
@@ -404,4 +406,9 @@ public class modelo {
 		return new DefaultTableModel(contenido, cabecera);
 
 	}
+
+	public String getSQLEmp() {
+		return SQLEmp;
+	}
+
 }
