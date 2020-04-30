@@ -50,7 +50,7 @@ public class modelo {
 	private String SQLanexo1 = "SELECT cod_centro, localidad, director, anexo_1 FROM PI.centro, PI.colabora WHERE cod_centro=centro_cod_centro";
 	private String SQLTut = "SELECT nombre, apellidos, nombre_ciclo FROM PI.Tutor TU, PI.Grupo GR, PI.Gestiona GE WHERE TU.dni_tutor = GE.tutor_dni_tutor AND GE.grupo_cod_grupo = GR.cod_grupo";
 	private String SQLTut_2 = "SELECT nombre, apellidos,clave_ciclo, nombre_ciclo FROM PI.Tutor TU, PI.Grupo GR, PI.Gestiona GE WHERE TU.dni_tutor = GE.tutor_dni_tutor AND GE.grupo_cod_grupo = GR.cod_grupo AND nombre_ciclo ='DAM'";
-	private String SQLAlumnos = "SELECT * FROM alumnos";
+	private String SQAlumnos = "SELECT * FROM alumnos";
 	
 	public modelo() {
 
@@ -203,7 +203,7 @@ public class modelo {
 	}
 	
 	public String getSQLalumnos() {
-		return SQLAlumnos;
+		return SQAlumnos;
 	}
 
 //	private int getColumnasAnexo2_1() {

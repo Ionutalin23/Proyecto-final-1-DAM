@@ -96,7 +96,7 @@ public class Busqueda_Alumnos extends JFrame {
 		lblUser.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblUser.setHorizontalAlignment(SwingConstants.CENTER);
 
-//		Table View ========================
+//		Table View =======================
 		JScrollPane TableView = new JScrollPane();
 		TableView.setBounds(10, 137, 852, 443);
 		contentPane.add(TableView);
