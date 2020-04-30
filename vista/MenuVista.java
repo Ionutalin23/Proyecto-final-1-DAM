@@ -420,4 +420,9 @@ public class MenuVista extends JFrame {
 		lblEstadist.setVisible(false);
 		lblStatsBtn.setVisible(false);
 	}
+	public void cambiarDirector() {
+		lblEnConstruccion.setVisible(true);
+		lblEstadist.setVisible(true);
+		lblStatsBtn.setVisible(true);
+	}
 }

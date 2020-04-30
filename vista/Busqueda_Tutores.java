@@ -107,7 +107,8 @@ public class Busqueda_Tutores extends JFrame {
 		TableView.setViewportView(table);
 		addWindowListener(new WindowAdapter() {
 			public void windowActivated(WindowEvent e) {
-				table.setModel(miModelo.getTabla());
+				String SQL=miModelo.getSQTUT_1();
+				table.setModel(miModelo.getTabla(SQL));
 			}
 		});
 		
@@ -238,9 +239,21 @@ public class Busqueda_Tutores extends JFrame {
 		
 //		Search Filter Combo Box ========================
 		JComboBox FilterComboBox = new JComboBox();
+		FilterComboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int selected=FilterComboBox.getSelectedIndex();
+				if (selected==0) {
+					String SQL=miModelo.getSQTUT_1();
+					table.setModel(miModelo.getTabla(SQL));
+				}else if(selected==1) {
+					String SQL=miModelo.getSQTUT_2();
+					table.setModel(miModelo.getTabla(SQL));
+				}
+			}
+		});
 		FilterComboBox.setForeground(Color.WHITE);
 		FilterComboBox.setBackground(Color.GRAY);
-		FilterComboBox.setModel(new DefaultComboBoxModel(new String[] { "Nombre", "Apellido", "Grupo" }));
+		FilterComboBox.setModel(new DefaultComboBoxModel(new String[] { "Nombre", "Grupo" }));
 		FilterComboBox.setBounds(367, 103, 71, 22);
 		contentPane.add(FilterComboBox);
 		

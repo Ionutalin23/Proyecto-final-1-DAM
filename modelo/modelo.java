@@ -48,6 +48,8 @@ public class modelo {
 	private String rol;
 	private String SQLanexo2_1 = "SELECT nombre, apellidos, anexo_2_1 FROM PI.alumno, PI.practica WHERE num_exp=alumno_num_exp";
 	private String SQLanexo1 = "SELECT cod_centro, localidad, director, anexo_1 FROM PI.centro, PI.colabora WHERE cod_centro=centro_cod_centro";
+	private String SQLTut = "SELECT nombre, apellidos, nombre_ciclo FROM PI.Tutor TU, PI.Grupo GR, PI.Gestiona GE WHERE TU.dni_tutor = GE.tutor_dni_tutor AND GE.grupo_cod_grupo = GR.cod_grupo";
+	private String SQLTut_2 = "SELECT nombre, apellidos,clave_ciclo, nombre_ciclo FROM PI.Tutor TU, PI.Grupo GR, PI.Gestiona GE WHERE TU.dni_tutor = GE.tutor_dni_tutor AND GE.grupo_cod_grupo = GR.cod_grupo AND nombre_ciclo ='DAM'";
 
 	public modelo() {
 
@@ -182,7 +184,6 @@ public class modelo {
 			e.printStackTrace();
 		}
 	}
-	
 
 	public String getSQLanexo2_1() {
 		return SQLanexo2_1;
@@ -192,6 +193,13 @@ public class modelo {
 		return SQLanexo1;
 	}
 
+	public String getSQTUT_1() {
+		return SQLTut;
+	}
+
+	public String getSQTUT_2() {
+		return SQLTut_2;
+	}
 
 //	private int getColumnasAnexo2_1() {
 //		int num = 0;
@@ -307,7 +315,7 @@ public class modelo {
 //		
 //	
 //	}
-	
+
 	private int getColumnas(String SQL) {
 		int num = 0;
 		try {
@@ -320,7 +328,7 @@ public class modelo {
 		}
 		return num;
 	}
-	
+
 	private int getFilas(String SQL) {
 		int numFilas = 0;
 		try {
@@ -336,34 +344,33 @@ public class modelo {
 	}
 
 	public TableModel getTabla(String SQL) {
-		
-		int numColumnas=getColumnas(SQL);
-		int numFilas=getFilas(SQL);
-		
-		String[] cabecera= new String[numColumnas];
-		
-		Object[][] contenido=new Object[numFilas][numColumnas];
-		
+
+		int numColumnas = getColumnas(SQL);
+		int numFilas = getFilas(SQL);
+
+		String[] cabecera = new String[numColumnas];
+
+		Object[][] contenido = new Object[numFilas][numColumnas];
+
 		try {
-			PreparedStatement pst= conexion.prepareStatement(SQL);
-			ResultSet rs=pst.executeQuery();
-			ResultSetMetaData rsmd= rs.getMetaData();
+			PreparedStatement pst = conexion.prepareStatement(SQL);
+			ResultSet rs = pst.executeQuery();
+			ResultSetMetaData rsmd = rs.getMetaData();
 			for (int i = 0; i < numColumnas; i++) {
-				cabecera[i]= rsmd.getColumnName(i+1);
+				cabecera[i] = rsmd.getColumnName(i + 1);
 			}
-			int fila=0;
+			int fila = 0;
 			while (rs.next()) {
 				for (int column = 1; column <= numColumnas; column++) {
-					contenido[fila][column -1] =rs.getString(column);
+					contenido[fila][column - 1] = rs.getString(column);
 				}
-			fila++;
+				fila++;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		 
-		return new DefaultTableModel(contenido,cabecera);
-		
-	
+
+		return new DefaultTableModel(contenido, cabecera);
+
 	}
 }

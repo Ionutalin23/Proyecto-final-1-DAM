@@ -90,6 +90,7 @@ public class controlador {
 	}
 
 	public void accesoTut() {
+		
 		vista_ventana_login.frame.setVisible(false);
 		vista_ventana_menu.cambiarTutor();
 		vista_ventana_menu.setVisible(true);
@@ -108,8 +109,10 @@ public class controlador {
 	}
 
 	public void accesoDir() {
+		
 		vista_ventana_login.frame.setVisible(false);
 		vista_ventana_menu.setVisible(true);
+		vista_ventana_menu.cambiarDirector();
 		
 		vista_ventana_menu.actualizarLogged();
 		vista_info_alumno.actualizarLogged();
