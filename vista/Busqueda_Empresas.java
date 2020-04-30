@@ -1,3 +1,5 @@
+package vista;
+
 import java.awt.Color;
 
 import java.awt.EventQueue;
@@ -7,16 +9,17 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import controlador.controlador;
+import modelo.modelo;
+
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
@@ -24,7 +27,7 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Image;
 
-public class Busqueda_Anexos extends JFrame {
+public class Busqueda_Empresas extends JFrame {
 
 //	GUI Content ========================
 	private JPanel contentPane;
@@ -73,7 +76,7 @@ public class Busqueda_Anexos extends JFrame {
 	}
 
 //	Frame ========================
-	public Busqueda_Anexos() {
+	public Busqueda_Empresas() {
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 400, 888, 664);
@@ -96,26 +99,41 @@ public class Busqueda_Anexos extends JFrame {
 		contentPane.add(TableView);
 
 		table = new JTable();
-		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-//		table.setModel(new DefaultTableModel(
-//				new Object[][] { { "Benjamin", "Buford", "Completado" }, { "Dan", "Taylor", "Completado" },
-//						{ "Jules", "Winnfield", "Completado" }, { "Vito", "Corleone", "Completado" },
-//						{ "Marty", "McFly", "Completado" }, { "Vincent", "Vega", "Completado" },
-//						{ "Mia", "Wallace", "Completado" }, { "Nicky", "Koskoff", "Completado" },
-//						{ "Donnie", "Azoff", "Completado" }, { "Kirk", "Lazarus", "Completado" },
-//						{ "Less", "Grossman", "Incompleto" }, { "Alpa", "Chino", "Incompleto" },
-//						{ "Tugg", "Speedman", "Incompleto" }, { "Carole", "Baskin", "Incompleto" },
-//						{ "Joe", "Exotic", "Incompleto" }, { "Doc", "Antle", "Incompleto" }, },
-//				new String[] { "NOMBRE", "APELLIDO", "ANEXO 1" }));
+		table.setModel(new DefaultTableModel(new Object[][] { { "Facebook", "Benjamin", "Buford" },
+				{ "Facebook", "Dan", "Taylor" }, { "Facebook", "Jules", "Winnfield" },
+				{ "Facebook", "Vito", "Corleone" }, { "Facebook", "Marty", "McFly" }, { "Google", "Vincent", "Vega" },
+				{ "Google", "Mia", "Wallace" }, { "Google", "Nicky", "Koskoff" }, { "Google", "Donnie", "Azoff" },
+				{ "Google", "Kirk", "Lazarus" }, { "Google", "Less", "Grossman" }, { "Snapchat", "Alpa", "Chino" },
+				{ "Snapchat", "Tugg", "Speedman" }, { "Snapchat", "Carole", "Baskin" }, { "Snapchat", "Joe", "Exotic" },
+				{ "Snapchat", "Doc", "Antle" }, }, new String[] { "EMPRESA", "NOMBRE", "APELLIDO" }));
 		TableView.setViewportView(table);
 		
-		addWindowListener(new WindowAdapter() {
-			public void windowActivated(WindowEvent e) {
-				table.setModel(miModelo.getTabla());
+//		Create New Button ========================
+		CreateNewLbl = new JLabel("Nueva Empresa");
+		CreateNewLbl.setBounds(754, 591, 91, 23);
+		CreateNewLbl.setFont(new Font("Century Gothic", Font.PLAIN, 12));
+		CreateNewLbl.setForeground(Color.BLACK);
+		contentPane.add(CreateNewLbl);
+		
+		CreateNewBtn = new JLabel("");
+		CreateNewBtn.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				CreateNewBtn.setIcon(new ImageIcon(img_default2ButtonHover));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				CreateNewBtn.setIcon(new ImageIcon(img_default2Button));
+			}
+			public void mouseClicked(MouseEvent e) {
+				miControlador.nuevoTutor();
 			}
 		});
+		CreateNewBtn.setBounds(740, 591, 122, 23);
+		contentPane.add(CreateNewBtn);
+		CreateNewBtn.setIcon(new ImageIcon(img_default2Button));
 
-		//Modify Table Button ========================
+//		Modify Table Button ========================
 		ModifyLbl = new JLabel("Modificar");
 		ModifyLbl.setBounds(29, 591, 62, 23);
 		ModifyLbl.setFont(new Font("Century Gothic", Font.PLAIN, 12));
@@ -219,7 +237,7 @@ public class Busqueda_Anexos extends JFrame {
 		JComboBox FilterComboBox = new JComboBox();
 		FilterComboBox.setForeground(Color.WHITE);
 		FilterComboBox.setBackground(Color.GRAY);
-		FilterComboBox.setModel(new DefaultComboBoxModel(new String[] { "Anexo 1", "Nombre", "Apellido" }));
+		FilterComboBox.setModel(new DefaultComboBoxModel(new String[] { "Empresa", "Nombre", "Apellido" }));
 		FilterComboBox.setBounds(367, 103, 71, 22);
 		contentPane.add(FilterComboBox);
 		
@@ -249,7 +267,7 @@ public class Busqueda_Anexos extends JFrame {
 				BackBtn.setIcon(new ImageIcon(img_buttonBack1));
 			}
 			public void mouseClicked(MouseEvent e) {
-				miControlador.back();
+				miControlador.back2();
 			}
 		});
 		BackBtn.setBounds(10, 11, 57, 23);
@@ -288,7 +306,7 @@ public class Busqueda_Anexos extends JFrame {
 				lblLogoutButton.setIcon(new ImageIcon(button1));
 			}
 			public void mouseClicked(MouseEvent e) {
-				miControlador.logout1();
+				miControlador.logout3();
 			}
 			
 		});
@@ -303,10 +321,10 @@ public class Busqueda_Anexos extends JFrame {
 		pnlUser.setLayout(null);
 
 //		Window Title ========================
-		JLabel WindowTitle = new JLabel("Anexos");
+		JLabel WindowTitle = new JLabel("Empresas");
 		WindowTitle.setForeground(Color.WHITE);
 		WindowTitle.setFont(new Font("Tahoma", Font.BOLD, 18));
-		WindowTitle.setBounds(389, 12, 82, 14);
+		WindowTitle.setBounds(389, 12, 96, 22);
 		contentPane.add(WindowTitle);
 
 //		Background Image ========================

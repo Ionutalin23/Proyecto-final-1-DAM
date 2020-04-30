@@ -1,3 +1,5 @@
+package vista;
+
 import java.awt.Color;
 
 import java.awt.EventQueue;
@@ -7,13 +9,20 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import controlador.controlador;
+import modelo.modelo;
+
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
@@ -21,7 +30,7 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Image;
 
-public class Busqueda_Tutores extends JFrame {
+public class Busqueda_Alumnos extends JFrame {
 
 //	GUI Content ========================
 	private JPanel contentPane;
@@ -70,7 +79,7 @@ public class Busqueda_Tutores extends JFrame {
 	}
 
 //	Frame ========================
-	public Busqueda_Tutores() {
+	public Busqueda_Alumnos() {
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 400, 888, 664);
@@ -87,26 +96,24 @@ public class Busqueda_Tutores extends JFrame {
 		lblUser.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblUser.setHorizontalAlignment(SwingConstants.CENTER);
 
-//		Table View ========================
+//		Table View =======================
 		JScrollPane TableView = new JScrollPane();
 		TableView.setBounds(10, 137, 852, 443);
 		contentPane.add(TableView);
 
 		table = new JTable();
-		table.setModel(new DefaultTableModel(
-				new Object[][] { { "Benjamin", "Buford", "Alcobendas" }, { "Dan", "Taylor", "Alcobendas" },
-						{ "Jules", "Winnfield", "Alcobendas" }, { "Vito", "Corleone", "Alcobendas" },
-						{ "Marty", "McFly", "Alcobendas" }, { "Vincent", "Vega", "Alcobendas" },
-						{ "Mia", "Wallace", "Alcobendas" }, { "Nicky", "Koskoff", "Alcobendas" },
-						{ "Donnie", "Azoff", "Villaviciosa" }, { "Kirk", "Lazarus", "Villaviciosa" },
-						{ "Less", "Grossman", "Villaviciosa" }, { "Alpa", "Chino", "Villaviciosa" },
-						{ "Tugg", "Speedman", "Villaviciosa" }, { "Carole", "Baskin", "Villaviciosa" },
-						{ "Joe", "Exotic", "Villaviciosa" }, { "Doc", "Antle", "Villaviciosa" }, },
-				new String[] { "NOMBRE", "APELLIDO", "GRUPO" }));
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		TableView.setViewportView(table);
 		
+		addWindowListener(new WindowAdapter() {
+			public void windowActivated(WindowEvent e) {
+				String SQL=miModelo.getSQLanexo1();
+				table.setModel(miModelo.getTabla(SQL));
+			}
+		});
+		
 //		Create New Button ========================
-		CreateNewLbl = new JLabel("Nuevo Tutor");
+		CreateNewLbl = new JLabel("Nuevo Alumno");
 		CreateNewLbl.setBounds(763, 591, 91, 23);
 		CreateNewLbl.setFont(new Font("Century Gothic", Font.PLAIN, 12));
 		CreateNewLbl.setForeground(Color.BLACK);
@@ -234,7 +241,7 @@ public class Busqueda_Tutores extends JFrame {
 		JComboBox FilterComboBox = new JComboBox();
 		FilterComboBox.setForeground(Color.WHITE);
 		FilterComboBox.setBackground(Color.GRAY);
-		FilterComboBox.setModel(new DefaultComboBoxModel(new String[] { "Nombre", "Apellido", "Grupo" }));
+		FilterComboBox.setModel(new DefaultComboBoxModel(new String[] { "Nombre", "Apellido", "Centro" }));
 		FilterComboBox.setBounds(367, 103, 71, 22);
 		contentPane.add(FilterComboBox);
 		
@@ -264,7 +271,7 @@ public class Busqueda_Tutores extends JFrame {
 				BackBtn.setIcon(new ImageIcon(img_buttonBack1));
 			}
 			public void mouseClicked(MouseEvent e) {
-				miControlador.back4();
+				miControlador.back1();
 			}
 		});
 		BackBtn.setBounds(10, 11, 57, 23);
@@ -303,7 +310,7 @@ public class Busqueda_Tutores extends JFrame {
 				lblLogoutButton.setIcon(new ImageIcon(button1));
 			}
 			public void mouseClicked(MouseEvent e) {
-				miControlador.logout5();
+				miControlador.logout2();
 			}
 			
 		});
@@ -318,7 +325,7 @@ public class Busqueda_Tutores extends JFrame {
 		pnlUser.setLayout(null);
 
 //		Window Title ========================
-		JLabel WindowTitle = new JLabel("Tutores");
+		JLabel WindowTitle = new JLabel("Alumnos");
 		WindowTitle.setForeground(Color.WHITE);
 		WindowTitle.setFont(new Font("Tahoma", Font.BOLD, 18));
 		WindowTitle.setBounds(389, 12, 82, 14);

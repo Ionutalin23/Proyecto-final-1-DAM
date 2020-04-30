@@ -1,3 +1,5 @@
+package vista;
+
 import java.awt.Color;
 
 import java.awt.EventQueue;
@@ -7,13 +9,20 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import controlador.controlador;
+import modelo.modelo;
+
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
@@ -21,7 +30,7 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Image;
 
-public class Busqueda_Grupos extends JFrame {
+public class Busqueda_Anexos extends JFrame {
 
 //	GUI Content ========================
 	private JPanel contentPane;
@@ -60,6 +69,7 @@ public class Busqueda_Grupos extends JFrame {
 // 	MVC ========================
 	private controlador miControlador;
 	private modelo miModelo;
+	private JComboBox FilterComboBox;
 
 	public void setControlador(controlador miControlador) {
 		this.miControlador = miControlador;
@@ -70,7 +80,7 @@ public class Busqueda_Grupos extends JFrame {
 	}
 
 //	Frame ========================
-	public Busqueda_Grupos() {
+	public Busqueda_Anexos() {
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 400, 888, 664);
@@ -93,43 +103,27 @@ public class Busqueda_Grupos extends JFrame {
 		contentPane.add(TableView);
 
 		table = new JTable();
-		table.setModel(
-				new DefaultTableModel(
-						new Object[][] { { "1", "Benjamin", "Buford" }, { "1", "Dan", "Taylor" },
-								{ "1", "Jules", "Winnfield" }, { "2", "Vito", "Corleone" }, { "2", "Marty", "McFly" },
-								{ "2", "Vincent", "Vega" }, { "3", "Mia", "Wallace" }, { "3", "Nicky", "Koskoff" },
-								{ "3", "Donnie", "Azoff" }, { "4", "Kirk", "Lazarus" }, { "4", "Less", "Grossman" },
-								{ "4", "Alpa", "Chino" }, { "5", "Tugg", "Speedman" }, { "5", "Carole", "Baskin" },
-								{ "5", "Joe", "Exotic" }, { "5", "Doc", "Antle" }, },
-						new String[] { "GRUPO", "NOMBRE", "APELLIDO" }));
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+//		table.setModel(new DefaultTableModel(
+//				new Object[][] { { "Benjamin", "Buford", "Completado" }, { "Dan", "Taylor", "Completado" },
+//						{ "Jules", "Winnfield", "Completado" }, { "Vito", "Corleone", "Completado" },
+//						{ "Marty", "McFly", "Completado" }, { "Vincent", "Vega", "Completado" },
+//						{ "Mia", "Wallace", "Completado" }, { "Nicky", "Koskoff", "Completado" },
+//						{ "Donnie", "Azoff", "Completado" }, { "Kirk", "Lazarus", "Completado" },
+//						{ "Less", "Grossman", "Incompleto" }, { "Alpa", "Chino", "Incompleto" },
+//						{ "Tugg", "Speedman", "Incompleto" }, { "Carole", "Baskin", "Incompleto" },
+//						{ "Joe", "Exotic", "Incompleto" }, { "Doc", "Antle", "Incompleto" }, },
+//				new String[] { "NOMBRE", "APELLIDO", "ANEXO 1" }));
 		TableView.setViewportView(table);
 		
-//		Create New Button ========================
-		CreateNewLbl = new JLabel("Nuevo Grupo");
-		CreateNewLbl.setBounds(763, 591, 91, 23);
-		CreateNewLbl.setFont(new Font("Century Gothic", Font.PLAIN, 12));
-		CreateNewLbl.setForeground(Color.BLACK);
-		contentPane.add(CreateNewLbl);
-		
-		CreateNewBtn = new JLabel("");
-		CreateNewBtn.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				CreateNewBtn.setIcon(new ImageIcon(img_default2ButtonHover));
-			}
-			@Override
-			public void mouseExited(MouseEvent e) {
-				CreateNewBtn.setIcon(new ImageIcon(img_default2Button));
-			}
-			public void mouseClicked(MouseEvent e) {
-				miControlador.nuevoTutor();
+		addWindowListener(new WindowAdapter() {
+			public void windowActivated(WindowEvent e) {
+				String SQL=miModelo.getSQLanexo1();
+				table.setModel(miModelo.getTabla(SQL));
 			}
 		});
-		CreateNewBtn.setBounds(740, 591, 122, 23);
-		contentPane.add(CreateNewBtn);
-		CreateNewBtn.setIcon(new ImageIcon(img_default2Button));
 
-//		Modify Table Button ========================
+		//Modify Table Button ========================
 		ModifyLbl = new JLabel("Modificar");
 		ModifyLbl.setBounds(29, 591, 62, 23);
 		ModifyLbl.setFont(new Font("Century Gothic", Font.PLAIN, 12));
@@ -230,11 +224,23 @@ public class Busqueda_Grupos extends JFrame {
 		SearchBtn.setIcon(new ImageIcon(img_SearchLupa));
 		
 //		Search Filter Combo Box ========================
-		JComboBox FilterComboBox = new JComboBox();
+		FilterComboBox = new JComboBox();
+		FilterComboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int selected=FilterComboBox.getSelectedIndex();
+				if (selected==0) {
+					String SQL=miModelo.getSQLanexo1();
+					table.setModel(miModelo.getTabla(SQL));
+				}else if(selected==1) {
+					String SQL=miModelo.getSQLanexo2_1();
+					table.setModel(miModelo.getTabla(SQL));
+				}
+			}
+		});
 		FilterComboBox.setForeground(Color.WHITE);
 		FilterComboBox.setBackground(Color.GRAY);
-		FilterComboBox.setModel(new DefaultComboBoxModel(new String[] { "Nombre", "Apellido", "Grupo" }));
-		FilterComboBox.setBounds(367, 103, 71, 22);
+		FilterComboBox.setModel(new DefaultComboBoxModel(new String[] { "Anexo 1", "Anexo 2_1", "Anexo_2_2", "Anexo 3", "Anexo 7", "Anexo 8" }));
+		FilterComboBox.setBounds(367, 103, 104, 22);
 		contentPane.add(FilterComboBox);
 		
 //		Filter By Label ========================
@@ -263,7 +269,7 @@ public class Busqueda_Grupos extends JFrame {
 				BackBtn.setIcon(new ImageIcon(img_buttonBack1));
 			}
 			public void mouseClicked(MouseEvent e) {
-				miControlador.back3();
+				miControlador.back();
 			}
 		});
 		BackBtn.setBounds(10, 11, 57, 23);
@@ -302,7 +308,7 @@ public class Busqueda_Grupos extends JFrame {
 				lblLogoutButton.setIcon(new ImageIcon(button1));
 			}
 			public void mouseClicked(MouseEvent e) {
-				miControlador.logout4();
+				miControlador.logout1();
 			}
 			
 		});
@@ -317,10 +323,11 @@ public class Busqueda_Grupos extends JFrame {
 		pnlUser.setLayout(null);
 
 //		Window Title ========================
-		JLabel WindowTitle = new JLabel("Grupos");
+		JLabel WindowTitle = new JLabel("Anexos");
+		WindowTitle.setVerticalAlignment(SwingConstants.BOTTOM);
 		WindowTitle.setForeground(Color.WHITE);
 		WindowTitle.setFont(new Font("Tahoma", Font.BOLD, 18));
-		WindowTitle.setBounds(389, 12, 82, 22);
+		WindowTitle.setBounds(389, 12, 82, 23);
 		contentPane.add(WindowTitle);
 
 //		Background Image ========================

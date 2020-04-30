@@ -1,3 +1,5 @@
+package vista;
+
 import java.awt.Color;
 
 import java.awt.EventQueue;
@@ -7,6 +9,10 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import controlador.controlador;
+import modelo.modelo;
+
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -24,7 +30,7 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Image;
 
-public class Busqueda_Alumnos extends JFrame {
+public class Busqueda_Tutores extends JFrame {
 
 //	GUI Content ========================
 	private JPanel contentPane;
@@ -73,7 +79,7 @@ public class Busqueda_Alumnos extends JFrame {
 	}
 
 //	Frame ========================
-	public Busqueda_Alumnos() {
+	public Busqueda_Tutores() {
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 400, 888, 664);
@@ -96,26 +102,18 @@ public class Busqueda_Alumnos extends JFrame {
 		contentPane.add(TableView);
 
 		table = new JTable();
+
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-//		table.setModel(
-//				new DefaultTableModel(
-//						new Object[][] { { "Benjamin", "Buford", "1" }, { "Dan", "Taylor", "1" },
-//								{ "Jules", "Winnfield", "1" }, { "Vito", "Corleone", "2" }, { "Marty", "McFly", "2" },
-//								{ "Vincent", "Vega", "2" }, { "Mia", "Wallace", "3" }, { "Nicky", "Koskoff", "3" },
-//								{ "Donnie", "Azoff", "3" }, { "Kirk", "Lazarus", "4" }, { "Less", "Grossman", "4" },
-//								{ "Alpa", "Chino", "4" }, { "Tugg", "Speedman", "5" }, { "Carole", "Baskin", "5" },
-//								{ "Joe", "Exotic", "5" }, { "Doc", "Antle", "5" }, },
-//						new String[] { "NOMBRE", "APELLIDO", "CENTRO" }));
 		TableView.setViewportView(table);
-		
 		addWindowListener(new WindowAdapter() {
 			public void windowActivated(WindowEvent e) {
-				table.setModel(miModelo.getTablaAlumnos());
+				String SQL=miModelo.getSQTUT_1();
+				table.setModel(miModelo.getTabla(SQL));
 			}
 		});
 		
 //		Create New Button ========================
-		CreateNewLbl = new JLabel("Nuevo Alumno");
+		CreateNewLbl = new JLabel("Nuevo Tutor");
 		CreateNewLbl.setBounds(763, 591, 91, 23);
 		CreateNewLbl.setFont(new Font("Century Gothic", Font.PLAIN, 12));
 		CreateNewLbl.setForeground(Color.BLACK);
@@ -241,9 +239,21 @@ public class Busqueda_Alumnos extends JFrame {
 		
 //		Search Filter Combo Box ========================
 		JComboBox FilterComboBox = new JComboBox();
+		FilterComboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int selected=FilterComboBox.getSelectedIndex();
+				if (selected==0) {
+					String SQL=miModelo.getSQTUT_1();
+					table.setModel(miModelo.getTabla(SQL));
+				}else if(selected==1) {
+					String SQL=miModelo.getSQTUT_2();
+					table.setModel(miModelo.getTabla(SQL));
+				}
+			}
+		});
 		FilterComboBox.setForeground(Color.WHITE);
 		FilterComboBox.setBackground(Color.GRAY);
-		FilterComboBox.setModel(new DefaultComboBoxModel(new String[] { "Nombre", "Apellido", "Centro" }));
+		FilterComboBox.setModel(new DefaultComboBoxModel(new String[] { "Nombre", "Grupo" }));
 		FilterComboBox.setBounds(367, 103, 71, 22);
 		contentPane.add(FilterComboBox);
 		
@@ -273,7 +283,7 @@ public class Busqueda_Alumnos extends JFrame {
 				BackBtn.setIcon(new ImageIcon(img_buttonBack1));
 			}
 			public void mouseClicked(MouseEvent e) {
-				miControlador.back1();
+				miControlador.back4();
 			}
 		});
 		BackBtn.setBounds(10, 11, 57, 23);
@@ -312,7 +322,7 @@ public class Busqueda_Alumnos extends JFrame {
 				lblLogoutButton.setIcon(new ImageIcon(button1));
 			}
 			public void mouseClicked(MouseEvent e) {
-				miControlador.logout2();
+				miControlador.logout5();
 			}
 			
 		});
@@ -327,7 +337,7 @@ public class Busqueda_Alumnos extends JFrame {
 		pnlUser.setLayout(null);
 
 //		Window Title ========================
-		JLabel WindowTitle = new JLabel("Alumnos");
+		JLabel WindowTitle = new JLabel("Tutores");
 		WindowTitle.setForeground(Color.WHITE);
 		WindowTitle.setFont(new Font("Tahoma", Font.BOLD, 18));
 		WindowTitle.setBounds(389, 12, 82, 14);

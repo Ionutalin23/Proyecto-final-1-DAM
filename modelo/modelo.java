@@ -1,3 +1,5 @@
+package modelo;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -8,6 +10,18 @@ import java.sql.Statement;
 
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+
+import vista.Busqueda_Alumnos;
+import vista.Busqueda_Anexos;
+import vista.Busqueda_Empresas;
+import vista.Busqueda_Grupos;
+import vista.Busqueda_Tutores;
+import vista.MenuVista;
+import vista.Ventana_Login;
+import vista.Vista_Info_Alumno;
+import vista.Vista_Info_Empresa;
+import vista.Vista_Info_Grupo;
+import vista.Vista_Info_Tutor;
 
 public class modelo {
 
@@ -25,7 +39,7 @@ public class modelo {
 
 	private String bd = "PI";
 	private String login = "SYSTEM";
-	private String pwd = "password";
+	private String pwd = "Gormiti2001";
 	private String url = "jdbc:oracle:thin:@localhost:1521:XE";
 	private Connection conexion;
 	private int fallos;
@@ -33,8 +47,11 @@ public class modelo {
 	private String USR;
 	private String rol;
 	private String SQLanexo2_1 = "SELECT nombre, apellidos, anexo_2_1 FROM PI.alumno, PI.practica WHERE num_exp=alumno_num_exp";
-	private String SQLalumnos = "SELECT * FROM alumnos";
-
+	private String SQLanexo1 = "SELECT cod_centro, localidad, director, anexo_1 FROM PI.centro, PI.colabora WHERE cod_centro=centro_cod_centro";
+	private String SQLTut = "SELECT nombre, apellidos, nombre_ciclo FROM PI.Tutor TU, PI.Grupo GR, PI.Gestiona GE WHERE TU.dni_tutor = GE.tutor_dni_tutor AND GE.grupo_cod_grupo = GR.cod_grupo";
+	private String SQLTut_2 = "SELECT nombre, apellidos,clave_ciclo, nombre_ciclo FROM PI.Tutor TU, PI.Grupo GR, PI.Gestiona GE WHERE TU.dni_tutor = GE.tutor_dni_tutor AND GE.grupo_cod_grupo = GR.cod_grupo AND nombre_ciclo ='DAM'";
+	private String SQAlumnos = "SELECT * FROM alumnos";
+	
 	public modelo() {
 
 		try {
@@ -169,10 +186,145 @@ public class modelo {
 		}
 	}
 
-	private int getColumnas() {
+	public String getSQLanexo2_1() {
+		return SQLanexo2_1;
+	}
+
+	public String getSQLanexo1() {
+		return SQLanexo1;
+	}
+
+	public String getSQTUT_1() {
+		return SQLTut;
+	}
+
+	public String getSQTUT_2() {
+		return SQLTut_2;
+	}
+	
+	public String getSQLalumnos() {
+		return SQAlumnos;
+	}
+
+//	private int getColumnasAnexo2_1() {
+//		int num = 0;
+//		try {
+//			PreparedStatement pst = conexion.prepareStatement(SQLanexo2_1);
+//			ResultSet rs = pst.executeQuery();
+//			ResultSetMetaData rsmd = rs.getMetaData();
+//			num = rsmd.getColumnCount();
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//		return num;
+//	}
+//	
+//	private int getFilasAnexo2_1() {
+//		int numFilas = 0;
+//		try {
+//			PreparedStatement pst = conexion.prepareStatement(SQLanexo2_1);
+//			ResultSet rs = pst.executeQuery();
+//			while (rs.next()) {
+//				numFilas++;
+//			}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//		return numFilas;
+//	}
+//
+//	public TableModel getTablaAnexo2_1() {
+//		int numColumnas=getColumnasAnexo2_1();
+//		int numFilas=getFilasAnexo2_1();
+//		
+//		String[] cabecera= new String[numColumnas];
+//		
+//		Object[][] contenido=new Object[numFilas][numColumnas];
+//		
+//		try {
+//			PreparedStatement pst= conexion.prepareStatement(SQLanexo2_1);
+//			ResultSet rs=pst.executeQuery();
+//			ResultSetMetaData rsmd= rs.getMetaData();
+//			for (int i = 0; i < numColumnas; i++) {
+//				cabecera[i]= rsmd.getColumnName(i+1);
+//			}
+//			int fila=0;
+//			while (rs.next()) {
+//				for (int column = 1; column <= numColumnas; column++) {
+//					contenido[fila][column -1] =rs.getString(column);
+//				}
+//			fila++;
+//			}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//		 
+//		return new DefaultTableModel(contenido,cabecera);
+//		
+//		
+//	}
+//	private int getColumnasAnexo1() {
+//		int num = 0;
+//		try {
+//			PreparedStatement pst = conexion.prepareStatement(SQLanexo1);
+//			ResultSet rs = pst.executeQuery();
+//			ResultSetMetaData rsmd = rs.getMetaData();
+//			num = rsmd.getColumnCount();
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//		return num;
+//	}
+//	
+//	private int getFilasAnexo1() {
+//		int numFilas = 0;
+//		try {
+//			PreparedStatement pst = conexion.prepareStatement(SQLanexo1);
+//			ResultSet rs = pst.executeQuery();
+//			while (rs.next()) {
+//				numFilas++;
+//			}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//		return numFilas;
+//	}
+//
+//	public TableModel getTablaAnexo1() {
+//		int numColumnas=getColumnasAnexo1();
+//		int numFilas=getFilasAnexo1();
+//		
+//		String[] cabecera= new String[numColumnas];
+//		
+//		Object[][] contenido=new Object[numFilas][numColumnas];
+//		
+//		try {
+//			PreparedStatement pst= conexion.prepareStatement(SQLanexo1);
+//			ResultSet rs=pst.executeQuery();
+//			ResultSetMetaData rsmd= rs.getMetaData();
+//			for (int i = 0; i < numColumnas; i++) {
+//				cabecera[i]= rsmd.getColumnName(i+1);
+//			}
+//			int fila=0;
+//			while (rs.next()) {
+//				for (int column = 1; column <= numColumnas; column++) {
+//					contenido[fila][column -1] =rs.getString(column);
+//				}
+//			fila++;
+//			}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//		 
+//		return new DefaultTableModel(contenido,cabecera);
+//		
+//	
+//	}
+
+	private int getColumnas(String SQL) {
 		int num = 0;
 		try {
-			PreparedStatement pst = conexion.prepareStatement(SQLanexo2_1);
+			PreparedStatement pst = conexion.prepareStatement(SQL);
 			ResultSet rs = pst.executeQuery();
 			ResultSetMetaData rsmd = rs.getMetaData();
 			num = rsmd.getColumnCount();
@@ -182,10 +334,10 @@ public class modelo {
 		return num;
 	}
 
-	private int getFilas() {
+	private int getFilas(String SQL) {
 		int numFilas = 0;
 		try {
-			PreparedStatement pst = conexion.prepareStatement(SQLanexo2_1);
+			PreparedStatement pst = conexion.prepareStatement(SQL);
 			ResultSet rs = pst.executeQuery();
 			while (rs.next()) {
 				numFilas++;
@@ -196,16 +348,17 @@ public class modelo {
 		return numFilas;
 	}
 
-	public TableModel getTabla() {
-		int numColumnas = getColumnas();
-		int numFilas = getFilas();
+	public TableModel getTabla(String SQL) {
+
+		int numColumnas = getColumnas(SQL);
+		int numFilas = getFilas(SQL);
 
 		String[] cabecera = new String[numColumnas];
 
 		Object[][] contenido = new Object[numFilas][numColumnas];
 
 		try {
-			PreparedStatement pst = conexion.prepareStatement(SQLanexo2_1);
+			PreparedStatement pst = conexion.prepareStatement(SQL);
 			ResultSet rs = pst.executeQuery();
 			ResultSetMetaData rsmd = rs.getMetaData();
 			for (int i = 0; i < numColumnas; i++) {
@@ -225,62 +378,4 @@ public class modelo {
 		return new DefaultTableModel(contenido, cabecera);
 
 	}
-
-//	Getters for table Alumnos ============
-	private int getColumnasAlumnos() {
-		int num = 0;
-		try {
-			PreparedStatement pst = conexion.prepareStatement(SQLalumnos);
-			ResultSet rs = pst.executeQuery();
-			ResultSetMetaData rsmd = rs.getMetaData();
-			num = rsmd.getColumnCount();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return num;
-	}
-
-	private int getFilasAlumnos() {
-		int numFilas = 0;
-		try {
-			PreparedStatement pst = conexion.prepareStatement(SQLalumnos);
-			ResultSet rs = pst.executeQuery();
-			while (rs.next()) {
-				numFilas++;
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return numFilas;
-	}
-
-	public TableModel getTablaAlumnos() {
-		int numColumnas = getColumnasAlumnos();
-		int numFilas = getFilasAlumnos();
-
-		String[] cabecera = new String[numColumnas];
-
-		Object[][] contenido = new Object[numFilas][numColumnas];
-
-		try {
-			PreparedStatement pst = conexion.prepareStatement(SQLalumnos);
-			ResultSet rs = pst.executeQuery();
-			ResultSetMetaData rsmd = rs.getMetaData();
-			for (int i = 0; i < numColumnas; i++) {
-				cabecera[i] = rsmd.getColumnName(i + 1);
-			}
-			int fila = 0;
-			while (rs.next()) {
-				for (int column = 1; column <= numColumnas; column++) {
-					contenido[fila][column - 1] = rs.getString(column);
-				}
-				fila++;
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		return new DefaultTableModel(contenido, cabecera);
-	}
-//	End of getters for table Alumnos ============
 }

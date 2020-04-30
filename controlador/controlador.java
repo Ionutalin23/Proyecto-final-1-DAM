@@ -1,3 +1,18 @@
+package controlador;
+
+import modelo.modelo;
+import vista.Busqueda_Alumnos;
+import vista.Busqueda_Anexos;
+import vista.Busqueda_Empresas;
+import vista.Busqueda_Grupos;
+import vista.Busqueda_Tutores;
+import vista.MenuVista;
+import vista.Ventana_Login;
+import vista.Vista_Info_Alumno;
+import vista.Vista_Info_Empresa;
+import vista.Vista_Info_Grupo;
+import vista.Vista_Info_Tutor;
+
 public class controlador {
 	private modelo miModelo;
 	private Ventana_Login vista_ventana_login;
@@ -75,6 +90,7 @@ public class controlador {
 	}
 
 	public void accesoTut() {
+		
 		vista_ventana_login.frame.setVisible(false);
 		vista_ventana_menu.cambiarTutor();
 		vista_ventana_menu.setVisible(true);
@@ -93,8 +109,10 @@ public class controlador {
 	}
 
 	public void accesoDir() {
+		
 		vista_ventana_login.frame.setVisible(false);
 		vista_ventana_menu.setVisible(true);
+		vista_ventana_menu.cambiarDirector();
 		
 		vista_ventana_menu.actualizarLogged();
 		vista_info_alumno.actualizarLogged();
