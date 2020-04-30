@@ -11,9 +11,12 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
@@ -93,16 +96,23 @@ public class Busqueda_Alumnos extends JFrame {
 		contentPane.add(TableView);
 
 		table = new JTable();
-		table.setModel(
-				new DefaultTableModel(
-						new Object[][] { { "Benjamin", "Buford", "1" }, { "Dan", "Taylor", "1" },
-								{ "Jules", "Winnfield", "1" }, { "Vito", "Corleone", "2" }, { "Marty", "McFly", "2" },
-								{ "Vincent", "Vega", "2" }, { "Mia", "Wallace", "3" }, { "Nicky", "Koskoff", "3" },
-								{ "Donnie", "Azoff", "3" }, { "Kirk", "Lazarus", "4" }, { "Less", "Grossman", "4" },
-								{ "Alpa", "Chino", "4" }, { "Tugg", "Speedman", "5" }, { "Carole", "Baskin", "5" },
-								{ "Joe", "Exotic", "5" }, { "Doc", "Antle", "5" }, },
-						new String[] { "NOMBRE", "APELLIDO", "CENTRO" }));
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+//		table.setModel(
+//				new DefaultTableModel(
+//						new Object[][] { { "Benjamin", "Buford", "1" }, { "Dan", "Taylor", "1" },
+//								{ "Jules", "Winnfield", "1" }, { "Vito", "Corleone", "2" }, { "Marty", "McFly", "2" },
+//								{ "Vincent", "Vega", "2" }, { "Mia", "Wallace", "3" }, { "Nicky", "Koskoff", "3" },
+//								{ "Donnie", "Azoff", "3" }, { "Kirk", "Lazarus", "4" }, { "Less", "Grossman", "4" },
+//								{ "Alpa", "Chino", "4" }, { "Tugg", "Speedman", "5" }, { "Carole", "Baskin", "5" },
+//								{ "Joe", "Exotic", "5" }, { "Doc", "Antle", "5" }, },
+//						new String[] { "NOMBRE", "APELLIDO", "CENTRO" }));
 		TableView.setViewportView(table);
+		
+		addWindowListener(new WindowAdapter() {
+			public void windowActivated(WindowEvent e) {
+				table.setModel(miModelo.getTablaAlumnos());
+			}
+		});
 		
 //		Create New Button ========================
 		CreateNewLbl = new JLabel("Nuevo Alumno");
