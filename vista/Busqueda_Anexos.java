@@ -234,6 +234,9 @@ public class Busqueda_Anexos extends JFrame {
 				}else if(selected==1) {
 					String SQL=miModelo.getSQLanexo2_1();
 					table.setModel(miModelo.getTabla(SQL));
+				}else if(selected==2) {
+					String SQL=miModelo.getSQLanexo2_2();
+					table.setModel(miModelo.getTabla(SQL));
 				}
 			}
 		});
