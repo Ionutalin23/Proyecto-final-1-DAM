@@ -69,6 +69,7 @@ public class Busqueda_Anexos extends JFrame {
 // 	MVC ========================
 	private controlador miControlador;
 	private modelo miModelo;
+	private JComboBox FilterComboBox;
 
 	public void setControlador(controlador miControlador) {
 		this.miControlador = miControlador;
@@ -117,7 +118,8 @@ public class Busqueda_Anexos extends JFrame {
 		
 		addWindowListener(new WindowAdapter() {
 			public void windowActivated(WindowEvent e) {
-				table.setModel(miModelo.getTabla());
+				String SQL=miModelo.getSQLanexo1();
+				table.setModel(miModelo.getTabla(SQL));
 			}
 		});
 
@@ -222,11 +224,23 @@ public class Busqueda_Anexos extends JFrame {
 		SearchBtn.setIcon(new ImageIcon(img_SearchLupa));
 		
 //		Search Filter Combo Box ========================
-		JComboBox FilterComboBox = new JComboBox();
+		FilterComboBox = new JComboBox();
+		FilterComboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int selected=FilterComboBox.getSelectedIndex();
+				if (selected==0) {
+					String SQL=miModelo.getSQLanexo1();
+					table.setModel(miModelo.getTabla(SQL));
+				}else if(selected==1) {
+					String SQL=miModelo.getSQLanexo2_1();
+					table.setModel(miModelo.getTabla(SQL));
+				}
+			}
+		});
 		FilterComboBox.setForeground(Color.WHITE);
 		FilterComboBox.setBackground(Color.GRAY);
-		FilterComboBox.setModel(new DefaultComboBoxModel(new String[] { "Anexo 1", "Nombre", "Apellido" }));
-		FilterComboBox.setBounds(367, 103, 71, 22);
+		FilterComboBox.setModel(new DefaultComboBoxModel(new String[] { "Anexo 1", "Anexo 2_1", "Anexo_2_2", "Anexo 3", "Anexo 7", "Anexo 8" }));
+		FilterComboBox.setBounds(367, 103, 104, 22);
 		contentPane.add(FilterComboBox);
 		
 //		Filter By Label ========================
@@ -310,9 +324,10 @@ public class Busqueda_Anexos extends JFrame {
 
 //		Window Title ========================
 		JLabel WindowTitle = new JLabel("Anexos");
+		WindowTitle.setVerticalAlignment(SwingConstants.BOTTOM);
 		WindowTitle.setForeground(Color.WHITE);
 		WindowTitle.setFont(new Font("Tahoma", Font.BOLD, 18));
-		WindowTitle.setBounds(389, 12, 82, 14);
+		WindowTitle.setBounds(389, 12, 82, 23);
 		contentPane.add(WindowTitle);
 
 //		Background Image ========================
