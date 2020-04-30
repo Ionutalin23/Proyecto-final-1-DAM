@@ -37,9 +37,9 @@ public class modelo {
 	private Vista_Info_Alumno vista_info_alumno;
 	private Vista_Info_Grupo vista_info_grupo;
 
-	private String bd = "PI";
+	private String bd = "TEMA7";
 	private String login = "SYSTEM";
-	private String pwd = "password";
+	private String pwd = "Al065227";
 	private String url = "jdbc:oracle:thin:@localhost:1521:XE";
 	private Connection conexion;
 	private int fallos;
