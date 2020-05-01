@@ -496,8 +496,40 @@ INSERT INTO pertenece(alumno_num_exp,grupo_cod_grupo, acad) VALUES(1111173,0001,
 INSERT INTO pertenece(alumno_num_exp,grupo_cod_grupo, acad) VALUES(1111174,0001, '2019-2020');
 INSERT INTO pertenece(alumno_num_exp,grupo_cod_grupo, acad) VALUES(1111175,0001, '2019-2020');
 
-
-
+-- -----------------------------------------SELECTS EN JAVA-------------------------------------
+-- -----------------------------------------LOGIN---------------------------------
 -- SELECT * FROM PI.Users WHERE usr = 'Pedro Camacho' AND pwd = 'MiUniEsLaMejor';
 -- Workspace: PI
 -- Contraseña: password
+-- -----------------------------------------TABLAS--------------------------------
+-- ANEXO1--> SELECT E.nombre "Empresa",C.cod_centro, C.localidad, C.director, CO.anexo_1 FROM PI.centro C, PI.colabora CO, PI.empresa E WHERE     CO.centro_cod_centro=C.cod_centro AND  CO.empresa_cif=E.cif
+-- ANEXO2_1--> SELECT nombre, apellidos, anexo_2_1 FROM PI.alumno, PI.practica WHERE num_exp=alumno_num_exp
+-- ANEXO2_2--> SELECT A.nombre, A.apellidos, E.nombre "EMPRESA", PR.horario, G.Anexo_2_2 FROM PI.alumno A, PI.pertenece P, PI.grupo GR,           PI.gestiona G, PI.Tutor T, PI.centro C, PI.colabora CO, PI.Empresa E, PI.practica PR WHERE A.num_exp=P.alumno_num_exp AND                       T.dni_tutor=G.tutor_dni_tutor AND C.cod_centro=T.centro_cod_centro AND CO.empresa_cif=E.cif AND P.grupo_cod_grupo=GR.cod_grupo AND             G.grupo_cod_grupo=GR.cod_grupo AND CO.centro_cod_centro=C.cod_centro AND PR.empresa_cif=E.cif AND PR.alumno_num_exp=A.num_exp
+-- ANEXO3--> SELECT A.nombre, A.apellidos, A.dni, PR.anexo_3 FROM PI.alumno A, PI.practica PR WHERE num_exp=alumno_num_exp
+-- ANEXO7--> SELECT A.nombre, A.apellidos, PR.anexo_7 FROM PI.alumno A, PI.practica PR WHERE A.num_exp=PR.alumno_num_exp
+-- ANEXO8--> SELECT A.nombre, A.apellidos,CONCAT(C.localidad,CONCAT(',',C.cod_centro)) "CENTRO", E.Nombre "EMPRESA", PR.anexo_8 FROM PI.alumno A, PI.practica PR, PI.empresa E, PI.centro C, PI.colabora CO WHERE num_exp=alumno_num_exp AND PR.empresa_cif=E.cif AND CO.empresa_cif=E.cif AND C.cod_centro=CO.centro_cod_centro
+-- TUTORES--> SELECT * FROM PI.TUTOR
+-- TUTORES(FILTRO)--> SELECT nombre, apellidos,clave_ciclo, nombre_ciclo FROM PI.Tutor TU, PI.Grupo GR, PI.Gestiona GE WHERE TU.dni_tutor = GE.tutor_dni_tutor AND GE.grupo_cod_grupo = GR.cod_grupo AND nombre_ciclo ='DAMM'
+-- ALUMNOS--> SELECT * FROM PI.alumno
+-- EMPRESA--> SELECT * FROM PI.empresa
+-- GRUPO--> SELECT * FROM PI.grupo
+
+-- -----------------------------------------SELECTS EN ORACLE-------------------------------------
+-- -----------------------------------------LOGIN---------------------------------
+-- SELECT * FROM Users WHERE usr = 'Pedro Camacho' AND pwd = 'MiUniEsLaMejor';
+-- -----------------------------------------TABLAS--------------------------------
+-- ANEXO1--> SELECT E.nombre "Empresa",C.cod_centro, C.localidad, C.director, CO.anexo_1 FROM centro C, colabora CO, empresa E WHERE     CO.centro_cod_centro=C.cod_centro AND  CO.empresa_cif=E.cif;
+-- ANEXO2_1--> SELECT nombre, apellidos, anexo_2_1 FROM alumno, practica WHERE num_exp=alumno_num_exp;
+-- ANEXO2_2--> SELECT A.nombre, A.apellidos, E.nombre "EMPRESA", PR.horario, G.Anexo_2_2 FROM alumno A, pertenece P, grupo GR,           gestiona G, Tutor T, centro C, colabora CO, Empresa E, practica PR WHERE A.num_exp=P.alumno_num_exp AND                       T.dni_tutor=G.tutor_dni_tutor AND C.cod_centro=T.centro_cod_centro AND CO.empresa_cif=E.cif AND P.grupo_cod_grupo=GR.cod_grupo AND             G.grupo_cod_grupo=GR.cod_grupo AND CO.centro_cod_centro=C.cod_centro AND PR.empresa_cif=E.cif AND PR.alumno_num_exp=A.num_exp;
+-- ANEXO3--> SELECT A.nombre, A.apellidos, A.dni, PR.anexo_3 FROM alumno A, practica PR WHERE num_exp=alumno_num_exp;
+-- ANEXO7--> SELECT A.nombre, A.apellidos, PR.anexo_7 FROM alumno A, practica PR WHERE A.num_exp=PR.alumno_num_exp;
+-- ANEXO8--> SELECT A.nombre, A.apellidos,CONCAT(C.localidad,CONCAT(',',C.cod_centro)) "CENTRO", E.Nombre "EMPRESA", PR.anexo_8 FROM alumno A, practica PR, empresa E, centro C, colabora CO WHERE num_exp=alumno_num_exp AND PR.empresa_cif=E.cif AND CO.empresa_cif=E.cif AND C.cod_centro=CO.centro_cod_centro;
+-- TUTORES--> SELECT * FROM TUTOR;
+-- TUTORES(FILTRO)--> SELECT nombre, apellidos,clave_ciclo, nombre_ciclo FROM Tutor TU, Grupo GR, Gestiona GE WHERE TU.dni_tutor = GE.tutor_dni_tutor AND GE.grupo_cod_grupo = GR.cod_grupo AND nombre_ciclo ='DAMM';
+-- ALUMNOS--> SELECT * FROM alumno;
+-- EMPRESA--> SELECT * FROM empresa;
+-- GRUPO--> SELECT * FROM grupo;
+
+
+
+
