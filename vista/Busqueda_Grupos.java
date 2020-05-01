@@ -17,6 +17,8 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
@@ -109,6 +111,13 @@ public class Busqueda_Grupos extends JFrame {
 								{ "5", "Joe", "Exotic" }, { "5", "Doc", "Antle" }, },
 						new String[] { "GRUPO", "NOMBRE", "APELLIDO" }));
 		TableView.setViewportView(table);
+		
+		addWindowListener(new WindowAdapter() {
+			public void windowActivated(WindowEvent e) {
+				String SQL=miModelo.getSQLGrp();
+				table.setModel(miModelo.getTabla(SQL));
+			}
+		});
 		
 //		Create New Button ========================
 		CreateNewLbl = new JLabel("Nuevo Grupo");
