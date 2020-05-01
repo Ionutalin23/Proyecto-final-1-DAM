@@ -60,8 +60,7 @@ public class modelo {
 	private String SQLTut_2 = "SELECT nombre, apellidos,clave_ciclo, nombre_ciclo FROM PI.Tutor TU, PI.Grupo GR, PI.Gestiona GE WHERE TU.dni_tutor = GE.tutor_dni_tutor AND GE.grupo_cod_grupo = GR.cod_grupo AND nombre_ciclo ='DAMM'";
 	private String SQAlumno = "SELECT * FROM PI.alumno";
 	private String SQLEmp = "SELECT * FROM PI.empresa";
-
-
+	private String SQLGrp = "SELECT * FROM PI.grupo";
 	public modelo() {
 
 		try {
@@ -232,6 +231,10 @@ public class modelo {
 
 	public String getSQLalumnos() {
 		return SQAlumno;
+	}
+	
+	public String getSQLGrp() {
+		return SQLGrp;
 	}
 
 //	private int getColumnasAnexo2_1() {
