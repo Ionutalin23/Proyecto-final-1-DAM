@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
+<<<<<<< HEAD
 	<name>Tarea1_PI_CONEXION</name>
+=======
+	<name>Tarea3_PI_TABLAS</name>
+>>>>>>> branch 'master' of https://github.com/DAM-UEM-1920/uf6-2-tarea-1-datos-conexion-pi-runtimeterror.git
 	<comment></comment>
 	<projects>
 	</projects>
