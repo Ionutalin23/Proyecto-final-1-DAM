@@ -29,6 +29,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class Busqueda_Anexos extends JFrame {
 
@@ -230,6 +232,11 @@ public class Busqueda_Anexos extends JFrame {
 
 //		Search Field ========================
 		SearchField = new JTextField();
+		SearchField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+			}
+		});
 		SearchField.setBounds(10, 103, 271, 23);
 		contentPane.add(SearchField);
 		SearchField.setColumns(10);
