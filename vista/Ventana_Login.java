@@ -25,7 +25,6 @@ import java.awt.event.MouseEvent;
 import java.sql.Date;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.awt.event.MouseMotionAdapter;
 
 public class Ventana_Login {
 
@@ -162,11 +161,6 @@ public class Ventana_Login {
 		lblIconUEM.setIcon(new ImageIcon(img_uem));
 		
 		JLabel lblConfig = new JLabel("");
-		lblConfig.addMouseMotionListener(new MouseMotionAdapter() {
-			@Override
-			public void mouseDragged(MouseEvent e) {
-			}
-		});
 		lblConfig.setBounds(726, 450, 71, 61);
 		frame.getContentPane().add(lblConfig);
 		lblConfig.setIcon(new ImageIcon(img_config));
