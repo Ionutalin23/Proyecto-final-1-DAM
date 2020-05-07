@@ -1,5 +1,7 @@
 package modelo;
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -7,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Scanner;
 
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -37,15 +40,14 @@ public class modelo {
 	private Vista_Info_Alumno vista_info_alumno;
 	private Vista_Info_Grupo vista_info_grupo;
 
-	private String bd = "PI";
-	private String login = "SYSTEM";
-	private String pwd = "password";
-	private String url = "jdbc:oracle:thin:@localhost:1521:XE";
 	private Connection conexion;
 	private int fallos;
 	private String resultado;
 	private String USR;
 	private String rol;
+	private String url;
+	private String pwd;
+	private String usu;
 	private String SQLanexo2_1 = "SELECT nombre, apellidos, anexo_2_1 FROM PI.alumno, PI.practica WHERE num_exp=alumno_num_exp";
 	private String SQLanexo1 = "SELECT E.nombre \"Empresa\",C.cod_centro, C.localidad, C.director, CO.anexo_1 FROM PI.centro C, PI.colabora CO, PI.empresa E WHERE CO.centro_cod_centro=C.cod_centro AND  CO.empresa_cif=E.cif";
 	private String SQLanexo2_2 = "SELECT A.nombre, A.apellidos, E.nombre \"EMPRESA\", PR.horario, G.Anexo_2_2 FROM PI.alumno A, PI.pertenece P, PI.grupo GR, PI.gestiona G, PI.Tutor T, PI.centro C, "
@@ -61,11 +63,11 @@ public class modelo {
 	private String SQAlumno = "SELECT * FROM PI.alumno";
 	private String SQLEmp = "SELECT * FROM PI.empresa";
 	private String SQLGrp = "SELECT * FROM PI.grupo";
-	public modelo() {
-
+	public void ConexionBBDD() {
+		lecturaFichero();
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			conexion = DriverManager.getConnection(url, login, pwd);
+			conexion = DriverManager.getConnection(url, usu, pwd);
 			System.out.println(" - Conexión con ORACLE establecida -");
 		} catch (Exception e) {
 			System.out.println(" – Error de Conexión con ORACLE -");
@@ -237,120 +239,6 @@ public class modelo {
 		return SQLGrp;
 	}
 
-//	private int getColumnasAnexo2_1() {
-//		int num = 0;
-//		try {
-//			PreparedStatement pst = conexion.prepareStatement(SQLanexo2_1);
-//			ResultSet rs = pst.executeQuery();
-//			ResultSetMetaData rsmd = rs.getMetaData();
-//			num = rsmd.getColumnCount();
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//		return num;
-//	}
-//	
-//	private int getFilasAnexo2_1() {
-//		int numFilas = 0;
-//		try {
-//			PreparedStatement pst = conexion.prepareStatement(SQLanexo2_1);
-//			ResultSet rs = pst.executeQuery();
-//			while (rs.next()) {
-//				numFilas++;
-//			}
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//		return numFilas;
-//	}
-//
-//	public TableModel getTablaAnexo2_1() {
-//		int numColumnas=getColumnasAnexo2_1();
-//		int numFilas=getFilasAnexo2_1();
-//		
-//		String[] cabecera= new String[numColumnas];
-//		
-//		Object[][] contenido=new Object[numFilas][numColumnas];
-//		
-//		try {
-//			PreparedStatement pst= conexion.prepareStatement(SQLanexo2_1);
-//			ResultSet rs=pst.executeQuery();
-//			ResultSetMetaData rsmd= rs.getMetaData();
-//			for (int i = 0; i < numColumnas; i++) {
-//				cabecera[i]= rsmd.getColumnName(i+1);
-//			}
-//			int fila=0;
-//			while (rs.next()) {
-//				for (int column = 1; column <= numColumnas; column++) {
-//					contenido[fila][column -1] =rs.getString(column);
-//				}
-//			fila++;
-//			}
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//		 
-//		return new DefaultTableModel(contenido,cabecera);
-//		
-//		
-//	}
-//	private int getColumnasAnexo1() {
-//		int num = 0;
-//		try {
-//			PreparedStatement pst = conexion.prepareStatement(SQLanexo1);
-//			ResultSet rs = pst.executeQuery();
-//			ResultSetMetaData rsmd = rs.getMetaData();
-//			num = rsmd.getColumnCount();
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//		return num;
-//	}
-//	
-//	private int getFilasAnexo1() {
-//		int numFilas = 0;
-//		try {
-//			PreparedStatement pst = conexion.prepareStatement(SQLanexo1);
-//			ResultSet rs = pst.executeQuery();
-//			while (rs.next()) {
-//				numFilas++;
-//			}
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//		return numFilas;
-//	}
-//
-//	public TableModel getTablaAnexo1() {
-//		int numColumnas=getColumnasAnexo1();
-//		int numFilas=getFilasAnexo1();
-//		
-//		String[] cabecera= new String[numColumnas];
-//		
-//		Object[][] contenido=new Object[numFilas][numColumnas];
-//		
-//		try {
-//			PreparedStatement pst= conexion.prepareStatement(SQLanexo1);
-//			ResultSet rs=pst.executeQuery();
-//			ResultSetMetaData rsmd= rs.getMetaData();
-//			for (int i = 0; i < numColumnas; i++) {
-//				cabecera[i]= rsmd.getColumnName(i+1);
-//			}
-//			int fila=0;
-//			while (rs.next()) {
-//				for (int column = 1; column <= numColumnas; column++) {
-//					contenido[fila][column -1] =rs.getString(column);
-//				}
-//			fila++;
-//			}
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//		 
-//		return new DefaultTableModel(contenido,cabecera);
-//		
-//	
-//	}
 
 	private int getColumnas(String SQL) {
 		int num = 0;
@@ -413,5 +301,43 @@ public class modelo {
 	public String getSQLEmp() {
 		return SQLEmp;
 	}
+	public void lecturaFichero() {
+		File file= new File("config.ini");
+		int i=0;
+		String [] credenciales= new String[3];
+		if (file.exists()) {
+			try {
+				Scanner sc= new Scanner(file);
+				while (sc.hasNext()) {
+					credenciales[i]=sc.nextLine();
+					i++;
+				}
+				sc.close();
+				pwd= credenciales[1];
+				usu= credenciales[0];
+				url= credenciales[2];
+				
+			} catch (IOException e) {
+				System.err.println("Error de ENTRADA/SALIDA");
+				e.printStackTrace();
+			}
+		} else {
+			System.err.println("El fichero no existe");
+		}
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public String getPwd() {
+		return pwd;
+	}
+
+	public String getUsu() {
+		return usu;
+	}
+	
 
 }
+

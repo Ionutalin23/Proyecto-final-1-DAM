@@ -144,6 +144,7 @@ public class Ventana_Login {
 			}
 
 			public void mouseClicked(MouseEvent e) {
+				miModelo.ConexionBBDD();
 				miControlador.rol();
 				miControlador.login();
 				
