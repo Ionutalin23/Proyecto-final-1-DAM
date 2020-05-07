@@ -145,8 +145,6 @@ public class Ventana_Login_Config{
 			}
 
 			public void mouseClicked(MouseEvent e) {
-				miControlador.rol();
-				miControlador.login();
 				
 			}
 		});
@@ -185,32 +183,5 @@ public class Ventana_Login_Config{
 								lblBgColor.setBounds(0, 0, 784, 511);
 								frame.getContentPane().add(lblBgColor);
 								lblBgColor.setIcon(new ImageIcon(img_bg));
-	}
-
-	public String getUsuario() {
-
-		return txtUsuarioBD.getText();
-	}
-
-	public String getPassword() {
-
-		return String.valueOf(txtPasswordBD.getPassword());
-	}
-
-	public void actualizar() {
-		String resultado = miModelo.getResultado();
-		if (resultado.equals("Correcto")) {
-			lblRespuesta.setText("");
-			if (miModelo.getRol().contentEquals("Director")) {
-				miControlador.accesoDir();
-			} else {
-				miControlador.accesoTut();
-			}
-			
-		} else if (resultado.equals("Incorrecto")) {
-			lblRespuesta.setText("Usuario o contraseña incorrectos!!");
-		} else {
-			System.exit(0);
-		}
 	}
 }
