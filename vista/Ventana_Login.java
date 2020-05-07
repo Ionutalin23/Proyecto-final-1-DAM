@@ -25,6 +25,8 @@ import java.awt.event.MouseEvent;
 import java.sql.Date;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class Ventana_Login {
 
@@ -101,6 +103,16 @@ public class Ventana_Login {
 		lblIconPasswd.setIcon(new ImageIcon(img_passwd));
 
 		txtPassword = new JPasswordField();
+		txtPassword.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode()==KeyEvent.VK_ENTER){
+					miModelo.ConexionBBDD();
+					miControlador.rol();
+					miControlador.login();
+		        }
+			}
+		});
 		txtPassword.setBounds(42, 0, 173, 36);
 		panel_1.add(txtPassword);
 
