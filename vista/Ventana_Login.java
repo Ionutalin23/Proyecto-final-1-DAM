@@ -162,6 +162,12 @@ public class Ventana_Login {
 		lblIconUEM.setIcon(new ImageIcon(img_uem));
 		
 		JLabel lblConfig = new JLabel("");
+		lblConfig.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				miControlador.loginConfig();
+			}
+		});
 		lblConfig.setBounds(726, 450, 44, 53);
 		frame.getContentPane().add(lblConfig);
 		lblConfig.setIcon(new ImageIcon(img_config));

@@ -283,5 +283,8 @@ public class controlador {
 		busquedaTutores.setVisible(true);
 
 	}
+	public void loginConfig() {
+		ventana_login_config.frame.setVisible(true);
+	}
 
 }
