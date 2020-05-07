@@ -210,7 +210,7 @@ public class Ventana_Login {
 	}
 	public void sonido() {
 		AudioClip sonido;
-		sonido = java.applet.Applet.newAudioClip(getClass().getResource("/sounds/sonido1.wav"));
+		sonido = java.applet.Applet.newAudioClip(getClass().getResource("/sounds/sonido2.wav"));
 		sonido.play();
 	}
 }
