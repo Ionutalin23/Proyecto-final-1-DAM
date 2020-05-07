@@ -86,7 +86,7 @@ public class Ventana_Login_Config{
 
 		txtUsuarioBD = new JTextField();
 		txtUsuarioBD.setColumns(10);
-		txtUsuarioBD.setBounds(38, 0, 177, 36);
+		txtUsuarioBD.setBounds(42, 0, 177, 36);
 		panel.add(txtUsuarioBD);
 		
 		JLabel lblUsrText = new JLabel("USUARIO:");
@@ -119,14 +119,21 @@ public class Ventana_Login_Config{
 		frame.getContentPane().add(lblPasswdText);
 
 //	Campo de introducion de URL de BD ========================
+		Panel panel_2 = new Panel();
+		panel_2.setBackground(Color.WHITE);
+		panel_2.setBounds(290, 208, 215, 36);
+		frame.getContentPane().add(panel_2);
+		panel_2.setLayout(null);
+		
 		JLabel lblIconBD = new JLabel("");
-		lblIconBD.setBounds(290, 208, 40, 36);
-		frame.getContentPane().add(lblIconBD);
+		lblIconBD.setHorizontalAlignment(SwingConstants.CENTER);
+		lblIconBD.setBounds(0, 0, 43, 36);
+		panel_2.add(lblIconBD);
 		lblIconBD.setIcon(new ImageIcon(img_database));
 		
 		txtUrlBD = new JTextField();
-		txtUrlBD.setBounds(328, 208, 177, 36);
-		frame.getContentPane().add(txtUrlBD);
+		txtUrlBD.setBounds(42, 0, 177, 36);
+		panel_2.add(txtUrlBD);
 		
 		JLabel lblUrl = new JLabel("URL:");
 		lblUrl.setFont(new Font("Century Gothic", Font.BOLD, 14));
