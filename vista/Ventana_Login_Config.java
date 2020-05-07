@@ -28,29 +28,28 @@ import java.util.TimerTask;
 
 public class Ventana_Login_Config{
 
+//	GUI Content ========================
 	public JFrame frame;
-	private Image img_usr = new ImageIcon(Ventana_Login.class.getResource("/img/usr.png")).getImage()
-			.getScaledInstance(40, 40, Image.SCALE_SMOOTH);
-	private Image img_passwd = new ImageIcon(Ventana_Login.class.getResource("/img/passwd.png")).getImage()
-			.getScaledInstance(35, 35, Image.SCALE_SMOOTH);
-	private Image img_uem = new ImageIcon(Ventana_Login.class.getResource("/img/uem2.png")).getImage()
-			.getScaledInstance(135, 135, Image.SCALE_SMOOTH);
-	private Image img_buttonLogin = new ImageIcon(Ventana_Login.class.getResource("/img/loginbutton.png")).getImage()
-			.getScaledInstance(110, 48, Image.SCALE_SMOOTH);
-	private Image img_buttonLogin2 = new ImageIcon(Ventana_Login.class.getResource("/img/loginbutton2.png")).getImage()
-			.getScaledInstance(110, 48, Image.SCALE_SMOOTH);
-	private Image img_buttonLogin3 = new ImageIcon(Ventana_Login.class.getResource("/img/loginbutton3.png")).getImage()
-			.getScaledInstance(110, 48, Image.SCALE_SMOOTH);
-	private Image img_bg = new ImageIcon(Ventana_Login.class.getResource("/img/bg9.jpg")).getImage()
-			.getScaledInstance(800, 590, Image.SCALE_SMOOTH);
-	private JLabel lblLogin;
+	private JLabel lblModificar;
+	private JLabel lblSalir;
 	private JPasswordField txtPasswordBD;
 	private JTextField txtUsuarioBD;
-
-	private controlador miControlador;
-	private modelo miModelo;
 	private JLabel lblRespuesta;
 	private JTextField txtUrlBD;
+	
+// 	Setting Images ======================== (Check all images are linked to correct folder to avoid null pointer exception)
+	private Image img_usr = new ImageIcon(Ventana_Login.class.getResource("/img/usr.png")).getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+	private Image img_passwd = new ImageIcon(Ventana_Login.class.getResource("/img/passwd.png")).getImage().getScaledInstance(35, 35, Image.SCALE_SMOOTH);
+	private Image img_database = new ImageIcon(Ventana_Login.class.getResource("/images/DatabaseIcon.jpg")).getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+	private Image img_uem = new ImageIcon(Ventana_Login.class.getResource("/img/uem2.png")).getImage().getScaledInstance(135, 135, Image.SCALE_SMOOTH);
+	private Image img_buttonLogin = new ImageIcon(Ventana_Login.class.getResource("/img/loginbutton.png")).getImage().getScaledInstance(110, 48, Image.SCALE_SMOOTH);
+	private Image img_buttonLogin2 = new ImageIcon(Ventana_Login.class.getResource("/img/loginbutton2.png")).getImage().getScaledInstance(110, 48, Image.SCALE_SMOOTH);
+	private Image img_buttonLogin3 = new ImageIcon(Ventana_Login.class.getResource("/img/loginbutton3.png")).getImage().getScaledInstance(110, 48, Image.SCALE_SMOOTH);
+	private Image img_bg = new ImageIcon(Ventana_Login.class.getResource("/img/bg9.jpg")).getImage().getScaledInstance(800, 590, Image.SCALE_SMOOTH);
+	
+// 	MVC ========================
+	private controlador miControlador;
+	private modelo miModelo;
 
 	public void setControlador(controlador miControlador) {
 		this.miControlador = miControlador;
@@ -60,6 +59,7 @@ public class Ventana_Login_Config{
 		this.miModelo = miModelo;
 	}
 
+//	Frame ========================
 	public Ventana_Login_Config() {
 		frame = new JFrame();
 		frame.setTitle("Acceder");
@@ -67,10 +67,12 @@ public class Ventana_Login_Config{
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
+//	Respuesta de datos introducidos ========================
 		lblRespuesta = new JLabel("");
 		lblRespuesta.setBounds(290, 396, 215, 26);
 		frame.getContentPane().add(lblRespuesta);
 
+//	Panel de Usuario ========================
 		Panel panel = new Panel();
 		panel.setBackground(Color.WHITE);
 		panel.setBounds(290, 281, 215, 36);
@@ -84,9 +86,16 @@ public class Ventana_Login_Config{
 
 		txtUsuarioBD = new JTextField();
 		txtUsuarioBD.setColumns(10);
-		txtUsuarioBD.setBounds(38, 0, 177, 36);
+		txtUsuarioBD.setBounds(42, 0, 177, 36);
 		panel.add(txtUsuarioBD);
+		
+		JLabel lblUsrText = new JLabel("USUARIO:");
+		lblUsrText.setForeground(Color.WHITE);
+		lblUsrText.setFont(new Font("Century Gothic", Font.BOLD, 14));
+		lblUsrText.setBounds(290, 255, 92, 20);
+		frame.getContentPane().add(lblUsrText);
 
+//	Panel de Password ========================
 		Panel panel_1 = new Panel();
 		panel_1.setBackground(Color.WHITE);
 		panel_1.setBounds(290, 352, 215, 36);
@@ -103,85 +112,132 @@ public class Ventana_Login_Config{
 		txtPasswordBD.setBounds(42, 0, 173, 36);
 		panel_1.add(txtPasswordBD);
 
-		JLabel lblUsrText = new JLabel("USUARIO:");
-		lblUsrText.setForeground(Color.WHITE);
-		lblUsrText.setFont(new Font("Century Gothic", Font.BOLD, 14));
-		lblUsrText.setBounds(290, 255, 92, 20);
-		frame.getContentPane().add(lblUsrText);
-
 		JLabel lblPasswdText = new JLabel("CONTRASE\u00D1A:");
 		lblPasswdText.setFont(new Font("Century Gothic", Font.BOLD, 14));
 		lblPasswdText.setForeground(Color.WHITE);
 		lblPasswdText.setBounds(290, 326, 118, 20);
 		frame.getContentPane().add(lblPasswdText);
 
-		lblLogin = new JLabel("MODIFICAR");
-		lblLogin.setHorizontalAlignment(SwingConstants.CENTER);
-		lblLogin.setFont(new Font("Century Gothic", Font.BOLD, 15));
-		lblLogin.setForeground(Color.WHITE);
-		lblLogin.setBounds(348, 427, 109, 36);
-		frame.getContentPane().add(lblLogin);
+//	Campo de introducion de URL de BD ========================
+		Panel panel_2 = new Panel();
+		panel_2.setBackground(Color.WHITE);
+		panel_2.setBounds(290, 208, 215, 36);
+		frame.getContentPane().add(panel_2);
+		panel_2.setLayout(null);
+		
+		JLabel lblIconBD = new JLabel("");
+		lblIconBD.setHorizontalAlignment(SwingConstants.CENTER);
+		lblIconBD.setBounds(0, 0, 43, 36);
+		panel_2.add(lblIconBD);
+		lblIconBD.setIcon(new ImageIcon(img_database));
+		
+		txtUrlBD = new JTextField();
+		txtUrlBD.setBounds(42, 0, 177, 36);
+		panel_2.add(txtUrlBD);
+		
+		JLabel lblUrl = new JLabel("URL:");
+		lblUrl.setFont(new Font("Century Gothic", Font.BOLD, 14));
+		lblUrl.setForeground(Color.WHITE);
+		lblUrl.setBounds(290, 177, 92, 20);
+		frame.getContentPane().add(lblUrl);
 
-		JLabel lblLoginButton = new JLabel("");
-		lblLoginButton.addMouseListener(new MouseAdapter() {
+//	BTN Modificar ========================
+		lblModificar = new JLabel("MODIFICAR");
+		lblModificar.setHorizontalAlignment(SwingConstants.CENTER);
+		lblModificar.setFont(new Font("Century Gothic", Font.BOLD, 15));
+		lblModificar.setForeground(Color.WHITE);
+		lblModificar.setBounds(348, 427, 109, 36);
+		frame.getContentPane().add(lblModificar);
+
+		JLabel lblModificarBtn = new JLabel("");
+		lblModificarBtn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				lblLoginButton.setIcon(new ImageIcon(img_buttonLogin3));
+				lblModificarBtn.setIcon(new ImageIcon(img_buttonLogin3));
 			}
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				lblLoginButton.setIcon(new ImageIcon(img_buttonLogin2));
+				lblModificarBtn.setIcon(new ImageIcon(img_buttonLogin2));
 			}
 
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				lblLoginButton.setIcon(new ImageIcon(img_buttonLogin2));
+				lblModificarBtn.setIcon(new ImageIcon(img_buttonLogin2));
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				lblLoginButton.setIcon(new ImageIcon(img_buttonLogin));
+				lblModificarBtn.setIcon(new ImageIcon(img_buttonLogin));
 			}
 
 			public void mouseClicked(MouseEvent e) {
-				
+
+//	Crear metodo para cambiar variables de loging de la base de datos
 			}
 		});
-		lblLoginButton.setBounds(348, 427, 118, 47);
-		frame.getContentPane().add(lblLoginButton);
-		lblLoginButton.setIcon(new ImageIcon(img_buttonLogin));
+		lblModificarBtn.setBounds(348, 427, 118, 47);
+		frame.getContentPane().add(lblModificarBtn);
+		lblModificarBtn.setIcon(new ImageIcon(img_buttonLogin));
+		
+//	BTN Salir ========================
+		
+		lblSalir = new JLabel("SALIR");
+		lblSalir.setHorizontalAlignment(SwingConstants.CENTER);
+		lblSalir.setFont(new Font("Century Gothic", Font.BOLD, 15));
+		lblSalir.setForeground(Color.WHITE);
+		lblSalir.setBounds(666, 464, 109, 36);
+		frame.getContentPane().add(lblSalir);
+
+		JLabel lblSalirBtn = new JLabel("");
+		lblSalirBtn.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				lblSalirBtn.setIcon(new ImageIcon(img_buttonLogin3));
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				lblSalirBtn.setIcon(new ImageIcon(img_buttonLogin2));
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				lblSalirBtn.setIcon(new ImageIcon(img_buttonLogin2));
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				lblSalirBtn.setIcon(new ImageIcon(img_buttonLogin));
+			}
+
+			public void mouseClicked(MouseEvent e) {
+//	Crear metodo en controlador para volver para atras
+			}
+		});
+		lblSalirBtn.setBounds(666, 464, 118, 47);
+		frame.getContentPane().add(lblSalirBtn);
+		lblSalirBtn.setIcon(new ImageIcon(img_buttonLogin));
+		
+// 	Icono de UEM ========================	
 
 		JLabel lblIconUEM = new JLabel("");
-		lblIconUEM.setBounds(332, 54, 154, 125);
+		lblIconUEM.setBounds(328, 11, 154, 125);
 		frame.getContentPane().add(lblIconUEM);
 		lblIconUEM.setIcon(new ImageIcon(img_uem));
-		
-		txtUrlBD = new JTextField();
-		txtUrlBD.setColumns(10);
-		txtUrlBD.setBounds(328, 208, 177, 36);
-		frame.getContentPane().add(txtUrlBD);
-				
-				JLabel lblUrl = new JLabel("URL:");
-				lblUrl.setForeground(Color.WHITE);
-				lblUrl.setFont(new Font("Dialog", Font.BOLD, 14));
-				lblUrl.setBounds(290, 177, 92, 20);
-				frame.getContentPane().add(lblUrl);
-						
-						JLabel lblSalir = new JLabel("SALIR");
-						lblSalir.setHorizontalAlignment(SwingConstants.CENTER);
-						lblSalir.setForeground(Color.WHITE);
-						lblSalir.setFont(new Font("Dialog", Font.BOLD, 15));
-						lblSalir.setBounds(666, 464, 109, 36);
-						frame.getContentPane().add(lblSalir);
-								
-								JLabel lblLoginButton_1 = new JLabel("");
-								lblLoginButton_1.setBounds(666, 464, 118, 47);
-								frame.getContentPane().add(lblLoginButton_1);
-						
-								JLabel lblBgColor = new JLabel("");
-								lblBgColor.setBounds(0, 0, 784, 511);
-								frame.getContentPane().add(lblBgColor);
-								lblBgColor.setIcon(new ImageIcon(img_bg));
+	
+// Titulo de ventana ========================	
+
+		JLabel lblTitulo = new JLabel("Configuracion de Base de Datos");
+		lblTitulo.setForeground(Color.WHITE);
+		lblTitulo.setFont(new Font("Dialog", Font.BOLD, 16));
+		lblTitulo.setBounds(272, 140, 256, 20);
+		frame.getContentPane().add(lblTitulo);
+
+//	Background Image ========================
+		JLabel lblBgColor = new JLabel("");
+		lblBgColor.setBounds(0, 0, 784, 511);
+		frame.getContentPane().add(lblBgColor);
+		lblBgColor.setIcon(new ImageIcon(img_bg));
 	}
 }
