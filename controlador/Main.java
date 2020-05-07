@@ -10,6 +10,7 @@ import vista.Busqueda_Grupos;
 import vista.Busqueda_Tutores;
 import vista.MenuVista;
 import vista.Ventana_Login;
+import vista.Ventana_Login_Config;
 import vista.Vista_Info_Alumno;
 import vista.Vista_Info_Empresa;
 import vista.Vista_Info_Grupo;
@@ -24,6 +25,7 @@ public class Main {
 		
 		Ventana_Login vista_ventana_login = new Ventana_Login();
 		MenuVista vista_ventana_menu = new MenuVista();
+		Ventana_Login_Config ventana_login_config= new Ventana_Login_Config();
 		
 		Busqueda_Alumnos busquedaAlumnos= new Busqueda_Alumnos();
 		Busqueda_Anexos busquedaAnexos= new Busqueda_Anexos();
@@ -48,6 +50,7 @@ public class Main {
 		miControlador.setVista_info_alumno(vista_info_alumno);
 		miControlador.setVista_info_empresa(vista_info_empresa);
 		miControlador.setVista_info_grupo(vista_info_grupo);
+		miControlador.setVista(ventana_login_config);
 		
 		miModelo.setVista(vista_ventana_login);
 		miModelo.setVista(vista_ventana_menu);
@@ -60,6 +63,7 @@ public class Main {
 		miModelo.setVista_info_grupo(vista_info_grupo);
 		miModelo.setVista_info_tutor(vista_info_tutor);
 		miModelo.setVista_info_empresa(vista_info_empresa);
+		miModelo.setVista(ventana_login_config);
 		
 		vista_info_grupo.setControlador(miControlador);
 		vista_info_grupo.setModelo(miModelo);
@@ -90,6 +94,8 @@ public class Main {
 		
 		vista_ventana_login.setControlador(miControlador);
 		vista_ventana_login.setModelo(miModelo);
+		
+		ventana_login_config.setControlador(miControlador);
 		
 		vista_ventana_menu.setControlador(miControlador);
 		vista_ventana_menu.setModelo(miModelo);

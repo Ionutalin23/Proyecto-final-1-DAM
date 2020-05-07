@@ -9,6 +9,7 @@ import javax.swing.JTextField;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Image;
+import java.applet.AudioClip;
 import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
@@ -43,6 +44,8 @@ public class Ventana_Login {
 			.getScaledInstance(110, 48, Image.SCALE_SMOOTH);
 	private Image img_bg = new ImageIcon(Ventana_Login.class.getResource("/img/bg9.jpg")).getImage()
 			.getScaledInstance(800, 590, Image.SCALE_SMOOTH);
+	private Image img_config = new ImageIcon(Ventana_Login.class.getResource("/img/config.png")).getImage()
+			.getScaledInstance(40, 40, Image.SCALE_SMOOTH);
 	private JLabel lblLogin;
 	private JPasswordField txtPassword;
 	private JTextField txtUsuario;
@@ -144,6 +147,7 @@ public class Ventana_Login {
 			}
 
 			public void mouseClicked(MouseEvent e) {
+				sonido();
 				miModelo.ConexionBBDD();
 				miControlador.rol();
 				miControlador.login();
@@ -158,11 +162,24 @@ public class Ventana_Login {
 		lblIconUEM.setBounds(332, 54, 154, 125);
 		frame.getContentPane().add(lblIconUEM);
 		lblIconUEM.setIcon(new ImageIcon(img_uem));
-
+		
+		JLabel lblConfig = new JLabel("");
+		lblConfig.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				miControlador.loginConfig();
+			}
+		});
+		lblConfig.setBounds(726, 450, 44, 53);
+		frame.getContentPane().add(lblConfig);
+		lblConfig.setIcon(new ImageIcon(img_config));
+		
 		JLabel lblBgColor = new JLabel("");
 		lblBgColor.setBounds(0, 0, 784, 511);
 		frame.getContentPane().add(lblBgColor);
 		lblBgColor.setIcon(new ImageIcon(img_bg));
+		
+		
 	}
 
 	public String getUsuario() {
@@ -191,5 +208,9 @@ public class Ventana_Login {
 			System.exit(0);
 		}
 	}
-	
+	public void sonido() {
+		AudioClip sonido;
+		sonido = java.applet.Applet.newAudioClip(getClass().getResource("/sounds/sonido1.wav"));
+		sonido.play();
+	}
 }

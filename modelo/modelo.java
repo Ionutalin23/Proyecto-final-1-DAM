@@ -21,6 +21,7 @@ import vista.Busqueda_Grupos;
 import vista.Busqueda_Tutores;
 import vista.MenuVista;
 import vista.Ventana_Login;
+import vista.Ventana_Login_Config;
 import vista.Vista_Info_Alumno;
 import vista.Vista_Info_Empresa;
 import vista.Vista_Info_Grupo;
@@ -39,15 +40,14 @@ public class modelo {
 	private Vista_Info_Empresa vista_info_empresa;
 	private Vista_Info_Alumno vista_info_alumno;
 	private Vista_Info_Grupo vista_info_grupo;
+	private Ventana_Login_Config vista_login_config;
+	private String [] credenciales= new String[3];
 
 	private Connection conexion;
 	private int fallos;
 	private String resultado;
 	private String USR;
 	private String rol;
-	private String url;
-	private String pwd;
-	private String usu;
 	private String SQLanexo2_1 = "SELECT nombre, apellidos, anexo_2_1 FROM PI.alumno, PI.practica WHERE num_exp=alumno_num_exp";
 	private String SQLanexo1 = "SELECT E.nombre \"Empresa\",C.cod_centro, C.localidad, C.director, CO.anexo_1 FROM PI.centro C, PI.colabora CO, PI.empresa E WHERE CO.centro_cod_centro=C.cod_centro AND  CO.empresa_cif=E.cif";
 	private String SQLanexo2_2 = "SELECT A.nombre, A.apellidos, E.nombre \"EMPRESA\", PR.horario, G.Anexo_2_2 FROM PI.alumno A, PI.pertenece P, PI.grupo GR, PI.gestiona G, PI.Tutor T, PI.centro C, "
@@ -67,7 +67,7 @@ public class modelo {
 		lecturaFichero();
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			conexion = DriverManager.getConnection(url, usu, pwd);
+			conexion = DriverManager.getConnection(credenciales[2], credenciales[0], credenciales[1]);
 			System.out.println(" - Conexión con ORACLE establecida -");
 		} catch (Exception e) {
 			System.out.println(" – Error de Conexión con ORACLE -");
@@ -97,6 +97,11 @@ public class modelo {
 
 	public void setVista(Ventana_Login vista_ventana_login) {
 		this.vista_ventana_login = vista_ventana_login;
+	}
+	
+
+	public void setVista(Ventana_Login_Config vista_login_config) {
+		this.vista_login_config = vista_login_config;
 	}
 
 	public void setVista(MenuVista vista_ventana_menu) {
@@ -304,7 +309,6 @@ public class modelo {
 	public void lecturaFichero() {
 		File file= new File("config.ini");
 		int i=0;
-		String [] credenciales= new String[3];
 		if (file.exists()) {
 			try {
 				Scanner sc= new Scanner(file);
@@ -313,9 +317,6 @@ public class modelo {
 					i++;
 				}
 				sc.close();
-				pwd= credenciales[1];
-				usu= credenciales[0];
-				url= credenciales[2];
 				
 			} catch (IOException e) {
 				System.err.println("Error de ENTRADA/SALIDA");
@@ -325,19 +326,5 @@ public class modelo {
 			System.err.println("El fichero no existe");
 		}
 	}
-
-	public String getUrl() {
-		return url;
-	}
-
-	public String getPwd() {
-		return pwd;
-	}
-
-	public String getUsu() {
-		return usu;
-	}
-	
-
 }
 
