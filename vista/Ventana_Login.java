@@ -162,7 +162,7 @@ public class Ventana_Login {
 		lblIconUEM.setIcon(new ImageIcon(img_uem));
 		
 		JLabel lblConfig = new JLabel("");
-		lblConfig.setBounds(726, 450, 71, 61);
+		lblConfig.setBounds(726, 450, 44, 53);
 		frame.getContentPane().add(lblConfig);
 		lblConfig.setIcon(new ImageIcon(img_config));
 		
