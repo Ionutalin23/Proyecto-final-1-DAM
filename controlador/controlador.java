@@ -136,6 +136,7 @@ public class controlador {
 	public void logout() {
 		vista_ventana_menu.setVisible(false);
 		vista_ventana_login.frame.setVisible(true);
+		miModelo.finalizar();
 	}
 
 	public void BusquedaAnexos() {
