@@ -21,6 +21,7 @@ import vista.Busqueda_Grupos;
 import vista.Busqueda_Tutores;
 import vista.MenuVista;
 import vista.Ventana_Login;
+import vista.Ventana_Login_Config;
 import vista.Vista_Info_Alumno;
 import vista.Vista_Info_Empresa;
 import vista.Vista_Info_Grupo;
@@ -39,6 +40,7 @@ public class modelo {
 	private Vista_Info_Empresa vista_info_empresa;
 	private Vista_Info_Alumno vista_info_alumno;
 	private Vista_Info_Grupo vista_info_grupo;
+	private Ventana_Login_Config vista_login_config;
 	private String [] credenciales= new String[3];
 
 	private Connection conexion;
@@ -95,6 +97,11 @@ public class modelo {
 
 	public void setVista(Ventana_Login vista_ventana_login) {
 		this.vista_ventana_login = vista_ventana_login;
+	}
+	
+
+	public void setVista(Ventana_Login_Config vista_login_config) {
+		this.vista_login_config = vista_login_config;
 	}
 
 	public void setVista(MenuVista vista_ventana_menu) {

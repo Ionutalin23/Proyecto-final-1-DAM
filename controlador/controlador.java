@@ -8,6 +8,7 @@ import vista.Busqueda_Grupos;
 import vista.Busqueda_Tutores;
 import vista.MenuVista;
 import vista.Ventana_Login;
+import vista.Ventana_Login_Config;
 import vista.Vista_Info_Alumno;
 import vista.Vista_Info_Empresa;
 import vista.Vista_Info_Grupo;
@@ -16,6 +17,7 @@ import vista.Vista_Info_Tutor;
 public class controlador {
 	private modelo miModelo;
 	private Ventana_Login vista_ventana_login;
+	private Ventana_Login_Config ventana_login_config;
 	private MenuVista vista_ventana_menu;
 	private Busqueda_Alumnos busquedaAlumnos;
 	private Busqueda_Anexos busquedaAnexos;
@@ -53,6 +55,11 @@ public class controlador {
 
 	public void setVista(Ventana_Login vista_ventana_login) {
 		this.vista_ventana_login = vista_ventana_login;
+	}
+	
+
+	public void setVista(Ventana_Login_Config ventana_login_config) {
+		this.ventana_login_config = ventana_login_config;
 	}
 
 	public void setVista(MenuVista vista_ventana_menu) {
