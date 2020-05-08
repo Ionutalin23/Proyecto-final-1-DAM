@@ -309,5 +309,11 @@ public class Ventana_Login_Config {
 		} else {
 			System.err.println("El fichero no existe");
 		}
+//		miModelo.lecturaFichero();
+//		String [] credenciales2= new String[3];
+//		System.arraycopy(miModelo.getCredenciales(), 0, credenciales2, 0, 3);
+//		txtUrlBD.setText(credenciales2[2]);
+//		txtUsuarioBD.setText(credenciales2[0]);
+//		txtPasswordBD.setText(credenciales2[1]);
 	}
 }

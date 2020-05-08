@@ -326,5 +326,10 @@ public class modelo {
 			System.err.println("El fichero no existe");
 		}
 	}
+
+	public String[] getCredenciales() {
+		return credenciales;
+	}
+	
 }
 
