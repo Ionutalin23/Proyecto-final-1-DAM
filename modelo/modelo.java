@@ -326,10 +326,6 @@ public class modelo {
 		}
 	}
 
-	public String[] getCredenciales() {
-		return credenciales;
-	}
-
 	public void modificarfichero() {
 		File file = new File("config.ini");
 		if (file.exists()) {

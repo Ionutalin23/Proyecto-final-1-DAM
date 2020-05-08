@@ -273,37 +273,4 @@ public class Ventana_Login_Config {
 
 		return txtUrlBD.getText();
 	}
-
-
-
-	public void leerLinea() {
-		String lineaURL;
-		String lineaUSR;
-		String lineaPWD;
-		File file = new File("config.ini");
-		if (file.exists()) {
-			try {
-				Scanner sc = new Scanner(file);
-				lineaUSR = sc.nextLine();
-				lineaPWD = sc.nextLine();
-				lineaURL = sc.nextLine();
-
-				txtUrlBD.setText(lineaURL);
-				txtUsuarioBD.setText(lineaUSR);
-				txtPasswordBD.setText(lineaPWD);
-
-			} catch (IOException e) {
-				System.err.println("Error de ENTRADA/SALIDA");
-				e.printStackTrace();
-			}
-		} else {
-			System.err.println("El fichero no existe");
-		}
-//		miModelo.lecturaFichero();
-//		String [] credenciales2= new String[3];
-//		System.arraycopy(miModelo.getCredenciales(), 0, credenciales2, 0, 3);
-//		txtUrlBD.setText(credenciales2[2]);
-//		txtUsuarioBD.setText(credenciales2[0]);
-//		txtPasswordBD.setText(credenciales2[1]);
-	}
 }
