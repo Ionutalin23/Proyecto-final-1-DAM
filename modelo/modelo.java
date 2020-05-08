@@ -325,6 +325,12 @@ public class modelo {
 			System.err.println("El fichero no existe");
 		}
 	}
+	public void VerFichero() {
+		lecturaFichero();
+		vista_login_config.setTxtUrlBD(credenciales[2]);
+		vista_login_config.setTxtPasswordBD(credenciales[1]);
+		vista_login_config.setTxtUsuarioBD(credenciales[0]);
+	}
 
 	public void modificarfichero() {
 		File file = new File("config.ini");

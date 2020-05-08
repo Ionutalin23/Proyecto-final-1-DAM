@@ -32,7 +32,7 @@ import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class Ventana_Login_Config {
+public class Ventana_Login_Config extends JFrame {
 
 //	GUI Content ========================
 	public JFrame frame;
@@ -260,9 +260,7 @@ public class Ventana_Login_Config {
 		lblBgColor.setIcon(new ImageIcon(img_bg));
 
 	}
-
 	public String getUsuarioBD() {
-
 		return txtUsuarioBD.getText();
 	}
 	public String getPassBD() {
@@ -272,5 +270,17 @@ public class Ventana_Login_Config {
 	public String getUrlBD() {
 
 		return txtUrlBD.getText();
+	}
+
+	public void setTxtUsuarioBD(String user) {
+		txtUsuarioBD.setText(user);
+	}
+	
+	public void setTxtUrlBD(String URL) {
+		txtUrlBD.setText(URL);
+	}
+
+	public void setTxtPasswordBD(String password) {
+		txtPasswordBD.setText(password);
 	}
 }
