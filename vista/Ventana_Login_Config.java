@@ -186,11 +186,10 @@ public class Ventana_Login_Config {
 			public void mouseExited(MouseEvent e) {
 				lblModificarBtn.setIcon(new ImageIcon(img_buttonLogin));
 			}
-
 			public void mouseClicked(MouseEvent e) {
 
 //	Crear metodo para cambiar variables de loging de la base de datos
-				modificarfichero();
+				miModelo.modificarfichero();
 				lblRespuesta.setText("Fichero modificado con Éxito");
 				lblRespuesta.setVisible(true);
 			}
@@ -259,32 +258,23 @@ public class Ventana_Login_Config {
 		lblBgColor.setBounds(0, 0, 784, 511);
 		frame.getContentPane().add(lblBgColor);
 		lblBgColor.setIcon(new ImageIcon(img_bg));
-		
-// llamada a metodo para leer los datos
-		leerLinea();
+
 	}
 
-// metodos para leer y modificar el fichero
-	public void modificarfichero() {
-		File file = new File("config.ini");
-		
-		try {
-			PrintWriter pw = new PrintWriter(file);
-			pw.println(txtUsuarioBD.getText());
-			pw.println(String.valueOf(txtPasswordBD.getPassword()));
-			pw.println(txtUrlBD.getText());
-			pw.close();
+	public String getUsuarioBD() {
 
-			
-			
-		} catch (IOException e) {
-			System.err.println("Error de ENTRADA/SALIDA");
-			e.printStackTrace();
-		}
-		
-		
-		
+		return txtUsuarioBD.getText();
 	}
+	public String getPassBD() {
+
+		return String.valueOf(txtPasswordBD.getPassword());
+	}
+	public String getUrlBD() {
+
+		return txtUrlBD.getText();
+	}
+
+
 
 	public void leerLinea() {
 		String lineaURL;
