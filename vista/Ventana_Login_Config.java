@@ -186,10 +186,10 @@ public class Ventana_Login_Config extends JFrame {
 			public void mouseExited(MouseEvent e) {
 				lblModificarBtn.setIcon(new ImageIcon(img_buttonLogin));
 			}
-
 			public void mouseClicked(MouseEvent e) {
 
 //	Crear metodo para cambiar variables de loging de la base de datos
+				miModelo.modificarfichero();
 				lblRespuesta.setText("Fichero modificado con Éxito");
 				lblRespuesta.setVisible(true);
 			}
@@ -262,20 +262,28 @@ public class Ventana_Login_Config extends JFrame {
 		miModelo.VerFichero();
 
 	}
-	
-
-	public void setTxtUrlBD(String URL) {
-		txtUrlBD.setText(URL);
-
+	public String getUsuarioBD() {
+		return txtUsuarioBD.getText();
 	}
+	public String getPassBD() {
 
-	public void setTxtPasswordBD(String password) {
-		txtPasswordBD.setText(password);
+		return String.valueOf(txtPasswordBD.getPassword());
+	}
+	public String getUrlBD() {
 
+		return txtUrlBD.getText();
 	}
 
 	public void setTxtUsuarioBD(String user) {
 		txtPasswordBD.setText(user);
+	}
+	
+	public void setTxtUrlBD(String URL) {
+		txtUrlBD.setText(URL);
+	}
+
+	public void setTxtPasswordBD(String password) {
+		txtPasswordBD.setText(password);
 	}
 
 }
