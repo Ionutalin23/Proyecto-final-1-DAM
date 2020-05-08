@@ -47,6 +47,8 @@ public class Ventana_Login {
 			.getScaledInstance(800, 590, Image.SCALE_SMOOTH);
 	private Image img_config = new ImageIcon(Ventana_Login.class.getResource("/img/config.png")).getImage()
 			.getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+	private Image img_config2 = new ImageIcon(Ventana_Login.class.getResource("/img/config.png")).getImage()
+			.getScaledInstance(45, 45, Image.SCALE_SMOOTH);
 	private JLabel lblLogin;
 	private JPasswordField txtPassword;
 	private JTextField txtUsuario;
@@ -106,11 +108,11 @@ public class Ventana_Login {
 		txtPassword.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
-				if (e.getKeyCode()==KeyEvent.VK_ENTER){
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 					miModelo.ConexionBBDD();
 					miControlador.rol();
 					miControlador.login();
-		        }
+				}
 			}
 		});
 		txtPassword.setBounds(42, 0, 173, 36);
@@ -161,7 +163,7 @@ public class Ventana_Login {
 				miModelo.ConexionBBDD();
 				miControlador.rol();
 				miControlador.login();
-				
+
 			}
 		});
 		lblLoginButton.setBounds(348, 427, 118, 47);
@@ -172,24 +174,33 @@ public class Ventana_Login {
 		lblIconUEM.setBounds(332, 54, 154, 125);
 		frame.getContentPane().add(lblIconUEM);
 		lblIconUEM.setIcon(new ImageIcon(img_uem));
-		
+
 		JLabel lblConfig = new JLabel("");
 		lblConfig.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				miControlador.loginConfig();
 			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				lblConfig.setIcon(new ImageIcon(img_config2));
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				lblConfig.setIcon(new ImageIcon(img_config));
+			}
 		});
 		lblConfig.setBounds(726, 450, 44, 53);
 		frame.getContentPane().add(lblConfig);
 		lblConfig.setIcon(new ImageIcon(img_config));
-		
+
 		JLabel lblBgColor = new JLabel("");
 		lblBgColor.setBounds(0, 0, 784, 511);
 		frame.getContentPane().add(lblBgColor);
 		lblBgColor.setIcon(new ImageIcon(img_bg));
-		
-		
+
 	}
 
 	public String getUsuario() {
@@ -211,7 +222,7 @@ public class Ventana_Login {
 			} else {
 				miControlador.accesoTut();
 			}
-			
+
 		} else if (resultado.equals("Incorrecto")) {
 			lblRespuesta.setText("Usuario o contraseña incorrectos!!");
 		} else {
