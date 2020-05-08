@@ -32,7 +32,7 @@ import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class Ventana_Login_Config {
+public class Ventana_Login_Config extends JFrame {
 
 //	GUI Content ========================
 	public JFrame frame;
@@ -190,7 +190,6 @@ public class Ventana_Login_Config {
 			public void mouseClicked(MouseEvent e) {
 
 //	Crear metodo para cambiar variables de loging de la base de datos
-				modificarfichero();
 				lblRespuesta.setText("Fichero modificado con Éxito");
 				lblRespuesta.setVisible(true);
 			}
@@ -260,60 +259,23 @@ public class Ventana_Login_Config {
 		frame.getContentPane().add(lblBgColor);
 		lblBgColor.setIcon(new ImageIcon(img_bg));
 		
-// llamada a metodo para leer los datos
-		leerLinea();
+		miModelo.VerFichero();
+
+	}
+	
+
+	public void setTxtUrlBD(String URL) {
+		txtUrlBD.setText(URL);
+
 	}
 
-// metodos para leer y modificar el fichero
-	public void modificarfichero() {
-		File file = new File("config.ini");
-		
-		try {
-			PrintWriter pw = new PrintWriter(file);
-			pw.println(txtUsuarioBD.getText());
-			pw.println(String.valueOf(txtPasswordBD.getPassword()));
-			pw.println(txtUrlBD.getText());
-			pw.close();
+	public void setTxtPasswordBD(String password) {
+		txtPasswordBD.setText(password);
 
-			
-			
-		} catch (IOException e) {
-			System.err.println("Error de ENTRADA/SALIDA");
-			e.printStackTrace();
-		}
-		
-		
-		
 	}
 
-	public void leerLinea() {
-		String lineaURL;
-		String lineaUSR;
-		String lineaPWD;
-		File file = new File("config.ini");
-		if (file.exists()) {
-			try {
-				Scanner sc = new Scanner(file);
-				lineaUSR = sc.nextLine();
-				lineaPWD = sc.nextLine();
-				lineaURL = sc.nextLine();
-
-				txtUrlBD.setText(lineaURL);
-				txtUsuarioBD.setText(lineaUSR);
-				txtPasswordBD.setText(lineaPWD);
-
-			} catch (IOException e) {
-				System.err.println("Error de ENTRADA/SALIDA");
-				e.printStackTrace();
-			}
-		} else {
-			System.err.println("El fichero no existe");
-		}
-//		miModelo.lecturaFichero();
-//		String [] credenciales2= new String[3];
-//		System.arraycopy(miModelo.getCredenciales(), 0, credenciales2, 0, 3);
-//		txtUrlBD.setText(credenciales2[2]);
-//		txtUsuarioBD.setText(credenciales2[0]);
-//		txtPasswordBD.setText(credenciales2[1]);
+	public void setTxtUsuarioBD(String user) {
+		txtPasswordBD.setText(user);
 	}
+
 }
