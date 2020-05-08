@@ -258,8 +258,6 @@ public class Ventana_Login_Config extends JFrame {
 		lblBgColor.setBounds(0, 0, 784, 511);
 		frame.getContentPane().add(lblBgColor);
 		lblBgColor.setIcon(new ImageIcon(img_bg));
-		
-		miModelo.VerFichero();
 
 	}
 	public String getUsuarioBD() {
@@ -275,7 +273,7 @@ public class Ventana_Login_Config extends JFrame {
 	}
 
 	public void setTxtUsuarioBD(String user) {
-		txtPasswordBD.setText(user);
+		txtUsuarioBD.setText(user);
 	}
 	
 	public void setTxtUrlBD(String URL) {

@@ -179,6 +179,7 @@ public class Ventana_Login {
 		lblConfig.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				miModelo.VerFichero();
 				miControlador.loginConfig();
 			}
 		});
