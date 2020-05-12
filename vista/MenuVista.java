@@ -92,6 +92,7 @@ public class MenuVista extends JFrame {
 			}
 
 			public void mouseClicked(MouseEvent e) {
+				miModelo.soundButton();
 				miControlador.BusquedaAnexos();
 			}
 
@@ -134,6 +135,7 @@ public class MenuVista extends JFrame {
 
 			public void mouseClicked(MouseEvent e) {
 				miControlador.BusquedaTutores();
+				miModelo.soundButton();
 			}
 
 //			@Override
@@ -179,6 +181,7 @@ public class MenuVista extends JFrame {
 
 			public void mouseClicked(MouseEvent e) {
 				miControlador.BusquedaEmpresas();
+				miModelo.soundButton();
 			}
 
 //			@Override
@@ -224,13 +227,8 @@ public class MenuVista extends JFrame {
 
 			public void mouseClicked(MouseEvent e) {
 				miControlador.BusquedaAlumnos();
+				miModelo.soundButton();
 			}
-
-//			@Override
-//			public void mouseClicked(MouseEvent e) {
-//				Busqueda_Alumnos vista = new Busqueda_Alumnos();
-//				vista.setVisible(true);
-//			}
 		});
 
 		lblAlmnBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/Btn.png")));
@@ -274,13 +272,8 @@ public class MenuVista extends JFrame {
 
 			public void mouseClicked(MouseEvent e) {
 				miControlador.BusquedaGrupos();
+				miModelo.soundButton();
 			}
-
-//			@Override
-//			public void mouseClicked(MouseEvent e) {
-//				Busqueda_Grupos vista = new Busqueda_Grupos();
-//				vista.setVisible(true);
-//			}
 		});
 		
 		lblEstadist = new JLabel("Estad\u00EDsticas");
@@ -322,6 +315,7 @@ public class MenuVista extends JFrame {
 
 			public void mouseClicked(MouseEvent e) {
 				lblEnConstruccion.setVisible(true);
+				miModelo.soundButton();
 			}
 
 //			@Override

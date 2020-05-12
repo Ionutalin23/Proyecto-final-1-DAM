@@ -353,7 +353,7 @@ public class modelo {
 
 	}
 
-	public void buttonSound() {
+	public void soundButton() {
 		AudioClip sonido;
 		sonido = java.applet.Applet.newAudioClip(getClass().getResource("/sounds/sonido2.wav"));
 		sonido.play();

@@ -161,7 +161,7 @@ public class Ventana_Login {
 			}
 
 			public void mouseClicked(MouseEvent e) {
-				miModelo.buttonSound();
+				miModelo.soundButton();
 				miModelo.ConexionBBDD();
 				miControlador.rol();
 				miControlador.login();
