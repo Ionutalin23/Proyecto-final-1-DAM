@@ -2,7 +2,9 @@ package modelo;
 
 import java.applet.AudioClip;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -13,6 +15,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
 
+import javax.swing.JFileChooser;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
@@ -326,6 +330,7 @@ public class modelo {
 			System.err.println("El fichero no existe");
 		}
 	}
+
 	public void VerFichero() {
 		lecturaFichero();
 		vista_login_config.setTxtUrlBD(credenciales[2]);
@@ -359,4 +364,21 @@ public class modelo {
 		sonido.play();
 	}
 
+	public void downloadTable(JTable table) {
+		File ruta = new File(System.getProperty("user.dir"));
+		JFileChooser fc = new JFileChooser(ruta);
+		int seleccionado = fc.showSaveDialog(null);
+		if (seleccionado == JFileChooser.APPROVE_OPTION) {
+			File fichero = fc.getSelectedFile();
+			try {
+				FileOutputStream fos = new FileOutputStream(fichero);
+				ObjectOutputStream oos = new ObjectOutputStream(fos);
+				oos.writeObject(table);
+				fos.close();
+				oos.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 }
