@@ -34,7 +34,11 @@ import java.awt.event.KeyEvent;
 
 public class Busqueda_Anexos extends JFrame {
 
-//	GUI Content ========================
+/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	//	GUI Content ========================
 	private JPanel contentPane;
 	private JTable table;
 	private JTextField SearchField;
@@ -133,7 +137,8 @@ public class Busqueda_Anexos extends JFrame {
 			}
 
 			public void mouseClicked(MouseEvent e) {
-				miControlador.saveTable();
+				JTable tabla= getTable();
+				miControlador.saveTable(tabla);
 			}
 		});
 		DownloadBtn.setBounds(750, 591, 89, 23);

@@ -304,8 +304,8 @@ public class controlador {
 		vista_ventana_login.frame.setVisible(true);
 	}
 
-	public void saveTable() {
-		miModelo.downloadTable(busquedaAnexos.getTable());
+	public void saveTable(JTable tabla) {
+		miModelo.downloadTable(tabla);
 	}
 
 }
