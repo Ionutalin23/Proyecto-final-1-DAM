@@ -161,7 +161,7 @@ public class Ventana_Login {
 			}
 
 			public void mouseClicked(MouseEvent e) {
-				sonido();
+				miModelo.buttonSound();
 				miModelo.ConexionBBDD();
 				miControlador.rol();
 				miControlador.login();
@@ -231,10 +231,5 @@ public class Ventana_Login {
 		} else {
 			System.exit(0);
 		}
-	}
-	public void sonido() {
-		AudioClip sonido;
-		sonido = java.applet.Applet.newAudioClip(getClass().getResource("/sounds/sonido2.wav"));
-		sonido.play();
 	}
 }

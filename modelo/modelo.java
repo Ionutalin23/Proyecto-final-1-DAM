@@ -1,5 +1,6 @@
 package modelo;
 
+import java.applet.AudioClip;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -350,6 +351,12 @@ public class modelo {
 			System.err.println("El fichero no existe");
 		}
 
+	}
+
+	public void buttonSound() {
+		AudioClip sonido;
+		sonido = java.applet.Applet.newAudioClip(getClass().getResource("/sounds/sonido2.wav"));
+		sonido.play();
 	}
 
 }
