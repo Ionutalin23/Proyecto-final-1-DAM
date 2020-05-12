@@ -283,5 +283,4 @@ public class Ventana_Login_Config extends JFrame {
 	public void setTxtPasswordBD(String password) {
 		txtPasswordBD.setText(password);
 	}
-
 }
