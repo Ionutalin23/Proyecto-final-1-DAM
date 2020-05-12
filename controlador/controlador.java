@@ -136,6 +136,7 @@ public class controlador {
 	public void logout() {
 		vista_ventana_menu.setVisible(false);
 		vista_ventana_login.frame.setVisible(true);
+		miModelo.finalizar();
 	}
 
 	public void BusquedaAnexos() {
@@ -172,6 +173,7 @@ public class controlador {
 	public void logout1() {
 		busquedaAnexos.setVisible(false);
 		vista_ventana_login.frame.setVisible(true);
+		miModelo.finalizar();
 	}
 
 	public void back1() {
@@ -183,6 +185,7 @@ public class controlador {
 	public void logout2() {
 		busquedaAlumnos.setVisible(false);
 		vista_ventana_login.frame.setVisible(true);
+		miModelo.finalizar();
 	}
 
 	public void back2() {
@@ -193,6 +196,7 @@ public class controlador {
 	public void logout3() {
 		busquedaEmpresas.setVisible(false);
 		vista_ventana_login.frame.setVisible(true);
+		miModelo.finalizar();
 	}
 
 	public void back3() {
@@ -204,6 +208,7 @@ public class controlador {
 	public void logout4() {
 		busquedaGrupos.setVisible(false);
 		vista_ventana_login.frame.setVisible(true);
+		miModelo.finalizar();
 	}
 
 	public void back4() {
@@ -215,6 +220,7 @@ public class controlador {
 	public void logout5() {
 		busquedaTutores.setVisible(false);
 		vista_ventana_login.frame.setVisible(true);
+		miModelo.finalizar();
 	}
 
 	public void nuevoAlumno() {
@@ -241,23 +247,27 @@ public class controlador {
 	public void logout6() {
 		vista_info_alumno.setVisible(false);
 		vista_ventana_login.frame.setVisible(true);
+		miModelo.finalizar();
 	}
 
 	public void logout7() {
 		vista_info_empresa.setVisible(false);
 		vista_ventana_login.frame.setVisible(true);
+		miModelo.finalizar();
 
 	}
 
 	public void logout8() {
 		vista_info_grupo.setVisible(false);
 		vista_ventana_login.frame.setVisible(true);
+		miModelo.finalizar();
 
 	}
 
 	public void logout9() {
 		vista_info_tutor.setVisible(false);
 		vista_ventana_login.frame.setVisible(true);
+		miModelo.finalizar();
 	}
 
 	public void back5() {
@@ -285,6 +295,11 @@ public class controlador {
 	}
 	public void loginConfig() {
 		ventana_login_config.frame.setVisible(true);
+		vista_ventana_login.frame.setVisible(false);
+	}
+	public void loginConfigSalir() {
+		ventana_login_config.frame.setVisible(false);
+		vista_ventana_login.frame.setVisible(true);
 	}
 
 }

@@ -2,6 +2,7 @@ package modelo;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -41,7 +42,7 @@ public class modelo {
 	private Vista_Info_Alumno vista_info_alumno;
 	private Vista_Info_Grupo vista_info_grupo;
 	private Ventana_Login_Config vista_login_config;
-	private String [] credenciales= new String[3];
+	private String[] credenciales = new String[3];
 
 	private Connection conexion;
 	private int fallos;
@@ -54,15 +55,16 @@ public class modelo {
 			+ "PI.colabora CO, PI.Empresa E, PI.practica PR WHERE A.num_exp=P.alumno_num_exp AND T.dni_tutor=G.tutor_dni_tutor AND C.cod_centro=T.centro_cod_centro AND CO.empresa_cif=E.cif "
 			+ "AND P.grupo_cod_grupo=GR.cod_grupo AND G.grupo_cod_grupo=GR.cod_grupo AND CO.centro_cod_centro=C.cod_centro\n"
 			+ "AND PR.empresa_cif=E.cif AND PR.alumno_num_exp=A.num_exp";
-	private String SQLanexo3="SELECT A.nombre, A.apellidos, A.dni, PR.anexo_3 FROM PI.alumno A, PI.practica PR WHERE num_exp=alumno_num_exp";
-	private String SQLanexo7="SELECT A.nombre, A.apellidos, PR.anexo_7 FROM PI.alumno A, PI.practica PR WHERE A.num_exp=PR.alumno_num_exp";
-	private String SQLanexo8="SELECT A.nombre, A.apellidos,CONCAT(C.localidad,CONCAT(',',C.cod_centro)) \"CENTRO\", E.Nombre \"EMPRESA\", PR.anexo_8 FROM PI.alumno A, PI.practica PR, PI.empresa E, PI.centro C, PI.colabora CO WHERE num_exp=alumno_num_exp AND PR.empresa_cif=E.cif\n" + 
-			"AND CO.empresa_cif=E.cif AND C.cod_centro=CO.centro_cod_centro";
+	private String SQLanexo3 = "SELECT A.nombre, A.apellidos, A.dni, PR.anexo_3 FROM PI.alumno A, PI.practica PR WHERE num_exp=alumno_num_exp";
+	private String SQLanexo7 = "SELECT A.nombre, A.apellidos, PR.anexo_7 FROM PI.alumno A, PI.practica PR WHERE A.num_exp=PR.alumno_num_exp";
+	private String SQLanexo8 = "SELECT A.nombre, A.apellidos,CONCAT(C.localidad,CONCAT(',',C.cod_centro)) \"CENTRO\", E.Nombre \"EMPRESA\", PR.anexo_8 FROM PI.alumno A, PI.practica PR, PI.empresa E, PI.centro C, PI.colabora CO WHERE num_exp=alumno_num_exp AND PR.empresa_cif=E.cif\n"
+			+ "AND CO.empresa_cif=E.cif AND C.cod_centro=CO.centro_cod_centro";
 	private String SQLTut = "SELECT * FROM PI.TUTOR";
 	private String SQLTut_2 = "SELECT nombre, apellidos,clave_ciclo, nombre_ciclo FROM PI.Tutor TU, PI.Grupo GR, PI.Gestiona GE WHERE TU.dni_tutor = GE.tutor_dni_tutor AND GE.grupo_cod_grupo = GR.cod_grupo AND nombre_ciclo ='DAMM'";
 	private String SQAlumno = "SELECT * FROM PI.alumno";
 	private String SQLEmp = "SELECT * FROM PI.empresa";
 	private String SQLGrp = "SELECT * FROM PI.grupo";
+
 	public void ConexionBBDD() {
 		lecturaFichero();
 		try {
@@ -98,7 +100,6 @@ public class modelo {
 	public void setVista(Ventana_Login vista_ventana_login) {
 		this.vista_ventana_login = vista_ventana_login;
 	}
-	
 
 	public void setVista(Ventana_Login_Config vista_login_config) {
 		this.vista_login_config = vista_login_config;
@@ -221,13 +222,11 @@ public class modelo {
 	public String getSQLanexo2_2() {
 		return SQLanexo2_2;
 	}
-	
 
 	public String getSQLanexo3() {
 		return SQLanexo3;
 	}
-	
-	
+
 	public String getSQLanexo7() {
 		return SQLanexo7;
 	}
@@ -239,11 +238,10 @@ public class modelo {
 	public String getSQLalumnos() {
 		return SQAlumno;
 	}
-	
+
 	public String getSQLGrp() {
 		return SQLGrp;
 	}
-
 
 	private int getColumnas(String SQL) {
 		int num = 0;
@@ -306,18 +304,19 @@ public class modelo {
 	public String getSQLEmp() {
 		return SQLEmp;
 	}
+
 	public void lecturaFichero() {
-		File file= new File("config.ini");
-		int i=0;
+		File file = new File("config.ini");
+		int i = 0;
 		if (file.exists()) {
 			try {
-				Scanner sc= new Scanner(file);
+				Scanner sc = new Scanner(file);
 				while (sc.hasNext()) {
-					credenciales[i]=sc.nextLine();
+					credenciales[i] = sc.nextLine();
 					i++;
 				}
 				sc.close();
-				
+
 			} catch (IOException e) {
 				System.err.println("Error de ENTRADA/SALIDA");
 				e.printStackTrace();
@@ -326,5 +325,31 @@ public class modelo {
 			System.err.println("El fichero no existe");
 		}
 	}
-}
+	public void VerFichero() {
+		lecturaFichero();
+		vista_login_config.setTxtUrlBD(credenciales[2]);
+		vista_login_config.setTxtPasswordBD(credenciales[1]);
+		vista_login_config.setTxtUsuarioBD(credenciales[0]);
+	}
 
+	public void modificarfichero() {
+		File file = new File("config.ini");
+		if (file.exists()) {
+			try {
+				PrintWriter pw = new PrintWriter(file);
+				pw.println(vista_login_config.getUsuarioBD());
+				pw.println(vista_login_config.getPassBD());
+				pw.println(vista_login_config.getUrlBD());
+				pw.close();
+
+			} catch (IOException e) {
+				System.err.println("Error de ENTRADA/SALIDA");
+				e.printStackTrace();
+			}
+		} else {
+			System.err.println("El fichero no existe");
+		}
+
+	}
+
+}

@@ -96,6 +96,7 @@ public class Main {
 		vista_ventana_login.setModelo(miModelo);
 		
 		ventana_login_config.setControlador(miControlador);
+		ventana_login_config.setModelo(miModelo);
 		
 		vista_ventana_menu.setControlador(miControlador);
 		vista_ventana_menu.setModelo(miModelo);
