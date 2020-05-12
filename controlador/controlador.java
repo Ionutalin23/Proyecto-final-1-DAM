@@ -308,4 +308,14 @@ public class controlador {
 		miModelo.downloadTable(tabla);
 	}
 
+	public void insertarDato() {
+		String dni=vista_info_alumno.getTxtDni();
+		String nombre=vista_info_alumno.getTxtName();
+		String apellido=vista_info_alumno.getTxtApellidos();
+		String expediente=vista_info_alumno.getTxtExpediente();
+		String nacionalidad=vista_info_alumno.getTxtNacionalidad();
+		String fechaNacim=vista_info_alumno.getTxtNacim();
+		miModelo.añadirAlumno(dni,nombre,apellido,expediente,nacionalidad,fechaNacim);
+	}
+
 }

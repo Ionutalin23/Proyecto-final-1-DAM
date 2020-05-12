@@ -29,6 +29,8 @@ public class Vista_Info_Alumno extends JFrame {
 	private JLabel lblBack;
 	private JTextField txtNacionalidad;
 	private JLabel lblUser;
+	private JTextField txtExpediente;
+	private JLabel lblResul;
 	
 	public Vista_Info_Alumno() {
 		
@@ -87,51 +89,51 @@ public class Vista_Info_Alumno extends JFrame {
 		JLabel lblTitle = new JLabel("Informaci\u00F3n del alumno:");
 		lblTitle.setForeground(new Color(255, 255, 255));
 		lblTitle.setFont(new Font("Century Gothic", Font.BOLD, 24));
-		lblTitle.setBounds(35, 82, 296, 29);
+		lblTitle.setBounds(32, 53, 296, 29);
 		pnlContenido.add(lblTitle);
 		
 		JLabel lblDni = new JLabel("DNI:");
 		lblDni.setForeground(new Color(0, 0, 0));
 		lblDni.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblDni.setBounds(35, 147, 56, 16);
+		lblDni.setBounds(32, 95, 56, 16);
 		pnlContenido.add(lblDni);
 		
 		txtDni = new JTextField();
-		txtDni.setBounds(35, 176, 267, 22);
+		txtDni.setBounds(32, 124, 267, 22);
 		pnlContenido.add(txtDni);
 		txtDni.setColumns(10);
 		
 		JLabel lblName = new JLabel("NOMBRE:");
 		lblName.setForeground(Color.BLACK);
 		lblName.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblName.setBounds(35, 211, 77, 16);
+		lblName.setBounds(32, 159, 77, 16);
 		pnlContenido.add(lblName);
 		
 		txtName = new JTextField();
 		txtName.setColumns(10);
-		txtName.setBounds(35, 240, 267, 22);
+		txtName.setBounds(32, 188, 267, 22);
 		pnlContenido.add(txtName);
 		
 		JLabel lblApellidos = new JLabel("APELLIDOS:");
 		lblApellidos.setForeground(Color.BLACK);
 		lblApellidos.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblApellidos.setBounds(35, 275, 92, 16);
+		lblApellidos.setBounds(32, 223, 92, 16);
 		pnlContenido.add(lblApellidos);
 		
 		txtApellidos = new JTextField();
 		txtApellidos.setColumns(10);
-		txtApellidos.setBounds(35, 304, 267, 22);
+		txtApellidos.setBounds(32, 252, 267, 22);
 		pnlContenido.add(txtApellidos);
 		
 		JLabel lblNacim = new JLabel("FECHA DE NACIMIENTO:");
 		lblNacim.setForeground(Color.BLACK);
 		lblNacim.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblNacim.setBounds(35, 339, 177, 16);
+		lblNacim.setBounds(32, 351, 177, 16);
 		pnlContenido.add(lblNacim);
 		
 		txtNacim = new JTextField();
 		txtNacim.setColumns(10);
-		txtNacim.setBounds(35, 368, 267, 22);
+		txtNacim.setBounds(32, 380, 267, 22);
 		pnlContenido.add(txtNacim);
 		
 		lblLogout = new JLabel("LOGOUT");
@@ -196,19 +198,19 @@ public class Vista_Info_Alumno extends JFrame {
 		JLabel lblNacionalidad = new JLabel("NACIONALIDAD:");
 		lblNacionalidad.setForeground(Color.BLACK);
 		lblNacionalidad.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblNacionalidad.setBounds(35, 404, 131, 16);
+		lblNacionalidad.setBounds(32, 415, 131, 16);
 		pnlContenido.add(lblNacionalidad);
 		
 		txtNacionalidad = new JTextField();
 		txtNacionalidad.setColumns(10);
-		txtNacionalidad.setBounds(35, 433, 267, 22);
+		txtNacionalidad.setBounds(32, 444, 267, 22);
 		pnlContenido.add(txtNacionalidad);
 		
 		JLabel lblCrear = new JLabel("CREAR");
 		lblCrear.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCrear.setForeground(Color.WHITE);
 		lblCrear.setBackground(new Color(205, 92, 92));
-		lblCrear.setBounds(134, 478, 109, 48);
+		lblCrear.setBounds(134, 500, 109, 48);
 		pnlContenido.add(lblCrear);
 		
 		JLabel lblCrearButton = new JLabel("");
@@ -229,10 +231,31 @@ public class Vista_Info_Alumno extends JFrame {
 			public void mouseExited(MouseEvent e) {
 				lblCrearButton.setIcon(new ImageIcon(button1));
 			}
+			public void mouseClicked(MouseEvent e) {
+				miControlador.insertarDato();
+			}
 		});
-		lblCrearButton.setBounds(134, 478, 110, 48);
+		lblCrearButton.setBounds(133, 500, 110, 48);
 		pnlContenido.add(lblCrearButton);
 		lblCrearButton.setIcon(new ImageIcon(button1));
+		
+		JLabel lblExpediente = new JLabel("NUMERO EXPEDIENTE:");
+		lblExpediente.setForeground(Color.BLACK);
+		lblExpediente.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblExpediente.setBounds(32, 287, 177, 16);
+		pnlContenido.add(lblExpediente);
+		
+		txtExpediente = new JTextField();
+		txtExpediente.setColumns(10);
+		txtExpediente.setBounds(32, 316, 267, 22);
+		pnlContenido.add(txtExpediente);
+		
+		lblResul = new JLabel("");
+		lblResul.setForeground(new Color(128, 0, 0));
+		lblResul.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblResul.setHorizontalAlignment(SwingConstants.CENTER);
+		lblResul.setBounds(32, 479, 267, 16);
+		pnlContenido.add(lblResul);
 		
 		JLabel lblPortada = new JLabel("");
 		lblPortada.setHorizontalAlignment(SwingConstants.LEFT);
@@ -256,4 +279,40 @@ public class Vista_Info_Alumno extends JFrame {
 	public void actualizarLogged() {
 		lblUser.setText("Logged as: "+miModelo.getUSR());
 	}
+
+	public String getTxtDni() {
+		return txtDni.getText();
+	}
+
+	public String getTxtName() {
+		return txtName.getText();
+	}
+
+	public String getTxtApellidos() {
+		return txtApellidos.getText();
+	}
+
+	public String getTxtNacim() {
+		return txtNacim.getText();
+	}
+
+	public String getTxtNacionalidad() {
+		return txtNacionalidad.getText();
+	}
+
+	public String getTxtExpediente() {
+		return txtExpediente.getText();
+	}
+
+	public void actualizar() {
+		String resultado= miModelo.getResultadoAlum();
+		if (resultado.equals("EXISTENTE")) {
+			lblResul.setText("EL USUARIO YA EXISTE");
+		}else if(resultado.equals("EXITO")) {
+			lblResul.setText("USUARIO AÑADIDO CON EXITO!!");
+		}else {
+			lblResul.setText("ERROR");
+		}
+	}
+	
 }

@@ -52,6 +52,7 @@ public class modelo {
 	private Connection conexion;
 	private int fallos;
 	private String resultado;
+	private String resultadoAlum;
 	private String USR;
 	private String rol;
 	private String SQLanexo2_1 = "SELECT nombre, apellidos, anexo_2_1 FROM PI.alumno, PI.practica WHERE num_exp=alumno_num_exp";
@@ -381,4 +382,44 @@ public class modelo {
 			}
 		}
 	}
+
+	public void añadirAlumno(String dni, String nombre, String apellido, String expediente, String nacionalidad, String fechaNacim) {
+		String consulta="SELECT * FROM PI.alumno WHERE DNI=?";
+		String insert="insert into PI.alumno values(?,?,?,?,?,?)";
+		try {
+			PreparedStatement cons=conexion.prepareStatement(consulta);
+			cons.setString(1, dni);
+			ResultSet rs= cons.executeQuery();
+			if (rs.next()) {
+				resultadoAlum="EXISTENTE";
+				vista_info_alumno.actualizar();
+			}else {
+				PreparedStatement ins=conexion.prepareStatement(insert);
+				ins.setString(1, dni);
+				ins.setString(2, nombre);
+				ins.setString(3, apellido);
+				ins.setString(4, expediente);
+				ins.setString(5, nacionalidad);
+				ins.setString(6, fechaNacim);
+				int resul=ins.executeUpdate();
+				if (resul>0) {
+					resultadoAlum="EXITO";
+					vista_info_alumno.actualizar();
+				}else {
+					resultadoAlum="ERROR";
+					vista_info_alumno.actualizar();
+				}
+				cons.close();
+				rs.close();
+				ins.close();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public String getResultadoAlum() {
+		return resultadoAlum;
+	}
+	
 }
