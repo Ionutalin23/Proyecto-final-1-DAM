@@ -31,10 +31,7 @@ public class Vista_Info_Alumno extends JFrame {
 	private JLabel lblUser;
 	
 	public Vista_Info_Alumno() {
-		setTitle("");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 888, 664);
-		getContentPane().setLayout(null);
+		
 		ImageIcon ico =new ImageIcon(getClass().getResource("/images/logo.png"));
 		ImageIcon ico2 =new ImageIcon(getClass().getResource("/images/uni2.jpg"));
 		
@@ -45,6 +42,13 @@ public class Vista_Info_Alumno extends JFrame {
 		Image back1= new ImageIcon(getClass().getResource("/images/back1.png")).getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH);
 		Image back2= new ImageIcon(getClass().getResource("/images/back2.png")).getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH);
 		Image back3= new ImageIcon(getClass().getResource("/images/back3.png")).getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH);
+		
+		setTitle("");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 888, 664);
+		getContentPane().setLayout(null);
+//		POSICIONAR VENTANA EN EL CENTRO DE LA PANTALLA
+		setLocationRelativeTo(null);
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(255, 99, 71));

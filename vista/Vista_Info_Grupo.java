@@ -34,6 +34,8 @@ public class Vista_Info_Grupo extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 888, 664);
 		getContentPane().setLayout(null);
+//		POSICIONAR VENTANA EN EL CENTRO DE LA PANTALLA
+		setLocationRelativeTo(null);
 		ImageIcon ico = new ImageIcon(getClass().getResource("/images/logo.png"));
 
 		Image button1 = new ImageIcon(getClass().getResource("/images/boton1.png")).getImage().getScaledInstance(110,

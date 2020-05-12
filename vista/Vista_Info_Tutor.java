@@ -38,6 +38,8 @@ public class Vista_Info_Tutor extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 888, 664);
 		getContentPane().setLayout(null);
+//		POSICIONAR VENTANA EN EL CENTRO DE LA PANTALLA
+		setLocationRelativeTo(null);
 		
 		ImageIcon ico =new ImageIcon(getClass().getResource("/images/logo.png"));
 		

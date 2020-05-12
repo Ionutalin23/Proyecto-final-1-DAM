@@ -114,6 +114,8 @@ public class Busqueda_Anexos extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+//		POSICIONAR VENTANA EN EL CENTRO DE LA PANTALLA
+		setLocationRelativeTo(null);
 		
 		
 // 		Download button ============================	

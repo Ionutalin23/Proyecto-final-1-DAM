@@ -51,6 +51,8 @@ public class MenuVista extends JFrame {
 		setBounds(100, 100, 888, 664);
 		getContentPane().setLayout(null);
 		getContentPane().setLayout(null);
+//		POSICIONAR VENTANA EN EL CENTRO DE LA PANTALLA
+		setLocationRelativeTo(null);
 
 		JPanel pnlMed = new JPanel();
 		pnlMed.setBounds(208, 0, 448, 617);

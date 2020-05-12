@@ -38,6 +38,9 @@ public class Vista_Info_Empresa extends JFrame {
 		setBounds(100, 100, 888, 664);
 		getContentPane().setLayout(null);
 		
+//		POSICIONAR VENTANA EN EL CENTRO DE LA PANTALLA
+		setLocationRelativeTo(null);
+		
 		ImageIcon ico =new ImageIcon(getClass().getResource("/images/logo.png"));
 		ImageIcon ico2 =new ImageIcon(getClass().getResource("/images/uni2.jpg"));
 		

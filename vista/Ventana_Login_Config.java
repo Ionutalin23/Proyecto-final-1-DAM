@@ -81,6 +81,8 @@ public class Ventana_Login_Config extends JFrame {
 		frame.setBounds(100, 400, 800, 550);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+//		POSICIONAR VENTANA EN EL CENTRO DE LA PANTALLA
+		frame.setLocationRelativeTo(null);
 
 //	Respuesta de datos introducidos ========================
 		lblRespuesta = new JLabel("");

@@ -87,6 +87,8 @@ public class Busqueda_Grupos extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+//		POSICIONAR VENTANA EN EL CENTRO DE LA PANTALLA
+		setLocationRelativeTo(null);
 		
 		lblUser = new JLabel("Logged as: Pedro Camacho");
 		lblUser.setBounds(560, 7, 208, 27);
