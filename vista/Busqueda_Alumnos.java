@@ -130,7 +130,7 @@ public class Busqueda_Alumnos extends JFrame {
 				CreateNewBtn.setIcon(new ImageIcon(img_default2Button));
 			}
 			public void mouseClicked(MouseEvent e) {
-				miControlador.nuevoTutor();
+				miControlador.nuevoAlumno();
 			}
 		});
 		CreateNewBtn.setBounds(740, 591, 122, 23);

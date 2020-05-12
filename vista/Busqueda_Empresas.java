@@ -152,7 +152,7 @@ public class Busqueda_Empresas extends JFrame {
 			}
 
 			public void mouseClicked(MouseEvent e) {
-				miControlador.nuevoTutor();
+				miControlador.nuevaEmpresa();
 			}
 		});
 		CreateNewBtn.setBounds(740, 591, 122, 23);

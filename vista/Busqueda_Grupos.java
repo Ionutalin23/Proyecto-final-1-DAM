@@ -137,7 +137,7 @@ public class Busqueda_Grupos extends JFrame {
 				CreateNewBtn.setIcon(new ImageIcon(img_default2Button));
 			}
 			public void mouseClicked(MouseEvent e) {
-				miControlador.nuevoTutor();
+				miControlador.nuevoGrupo();
 			}
 		});
 		CreateNewBtn.setBounds(740, 591, 122, 23);
