@@ -9,6 +9,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -327,12 +328,17 @@ public class Vista_Info_Alumno extends JFrame {
 	public void actualizar() {
 		String resultado = miModelo.getResultadoAlum();
 		if (resultado.equals("EXISTENTE")) {
-			lblResul.setText("EL USUARIO YA EXISTE");
+			JOptionPane.showMessageDialog(this, "El usuario ya existe");
+			//lblResul.setText("EL USUARIO YA EXISTE");
 		} else if (resultado.equals("EXITO")) {
-			lblResul.setText("USUARIO AÑADIDO CON EXITO!!");
+			//lblResul.setText("USUARIO AÑADIDO CON EXITO!!");
+			JOptionPane.showMessageDialog(this, "Usuario añadido con éxito");
 			clearFields();
-		} else {
-			lblResul.setText("ERROR");
+		}else if(resultado.equals("VACIO")){
+			JOptionPane.showMessageDialog(this, "Por favor, rellene todos los campos");
+		}else {
+			JOptionPane.showMessageDialog(this, "Error, por favor compruebe todos los datos");
+//			lblResul.setText("ERROR");
 		}
 	}
 

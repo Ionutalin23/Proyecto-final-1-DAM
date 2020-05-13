@@ -394,27 +394,31 @@ public class modelo {
 				resultadoAlum="EXISTENTE";
 				vista_info_alumno.actualizar();
 			}else {
-				PreparedStatement ins=conexion.prepareStatement(insert);
-				ins.setString(1, dni);
-				ins.setString(2, nombre);
-				ins.setString(3, apellido);
-				ins.setString(4, expediente);
-				ins.setString(5, nacionalidad);
-				ins.setString(6, fechaNacim);
-				int resul=ins.executeUpdate();
-				if (resul>0) {
-					resultadoAlum="EXITO";
-					vista_info_alumno.actualizar();
-				}else {
-					resultadoAlum="ERROR";
-					vista_info_alumno.actualizar();
+					PreparedStatement ins=conexion.prepareStatement(insert);
+					ins.setString(1, dni);
+					ins.setString(2, nombre);
+					ins.setString(3, apellido);
+					ins.setString(4, expediente);
+					ins.setString(5, nacionalidad);
+					ins.setString(6, fechaNacim);
+					int resul=ins.executeUpdate();
+					if (resul>0) {
+						resultadoAlum="EXITO";
+						vista_info_alumno.actualizar();
+					}
+					cons.close();
+					rs.close();
+					ins.close();
 				}
-				cons.close();
-				rs.close();
-				ins.close();
-			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			if (dni.isEmpty()||nombre.isEmpty()||apellido.isEmpty()||expediente.isEmpty()||nacionalidad.isEmpty()||fechaNacim.isEmpty()) {
+				resultadoAlum="VACIO";
+				vista_info_alumno.actualizar();
+			}else {
+				resultadoAlum="ERROR";
+				vista_info_alumno.actualizar();
+			}
+			
 		}
 	}
 
