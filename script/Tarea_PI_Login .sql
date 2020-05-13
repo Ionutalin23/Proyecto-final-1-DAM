@@ -252,6 +252,7 @@ INSERT INTO USERS(USR, PWD, ROL) VALUES('Antonio Martin', 'AppFuncionaestupendo'
 INSERT INTO USERS(USR, PWD, ROL) VALUES('Felipe Delgado', 'Practicas', 'Tutor');
 INSERT INTO USERS(USR, PWD, ROL) VALUES('Ana Manzaneda', 'SuperDirectora', 'Director');
 INSERT INTO USERS(USR, PWD, ROL) VALUES('Gloria Martin', 'NosVemosEnJunioo', 'Director');
+INSERT INTO USERS(USR, PWD, ROL) VALUES('123', '123', 'Tutor');
 
 INSERT INTO empresa(cif, nombre, direccion, telefono, localidad, resp_empresa, email) VALUES('I19000000', 'Sonimar S.A.', 'C/Zabala Nº6', 654737382, 'Madrid','Arturo Velazquez','SArturo@gmail.com');
 INSERT INTO empresa(cif, nombre, direccion, telefono, localidad, resp_empresa, email) VALUES('I18000000', 'Coneccting S.A.', 'AVD/ Aranda Nº53', 657856746, 'Madrid','Lucia Goya','DLucia@gmail.com');

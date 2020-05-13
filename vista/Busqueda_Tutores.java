@@ -88,6 +88,36 @@ public class Busqueda_Tutores extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
+// 		Download button ============================	
+		JLabel DownloadLbl = new JLabel("Descargar");
+		DownloadLbl.setHorizontalAlignment(SwingConstants.CENTER);
+		DownloadLbl.setBounds(640, 591, 82, 23);
+		DownloadLbl.setFont(new Font("Century Gothic", Font.PLAIN, 12));
+		DownloadLbl.setForeground(Color.BLACK);
+		contentPane.add(DownloadLbl);
+		
+		JLabel DownloadBtn = new JLabel("");
+		DownloadBtn.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				DownloadBtn.setIcon(new ImageIcon(img_ButtonEliminarHover));
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				DownloadBtn.setIcon(new ImageIcon(img_ButtonEliminar));
+			}
+
+			public void mouseClicked(MouseEvent e) {
+				JTable tabla= getTable();
+				miControlador.saveTable(tabla);
+			}
+		});
+		DownloadBtn.setBounds(640, 591, 89, 23);
+		contentPane.add(DownloadBtn);
+		DownloadBtn.setIcon(new ImageIcon(img_ButtonEliminar));
+				
 //		POSICIONAR VENTANA EN EL CENTRO DE LA PANTALLA
 		setLocationRelativeTo(null);
 		
@@ -356,4 +386,10 @@ public class Busqueda_Tutores extends JFrame {
 		lblUser.setText("Logged as: "+miModelo.getUSR());
 		
 	}
+
+	public JTable getTable() {
+		return table;
+	}
+
+	
 }
