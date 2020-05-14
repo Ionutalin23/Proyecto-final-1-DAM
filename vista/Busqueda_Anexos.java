@@ -461,5 +461,6 @@ public class Busqueda_Anexos extends JFrame {
 
 		this.table = tabla;
 	}
+	
 
 }

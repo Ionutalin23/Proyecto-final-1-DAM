@@ -403,6 +403,26 @@ public class modelo {
 		}
 		return tablaAnx;
 	}
+//	public JTable CargarTabla() {
+//		File ruta = new File(System.getProperty("user.dir"));
+//		JFileChooser fc = new JFileChooser(ruta);
+//		int seleccionado = fc.showOpenDialog(panel);
+//		if (seleccionado == JFileChooser.APPROVE_OPTION) {
+//			File file = fc.getSelectedFile();
+//			try {
+//				FileInputStream fis = new FileInputStream(file);
+//				ObjectInputStream ois = new ObjectInputStream(fis);
+//				tablaAnx = (JTable) ois.readObject();
+//
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			} catch (ClassNotFoundException e) {
+//				e.printStackTrace();
+//
+//			}
+//		}
+//		return tablaAnx;
+//	}
 
 	public void añadirAlumno(String dni, String nombre, String apellido, String expediente, String nacionalidad,
 			String fechaNacim) {
