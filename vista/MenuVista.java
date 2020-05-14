@@ -38,6 +38,12 @@ public class MenuVista extends JFrame {
 			Image.SCALE_SMOOTH);
 	Image button3 = new ImageIcon(getClass().getResource("/img/boton3.png")).getImage().getScaledInstance(110, 48,
 			Image.SCALE_SMOOTH);
+	Image buttonMenu1 = new ImageIcon(getClass().getResource("/images/buttonMenu.png")).getImage()
+			.getScaledInstance(160, 37, Image.SCALE_SMOOTH);
+	Image buttonMenu2 = new ImageIcon(getClass().getResource("/images/buttonMenu2.png")).getImage()
+			.getScaledInstance(160, 37, Image.SCALE_SMOOTH);
+	Image buttonMenu3 = new ImageIcon(getClass().getResource("/images/buttonMenu3.png")).getImage()
+			.getScaledInstance(160, 37, Image.SCALE_SMOOTH);
 	private JLabel lblLogout;
 	private JLabel lblUser;
 	private JLabel lblEstadist;
@@ -80,11 +86,133 @@ public class MenuVista extends JFrame {
 		pnlMenu.setBounds(-260, 0, 254, 617);
 		getContentPane().add(pnlMenu);
 		pnlMenu.setLayout(null);
+		
+				JLabel btnPerfil = new JLabel("");
+				btnPerfil.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mousePressed(MouseEvent e) {
+						btnPerfil.setIcon(new ImageIcon(buttonMenu3));
+					}
+
+					public void mouseRelesed(MouseEvent e) {
+						btnPerfil.setIcon(new ImageIcon(buttonMenu2));
+					}
+
+					public void mouseEntered(MouseEvent arg0) {
+						btnPerfil.setIcon(new ImageIcon(buttonMenu2));
+					}
+
+					public void mouseExited(MouseEvent e) {
+						btnPerfil.setIcon(new ImageIcon(buttonMenu1));
+					}
+				});
+				
+				JLabel lblAjustes = new JLabel("AJUSTES");
+				lblAjustes.setFont(new Font("Tahoma", Font.BOLD, 14));
+				lblAjustes.setHorizontalAlignment(SwingConstants.CENTER);
+				lblAjustes.setBounds(49, 340, 160, 37);
+				pnlMenu.add(lblAjustes);
+				btnPerfil.setIcon(new ImageIcon(buttonMenu1));
+				btnPerfil.setBounds(49, 340, 160, 37);
+				pnlMenu.add(btnPerfil);
+		
+		JLabel lblPerfil = new JLabel("MI PERFIL");
+		lblPerfil.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblPerfil.setHorizontalAlignment(SwingConstants.CENTER);
+		lblPerfil.setBounds(49, 264, 160, 37);
+		pnlMenu.add(lblPerfil);
+
+		// Menu Buttons
+		// -----------------------------------------------------------------------------
+
+		JLabel lblMessages = new JLabel("MENSAJES");
+		lblMessages.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblMessages.setHorizontalAlignment(SwingConstants.CENTER);
+		lblMessages.setBounds(49, 190, 160, 37);
+		pnlMenu.add(lblMessages);
+
+		JLabel btnMessages = new JLabel("");
+		btnMessages.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				btnMessages.setIcon(new ImageIcon(buttonMenu3));
+			}
+
+			public void mouseRelesed(MouseEvent e) {
+				btnMessages.setIcon(new ImageIcon(buttonMenu2));
+			}
+
+			public void mouseEntered(MouseEvent arg0) {
+				btnMessages.setIcon(new ImageIcon(buttonMenu2));
+			}
+
+			public void mouseExited(MouseEvent e) {
+				btnMessages.setIcon(new ImageIcon(buttonMenu1));
+			}
+		});
+		btnMessages.setIcon(new ImageIcon(buttonMenu1));
+		btnMessages.setBounds(49, 264, 160, 37);
+		pnlMenu.add(btnMessages);
+
+		JLabel btnAjustes = new JLabel("");
+		btnAjustes.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				btnAjustes.setIcon(new ImageIcon(buttonMenu3));
+			}
+
+			public void mouseRelesed(MouseEvent e) {
+				btnAjustes.setIcon(new ImageIcon(buttonMenu2));
+			}
+
+			public void mouseEntered(MouseEvent arg0) {
+				btnAjustes.setIcon(new ImageIcon(buttonMenu2));
+			}
+
+			public void mouseExited(MouseEvent e) {
+				btnAjustes.setIcon(new ImageIcon(buttonMenu1));
+			}
+		});
+		btnAjustes.setIcon(new ImageIcon(buttonMenu1));
+		btnAjustes.setBounds(49, 190, 160, 37);
+		pnlMenu.add(btnAjustes);
+		
+		JLabel lblHelp = new JLabel("AYUDA");
+		lblHelp.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblHelp.setHorizontalAlignment(SwingConstants.CENTER);
+		lblHelp.setBounds(49, 417, 160, 37);
+		pnlMenu.add(lblHelp);
+
+		
+		JLabel btnHelp = new JLabel("");
+		btnHelp.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				btnHelp.setIcon(new ImageIcon(buttonMenu3));
+			}
+
+			public void mouseRelesed(MouseEvent e) {
+				btnHelp.setIcon(new ImageIcon(buttonMenu2));
+			}
+
+			public void mouseEntered(MouseEvent arg0) {
+				btnHelp.setIcon(new ImageIcon(buttonMenu2));
+			}
+
+			public void mouseExited(MouseEvent e) {
+				btnHelp.setIcon(new ImageIcon(buttonMenu1));
+			}
+		});
+		btnHelp.setIcon(new ImageIcon(buttonMenu1));
+		btnHelp.setBounds(49, 417, 160, 37);
+		pnlMenu.add(btnHelp);
 
 		JLabel lblPhoto = new JLabel("");
 		lblPhoto.setBounds(49, 31, 167, 128);
 		lblPhoto.setIcon(new ImageIcon(MenuVista.class.getResource("/images/user.png")));
 		pnlMenu.add(lblPhoto);
+		
+//		-------------------------------------------------------------------------------------------
 
 		lblLogout = new JLabel("LOGOUT");
 		lblLogout.setBounds(753, 13, 92, 27);
