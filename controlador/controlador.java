@@ -307,7 +307,6 @@ public class controlador {
 	public void saveTable(JTable tabla) {
 		miModelo.downloadTable(tabla);
 	}
-
 	public void insertarDato() {
 		String dni=vista_info_alumno.getTxtDni();
 		String nombre=vista_info_alumno.getTxtName();
@@ -317,5 +316,7 @@ public class controlador {
 		String fechaNacim=vista_info_alumno.getTxtNacim();
 		miModelo.añadirAlumno(dni,nombre,apellido,expediente,nacionalidad,fechaNacim);
 	}
+
+	
 
 }

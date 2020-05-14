@@ -9,6 +9,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 import controlador.controlador;
 import modelo.modelo;
@@ -34,11 +35,11 @@ import java.awt.event.KeyEvent;
 
 public class Busqueda_Anexos extends JFrame {
 
-/**
-	 * 
-	 */
+	/**
+		 * 
+		 */
 	private static final long serialVersionUID = 1L;
-	//	GUI Content ========================
+	// GUI Content ========================
 	private JPanel contentPane;
 	private JTable table;
 	private JTextField SearchField;
@@ -95,6 +96,8 @@ public class Busqueda_Anexos extends JFrame {
 	private modelo miModelo;
 	private JComboBox FilterComboBox;
 	private JLabel DeleteBtn_1;
+	private JLabel CargarLbl;
+	private JLabel CargarBtn;
 
 	public void setControlador(controlador miControlador) {
 		this.miControlador = miControlador;
@@ -163,16 +166,7 @@ public class Busqueda_Anexos extends JFrame {
 
 		table = new JTable();
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-//		table.setModel(new DefaultTableModel(
-//				new Object[][] { { "Benjamin", "Buford", "Completado" }, { "Dan", "Taylor", "Completado" },
-//						{ "Jules", "Winnfield", "Completado" }, { "Vito", "Corleone", "Completado" },
-//						{ "Marty", "McFly", "Completado" }, { "Vincent", "Vega", "Completado" },
-//						{ "Mia", "Wallace", "Completado" }, { "Nicky", "Koskoff", "Completado" },
-//						{ "Donnie", "Azoff", "Completado" }, { "Kirk", "Lazarus", "Completado" },
-//						{ "Less", "Grossman", "Incompleto" }, { "Alpa", "Chino", "Incompleto" },
-//						{ "Tugg", "Speedman", "Incompleto" }, { "Carole", "Baskin", "Incompleto" },
-//						{ "Joe", "Exotic", "Incompleto" }, { "Doc", "Antle", "Incompleto" }, },
-//				new String[] { "NOMBRE", "APELLIDO", "ANEXO 1" }));
+		
 		TableView.setViewportView(table);
 
 		addWindowListener(new WindowAdapter() {
@@ -401,6 +395,36 @@ public class Busqueda_Anexos extends JFrame {
 
 		});
 		lblLogoutButton.setIcon(new ImageIcon(button1));
+// 		Cargar btn
+		
+		CargarLbl = new JLabel("Cargar");
+		CargarLbl.setForeground(Color.BLACK);
+		CargarLbl.setFont(new Font("Century Gothic", Font.PLAIN, 12));
+		CargarLbl.setBounds(667, 591, 62, 23);
+		contentPane.add(CargarLbl);
+		
+		CargarBtn = new JLabel("");
+		CargarBtn.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				CargarBtn.setIcon(new ImageIcon(img_ButtonModificarHover));
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				CargarBtn.setIcon(new ImageIcon(img_ButtonModificar));
+			}
+
+			public void mouseClicked(MouseEvent e) {
+				table.setModel(miModelo.CargarTabla().getModel());
+
+			}
+
+			
+		});
+		CargarBtn.setIcon(new ImageIcon(img_ButtonModificar));
+		CargarBtn.setBounds(648, 591, 89, 23);
+		contentPane.add(CargarBtn);
 
 //		User Name Label ========================
 		JPanel pnlUser = new JPanel();
@@ -432,4 +456,10 @@ public class Busqueda_Anexos extends JFrame {
 	public JTable getTable() {
 		return table;
 	}
+
+	public void setTable(JTable tabla) {
+
+		this.table = tabla;
+	}
+
 }
