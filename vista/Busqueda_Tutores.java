@@ -85,7 +85,7 @@ public class Busqueda_Tutores extends JFrame {
 // 	MVC ========================
 	private controlador miControlador;
 	private modelo miModelo;
-	private JLabel lblSubir;
+	private JLabel lblCargar;
 
 	public void setControlador(controlador miControlador) {
 		this.miControlador = miControlador;
@@ -107,32 +107,32 @@ public class Busqueda_Tutores extends JFrame {
 		contentPane.setLayout(null);
 
 // 		Subir button ============================	
-		lblSubir = new JLabel("Subir Tabla");
-		lblSubir.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSubir.setForeground(Color.BLACK);
-		lblSubir.setFont(new Font("Century Gothic", Font.PLAIN, 12));
-		lblSubir.setBounds(541, 591, 82, 23);
-		contentPane.add(lblSubir);
+		lblCargar = new JLabel("Cargar");
+		lblCargar.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCargar.setForeground(Color.BLACK);
+		lblCargar.setFont(new Font("Century Gothic", Font.PLAIN, 12));
+		lblCargar.setBounds(541, 591, 82, 23);
+		contentPane.add(lblCargar);
 
-		JLabel subirBtn = new JLabel("");
-		subirBtn.addMouseListener(new MouseAdapter() {
+		JLabel cargarBtn = new JLabel("");
+		cargarBtn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				subirBtn.setIcon(new ImageIcon(img_ButtonEliminarHover));
+				cargarBtn.setIcon(new ImageIcon(img_ButtonModificarHover));
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				subirBtn.setIcon(new ImageIcon(img_ButtonEliminar));
+				cargarBtn.setIcon(new ImageIcon(img_ButtonModificar));
 			}
 
 			public void mouseClicked(MouseEvent e) {
 				table.setModel(miModelo.SubirTabla().getModel());
 			}
 		});
-		subirBtn.setBounds(541, 591, 89, 23);
-		subirBtn.setIcon(new ImageIcon(img_ButtonEliminar));
-		contentPane.add(subirBtn);
+		cargarBtn.setBounds(541, 591, 89, 23);
+		cargarBtn.setIcon(new ImageIcon(img_ButtonModificar));
+		contentPane.add(cargarBtn);
 
 // 		Download button ============================	
 		JLabel downloadLbl = new JLabel("Descargar");
