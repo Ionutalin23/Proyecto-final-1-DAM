@@ -34,7 +34,11 @@ ALTER TABLE centro ADD CONSTRAINT centro_pk PRIMARY KEY ( cod_centro );
 CREATE TABLE USERS (
     USR          VARCHAR2(50 CHAR) NOT NULL,
     PWD          VARCHAR2(30 CHAR) NOT NULL,
-    ROL          VARCHAR2(25 CHAR) NOT NULL
+    ROL          VARCHAR2(25 CHAR) NOT NULL,
+    EMAIL        VARCHAR2(70 CHAR),
+    NOMBRE       VARCHAR2(30 CHAR),
+    APELLIDO     VARCHAR2(30 CHAR),
+    FOTO         BLOB
 );
 
 ALTER TABLE USERS ADD CONSTRAINT USR_pk PRIMARY KEY ( USR );
@@ -252,7 +256,6 @@ INSERT INTO USERS(USR, PWD, ROL) VALUES('Antonio Martin', 'AppFuncionaestupendo'
 INSERT INTO USERS(USR, PWD, ROL) VALUES('Felipe Delgado', 'Practicas', 'Tutor');
 INSERT INTO USERS(USR, PWD, ROL) VALUES('Ana Manzaneda', 'SuperDirectora', 'Director');
 INSERT INTO USERS(USR, PWD, ROL) VALUES('Gloria Martin', 'NosVemosEnJunioo', 'Director');
-INSERT INTO USERS(USR, PWD, ROL) VALUES('123', '123', 'Tutor');
 
 INSERT INTO empresa(cif, nombre, direccion, telefono, localidad, resp_empresa, email) VALUES('I19000000', 'Sonimar S.A.', 'C/Zabala Nº6', 654737382, 'Madrid','Arturo Velazquez','SArturo@gmail.com');
 INSERT INTO empresa(cif, nombre, direccion, telefono, localidad, resp_empresa, email) VALUES('I18000000', 'Coneccting S.A.', 'AVD/ Aranda Nº53', 657856746, 'Madrid','Lucia Goya','DLucia@gmail.com');
@@ -497,6 +500,7 @@ INSERT INTO pertenece(alumno_num_exp,grupo_cod_grupo, acad) VALUES(1111173,0001,
 INSERT INTO pertenece(alumno_num_exp,grupo_cod_grupo, acad) VALUES(1111174,0001, '2019-2020');
 INSERT INTO pertenece(alumno_num_exp,grupo_cod_grupo, acad) VALUES(1111175,0001, '2019-2020');
 
+
 -- -----------------------------------------SELECTS EN JAVA-------------------------------------
 -- -----------------------------------------LOGIN---------------------------------
 -- SELECT * FROM PI.Users WHERE usr = 'Pedro Camacho' AND pwd = 'MiUniEsLaMejor';
@@ -531,6 +535,8 @@ INSERT INTO pertenece(alumno_num_exp,grupo_cod_grupo, acad) VALUES(1111175,0001,
 -- EMPRESA--> SELECT * FROM empresa;
 -- GRUPO--> SELECT * FROM grupo;
 
-
+-- INSERTS 
+-- insert into PI.USERS values(?,?,?,?,?,?,?);
+-- INSERT INTO USERS(USR,PWD,ROL,EMAIL,NOMBRE,APELLIDO,FOTO) VALUES ('Pablo Benito2','pablo123','tutor','email@hotmail.com','pablobenito','benitopablo',NULL);
 
 

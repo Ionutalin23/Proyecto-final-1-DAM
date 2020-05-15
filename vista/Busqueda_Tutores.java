@@ -32,7 +32,11 @@ import java.awt.Image;
 
 public class Busqueda_Tutores extends JFrame {
 
-//	GUI Content ========================
+/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	//	GUI Content ========================
 	private JPanel contentPane;
 	private JTable table;
 	private JTextField SearchField;
