@@ -387,17 +387,22 @@ public class modelo {
 	}
 
 	public JTable SubirTabla() {
-		File file = new File("Tutores.dat");
-		try {
-			FileInputStream fis = new FileInputStream(file);
-			ObjectInputStream ois = new ObjectInputStream(fis);
-			tablaTut = (JTable) ois.readObject();
+		File ruta = new File(System.getProperty("user.dir"));
+		JFileChooser fc = new JFileChooser(ruta);
+		int seleccionado = fc.showOpenDialog(null);
+		if (seleccionado == JFileChooser.APPROVE_OPTION) {
+			File file = fc.getSelectedFile();
+			try {
+				FileInputStream fis = new FileInputStream(file);
+				ObjectInputStream ois = new ObjectInputStream(fis);
+				tablaTut = (JTable) ois.readObject();
 
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
 
+			}
 		}
 		return tablaTut;
 	}
