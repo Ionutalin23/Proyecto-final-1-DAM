@@ -313,6 +313,11 @@ public class controlador {
 		ventana_login_config.frame.setVisible(false);
 		vista_ventana_login.frame.setVisible(true);
 	}
+	
+	public void loginRegister() {
+		vista_ventana_login.frame.setVisible(false);
+		ventana_login_register.setVisible(true);
+	}
 
 	public void saveTable(JTable tabla) {
 		miModelo.downloadTable(tabla);

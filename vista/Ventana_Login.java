@@ -32,25 +32,17 @@ import java.awt.event.KeyEvent;
 public class Ventana_Login {
 
 	public JFrame frame;
-	private Image img_usr = new ImageIcon(Ventana_Login.class.getResource("/img/usr.png")).getImage()
-			.getScaledInstance(40, 40, Image.SCALE_SMOOTH);
-	private Image img_passwd = new ImageIcon(Ventana_Login.class.getResource("/img/passwd.png")).getImage()
-			.getScaledInstance(35, 35, Image.SCALE_SMOOTH);
-	private Image img_uem = new ImageIcon(Ventana_Login.class.getResource("/img/uem2.png")).getImage()
-			.getScaledInstance(135, 135, Image.SCALE_SMOOTH);
-	private Image img_buttonLogin = new ImageIcon(Ventana_Login.class.getResource("/img/loginbutton.png")).getImage()
-			.getScaledInstance(110, 48, Image.SCALE_SMOOTH);
-	private Image img_buttonLogin2 = new ImageIcon(Ventana_Login.class.getResource("/img/loginbutton2.png")).getImage()
-			.getScaledInstance(110, 48, Image.SCALE_SMOOTH);
-	private Image img_buttonLogin3 = new ImageIcon(Ventana_Login.class.getResource("/img/loginbutton3.png")).getImage()
-			.getScaledInstance(110, 48, Image.SCALE_SMOOTH);
-	private Image img_bg = new ImageIcon(Ventana_Login.class.getResource("/img/bg9.jpg")).getImage()
-			.getScaledInstance(800, 590, Image.SCALE_SMOOTH);
-	private Image img_config = new ImageIcon(Ventana_Login.class.getResource("/img/config.png")).getImage()
-			.getScaledInstance(40, 40, Image.SCALE_SMOOTH);
-	private Image img_config2 = new ImageIcon(Ventana_Login.class.getResource("/img/config.png")).getImage()
-			.getScaledInstance(45, 45, Image.SCALE_SMOOTH);
+	private Image img_usr = new ImageIcon(Ventana_Login.class.getResource("/img/usr.png")).getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+	private Image img_passwd = new ImageIcon(Ventana_Login.class.getResource("/img/passwd.png")).getImage().getScaledInstance(35, 35, Image.SCALE_SMOOTH);
+	private Image img_uem = new ImageIcon(Ventana_Login.class.getResource("/img/uem2.png")).getImage().getScaledInstance(135, 135, Image.SCALE_SMOOTH);
+	private Image img_buttonLogin = new ImageIcon(Ventana_Login.class.getResource("/img/loginbutton.png")).getImage().getScaledInstance(110, 48, Image.SCALE_SMOOTH);
+	private Image img_buttonLogin2 = new ImageIcon(Ventana_Login.class.getResource("/img/loginbutton2.png")).getImage().getScaledInstance(110, 48, Image.SCALE_SMOOTH);
+	private Image img_buttonLogin3 = new ImageIcon(Ventana_Login.class.getResource("/img/loginbutton3.png")).getImage().getScaledInstance(110, 48, Image.SCALE_SMOOTH);
+	private Image img_bg = new ImageIcon(Ventana_Login.class.getResource("/img/bg9.jpg")).getImage().getScaledInstance(800, 590, Image.SCALE_SMOOTH);
+	private Image img_config = new ImageIcon(Ventana_Login.class.getResource("/img/config.png")).getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+	private Image img_config2 = new ImageIcon(Ventana_Login.class.getResource("/img/config.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH);
 	private JLabel lblLogin;
+	private JLabel lblRegister;
 	private JPasswordField txtPassword;
 	private JTextField txtUsuario;
 
@@ -133,11 +125,12 @@ public class Ventana_Login {
 		lblPasswdText.setBounds(290, 326, 118, 20);
 		frame.getContentPane().add(lblPasswdText);
 
+//		LOGIN BUTTON ========================
 		lblLogin = new JLabel("LOGIN");
 		lblLogin.setHorizontalAlignment(SwingConstants.CENTER);
 		lblLogin.setFont(new Font("Century Gothic", Font.BOLD, 15));
 		lblLogin.setForeground(Color.WHITE);
-		lblLogin.setBounds(348, 427, 109, 36);
+		lblLogin.setBounds(278, 426, 109, 36);
 		frame.getContentPane().add(lblLogin);
 
 		JLabel lblLoginButton = new JLabel("");
@@ -170,15 +163,55 @@ public class Ventana_Login {
 
 			}
 		});
-		lblLoginButton.setBounds(348, 427, 118, 47);
+		lblLoginButton.setBounds(278, 426, 118, 47);
 		frame.getContentPane().add(lblLoginButton);
 		lblLoginButton.setIcon(new ImageIcon(img_buttonLogin));
+		
+//		REGISTER BUTTON ========================
+		lblRegister = new JLabel("REGISTRARSE");
+		lblRegister.setHorizontalAlignment(SwingConstants.CENTER);
+		lblRegister.setFont(new Font("Century Gothic", Font.BOLD, 15));
+		lblRegister.setForeground(Color.WHITE);
+		lblRegister.setBounds(410, 426, 109, 36);
+		frame.getContentPane().add(lblRegister);
+		
+		JLabel lblRegisterButon = new JLabel("");
+		lblRegister.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				lblRegister.setIcon(new ImageIcon(img_buttonLogin3));
+			}
 
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				lblRegister.setIcon(new ImageIcon(img_buttonLogin2));
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				lblRegister.setIcon(new ImageIcon(img_buttonLogin2));
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				lblRegister.setIcon(new ImageIcon(img_buttonLogin));
+			}
+
+			public void mouseClicked(MouseEvent e) {
+				miControlador.loginRegister();
+			}
+		});
+		lblRegisterButon.setBounds(409, 426, 118, 47);
+		frame.getContentPane().add(lblRegisterButon);
+		lblRegisterButon.setIcon(new ImageIcon(img_buttonLogin));
+		
+//		UEM LOGO ========================
 		JLabel lblIconUEM = new JLabel("");
 		lblIconUEM.setBounds(332, 54, 154, 125);
 		frame.getContentPane().add(lblIconUEM);
 		lblIconUEM.setIcon(new ImageIcon(img_uem));
 
+//		CONFIG BUTTON ========================
 		JLabel lblConfig = new JLabel("");
 		lblConfig.addMouseListener(new MouseAdapter() {
 			@Override
@@ -200,7 +233,8 @@ public class Ventana_Login {
 		lblConfig.setBounds(726, 450, 44, 53);
 		frame.getContentPane().add(lblConfig);
 		lblConfig.setIcon(new ImageIcon(img_config));
-
+		
+//		BACKGROUND ========================
 		JLabel lblBgColor = new JLabel("");
 		lblBgColor.setBounds(0, 0, 784, 511);
 		frame.getContentPane().add(lblBgColor);
@@ -208,6 +242,7 @@ public class Ventana_Login {
 
 	}
 
+// GETTER ========================
 	public String getUsuario() {
 
 		return txtUsuario.getText();
@@ -218,6 +253,7 @@ public class Ventana_Login {
 		return String.valueOf(txtPassword.getPassword());
 	}
 
+//	ACTUALIZAR ========================
 	public void actualizar() {
 		String resultado = miModelo.getResultado();
 		if (resultado.equals("Correcto")) {
