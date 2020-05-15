@@ -44,6 +44,8 @@ public class MenuVista extends JFrame {
 			.getScaledInstance(160, 37, Image.SCALE_SMOOTH);
 	Image buttonMenu3 = new ImageIcon(getClass().getResource("/images/buttonMenu3.png")).getImage()
 			.getScaledInstance(160, 37, Image.SCALE_SMOOTH);
+	Image imgLogo1 = new ImageIcon(getClass().getResource("/img/logo_uem.png")).getImage()
+			.getScaledInstance(202, 148, Image.SCALE_SMOOTH);
 	private JLabel lblLogout;
 	private JLabel lblUser;
 	private JLabel lblEstadist;
@@ -452,10 +454,10 @@ public class MenuVista extends JFrame {
 		lblAlmnBtn.setBounds(70, 436, 283, 27);
 		pnlMed.add(lblAlmnBtn);
 
-		JLabel lblProf = new JLabel("");
-		lblProf.setBounds(146, 50, 166, 148);
-		pnlMed.add(lblProf);
-		lblProf.setIcon(new ImageIcon(MenuVista.class.getResource("/img/img.png")));
+		JLabel lblLogo1 = new JLabel("");
+		lblLogo1.setBounds(111, 49, 202, 148);
+		pnlMed.add(lblLogo1);
+		lblLogo1.setIcon(new ImageIcon(imgLogo1));
 
 		JLabel lblGrup = new JLabel("Grupos");
 		lblGrup.setBounds(70, 505, 283, 27);
