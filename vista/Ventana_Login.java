@@ -176,25 +176,25 @@ public class Ventana_Login {
 		frame.getContentPane().add(lblRegister);
 		
 		JLabel lblRegisterButon = new JLabel("");
-		lblRegister.addMouseListener(new MouseAdapter() {
+		lblRegisterButon.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				lblRegister.setIcon(new ImageIcon(img_buttonLogin3));
+				lblRegisterButon.setIcon(new ImageIcon(img_buttonLogin3));
 			}
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				lblRegister.setIcon(new ImageIcon(img_buttonLogin2));
+				lblRegisterButon.setIcon(new ImageIcon(img_buttonLogin2));
 			}
 
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				lblRegister.setIcon(new ImageIcon(img_buttonLogin2));
+				lblRegisterButon.setIcon(new ImageIcon(img_buttonLogin2));
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				lblRegister.setIcon(new ImageIcon(img_buttonLogin));
+				lblRegisterButon.setIcon(new ImageIcon(img_buttonLogin));
 			}
 
 			public void mouseClicked(MouseEvent e) {
