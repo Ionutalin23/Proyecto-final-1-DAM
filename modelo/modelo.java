@@ -430,9 +430,9 @@ public class modelo {
 		return resultadoAlum;
 	}
 	
-	public void añadirUsuario(String user, String password, String email, String nombre, String apellido) {
+	public void añadirUsuario(String user, String password, String rol, String email, String nombre, String apellido) {
 		String consulta="SELECT * FROM PI.users";
-		String insert="insert into PI.users values(?,?,?,?,?)";
+		String insert="insert into PI.users values(?,?,?,?,?,?)";
 		try {
 			PreparedStatement cons=conexion.prepareStatement(consulta);
 			cons.setString(1, user);
@@ -444,9 +444,10 @@ public class modelo {
 					PreparedStatement ins=conexion.prepareStatement(insert);
 					ins.setString(1, user);
 					ins.setString(2, password);
-					ins.setString(3, email);
-					ins.setString(4, nombre);
-					ins.setString(5, apellido);
+					ins.setString(3, rol);
+					ins.setString(4, email);
+					ins.setString(5, nombre);
+					ins.setString(6, apellido);
 					int resul=ins.executeUpdate();
 					if (resul>0) {
 						resultadoUsuario="EXITO";
@@ -457,8 +458,8 @@ public class modelo {
 					ins.close();
 				}
 		} catch (SQLException e) {
-			if (user.isEmpty()||password.isEmpty()) {
-				resultadoUsuario="INTRODUZCA USUARIO Y CONTRASEÑA";
+			if (user.isEmpty()||password.isEmpty()||rol.isEmpty()) {
+				resultadoUsuario="INTRODUZCA USUARIO, CONTRASEÑA Y ROL";
 				ventana_login_register.actualizar();
 			}else {
 				resultadoUsuario="ERROR";

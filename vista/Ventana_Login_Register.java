@@ -31,6 +31,7 @@ public class Ventana_Login_Register extends JFrame {
 	private JLabel lblBack;
 	private JLabel lblResul;
 	private JPanel pnlContenido;
+	private JTextField txtRol;
 
 	public Ventana_Login_Register() {
 
@@ -140,19 +141,16 @@ public class Ventana_Login_Register extends JFrame {
 		pnlContenido.add(txtPassword);
 		
 //		ROL LBL ========================
-		JLabel lblRol = new JLabel("ROL:");
+		JLabel lblRol = new JLabel("ROL(Tutor/Director):");
 		lblRol.setForeground(Color.BLACK);
 		lblRol.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblRol.setBounds(65, 415, 131, 16);
+		lblRol.setBounds(65, 415, 148, 16);
 		pnlContenido.add(lblRol);
-
-		JRadioButton rdbtnTutor = new JRadioButton("Tutor");
-		rdbtnTutor.setBounds(65, 444, 60, 23);
-		pnlContenido.add(rdbtnTutor);
 		
-		JRadioButton rdbtnDirector = new JRadioButton("Director");
-		rdbtnDirector.setBounds(146, 444, 63, 23);
-		pnlContenido.add(rdbtnDirector);
+		txtRol = new JTextField();
+		txtRol.setColumns(10);
+		txtRol.setBounds(65, 442, 267, 22);
+		pnlContenido.add(txtRol);
 
 //		BACK BUTTON ========================
 		lblBack = new JLabel("");
@@ -269,14 +267,10 @@ public class Ventana_Login_Register extends JFrame {
 		return txtPassword.getText();
 	}
 	
-	public JRadioButton getRdbtnDirector() {
-		return rdbtnDirector;
+	public String getTxtRol() {
+		return txtRol.getText();
 	}
 	
-	public JRadioButton getRdbtnTutor() {
-		return rdbtnTutor;
-	}
-
 //	ACTUALIZAR ========================
 	public void actualizar() {
 		String resultado = miModelo.getResultadoAlum();
@@ -303,5 +297,4 @@ public class Ventana_Login_Register extends JFrame {
 			}
 		}
 	}
-
 }

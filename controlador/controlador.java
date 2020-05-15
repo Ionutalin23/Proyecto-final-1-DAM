@@ -334,9 +334,8 @@ public class controlador {
 		String email=ventana_login_register.getTxtEmail();
 		String username=ventana_login_register.getTxtUsername();
 		String password=ventana_login_register.getTxtPassword();
-		JRadioButton rolD=ventana_login_register.getRdbtnDirector();
-		JRadioButton rolT=ventana_login_register.getRdbtnTutor();
-		miModelo.añadirUsuario(username, password, email, nombre, apellido);
+		String rol=ventana_login_register.getTxtRol();
+		miModelo.añadirUsuario(username, password, rol, email, nombre, apellido);
 	}
 
 }
