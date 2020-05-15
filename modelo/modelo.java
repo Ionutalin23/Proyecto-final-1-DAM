@@ -16,6 +16,7 @@ import java.sql.Statement;
 import java.util.Scanner;
 
 import javax.swing.JFileChooser;
+import javax.swing.JRadioButton;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -28,6 +29,7 @@ import vista.Busqueda_Tutores;
 import vista.MenuVista;
 import vista.Ventana_Login;
 import vista.Ventana_Login_Config;
+import vista.Ventana_Login_Register;
 import vista.Vista_Info_Alumno;
 import vista.Vista_Info_Empresa;
 import vista.Vista_Info_Grupo;
@@ -36,6 +38,8 @@ import vista.Vista_Info_Tutor;
 public class modelo {
 
 	private Ventana_Login vista_ventana_login;
+	private Ventana_Login_Config vista_login_config;
+	private Ventana_Login_Register ventana_login_register;
 	private MenuVista vista_ventana_menu;
 	private Busqueda_Alumnos busquedaAlumnos;
 	private Busqueda_Anexos busquedaAnexos;
@@ -46,13 +50,13 @@ public class modelo {
 	private Vista_Info_Empresa vista_info_empresa;
 	private Vista_Info_Alumno vista_info_alumno;
 	private Vista_Info_Grupo vista_info_grupo;
-	private Ventana_Login_Config vista_login_config;
 	private String[] credenciales = new String[3];
 
 	private Connection conexion;
 	private int fallos;
 	private String resultado;
 	private String resultadoAlum;
+	private String resultadoUsuario;
 	private String USR;
 	private String rol;
 	private String SQLanexo2_1 = "SELECT nombre, apellidos, anexo_2_1 FROM PI.alumno, PI.practica WHERE num_exp=alumno_num_exp";
@@ -424,6 +428,44 @@ public class modelo {
 
 	public String getResultadoAlum() {
 		return resultadoAlum;
+	}
+	
+	public void añadirUsuario(String user, String password, String email, String nombre, String apellido) {
+		String consulta="SELECT * FROM PI.users";
+		String insert="insert into PI.users values(?,?,?,?,?)";
+		try {
+			PreparedStatement cons=conexion.prepareStatement(consulta);
+			cons.setString(1, user);
+			ResultSet rs= cons.executeQuery();
+			if (rs.next()) {
+				resultadoUsuario="EXISTENTE";
+				ventana_login_register.actualizar();
+			}else {
+					PreparedStatement ins=conexion.prepareStatement(insert);
+					ins.setString(1, user);
+					ins.setString(2, password);
+					ins.setString(3, email);
+					ins.setString(4, nombre);
+					ins.setString(5, apellido);
+					int resul=ins.executeUpdate();
+					if (resul>0) {
+						resultadoUsuario="EXITO";
+						ventana_login_register.actualizar();
+					}
+					cons.close();
+					rs.close();
+					ins.close();
+				}
+		} catch (SQLException e) {
+			if (user.isEmpty()||password.isEmpty()) {
+				resultadoUsuario="INTRODUZCA USUARIO Y CONTRASEÑA";
+				ventana_login_register.actualizar();
+			}else {
+				resultadoUsuario="ERROR";
+				ventana_login_register.actualizar();
+			}
+			
+		}
 	}
 	
 }

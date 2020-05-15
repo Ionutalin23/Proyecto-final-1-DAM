@@ -25,6 +25,8 @@ public class Ventana_Login_Register extends JFrame {
 	private JTextField txtEmail;
 	private JTextField txtUsername;
 	private JTextField txtPassword;
+	private JRadioButton rdbtnDirector;
+	private JRadioButton rdbtnTutor;
 	private JPanel pnlCrear;
 	private JLabel lblBack;
 	private JLabel lblResul;
@@ -176,7 +178,7 @@ public class Ventana_Login_Register extends JFrame {
 			}
 
 			public void mouseClicked(MouseEvent e) {
-				miControlador.back5();
+				miControlador.back9();
 			}
 		});
 		lblBack.setIcon(new ImageIcon(Ventana_Login_Register.class.getResource("/images/back1.png")));
@@ -214,7 +216,7 @@ public class Ventana_Login_Register extends JFrame {
 			}
 
 			public void mouseClicked(MouseEvent e) {
-				miControlador.insertarDato();
+				miControlador.insertarUsuario();
 			}
 		});
 		lblCrearButton.setBounds(150, 500, 110, 48);
@@ -267,9 +269,12 @@ public class Ventana_Login_Register extends JFrame {
 		return txtPassword.getText();
 	}
 	
-	public String getRdBtnRol() {
-		return null;
-		// CREATE RETURN FOR RADIO BUTTON
+	public JRadioButton getRdbtnDirector() {
+		return rdbtnDirector;
+	}
+	
+	public JRadioButton getRdbtnTutor() {
+		return rdbtnTutor;
 	}
 
 //	ACTUALIZAR ========================

@@ -1,5 +1,6 @@
 package controlador;
 
+import javax.swing.JRadioButton;
 import javax.swing.JTable;
 
 import modelo.modelo;
@@ -11,6 +12,7 @@ import vista.Busqueda_Tutores;
 import vista.MenuVista;
 import vista.Ventana_Login;
 import vista.Ventana_Login_Config;
+import vista.Ventana_Login_Register;
 import vista.Vista_Info_Alumno;
 import vista.Vista_Info_Empresa;
 import vista.Vista_Info_Grupo;
@@ -20,6 +22,7 @@ public class controlador {
 	private modelo miModelo;
 	private Ventana_Login vista_ventana_login;
 	private Ventana_Login_Config ventana_login_config;
+	private Ventana_Login_Register ventana_login_register;
 	private MenuVista vista_ventana_menu;
 	private Busqueda_Alumnos busquedaAlumnos;
 	private Busqueda_Anexos busquedaAnexos;
@@ -295,6 +298,13 @@ public class controlador {
 		busquedaTutores.setVisible(true);
 
 	}
+	
+	public void back9() {
+		ventana_login_register.setVisible(false);
+		vista_ventana_login.frame.setVisible(true);
+
+	}
+	
 	public void loginConfig() {
 		ventana_login_config.frame.setVisible(true);
 		vista_ventana_login.frame.setVisible(false);
@@ -316,6 +326,17 @@ public class controlador {
 		String nacionalidad=vista_info_alumno.getTxtNacionalidad();
 		String fechaNacim=vista_info_alumno.getTxtNacim();
 		miModelo.añadirAlumno(dni,nombre,apellido,expediente,nacionalidad,fechaNacim);
+	}
+	
+	public void insertarUsuario() {
+		String nombre=ventana_login_register.getTxtNombre();
+		String apellido=ventana_login_register.getTxtApellidos();
+		String email=ventana_login_register.getTxtEmail();
+		String username=ventana_login_register.getTxtUsername();
+		String password=ventana_login_register.getTxtPassword();
+		JRadioButton rolD=ventana_login_register.getRdbtnDirector();
+		JRadioButton rolT=ventana_login_register.getRdbtnTutor();
+		miModelo.añadirUsuario(username, password, email, nombre, apellido);
 	}
 
 }
