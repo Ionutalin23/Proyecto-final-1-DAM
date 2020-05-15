@@ -58,6 +58,7 @@ public class modelo {
 	private int fallos;
 	private String resultado;
 	private String resultadoAlum;
+	private String resultadoUsu;
 	private String USR;
 	private String rol;
 	private String SQLanexo2_1 = "SELECT nombre, apellidos, anexo_2_1 FROM PI.alumno, PI.practica WHERE num_exp=alumno_num_exp";
@@ -506,4 +507,51 @@ public class modelo {
 	public String getResultadoAlum() {
 		return resultadoAlum;
 	}
+
+	public void añadirUsuario(String username, String password, String rol2, String email, String nombre,
+			String apellido) {
+		String consulta = "SELECT * FROM PI.USERS WHERE USR=?";
+		String insert = "insert into PI.USERS values(?,?,?,?,?,?,?)";
+		try {
+			PreparedStatement cons = conexion.prepareStatement(consulta);
+			cons.setString(1, username);
+			ResultSet rs = cons.executeQuery();
+			if (rs.next()) {
+				resultadoUsu = "EXISTENTE";
+				vista_ventana_login.actualizar2();
+			} else {
+				PreparedStatement ins = conexion.prepareStatement(insert);
+				ins.setString(1, username);
+				ins.setString(2, password);
+				ins.setString(3, rol2);
+				ins.setString(4, email);
+				ins.setString(5, nombre);
+				ins.setString(6, apellido);
+				ins.setString(7, null);
+				int resul = ins.executeUpdate();
+				if (resul > 0) {
+					resultadoUsu = "EXITO";
+					vista_ventana_login.actualizar2();
+				}
+				cons.close();
+				rs.close();
+				ins.close();
+			}
+		} catch (SQLException e) {
+			if (username.isEmpty() || nombre.isEmpty() || apellido.isEmpty() || rol2.isEmpty()
+					|| password.isEmpty() || email.isEmpty()) {
+				resultadoUsu = "VACIO";
+				vista_ventana_login.actualizar2();
+			} else {
+				resultadoUsu = "ERROR";
+				vista_ventana_login.actualizar2();
+			}
+
+		}
+		
+	}
+	public String getResultadoUsu() {
+		return resultadoUsu;
+	}
+
 }
