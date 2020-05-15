@@ -102,5 +102,6 @@ public class Main {
 		vista_ventana_menu.setModelo(miModelo);
 		
 		vista_ventana_login.frame.setVisible(true);
+
 	}
 }

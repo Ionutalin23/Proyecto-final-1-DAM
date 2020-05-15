@@ -18,10 +18,12 @@ import java.sql.Statement;
 import java.util.Scanner;
 
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
+import javafx.scene.control.Tab;
 import vista.Busqueda_Alumnos;
 import vista.Busqueda_Anexos;
 import vista.Busqueda_Empresas;
@@ -73,6 +75,7 @@ public class modelo {
 	private String SQLEmp = "SELECT * FROM PI.empresa";
 	private String SQLGrp = "SELECT * FROM PI.grupo";
 	private JTable tablaTut;
+	private JTable tablaAnx;
 
 	public void ConexionBBDD() {
 		lecturaFichero();
@@ -392,7 +395,6 @@ public class modelo {
 			FileInputStream fis = new FileInputStream(file);
 			ObjectInputStream ois = new ObjectInputStream(fis);
 			tablaTut = (JTable) ois.readObject();
-
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
@@ -401,6 +403,41 @@ public class modelo {
 		}
 		return tablaTut;
 	}
+
+	public JTable CargarTabla() {
+		File file = new File("Anexos.dat");
+		try {
+			FileInputStream fis = new FileInputStream(file);
+			ObjectInputStream ois = new ObjectInputStream(fis);
+			tablaAnx = (JTable) ois.readObject();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		return tablaAnx;
+	}
+//	public JTable CargarTabla() {
+//		File ruta = new File(System.getProperty("user.dir"));
+//		JFileChooser fc = new JFileChooser(ruta);
+//		int seleccionado = fc.showOpenDialog(panel);
+//		if (seleccionado == JFileChooser.APPROVE_OPTION) {
+//			File file = fc.getSelectedFile();
+//			try {
+//				FileInputStream fis = new FileInputStream(file);
+//				ObjectInputStream ois = new ObjectInputStream(fis);
+//				tablaAnx = (JTable) ois.readObject();
+//
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			} catch (ClassNotFoundException e) {
+//				e.printStackTrace();
+//
+//			}
+//		}
+//		return tablaAnx;
+//	}
 
 	public void añadirAlumno(String dni, String nombre, String apellido, String expediente, String nacionalidad,
 			String fechaNacim) {
