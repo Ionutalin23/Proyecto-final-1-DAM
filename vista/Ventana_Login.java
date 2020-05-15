@@ -112,6 +112,7 @@ public class Ventana_Login {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+					miModelo.soundButton();
 					miModelo.ConexionBBDD();
 					miControlador.rol();
 					miControlador.login();
@@ -167,6 +168,7 @@ public class Ventana_Login {
 				miModelo.ConexionBBDD();
 				miControlador.rol();
 				miControlador.login();
+				
 
 			}
 		});

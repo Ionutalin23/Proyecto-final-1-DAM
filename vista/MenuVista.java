@@ -26,6 +26,8 @@ import modelo.modelo;
 import java.awt.SystemColor;
 import javax.swing.border.LineBorder;
 
+import com.sun.javafx.tk.Toolkit;
+
 public class MenuVista extends JFrame {
 	private controlador miControlador;
 	private modelo miModelo;
@@ -44,6 +46,10 @@ public class MenuVista extends JFrame {
 			.getScaledInstance(160, 37, Image.SCALE_SMOOTH);
 	Image buttonMenu3 = new ImageIcon(getClass().getResource("/images/buttonMenu3.png")).getImage()
 			.getScaledInstance(160, 37, Image.SCALE_SMOOTH);
+	Image imgLogo1 = new ImageIcon(getClass().getResource("/img/logo_uem.png")).getImage()
+			.getScaledInstance(202, 148, Image.SCALE_SMOOTH);
+	Image imgPerfil = new ImageIcon(getClass().getResource("/img/perfil.jpg")).getImage()
+			.getScaledInstance(167, 128, Image.SCALE_SMOOTH);
 	private JLabel lblLogout;
 	private JLabel lblUser;
 	private JLabel lblEstadist;
@@ -52,6 +58,7 @@ public class MenuVista extends JFrame {
 	private JLabel BtnMenu;
 	private JPanel pnlMenu;
 	private JPanel pnlUser;
+	private JLabel lblPhoto;
 
 	public MenuVista() {
 		getContentPane().setBackground(Color.LIGHT_GRAY);
@@ -69,9 +76,12 @@ public class MenuVista extends JFrame {
 			public void mouseClicked(MouseEvent arg0) {
 				int posicion = BtnMenu.getX();
 				if (posicion > 12) {
+					
 					Animacion.Animacion.mover_izquierda(264, 12, 2, 2, BtnMenu);
 					Animacion.Animacion.mover_izquierda(0, -260, 2, 2, pnlMenu);
 				} else {
+					miModelo.loadImagenUSR();
+					lblPhoto.setIcon(new ImageIcon(imgPerfil));
 					Animacion.Animacion.mover_derecha(12, 220, 2, 2, BtnMenu);
 					Animacion.Animacion.mover_derecha(-260, 0, 2, 2, pnlMenu);
 				}
@@ -206,10 +216,9 @@ public class MenuVista extends JFrame {
 		btnHelp.setIcon(new ImageIcon(buttonMenu1));
 		btnHelp.setBounds(49, 417, 160, 37);
 		pnlMenu.add(btnHelp);
-
-		JLabel lblPhoto = new JLabel("");
+		
+		lblPhoto = new JLabel("");
 		lblPhoto.setBounds(49, 31, 167, 128);
-		lblPhoto.setIcon(new ImageIcon(MenuVista.class.getResource("/images/user.png")));
 		pnlMenu.add(lblPhoto);
 		
 //		-------------------------------------------------------------------------------------------
@@ -452,10 +461,10 @@ public class MenuVista extends JFrame {
 		lblAlmnBtn.setBounds(70, 436, 283, 27);
 		pnlMed.add(lblAlmnBtn);
 
-		JLabel lblProf = new JLabel("");
-		lblProf.setBounds(146, 50, 166, 148);
-		pnlMed.add(lblProf);
-		lblProf.setIcon(new ImageIcon(MenuVista.class.getResource("/img/img.png")));
+		JLabel lblLogo1 = new JLabel("");
+		lblLogo1.setBounds(111, 49, 202, 148);
+		pnlMed.add(lblLogo1);
+		lblLogo1.setIcon(new ImageIcon(imgLogo1));
 
 		JLabel lblGrup = new JLabel("Grupos");
 		lblGrup.setBounds(70, 505, 283, 27);
@@ -580,4 +589,9 @@ public class MenuVista extends JFrame {
 		lblEstadist.setVisible(true);
 		lblStatsBtn.setVisible(true);
 	}
+
+	public void setImgPerfil(Image imgPerfil) {
+		this.imgPerfil = imgPerfil;
+	}
+	
 }

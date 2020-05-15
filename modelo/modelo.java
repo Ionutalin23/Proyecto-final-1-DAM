@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -479,9 +480,39 @@ public class modelo {
 
 		}
 	}
+	public void insertImageUSR() {  //INSERTAR IMÁGEN EN ORACLE
+		try {
+			PreparedStatement ps = conexion.prepareStatement("update PI.USERS SET foto=? WHERE USR=?");
+			ps.setString(2, "Pedro Camacho");
+
+			java.io.FileInputStream fin = new java.io.FileInputStream("c:\\pedro.jpg");
+			ps.setBinaryStream(1, fin, fin.available());
+			int i = ps.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void loadImagenUSR() { //CARGAR IMAGEN DESDE ORACLE A JAVA
+		String usu=getUSR();
+		try {
+			PreparedStatement ps = conexion.prepareStatement("select foto from PI.USERS WHERE USR=?");
+			ps.setString(1, usu);
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+
+				Blob b = rs.getBlob(1);
+				byte barr[] = b.getBytes(1, (int) b.length());
+				FileOutputStream fout = new FileOutputStream("img/perfil.jpg");
+				fout.write(barr);
+				fout.close();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	public String getResultadoAlum() {
 		return resultadoAlum;
 	}
-
 }
