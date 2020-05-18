@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -18,6 +19,7 @@ import java.sql.Statement;
 import java.util.Scanner;
 
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -55,6 +57,7 @@ public class modelo {
 	private int fallos;
 	private String resultado;
 	private String resultadoAlum;
+	private String resultadoUsu;
 	private String USR;
 	private String rol;
 	private String SQLanexo2_1 = "SELECT nombre, apellidos, anexo_2_1 FROM PI.alumno, PI.practica WHERE num_exp=alumno_num_exp";
@@ -73,6 +76,7 @@ public class modelo {
 	private String SQLEmp = "SELECT * FROM PI.empresa";
 	private String SQLGrp = "SELECT * FROM PI.grupo";
 	private JTable tablaTut;
+	private JTable tablaAnx;
 
 	public void ConexionBBDD() {
 		lecturaFichero();
@@ -396,6 +400,25 @@ public class modelo {
 				FileInputStream fis = new FileInputStream(file);
 				ObjectInputStream ois = new ObjectInputStream(fis);
 				tablaTut = (JTable) ois.readObject();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+		}
+		return tablaTut;
+	}
+
+	public JTable CargarTabla() {
+		File ruta = new File(System.getProperty("user.dir"));
+		JFileChooser fc = new JFileChooser(ruta);
+		int seleccionado = fc.showOpenDialog(null);
+		if (seleccionado == JFileChooser.APPROVE_OPTION) {
+			File file = fc.getSelectedFile();
+			try {
+				FileInputStream fis = new FileInputStream(file);
+				ObjectInputStream ois = new ObjectInputStream(fis);
+				tablaAnx = (JTable) ois.readObject();
 
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -404,7 +427,7 @@ public class modelo {
 
 			}
 		}
-		return tablaTut;
+		return tablaAnx;
 	}
 
 	public void añadirAlumno(String dni, String nombre, String apellido, String expediente, String nacionalidad,
@@ -448,8 +471,86 @@ public class modelo {
 		}
 	}
 
+	public void insertImageUSR() { // INSERTAR IMÁGEN EN ORACLE
+		try {
+			PreparedStatement ps = conexion.prepareStatement("update PI.USERS SET foto=? WHERE USR=?");
+			ps.setString(2, "Pedro Camacho");
+
+			java.io.FileInputStream fin = new java.io.FileInputStream("c:\\pedro.jpg");
+			ps.setBinaryStream(1, fin, fin.available());
+			int i = ps.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void loadImagenUSR() { // CARGAR IMAGEN DESDE ORACLE A JAVA
+		String usu = getUSR();
+		try {
+			PreparedStatement ps = conexion.prepareStatement("select foto from PI.USERS WHERE USR=?");
+			ps.setString(1, usu);
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+
+				Blob b = rs.getBlob(1);
+				byte barr[] = b.getBytes(1, (int) b.length());
+				FileOutputStream fout = new FileOutputStream("img/perfil.jpg");
+				fout.write(barr);
+				fout.close();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	public String getResultadoAlum() {
 		return resultadoAlum;
+	}
+
+	public void añadirUsuario(String username, String password, String rol2, String email, String nombre,
+			String apellido) {
+		String consulta = "SELECT * FROM PI.USERS WHERE USR=?";
+		String insert = "insert into PI.USERS values(?,?,?,?,?,?,?)";
+		try {
+			PreparedStatement cons = conexion.prepareStatement(consulta);
+			cons.setString(1, username);
+			ResultSet rs = cons.executeQuery();
+			if (rs.next()) {
+				resultadoUsu = "EXISTENTE";
+				vista_ventana_login.actualizar2();
+			} else {
+				PreparedStatement ins = conexion.prepareStatement(insert);
+				ins.setString(1, username);
+				ins.setString(2, password);
+				ins.setString(3, rol2);
+				ins.setString(4, email);
+				ins.setString(5, nombre);
+				ins.setString(6, apellido);
+				ins.setString(7, null);
+				int resul = ins.executeUpdate();
+				if (resul > 0) {
+					resultadoUsu = "EXITO";
+					vista_ventana_login.actualizar2();
+				}
+				cons.close();
+				rs.close();
+				ins.close();
+			}
+		} catch (SQLException e) {
+			if (username.isEmpty() || nombre.isEmpty() || apellido.isEmpty() || rol2.isEmpty()
+					|| password.isEmpty() || email.isEmpty()) {
+				resultadoUsu = "VACIO";
+				vista_ventana_login.actualizar2();
+			} else {
+				resultadoUsu = "ERROR";
+				vista_ventana_login.actualizar2();
+			}
+
+		}
+		
+	}
+	public String getResultadoUsu() {
+		return resultadoUsu;
 	}
 
 }

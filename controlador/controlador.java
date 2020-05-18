@@ -307,7 +307,6 @@ public class controlador {
 	public void saveTable(JTable tabla) {
 		miModelo.downloadTable(tabla);
 	}
-
 	public void insertarDato() {
 		String dni=vista_info_alumno.getTxtDni();
 		String nombre=vista_info_alumno.getTxtName();
@@ -317,5 +316,17 @@ public class controlador {
 		String fechaNacim=vista_info_alumno.getTxtNacim();
 		miModelo.añadirAlumno(dni,nombre,apellido,expediente,nacionalidad,fechaNacim);
 	}
+
+	public void insertarUsuario() {
+		String nombre=vista_ventana_login.getTxtNameR();
+		String apellido=vista_ventana_login.getTxtApellidoR();
+		String email=vista_ventana_login.getTxtMailR();
+		String username=vista_ventana_login.getTxtUserR();
+		String password=vista_ventana_login.getTxtPassR();
+		String rol=vista_ventana_login.getTxtRolR();
+		miModelo.añadirUsuario(username, password, rol, email, nombre, apellido);
+	}
+
+	
 
 }
