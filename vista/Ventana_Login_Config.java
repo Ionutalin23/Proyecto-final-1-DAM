@@ -50,7 +50,7 @@ public class Ventana_Login_Config extends JFrame {
 			.getScaledInstance(35, 35, Image.SCALE_SMOOTH);
 	private Image img_database = new ImageIcon(Ventana_Login.class.getResource("/images/DatabaseIcon.jpg")).getImage()
 			.getScaledInstance(40, 40, Image.SCALE_SMOOTH);
-	private Image img_uem = new ImageIcon(Ventana_Login.class.getResource("/img/uem2.png")).getImage()
+	private Image img_uem = new ImageIcon(Ventana_Login.class.getResource("/img/uemlogo.png")).getImage()
 			.getScaledInstance(135, 135, Image.SCALE_SMOOTH);
 	private Image img_buttonLogin = new ImageIcon(Ventana_Login.class.getResource("/img/loginbutton.png")).getImage()
 			.getScaledInstance(110, 48, Image.SCALE_SMOOTH);
@@ -243,7 +243,7 @@ public class Ventana_Login_Config extends JFrame {
 // 	Icono de UEM ========================	
 
 		JLabel lblIconUEM = new JLabel("");
-		lblIconUEM.setBounds(328, 11, 154, 125);
+		lblIconUEM.setBounds(326, 4, 154, 125);
 		frame.getContentPane().add(lblIconUEM);
 		lblIconUEM.setIcon(new ImageIcon(img_uem));
 

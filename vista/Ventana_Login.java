@@ -36,8 +36,8 @@ public class Ventana_Login {
 			.getScaledInstance(40, 40, Image.SCALE_SMOOTH);
 	private Image img_passwd = new ImageIcon(Ventana_Login.class.getResource("/img/passwd.png")).getImage()
 			.getScaledInstance(35, 35, Image.SCALE_SMOOTH);
-	private Image img_uem = new ImageIcon(Ventana_Login.class.getResource("/img/uem2.png")).getImage()
-			.getScaledInstance(135, 135, Image.SCALE_SMOOTH);
+	private Image img_uem = new ImageIcon(Ventana_Login.class.getResource("/img/uemlogo.png")).getImage()
+			.getScaledInstance(150, 150, Image.SCALE_SMOOTH);
 	private Image img_buttonLogin = new ImageIcon(Ventana_Login.class.getResource("/img/loginbutton.png")).getImage()
 			.getScaledInstance(110, 48, Image.SCALE_SMOOTH);
 	private Image img_buttonLogin2 = new ImageIcon(Ventana_Login.class.getResource("/img/loginbutton2.png")).getImage()
@@ -175,7 +175,7 @@ public class Ventana_Login {
 		lblLoginButton.setIcon(new ImageIcon(img_buttonLogin));
 
 		JLabel lblIconUEM = new JLabel("");
-		lblIconUEM.setBounds(332, 54, 154, 125);
+		lblIconUEM.setBounds(332, 63, 154, 125);
 		frame.getContentPane().add(lblIconUEM);
 		lblIconUEM.setIcon(new ImageIcon(img_uem));
 
