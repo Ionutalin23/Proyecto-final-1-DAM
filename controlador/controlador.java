@@ -1,5 +1,6 @@
 package controlador;
 
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
 import modelo.modelo;
@@ -325,6 +326,12 @@ public class controlador {
 		String password=vista_ventana_login.getTxtPassR();
 		String rol=vista_ventana_login.getTxtRolR();
 		miModelo.añadirUsuario(username, password, rol, email, nombre, apellido);
+	}
+
+	public void closeSystem() {
+		vista_ventana_login.setVisible(false);
+		JOptionPane.showMessageDialog(null, "ERROR LOGIN \nCERRANDO SISTEMA...");
+		System.exit(0);
 	}
 
 	
