@@ -11,6 +11,7 @@ import vista.Busqueda_Tutores;
 import vista.MenuVista;
 import vista.Ventana_Login;
 import vista.Ventana_Login_Config;
+import vista.Ventana_Mensaje_ERROR;
 import vista.Vista_Info_Alumno;
 import vista.Vista_Info_Empresa;
 import vista.Vista_Info_Grupo;
@@ -38,6 +39,8 @@ public class Main {
 		Vista_Info_Tutor vista_info_tutor=new Vista_Info_Tutor();
 		Vista_Info_Empresa vista_info_empresa= new Vista_Info_Empresa(); 
 		
+		Ventana_Mensaje_ERROR ventana_mensaje_error= new Ventana_Mensaje_ERROR();
+		
 		miControlador.setModelo(miModelo);
 		miControlador.setVista(vista_ventana_login);
 		miControlador.setVista(vista_ventana_menu);
@@ -46,11 +49,12 @@ public class Main {
 		miControlador.setVista(busquedaEmpresas);
 		miControlador.setVista(busquedaGrupos);
 		miControlador.setVista(busquedaTutores);
-		miControlador.setVista_info_tutor(vista_info_tutor);
-		miControlador.setVista_info_alumno(vista_info_alumno);
-		miControlador.setVista_info_empresa(vista_info_empresa);
-		miControlador.setVista_info_grupo(vista_info_grupo);
+		miControlador.setVista(vista_info_tutor);
+		miControlador.setVista(vista_info_alumno);
+		miControlador.setVista(vista_info_empresa);
+		miControlador.setVista(vista_info_grupo);
 		miControlador.setVista(ventana_login_config);
+		miControlador.setVista(ventana_mensaje_error);
 		
 		miModelo.setVista(vista_ventana_login);
 		miModelo.setVista(vista_ventana_menu);
@@ -59,11 +63,12 @@ public class Main {
 		miModelo.setVista(busquedaEmpresas);
 		miModelo.setVista(busquedaGrupos);
 		miModelo.setVista(busquedaTutores);
-		miModelo.setVista_info_alumno(vista_info_alumno);
-		miModelo.setVista_info_grupo(vista_info_grupo);
-		miModelo.setVista_info_tutor(vista_info_tutor);
-		miModelo.setVista_info_empresa(vista_info_empresa);
+		miModelo.setVista(vista_info_alumno);
+		miModelo.setVista(vista_info_grupo);
+		miModelo.setVista(vista_info_tutor);
+		miModelo.setVista(vista_info_empresa);
 		miModelo.setVista(ventana_login_config);
+		miModelo.setVista(ventana_mensaje_error);
 		
 		vista_info_grupo.setControlador(miControlador);
 		vista_info_grupo.setModelo(miModelo);
@@ -100,6 +105,9 @@ public class Main {
 		
 		vista_ventana_menu.setControlador(miControlador);
 		vista_ventana_menu.setModelo(miModelo);
+		
+		ventana_mensaje_error.setControlador(miControlador);
+		ventana_mensaje_error.setModelo(miModelo);
 		
 		vista_ventana_login.setVisible(true);
 

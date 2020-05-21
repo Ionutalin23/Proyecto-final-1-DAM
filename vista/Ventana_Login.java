@@ -455,7 +455,7 @@ public class Ventana_Login extends JFrame {
 		} else if (resultado.equals("Incorrecto")) {
 			lblRespuesta.setText("Usuario o contraseña incorrectos!!");
 		} else {
-			miControlador.closeSystem();
+			miControlador.loginError();
 		}
 	}
 
