@@ -79,6 +79,8 @@ public class MenuVista extends JFrame {
 					Animacion.Animacion.mover_izquierda(0, -260, 2, 2, pnlMenu);
 				} else {
 					miModelo.loadImagenUSR();
+					Image imgPerfil = new ImageIcon(getClass().getResource("/img/"+miModelo.getUSR()+".jpg")).getImage()
+							.getScaledInstance(167, 128, Image.SCALE_SMOOTH);
 					lblPhoto.setIcon(new ImageIcon(imgPerfil));
 					Animacion.Animacion.mover_derecha(12, 220, 2, 2, BtnMenu);
 					Animacion.Animacion.mover_derecha(-260, 0, 2, 2, pnlMenu);

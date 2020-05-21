@@ -494,7 +494,7 @@ public class modelo {
 
 				Blob b = rs.getBlob(1);
 				byte barr[] = b.getBytes(1, (int) b.length());
-				FileOutputStream fout = new FileOutputStream("img/perfil.jpg");
+				FileOutputStream fout = new FileOutputStream("img/"+usu+".jpg");
 				fout.write(barr);
 				fout.close();
 			}
