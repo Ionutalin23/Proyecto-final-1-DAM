@@ -100,7 +100,7 @@ public class controlador {
 
 	public void accesoTut() {
 		
-		vista_ventana_login.frame.setVisible(false);
+		vista_ventana_login.setVisible(false);
 		vista_ventana_menu.cambiarTutor();
 		vista_ventana_menu.setVisible(true);
 		
@@ -119,7 +119,7 @@ public class controlador {
 
 	public void accesoDir() {
 		
-		vista_ventana_login.frame.setVisible(false);
+		vista_ventana_login.setVisible(false);
 		vista_ventana_menu.setVisible(true);
 		vista_ventana_menu.cambiarDirector();
 		
@@ -137,7 +137,7 @@ public class controlador {
 
 	public void logout() {
 		vista_ventana_menu.setVisible(false);
-		vista_ventana_login.frame.setVisible(true);
+		vista_ventana_login.setVisible(true);
 		miModelo.finalizar();
 	}
 
@@ -174,7 +174,7 @@ public class controlador {
 
 	public void logout1() {
 		busquedaAnexos.setVisible(false);
-		vista_ventana_login.frame.setVisible(true);
+		vista_ventana_login.setVisible(true);
 		miModelo.finalizar();
 	}
 
@@ -186,7 +186,7 @@ public class controlador {
 
 	public void logout2() {
 		busquedaAlumnos.setVisible(false);
-		vista_ventana_login.frame.setVisible(true);
+		vista_ventana_login.setVisible(true);
 		miModelo.finalizar();
 	}
 
@@ -197,7 +197,7 @@ public class controlador {
 
 	public void logout3() {
 		busquedaEmpresas.setVisible(false);
-		vista_ventana_login.frame.setVisible(true);
+		vista_ventana_login.setVisible(true);
 		miModelo.finalizar();
 	}
 
@@ -209,7 +209,7 @@ public class controlador {
 
 	public void logout4() {
 		busquedaGrupos.setVisible(false);
-		vista_ventana_login.frame.setVisible(true);
+		vista_ventana_login.setVisible(true);
 		miModelo.finalizar();
 	}
 
@@ -221,7 +221,7 @@ public class controlador {
 
 	public void logout5() {
 		busquedaTutores.setVisible(false);
-		vista_ventana_login.frame.setVisible(true);
+		vista_ventana_login.setVisible(true);
 		miModelo.finalizar();
 	}
 
@@ -248,27 +248,27 @@ public class controlador {
 
 	public void logout6() {
 		vista_info_alumno.setVisible(false);
-		vista_ventana_login.frame.setVisible(true);
+		vista_ventana_login.setVisible(true);
 		miModelo.finalizar();
 	}
 
 	public void logout7() {
 		vista_info_empresa.setVisible(false);
-		vista_ventana_login.frame.setVisible(true);
+		vista_ventana_login.setVisible(true);
 		miModelo.finalizar();
 
 	}
 
 	public void logout8() {
 		vista_info_grupo.setVisible(false);
-		vista_ventana_login.frame.setVisible(true);
+		vista_ventana_login.setVisible(true);
 		miModelo.finalizar();
 
 	}
 
 	public void logout9() {
 		vista_info_tutor.setVisible(false);
-		vista_ventana_login.frame.setVisible(true);
+		vista_ventana_login.setVisible(true);
 		miModelo.finalizar();
 	}
 
@@ -296,12 +296,12 @@ public class controlador {
 
 	}
 	public void loginConfig() {
-		ventana_login_config.frame.setVisible(true);
-		vista_ventana_login.frame.setVisible(false);
+		ventana_login_config.setVisible(true);
+		vista_ventana_login.setVisible(false);
 	}
 	public void loginConfigSalir() {
-		ventana_login_config.frame.setVisible(false);
-		vista_ventana_login.frame.setVisible(true);
+		ventana_login_config.setVisible(false);
+		vista_ventana_login.setVisible(true);
 	}
 
 	public void saveTable(JTable tabla) {

@@ -101,7 +101,7 @@ public class Main {
 		vista_ventana_menu.setControlador(miControlador);
 		vista_ventana_menu.setModelo(miModelo);
 		
-		vista_ventana_login.frame.setVisible(true);
+		vista_ventana_login.setVisible(true);
 
 	}
 }

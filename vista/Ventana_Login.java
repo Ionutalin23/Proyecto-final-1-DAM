@@ -35,9 +35,8 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.border.LineBorder;
 
-public class Ventana_Login {
+public class Ventana_Login extends JFrame {
 
-	public JFrame frame;
 	private Image img_usr = new ImageIcon(Ventana_Login.class.getResource("/img/usr.png")).getImage()
 			.getScaledInstance(40, 40, Image.SCALE_SMOOTH);
 	private Image img_passwd = new ImageIcon(Ventana_Login.class.getResource("/img/passwd.png")).getImage()
@@ -101,22 +100,21 @@ public class Ventana_Login {
 	}
 
 	public Ventana_Login() {
-		frame = new JFrame();
-		frame.setTitle("Acceder");
-		frame.setBounds(100, 400, 800, 550);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+		setTitle("Acceder");
+		setBounds(100, 400, 800, 550);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		getContentPane().setLayout(null);
 //		POSICIONAR VENTANA EN EL CENTRO DE LA PANTALLA
-		frame.setLocationRelativeTo(null);
+		setLocationRelativeTo(null);
 
 		lblRespuesta = new JLabel("");
 		lblRespuesta.setBounds(290, 363, 215, 27);
-		frame.getContentPane().add(lblRespuesta);
+		getContentPane().add(lblRespuesta);
 
 		panel = new JPanel();
 		panel.setBackground(Color.WHITE);
 		panel.setBounds(290, 239, 215, 36);
-		frame.getContentPane().add(panel);
+		getContentPane().add(panel);
 		panel.setLayout(null);
 
 		lblIconUsr = new JLabel("");
@@ -127,7 +125,7 @@ public class Ventana_Login {
 		panel_1 = new JPanel();
 		panel_1.setBackground(Color.WHITE);
 		panel_1.setBounds(290, 321, 215, 36);
-		frame.getContentPane().add(panel_1);
+		getContentPane().add(panel_1);
 		panel_1.setLayout(null);
 
 		lblIconPasswd = new JLabel("");
@@ -141,7 +139,7 @@ public class Ventana_Login {
 		pnlRegister.setBackground(new Color(165, 42, 42));
 		pnlRegister.setBorder(new LineBorder(new Color(128, 128, 128)));
 		pnlRegister.setBounds(800, 0, 459, 503);
-		frame.getContentPane().add(pnlRegister);
+		getContentPane().add(pnlRegister);
 		pnlRegister.setLayout(null);
 				
 				lblRespuesta_1 = new JLabel("");
@@ -300,7 +298,7 @@ public class Ventana_Login {
 		lblUsrText.setForeground(Color.WHITE);
 		lblUsrText.setFont(new Font("Century Gothic", Font.BOLD, 14));
 		lblUsrText.setBounds(287, 206, 92, 20);
-		frame.getContentPane().add(lblUsrText);
+		getContentPane().add(lblUsrText);
 
 		lblMember = new JLabel("Not yet a member?");
 		lblMember.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -327,20 +325,20 @@ public class Ventana_Login {
 		lblMember.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblMember.setHorizontalAlignment(SwingConstants.CENTER);
 		lblMember.setBounds(274, 445, 259, 27);
-		frame.getContentPane().add(lblMember);
+		getContentPane().add(lblMember);
 
 		lblPasswdText = new JLabel("CONTRASE\u00D1A:");
 		lblPasswdText.setFont(new Font("Century Gothic", Font.BOLD, 14));
 		lblPasswdText.setForeground(Color.WHITE);
 		lblPasswdText.setBounds(290, 288, 118, 20);
-		frame.getContentPane().add(lblPasswdText);
+		getContentPane().add(lblPasswdText);
 
 		lblLogin = new JLabel("LOGIN");
 		lblLogin.setHorizontalAlignment(SwingConstants.CENTER);
 		lblLogin.setFont(new Font("Century Gothic", Font.BOLD, 15));
 		lblLogin.setForeground(Color.WHITE);
 		lblLogin.setBounds(348, 396, 109, 36);
-		frame.getContentPane().add(lblLogin);
+		getContentPane().add(lblLogin);
 
 		lblLoginButton = new JLabel("");
 		lblLoginButton.addMouseListener(new MouseAdapter() {
@@ -373,7 +371,7 @@ public class Ventana_Login {
 			}
 		});
 		lblLoginButton.setBounds(348, 396, 118, 48);
-		frame.getContentPane().add(lblLoginButton);
+		getContentPane().add(lblLoginButton);
 		lblLoginButton.setIcon(new ImageIcon(img_buttonLogin));
 
 		JLabel lblIconUEM = new JLabel("");
@@ -382,7 +380,7 @@ public class Ventana_Login {
 		lblIconUEM_1 = new JLabel("");
 		lblIconUEM_1.setBounds(332, 54, 154, 125);
 
-		frame.getContentPane().add(lblIconUEM_1);
+		getContentPane().add(lblIconUEM_1);
 		lblIconUEM_1.setIcon(new ImageIcon(img_uem));
 
 		lblConfig = new JLabel("");
@@ -404,21 +402,21 @@ public class Ventana_Login {
 			}
 		});
 		lblConfig.setBounds(465, 396, 40, 36);
-		frame.getContentPane().add(lblConfig);
+		getContentPane().add(lblConfig);
 		lblConfig.setIcon(new ImageIcon(img_config));
 
 		txtUsuario = new JTextField();
 		txtUsuario.setBounds(328, 239, 177, 36);
-		frame.getContentPane().add(txtUsuario);
+		getContentPane().add(txtUsuario);
 		txtUsuario.setColumns(10);
 
 		txtPassword = new JPasswordField();
 		txtPassword.setBounds(332, 321, 173, 36);
-		frame.getContentPane().add(txtPassword);
+		getContentPane().add(txtPassword);
 
 		JLabel lblBgColor = new JLabel("");
 		lblBgColor.setBounds(0, 0, 784, 511);
-		frame.getContentPane().add(lblBgColor);
+		getContentPane().add(lblBgColor);
 		lblBgColor.setIcon(new ImageIcon(img_bg));
 		txtPassword.addKeyListener(new KeyAdapter() {
 			@Override
