@@ -75,7 +75,6 @@ public class Ventana_Login {
 	private JTextField txtApellidoR;
 	private JTextField txtMailR;
 	private JLabel lblArrow;
-	private JLabel lblIconUEM;
 	private JLabel lblUsrText;
 	private JComponent panel;
 	private JLabel lblIconUsr;
@@ -91,6 +90,7 @@ public class Ventana_Login {
 	private JPasswordField txtPassR;
 	private JPanel pnlRegister;
 	private JLabel lblRespuesta_1;
+	private JLabel lblIconUEM_1;
 
 	public void setControlador(controlador miControlador) {
 		this.miControlador = miControlador;
@@ -240,7 +240,7 @@ public class Ventana_Login {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				Animacion.Animacion.mover_derecha(325, 800, 2, 2, pnlRegister);
-				Animacion.Animacion.mover_derecha(109, 332, 2, 2, lblIconUEM);
+				Animacion.Animacion.mover_derecha(109, 332, 2, 2, lblIconUEM_1);
 				Animacion.Animacion.mover_derecha(77, 287, 2, 2, lblUsrText);
 				Animacion.Animacion.mover_derecha(77, 290, 2, 2, panel);
 				Animacion.Animacion.mover_derecha(77, 290, 2, 2, panel_1);
@@ -309,7 +309,7 @@ public class Ventana_Login {
 
 				lblBgColorRegister.setIcon(new ImageIcon(img_bg2));
 				Animacion.Animacion.mover_izquierda(800, 325, 2, 2, pnlRegister);
-				Animacion.Animacion.mover_izquierda(332, 109, 2, 2, lblIconUEM);
+				Animacion.Animacion.mover_izquierda(332, 109, 2, 2, lblIconUEM_1);
 				Animacion.Animacion.mover_izquierda(287, 77, 2, 2, lblUsrText);
 				Animacion.Animacion.mover_izquierda(290, 77, 2, 2, panel);
 				Animacion.Animacion.mover_izquierda(290, 77, 2, 2, panel_1);
@@ -379,11 +379,11 @@ public class Ventana_Login {
 		JLabel lblIconUEM = new JLabel("");
 		lblIconUEM.setBounds(332, 63, 154, 125);
 
-		lblIconUEM = new JLabel("");
-		lblIconUEM.setBounds(332, 54, 154, 125);
+		lblIconUEM_1 = new JLabel("");
+		lblIconUEM_1.setBounds(332, 54, 154, 125);
 
-		frame.getContentPane().add(lblIconUEM);
-		lblIconUEM.setIcon(new ImageIcon(img_uem));
+		frame.getContentPane().add(lblIconUEM_1);
+		lblIconUEM_1.setIcon(new ImageIcon(img_uem));
 
 		lblConfig = new JLabel("");
 		lblConfig.addMouseListener(new MouseAdapter() {
