@@ -30,6 +30,7 @@ import vista.Busqueda_Empresas;
 import vista.Busqueda_Grupos;
 import vista.Busqueda_Tutores;
 import vista.MenuVista;
+import vista.Ventana_Conf_Delete;
 import vista.Ventana_Login;
 import vista.Ventana_Login_Config;
 import vista.Ventana_Mensaje_ERROR;
@@ -53,6 +54,7 @@ public class modelo {
 	private Vista_Info_Grupo vista_info_grupo;
 	private Ventana_Login_Config vista_login_config;
 	private Ventana_Mensaje_ERROR ventana_mensaje_error;
+	private Ventana_Conf_Delete ventana_conf_delete;
 	private String[] credenciales = new String[3];
 
 	private Connection conexion;
@@ -60,6 +62,7 @@ public class modelo {
 	private String resultado;
 	private String resultadoAlum;
 	private String resultadoUsu;
+	private String resultadoDEL;
 	private String USR;
 	private String rol;
 	private String SQLanexo2_1 = "SELECT nombre, apellidos, anexo_2_1 FROM PI.alumno, PI.practica WHERE num_exp=alumno_num_exp";
@@ -79,6 +82,9 @@ public class modelo {
 	private String SQLGrp = "SELECT * FROM PI.grupo";
 	private JTable tablaTut;
 	private JTable tablaAnx;
+	private String nombreTabla;
+	private String nombreClave;
+	private String clave;
 
 	public void ConexionBBDD() {
 		lecturaFichero();
@@ -139,10 +145,13 @@ public class modelo {
 	public void setVista(Vista_Info_Grupo vista_info_grupo) {
 		this.vista_info_grupo = vista_info_grupo;
 	}
-	
 
 	public void setVista(Ventana_Mensaje_ERROR ventana_mensaje_error) {
 		this.ventana_mensaje_error = ventana_mensaje_error;
+	}
+
+	public void setVista(Ventana_Conf_Delete ventana_conf_delete) {
+		this.ventana_conf_delete = ventana_conf_delete;
 	}
 
 	public void login(String usuario, String password) {
@@ -501,7 +510,7 @@ public class modelo {
 
 				Blob b = rs.getBlob(1);
 				byte barr[] = b.getBytes(1, (int) b.length());
-				FileOutputStream fout = new FileOutputStream("img/"+usu+".jpg");
+				FileOutputStream fout = new FileOutputStream("img/" + usu + ".jpg");
 				fout.write(barr);
 				fout.close();
 			}
@@ -544,8 +553,8 @@ public class modelo {
 				ins.close();
 			}
 		} catch (SQLException e) {
-			if (username.isEmpty() || nombre.isEmpty() || apellido.isEmpty() || rol2.isEmpty()
-					|| password.isEmpty() || email.isEmpty()) {
+			if (username.isEmpty() || nombre.isEmpty() || apellido.isEmpty() || rol2.isEmpty() || password.isEmpty()
+					|| email.isEmpty()) {
 				resultadoUsu = "VACIO";
 				vista_ventana_login.actualizar2();
 			} else {
@@ -554,10 +563,55 @@ public class modelo {
 			}
 
 		}
-		
+
 	}
+
 	public String getResultadoUsu() {
 		return resultadoUsu;
+	}
+
+//ELIMINAR DATOS
+	public void borrarDato(String clave, String nombre, String nombreClave) {
+
+		nombre = "PI." + nombre;
+		String delete = "DELETE FROM " + nombre + " WHERE " + nombreClave + " = '" + clave + "'"; 
+
+		try {
+			Statement ins = conexion.createStatement();
+			ResultSet rs=ins.executeQuery(delete);
+			ins.close();
+			rs.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public void setClave(String clave) {
+		this.clave = clave;
+	}
+
+	public String getClave() {
+		return this.clave;
+	}
+
+	public void setNombreTabla(String nomTabla) {
+		this.nombreTabla = nomTabla;
+
+	}
+
+	public String getNombreTabla() {
+		return this.nombreTabla;
+	}
+
+	public String getNombreClave() {
+		return this.nombreClave;
+	}
+
+	public void setNombreClave(String nomClave) {
+		this.nombreClave = nomClave;
+
 	}
 
 }

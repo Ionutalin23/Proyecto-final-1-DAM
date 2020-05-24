@@ -46,6 +46,8 @@ public class Busqueda_Grupos extends JFrame {
 	private JLabel CreateNewBtn;
 	private JLabel SearchBtn;
 	private JLabel lblUser;
+	private String NomTabla = "grupo";
+	private String NomClave = "cod_grupo";
 	
 // 	Setting Images ======================== (Check all images are linked to correct folder to avoid null pointer exception)
 	private Image img_bg = new ImageIcon(getClass().getResource("/img/bg9.jpg")).getImage().getScaledInstance(888, 664, Image.SCALE_SMOOTH);
@@ -96,7 +98,11 @@ public class Busqueda_Grupos extends JFrame {
 		lblUser.setForeground(new Color(255, 255, 255));
 		lblUser.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblUser.setHorizontalAlignment(SwingConstants.CENTER);
-
+// 		label seleccion de fila
+		JLabel lblSelcc = new JLabel("No ha seleccionado ninguna fila");
+		lblSelcc.setVisible(false);
+		lblSelcc.setBounds(225, 593, 231, 16);
+		contentPane.add(lblSelcc);
 //		Table View ========================
 		JScrollPane TableView = new JScrollPane();
 		TableView.setBounds(10, 137, 852, 443);
@@ -190,6 +196,17 @@ public class Busqueda_Grupos extends JFrame {
 			}
 			public void mouseClicked(MouseEvent e) {
 				//ADD METHOD FOR DELETING SELECTED CELL
+				if (table.getSelectionModel().isSelectionEmpty()) {
+					lblSelcc.setVisible(true);
+				} else {
+					lblSelcc.setVisible(false);
+					miModelo.setClave((String) table.getValueAt(table.getSelectedRow(), 0));
+					miModelo.setNombreTabla(NomTabla);
+					miModelo.setNombreClave(NomClave);
+					miControlador.ventana_conf_delete();
+				}
+				
+				
 			}
 		});
 		DeleteBtn.setBounds(109, 591, 89, 23);
@@ -325,6 +342,8 @@ public class Busqueda_Grupos extends JFrame {
 		});
 		lblLogoutButton.setIcon(new ImageIcon(button1));
 		
+
+		
 //		User Name Label ========================
 		JPanel pnlUser = new JPanel();
 		pnlUser.setForeground(new Color(240, 248, 255));
@@ -350,5 +369,13 @@ public class Busqueda_Grupos extends JFrame {
 	public void actualizarLogged() {
 		lblUser.setText("Logged as: "+miModelo.getUSR());
 		
+	}
+
+	
+	public String getNombreTabla() {
+		return NomTabla;
+	}
+	public String getNombreClave() {
+		return NomClave;
 	}
 }
