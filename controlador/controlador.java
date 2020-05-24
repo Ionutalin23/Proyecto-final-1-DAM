@@ -1,5 +1,6 @@
 package controlador;
 
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
 import modelo.modelo;
@@ -11,6 +12,7 @@ import vista.Busqueda_Tutores;
 import vista.MenuVista;
 import vista.Ventana_Login;
 import vista.Ventana_Login_Config;
+import vista.Ventana_Mensaje_ERROR;
 import vista.Vista_Info_Alumno;
 import vista.Vista_Info_Empresa;
 import vista.Vista_Info_Grupo;
@@ -30,6 +32,7 @@ public class controlador {
 	private Vista_Info_Empresa vista_info_empresa;
 	private Vista_Info_Tutor vista_info_tutor;
 	private Vista_Info_Grupo vista_info_grupo;
+	private Ventana_Mensaje_ERROR ventana_mensaje_error;
 
 	public void setVista(Busqueda_Alumnos busquedaAlumnos) {
 		this.busquedaAlumnos = busquedaAlumnos;
@@ -68,20 +71,24 @@ public class controlador {
 		this.vista_ventana_menu = vista_ventana_menu;
 	}
 
-	public void setVista_info_alumno(Vista_Info_Alumno vista_info_alumno) {
+	public void setVista(Vista_Info_Alumno vista_info_alumno) {
 		this.vista_info_alumno = vista_info_alumno;
 	}
 
-	public void setVista_info_empresa(Vista_Info_Empresa vista_info_empresa) {
+	public void setVista(Vista_Info_Empresa vista_info_empresa) {
 		this.vista_info_empresa = vista_info_empresa;
 	}
 
-	public void setVista_info_tutor(Vista_Info_Tutor vista_info_tutor) {
+	public void setVista(Vista_Info_Tutor vista_info_tutor) {
 		this.vista_info_tutor = vista_info_tutor;
 	}
 
-	public void setVista_info_grupo(Vista_Info_Grupo vista_info_grupo) {
+	public void setVista(Vista_Info_Grupo vista_info_grupo) {
 		this.vista_info_grupo = vista_info_grupo;
+	}
+	
+	public void setVista(Ventana_Mensaje_ERROR ventana_mensaje_error) {
+		this.ventana_mensaje_error = ventana_mensaje_error;
 	}
 
 	public void login() {
@@ -100,7 +107,7 @@ public class controlador {
 
 	public void accesoTut() {
 		
-		vista_ventana_login.frame.setVisible(false);
+		vista_ventana_login.setVisible(false);
 		vista_ventana_menu.cambiarTutor();
 		vista_ventana_menu.setVisible(true);
 		
@@ -119,7 +126,7 @@ public class controlador {
 
 	public void accesoDir() {
 		
-		vista_ventana_login.frame.setVisible(false);
+		vista_ventana_login.setVisible(false);
 		vista_ventana_menu.setVisible(true);
 		vista_ventana_menu.cambiarDirector();
 		
@@ -137,7 +144,7 @@ public class controlador {
 
 	public void logout() {
 		vista_ventana_menu.setVisible(false);
-		vista_ventana_login.frame.setVisible(true);
+		vista_ventana_login.setVisible(true);
 		miModelo.finalizar();
 	}
 
@@ -174,7 +181,7 @@ public class controlador {
 
 	public void logout1() {
 		busquedaAnexos.setVisible(false);
-		vista_ventana_login.frame.setVisible(true);
+		vista_ventana_login.setVisible(true);
 		miModelo.finalizar();
 	}
 
@@ -186,7 +193,7 @@ public class controlador {
 
 	public void logout2() {
 		busquedaAlumnos.setVisible(false);
-		vista_ventana_login.frame.setVisible(true);
+		vista_ventana_login.setVisible(true);
 		miModelo.finalizar();
 	}
 
@@ -197,7 +204,7 @@ public class controlador {
 
 	public void logout3() {
 		busquedaEmpresas.setVisible(false);
-		vista_ventana_login.frame.setVisible(true);
+		vista_ventana_login.setVisible(true);
 		miModelo.finalizar();
 	}
 
@@ -209,7 +216,7 @@ public class controlador {
 
 	public void logout4() {
 		busquedaGrupos.setVisible(false);
-		vista_ventana_login.frame.setVisible(true);
+		vista_ventana_login.setVisible(true);
 		miModelo.finalizar();
 	}
 
@@ -221,7 +228,7 @@ public class controlador {
 
 	public void logout5() {
 		busquedaTutores.setVisible(false);
-		vista_ventana_login.frame.setVisible(true);
+		vista_ventana_login.setVisible(true);
 		miModelo.finalizar();
 	}
 
@@ -248,27 +255,27 @@ public class controlador {
 
 	public void logout6() {
 		vista_info_alumno.setVisible(false);
-		vista_ventana_login.frame.setVisible(true);
+		vista_ventana_login.setVisible(true);
 		miModelo.finalizar();
 	}
 
 	public void logout7() {
 		vista_info_empresa.setVisible(false);
-		vista_ventana_login.frame.setVisible(true);
+		vista_ventana_login.setVisible(true);
 		miModelo.finalizar();
 
 	}
 
 	public void logout8() {
 		vista_info_grupo.setVisible(false);
-		vista_ventana_login.frame.setVisible(true);
+		vista_ventana_login.setVisible(true);
 		miModelo.finalizar();
 
 	}
 
 	public void logout9() {
 		vista_info_tutor.setVisible(false);
-		vista_ventana_login.frame.setVisible(true);
+		vista_ventana_login.setVisible(true);
 		miModelo.finalizar();
 	}
 
@@ -296,12 +303,12 @@ public class controlador {
 
 	}
 	public void loginConfig() {
-		ventana_login_config.frame.setVisible(true);
-		vista_ventana_login.frame.setVisible(false);
+		ventana_login_config.setVisible(true);
+		vista_ventana_login.setVisible(false);
 	}
 	public void loginConfigSalir() {
-		ventana_login_config.frame.setVisible(false);
-		vista_ventana_login.frame.setVisible(true);
+		ventana_login_config.setVisible(false);
+		vista_ventana_login.setVisible(true);
 	}
 
 	public void saveTable(JTable tabla) {
@@ -315,6 +322,25 @@ public class controlador {
 		String nacionalidad=vista_info_alumno.getTxtNacionalidad();
 		String fechaNacim=vista_info_alumno.getTxtNacim();
 		miModelo.añadirAlumno(dni,nombre,apellido,expediente,nacionalidad,fechaNacim);
+	}
+
+	public void insertarUsuario() {
+		String nombre=vista_ventana_login.getTxtNameR();
+		String apellido=vista_ventana_login.getTxtApellidoR();
+		String email=vista_ventana_login.getTxtMailR();
+		String username=vista_ventana_login.getTxtUserR();
+		String password=vista_ventana_login.getTxtPassR();
+		String rol=vista_ventana_login.getTxtRolR();
+		miModelo.añadirUsuario(username, password, rol, email, nombre, apellido);
+	}
+
+	public void closeSystem() {
+		System.exit(0);
+	}
+
+	public void loginError() {
+		vista_ventana_login.setVisible(false);
+		ventana_mensaje_error.setVisible(true);
 	}
 
 	

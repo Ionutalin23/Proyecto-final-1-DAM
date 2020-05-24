@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -23,7 +24,6 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
-import javafx.scene.control.Tab;
 import vista.Busqueda_Alumnos;
 import vista.Busqueda_Anexos;
 import vista.Busqueda_Empresas;
@@ -32,6 +32,7 @@ import vista.Busqueda_Tutores;
 import vista.MenuVista;
 import vista.Ventana_Login;
 import vista.Ventana_Login_Config;
+import vista.Ventana_Mensaje_ERROR;
 import vista.Vista_Info_Alumno;
 import vista.Vista_Info_Empresa;
 import vista.Vista_Info_Grupo;
@@ -51,12 +52,14 @@ public class modelo {
 	private Vista_Info_Alumno vista_info_alumno;
 	private Vista_Info_Grupo vista_info_grupo;
 	private Ventana_Login_Config vista_login_config;
+	private Ventana_Mensaje_ERROR ventana_mensaje_error;
 	private String[] credenciales = new String[3];
 
 	private Connection conexion;
 	private int fallos;
 	private String resultado;
 	private String resultadoAlum;
+	private String resultadoUsu;
 	private String USR;
 	private String rol;
 	private String SQLanexo2_1 = "SELECT nombre, apellidos, anexo_2_1 FROM PI.alumno, PI.practica WHERE num_exp=alumno_num_exp";
@@ -74,6 +77,7 @@ public class modelo {
 	private String SQAlumno = "SELECT * FROM PI.alumno";
 	private String SQLEmp = "SELECT * FROM PI.empresa";
 	private String SQLGrp = "SELECT * FROM PI.grupo";
+	private JTable tablaTut;
 	private JTable tablaAnx;
 
 	public void ConexionBBDD() {
@@ -120,20 +124,25 @@ public class modelo {
 		this.vista_ventana_menu = vista_ventana_menu;
 	}
 
-	public void setVista_info_tutor(Vista_Info_Tutor vista_info_tutor) {
+	public void setVista(Vista_Info_Tutor vista_info_tutor) {
 		this.vista_info_tutor = vista_info_tutor;
 	}
 
-	public void setVista_info_empresa(Vista_Info_Empresa vista_info_empresa) {
+	public void setVista(Vista_Info_Empresa vista_info_empresa) {
 		this.vista_info_empresa = vista_info_empresa;
 	}
 
-	public void setVista_info_alumno(Vista_Info_Alumno vista_info_alumno) {
+	public void setVista(Vista_Info_Alumno vista_info_alumno) {
 		this.vista_info_alumno = vista_info_alumno;
 	}
 
-	public void setVista_info_grupo(Vista_Info_Grupo vista_info_grupo) {
+	public void setVista(Vista_Info_Grupo vista_info_grupo) {
 		this.vista_info_grupo = vista_info_grupo;
+	}
+	
+
+	public void setVista(Ventana_Mensaje_ERROR ventana_mensaje_error) {
+		this.ventana_mensaje_error = ventana_mensaje_error;
 	}
 
 	public void login(String usuario, String password) {
@@ -388,41 +397,45 @@ public class modelo {
 		}
 	}
 
+	public JTable SubirTabla() {
+		File ruta = new File(System.getProperty("user.dir"));
+		JFileChooser fc = new JFileChooser(ruta);
+		int seleccionado = fc.showOpenDialog(null);
+		if (seleccionado == JFileChooser.APPROVE_OPTION) {
+			File file = fc.getSelectedFile();
+			try {
+				FileInputStream fis = new FileInputStream(file);
+				ObjectInputStream ois = new ObjectInputStream(fis);
+				tablaTut = (JTable) ois.readObject();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+		}
+		return tablaTut;
+	}
+
 	public JTable CargarTabla() {
-		File file = new File("Anexos.dat");
-		try {
-			FileInputStream fis = new FileInputStream(file);
-			ObjectInputStream ois = new ObjectInputStream(fis);
-			tablaAnx = (JTable) ois.readObject();
+		File ruta = new File(System.getProperty("user.dir"));
+		JFileChooser fc = new JFileChooser(ruta);
+		int seleccionado = fc.showOpenDialog(null);
+		if (seleccionado == JFileChooser.APPROVE_OPTION) {
+			File file = fc.getSelectedFile();
+			try {
+				FileInputStream fis = new FileInputStream(file);
+				ObjectInputStream ois = new ObjectInputStream(fis);
+				tablaAnx = (JTable) ois.readObject();
 
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
 
+			}
 		}
 		return tablaAnx;
 	}
-//	public JTable CargarTabla() {
-//		File ruta = new File(System.getProperty("user.dir"));
-//		JFileChooser fc = new JFileChooser(ruta);
-//		int seleccionado = fc.showOpenDialog(panel);
-//		if (seleccionado == JFileChooser.APPROVE_OPTION) {
-//			File file = fc.getSelectedFile();
-//			try {
-//				FileInputStream fis = new FileInputStream(file);
-//				ObjectInputStream ois = new ObjectInputStream(fis);
-//				tablaAnx = (JTable) ois.readObject();
-//
-//			} catch (IOException e) {
-//				e.printStackTrace();
-//			} catch (ClassNotFoundException e) {
-//				e.printStackTrace();
-//
-//			}
-//		}
-//		return tablaAnx;
-//	}
 
 	public void añadirAlumno(String dni, String nombre, String apellido, String expediente, String nacionalidad,
 			String fechaNacim) {
@@ -465,8 +478,86 @@ public class modelo {
 		}
 	}
 
+	public void insertImageUSR() { // INSERTAR IMÁGEN EN ORACLE
+		try {
+			PreparedStatement ps = conexion.prepareStatement("update PI.USERS SET foto=? WHERE USR=?");
+			ps.setString(2, "Pedro Camacho");
+
+			java.io.FileInputStream fin = new java.io.FileInputStream("c:\\pedro.jpg");
+			ps.setBinaryStream(1, fin, fin.available());
+			int i = ps.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void loadImagenUSR() { // CARGAR IMAGEN DESDE ORACLE A JAVA
+		String usu = getUSR();
+		try {
+			PreparedStatement ps = conexion.prepareStatement("select foto from PI.USERS WHERE USR=?");
+			ps.setString(1, usu);
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+
+				Blob b = rs.getBlob(1);
+				byte barr[] = b.getBytes(1, (int) b.length());
+				FileOutputStream fout = new FileOutputStream("img/"+usu+".jpg");
+				fout.write(barr);
+				fout.close();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	public String getResultadoAlum() {
 		return resultadoAlum;
+	}
+
+	public void añadirUsuario(String username, String password, String rol2, String email, String nombre,
+			String apellido) {
+		String consulta = "SELECT * FROM PI.USERS WHERE USR=?";
+		String insert = "insert into PI.USERS values(?,?,?,?,?,?,?)";
+		try {
+			PreparedStatement cons = conexion.prepareStatement(consulta);
+			cons.setString(1, username);
+			ResultSet rs = cons.executeQuery();
+			if (rs.next()) {
+				resultadoUsu = "EXISTENTE";
+				vista_ventana_login.actualizar2();
+			} else {
+				PreparedStatement ins = conexion.prepareStatement(insert);
+				ins.setString(1, username);
+				ins.setString(2, password);
+				ins.setString(3, rol2);
+				ins.setString(4, email);
+				ins.setString(5, nombre);
+				ins.setString(6, apellido);
+				ins.setString(7, null);
+				int resul = ins.executeUpdate();
+				if (resul > 0) {
+					resultadoUsu = "EXITO";
+					vista_ventana_login.actualizar2();
+				}
+				cons.close();
+				rs.close();
+				ins.close();
+			}
+		} catch (SQLException e) {
+			if (username.isEmpty() || nombre.isEmpty() || apellido.isEmpty() || rol2.isEmpty()
+					|| password.isEmpty() || email.isEmpty()) {
+				resultadoUsu = "VACIO";
+				vista_ventana_login.actualizar2();
+			} else {
+				resultadoUsu = "ERROR";
+				vista_ventana_login.actualizar2();
+			}
+
+		}
+		
+	}
+	public String getResultadoUsu() {
+		return resultadoUsu;
 	}
 
 }
