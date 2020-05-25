@@ -9,6 +9,7 @@ import vista.Busqueda_Empresas;
 import vista.Busqueda_Grupos;
 import vista.Busqueda_Tutores;
 import vista.MenuVista;
+import vista.Ventana_Estadisticas;
 import vista.Ventana_Login;
 import vista.Ventana_Login_Config;
 import vista.Ventana_Mensaje_ERROR;
@@ -33,6 +34,7 @@ public class Main {
 		Busqueda_Empresas busquedaEmpresas= new Busqueda_Empresas();
 		Busqueda_Grupos busquedaGrupos= new Busqueda_Grupos();
 		Busqueda_Tutores busquedaTutores=new Busqueda_Tutores();
+		Ventana_Estadisticas ventana_estadisticas= new Ventana_Estadisticas();
 		
 		Vista_Info_Alumno vista_info_alumno=new Vista_Info_Alumno();
 		Vista_Info_Grupo vista_info_grupo=new Vista_Info_Grupo();
@@ -55,6 +57,7 @@ public class Main {
 		miControlador.setVista(vista_info_grupo);
 		miControlador.setVista(ventana_login_config);
 		miControlador.setVista(ventana_mensaje_error);
+		miControlador.setVista(ventana_estadisticas);
 		
 		miModelo.setVista(vista_ventana_login);
 		miModelo.setVista(vista_ventana_menu);
@@ -69,6 +72,7 @@ public class Main {
 		miModelo.setVista(vista_info_empresa);
 		miModelo.setVista(ventana_login_config);
 		miModelo.setVista(ventana_mensaje_error);
+		miModelo.setVista(ventana_estadisticas);
 		
 		vista_info_grupo.setControlador(miControlador);
 		vista_info_grupo.setModelo(miModelo);
@@ -108,6 +112,9 @@ public class Main {
 		
 		ventana_mensaje_error.setControlador(miControlador);
 		ventana_mensaje_error.setModelo(miModelo);
+		
+		ventana_estadisticas.setControlador(miControlador);
+		ventana_estadisticas.setModelo(miModelo);
 		
 		vista_ventana_login.setVisible(true);
 

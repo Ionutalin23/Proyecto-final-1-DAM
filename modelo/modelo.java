@@ -1,6 +1,9 @@
 package modelo;
 
 import java.applet.AudioClip;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -16,6 +19,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import javax.swing.JFileChooser;
@@ -24,12 +28,20 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.general.DefaultPieDataset;
+import org.jfree.data.general.PieDataset;
+import org.jfree.data.xy.XYDataset;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
+
 import vista.Busqueda_Alumnos;
 import vista.Busqueda_Anexos;
 import vista.Busqueda_Empresas;
 import vista.Busqueda_Grupos;
 import vista.Busqueda_Tutores;
 import vista.MenuVista;
+import vista.Ventana_Estadisticas;
 import vista.Ventana_Login;
 import vista.Ventana_Login_Config;
 import vista.Ventana_Mensaje_ERROR;
@@ -38,8 +50,19 @@ import vista.Vista_Info_Empresa;
 import vista.Vista_Info_Grupo;
 import vista.Vista_Info_Tutor;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
+
+
 public class modelo {
 
+//	================================================ MVC =========================================
 	private Ventana_Login vista_ventana_login;
 	private MenuVista vista_ventana_menu;
 	private Busqueda_Alumnos busquedaAlumnos;
@@ -53,45 +76,8 @@ public class modelo {
 	private Vista_Info_Grupo vista_info_grupo;
 	private Ventana_Login_Config vista_login_config;
 	private Ventana_Mensaje_ERROR ventana_mensaje_error;
-	private String[] credenciales = new String[3];
-
-	private Connection conexion;
-	private int fallos;
-	private String resultado;
-	private String resultadoAlum;
-	private String resultadoUsu;
-	private String USR;
-	private String rol;
-	private String SQLanexo2_1 = "SELECT nombre, apellidos, anexo_2_1 FROM PI.alumno, PI.practica WHERE num_exp=alumno_num_exp";
-	private String SQLanexo1 = "SELECT E.nombre \"Empresa\",C.cod_centro, C.localidad, C.director, CO.anexo_1 FROM PI.centro C, PI.colabora CO, PI.empresa E WHERE CO.centro_cod_centro=C.cod_centro AND  CO.empresa_cif=E.cif";
-	private String SQLanexo2_2 = "SELECT A.nombre, A.apellidos, E.nombre \"EMPRESA\", PR.horario, G.Anexo_2_2 FROM PI.alumno A, PI.pertenece P, PI.grupo GR, PI.gestiona G, PI.Tutor T, PI.centro C, "
-			+ "PI.colabora CO, PI.Empresa E, PI.practica PR WHERE A.num_exp=P.alumno_num_exp AND T.dni_tutor=G.tutor_dni_tutor AND C.cod_centro=T.centro_cod_centro AND CO.empresa_cif=E.cif "
-			+ "AND P.grupo_cod_grupo=GR.cod_grupo AND G.grupo_cod_grupo=GR.cod_grupo AND CO.centro_cod_centro=C.cod_centro\n"
-			+ "AND PR.empresa_cif=E.cif AND PR.alumno_num_exp=A.num_exp";
-	private String SQLanexo3 = "SELECT A.nombre, A.apellidos, A.dni, PR.anexo_3 FROM PI.alumno A, PI.practica PR WHERE num_exp=alumno_num_exp";
-	private String SQLanexo7 = "SELECT A.nombre, A.apellidos, PR.anexo_7 FROM PI.alumno A, PI.practica PR WHERE A.num_exp=PR.alumno_num_exp";
-	private String SQLanexo8 = "SELECT A.nombre, A.apellidos,CONCAT(C.localidad,CONCAT(',',C.cod_centro)) \"CENTRO\", E.Nombre \"EMPRESA\", PR.anexo_8 FROM PI.alumno A, PI.practica PR, PI.empresa E, PI.centro C, PI.colabora CO WHERE num_exp=alumno_num_exp AND PR.empresa_cif=E.cif\n"
-			+ "AND CO.empresa_cif=E.cif AND C.cod_centro=CO.centro_cod_centro";
-	private String SQLTut = "SELECT * FROM PI.TUTOR";
-	private String SQLTut_2 = "SELECT nombre, apellidos,clave_ciclo, nombre_ciclo FROM PI.Tutor TU, PI.Grupo GR, PI.Gestiona GE WHERE TU.dni_tutor = GE.tutor_dni_tutor AND GE.grupo_cod_grupo = GR.cod_grupo AND nombre_ciclo ='DAMM'";
-	private String SQAlumno = "SELECT * FROM PI.alumno";
-	private String SQLEmp = "SELECT * FROM PI.empresa";
-	private String SQLGrp = "SELECT * FROM PI.grupo";
-	private JTable tablaTut;
-	private JTable tablaAnx;
-
-	public void ConexionBBDD() {
-		lecturaFichero();
-		try {
-			Class.forName("oracle.jdbc.driver.OracleDriver");
-			conexion = DriverManager.getConnection(credenciales[2], credenciales[0], credenciales[1]);
-			System.out.println(" - Conexión con ORACLE establecida -");
-		} catch (Exception e) {
-			System.out.println(" – Error de Conexión con ORACLE -");
-			e.printStackTrace();
-		}
-	}
-
+	private Ventana_Estadisticas ventana_estadisticas;
+	
 	public void setVista(Busqueda_Alumnos busquedaAlumnos) {
 		this.busquedaAlumnos = busquedaAlumnos;
 	}
@@ -143,6 +129,57 @@ public class modelo {
 
 	public void setVista(Ventana_Mensaje_ERROR ventana_mensaje_error) {
 		this.ventana_mensaje_error = ventana_mensaje_error;
+	}
+	
+	public void setVista(Ventana_Estadisticas ventana_estadisticas) {
+		this.ventana_estadisticas = ventana_estadisticas;
+	}
+	
+//  ========================================================================= MVC ====================================================
+
+	private String[] credenciales = new String[3];
+	private ArrayList<Integer> alumnosEstadisticas= new ArrayList<Integer>();
+
+	private Connection conexion;
+	private int fallos;
+	private String resultado;
+	private String resultadoAlum;
+	private String resultadoUsu;
+	private String USR;
+	private String rol;
+	private String SQLanexo2_1 = "SELECT nombre, apellidos, anexo_2_1 FROM PI.alumno, PI.practica WHERE num_exp=alumno_num_exp";
+	private String SQLanexo1 = "SELECT E.nombre \"Empresa\",C.cod_centro, C.localidad, C.director, CO.anexo_1 FROM PI.centro C, PI.colabora CO, PI.empresa E WHERE CO.centro_cod_centro=C.cod_centro AND  CO.empresa_cif=E.cif";
+	private String SQLanexo2_2 = "SELECT A.nombre, A.apellidos, E.nombre \"EMPRESA\", PR.horario, G.Anexo_2_2 FROM PI.alumno A, PI.pertenece P, PI.grupo GR, PI.gestiona G, PI.Tutor T, PI.centro C, "
+			+ "PI.colabora CO, PI.Empresa E, PI.practica PR WHERE A.num_exp=P.alumno_num_exp AND T.dni_tutor=G.tutor_dni_tutor AND C.cod_centro=T.centro_cod_centro AND CO.empresa_cif=E.cif "
+			+ "AND P.grupo_cod_grupo=GR.cod_grupo AND G.grupo_cod_grupo=GR.cod_grupo AND CO.centro_cod_centro=C.cod_centro\n"
+			+ "AND PR.empresa_cif=E.cif AND PR.alumno_num_exp=A.num_exp";
+	private String SQLanexo3 = "SELECT A.nombre, A.apellidos, A.dni, PR.anexo_3 FROM PI.alumno A, PI.practica PR WHERE num_exp=alumno_num_exp";
+	private String SQLanexo7 = "SELECT A.nombre, A.apellidos, PR.anexo_7 FROM PI.alumno A, PI.practica PR WHERE A.num_exp=PR.alumno_num_exp";
+	private String SQLanexo8 = "SELECT A.nombre, A.apellidos,CONCAT(C.localidad,CONCAT(',',C.cod_centro)) \"CENTRO\", E.Nombre \"EMPRESA\", PR.anexo_8 FROM PI.alumno A, PI.practica PR, PI.empresa E, PI.centro C, PI.colabora CO WHERE num_exp=alumno_num_exp AND PR.empresa_cif=E.cif\n"
+			+ "AND CO.empresa_cif=E.cif AND C.cod_centro=CO.centro_cod_centro";
+	private String SQLTut = "SELECT * FROM PI.TUTOR";
+	private String SQLTut_2 = "SELECT nombre, apellidos,clave_ciclo, nombre_ciclo FROM PI.Tutor TU, PI.Grupo GR, PI.Gestiona GE WHERE TU.dni_tutor = GE.tutor_dni_tutor AND GE.grupo_cod_grupo = GR.cod_grupo AND nombre_ciclo ='DAMM'";
+	private String SQAlumno = "SELECT * FROM PI.alumno";
+	private String SQLEmp = "SELECT * FROM PI.empresa";
+	private String SQLGrp = "SELECT * FROM PI.grupo";
+	private String SqlEstadisticasPracticas = "SELECT COUNT(ANEXO_2_1) FROM practica where ANEXO_2_1 ?";
+	private String SqlEstadisticasPracticas2 = "SELECT COUNT(?) FROM practica where ANEXO_2_1 ?";
+	private JTable tablaTut;
+	private JTable tablaAnx;
+	private ChartPanel barPanel;
+	private ChartPanel CircularPanel;
+	private ChartPanel linealPanel;
+
+	public void ConexionBBDD() {
+		lecturaFichero();
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			conexion = DriverManager.getConnection(credenciales[2], credenciales[0], credenciales[1]);
+			System.out.println(" - Conexión con ORACLE establecida -");
+		} catch (Exception e) {
+			System.out.println(" – Error de Conexión con ORACLE -");
+			e.printStackTrace();
+		}
 	}
 
 	public void login(String usuario, String password) {
@@ -560,4 +597,74 @@ public class modelo {
 		return resultadoUsu;
 	}
 
+	public void dibujarGraficaBarras() {
+		DefaultCategoryDataset barChart= new DefaultCategoryDataset();
+		barChart.setValue((200), "amount","Enero");
+		barChart.setValue((400), "amount","Febrero");
+		barChart.setValue((600), "amount","Marzo");
+		
+		JFreeChart barChart1 = ChartFactory.createBarChart("Cantidades dinero", "Monthly", "Cantidad", barChart, PlotOrientation.VERTICAL, false, true, false);
+		CategoryPlot barchrt= barChart1.getCategoryPlot();
+		barchrt.setRangeGridlinePaint(Color.orange);
+		barPanel = new ChartPanel(barChart1);
+		
+	}
+	
+	public void dibujarGraficaCircular() {
+		DefaultPieDataset circularChart= new DefaultPieDataset();
+		circularChart.setValue("A",200);
+		circularChart.setValue("B",300);
+		circularChart.setValue("C",400);
+		JFreeChart circulo= ChartFactory.createPieChart3D("Cantidades dinero",circularChart, true, true, false);
+		BufferedImage circchrt= circulo.createBufferedImage(785, 460);;
+		CircularPanel = new ChartPanel(circulo);
+		
+	}
+
+	public ChartPanel getBarPanel() {
+		return barPanel;
+	}
+
+	public ChartPanel getCircularPanel() {
+		return CircularPanel;
+	}
+
+	public void dibujarGraficaLineal(String titulo, String leyenda, String tiempo) {
+		XYSeries series=new XYSeries(leyenda);
+		series.add(1, 5);
+		series.add(2, 10);
+		series.add(10, 20);
+		XYDataset datos= new XYSeriesCollection(series);
+		JFreeChart linea= ChartFactory.createXYLineChart(titulo, "cantidad", tiempo, datos, PlotOrientation.HORIZONTAL, true, true, false);
+		BufferedImage linealImage= linea.createBufferedImage(785, 460);
+		linealPanel= new ChartPanel(linea);
+		
+		
+	}
+
+	public ChartPanel getLinealPanel() {
+		return linealPanel;
+	}
+	public void alumnosPracticas() {
+		try {
+			PreparedStatement ps= conexion.prepareStatement(SqlEstadisticasPracticas);
+			ps.setString(1, "IS NOT NULL");
+			ResultSet rs=ps.executeQuery();
+			if(rs.next()) {
+				alumnosEstadisticas.add(rs.getInt(1));
+			}
+			PreparedStatement ps2= conexion.prepareStatement(SqlEstadisticasPracticas);
+			ps.setString(1, "*");
+			ps.setString(2, "IS NULL");
+			ResultSet rs2=ps2.executeQuery();
+			if(rs2.next()) {
+				alumnosEstadisticas.add(rs2.getInt(1));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	} 
+	
+	
 }

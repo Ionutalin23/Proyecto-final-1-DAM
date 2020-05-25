@@ -10,6 +10,7 @@ import vista.Busqueda_Empresas;
 import vista.Busqueda_Grupos;
 import vista.Busqueda_Tutores;
 import vista.MenuVista;
+import vista.Ventana_Estadisticas;
 import vista.Ventana_Login;
 import vista.Ventana_Login_Config;
 import vista.Ventana_Mensaje_ERROR;
@@ -19,6 +20,7 @@ import vista.Vista_Info_Grupo;
 import vista.Vista_Info_Tutor;
 
 public class controlador {
+// ==================================================== MVC ==============================================
 	private modelo miModelo;
 	private Ventana_Login vista_ventana_login;
 	private Ventana_Login_Config ventana_login_config;
@@ -33,6 +35,7 @@ public class controlador {
 	private Vista_Info_Tutor vista_info_tutor;
 	private Vista_Info_Grupo vista_info_grupo;
 	private Ventana_Mensaje_ERROR ventana_mensaje_error;
+	private Ventana_Estadisticas ventana_estadisticas;
 
 	public void setVista(Busqueda_Alumnos busquedaAlumnos) {
 		this.busquedaAlumnos = busquedaAlumnos;
@@ -90,6 +93,12 @@ public class controlador {
 	public void setVista(Ventana_Mensaje_ERROR ventana_mensaje_error) {
 		this.ventana_mensaje_error = ventana_mensaje_error;
 	}
+	
+	public void setVista(Ventana_Estadisticas ventana_estadisticas) {
+		this.ventana_estadisticas = ventana_estadisticas;
+	}
+
+// ================================================================================
 
 	public void login() {
 		String usuario = vista_ventana_login.getUsuario();
@@ -140,6 +149,7 @@ public class controlador {
 		busquedaEmpresas.actualizarLogged();
 		busquedaGrupos.actualizarLogged();
 		busquedaTutores.actualizarLogged();
+		ventana_estadisticas.actualizarLogged();
 	}
 
 	public void logout() {
@@ -302,6 +312,11 @@ public class controlador {
 		busquedaTutores.setVisible(true);
 
 	}
+	public void back9() {
+		ventana_estadisticas.setVisible(false);
+		vista_ventana_menu.setVisible(true);
+
+	}
 	public void loginConfig() {
 		ventana_login_config.setVisible(true);
 		vista_ventana_login.setVisible(false);
@@ -341,6 +356,26 @@ public class controlador {
 	public void loginError() {
 		vista_ventana_login.setVisible(false);
 		ventana_mensaje_error.setVisible(true);
+	}
+
+	public void VentanaEstadisticas() {
+		vista_ventana_menu.setVisible(false);
+		ventana_estadisticas.setVisible(true);
+		
+	}
+
+	public void graficaCircular() {
+		miModelo.dibujarGraficaCircular();
+	}
+
+	public void graficaBarras() {
+		miModelo.dibujarGraficaBarras();
+		
+	}
+
+	public void graficaLineal(String titulo, String leyenda, String tiempo) {
+		miModelo.dibujarGraficaLineal(titulo,leyenda,tiempo);
+		
 	}
 
 	
