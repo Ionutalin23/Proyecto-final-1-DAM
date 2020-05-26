@@ -52,6 +52,8 @@ public class Ventana_Estadisticas extends JFrame {
 			48, Image.SCALE_SMOOTH);
 	private JPanel panelGrafos;
 	private JLabel lblUser;
+	private JComboBox FilterComboBox2;
+	private JComboBox FilterComboBox;
 
 	public Ventana_Estadisticas() {
 		getContentPane().setBackground(Color.LIGHT_GRAY);
@@ -85,6 +87,20 @@ public class Ventana_Estadisticas extends JFrame {
 				miControlador.back9();
 			}
 		});
+		
+		JLabel lblTipo = new JLabel("TIPO:");
+		lblTipo.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblTipo.setForeground(Color.WHITE);
+		lblTipo.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblTipo.setBounds(637, 67, 76, 22);
+		getContentPane().add(lblTipo);
+		
+		JLabel lblNewLabel = new JLabel("GRAFICA:");
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setForeground(Color.WHITE);
+		lblNewLabel.setBounds(44, 67, 76, 22);
+		getContentPane().add(lblNewLabel);
 		
 		lblUser = new JLabel("Logged as: Pedro Camacho");
 		lblUser.setBounds(560, 7, 208, 27);
@@ -145,58 +161,46 @@ public class Ventana_Estadisticas extends JFrame {
 
 		
 		// Search Filter Combo Box ========================
-		JComboBox FilterComboBox = new JComboBox();
+
+		FilterComboBox2 = new JComboBox();
+		FilterComboBox2.setForeground(Color.WHITE);
+		FilterComboBox2.setBackground(Color.GRAY);
+		FilterComboBox2.setModel(new DefaultComboBoxModel(new String[] { "--Selecciona--","Alumnos en Practicas", "Alumnos" }));
+		FilterComboBox2.setBounds(122, 68, 222, 22);
+		getContentPane().add(FilterComboBox2);
+		FilterComboBox = new JComboBox();
+		FilterComboBox2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int selected = FilterComboBox.getSelectedIndex();
+				int selected2= FilterComboBox2.getSelectedIndex();
+				if(selected==1&&selected2==1) {
+					miControlador.graficaLinealPracticas();
+				}else if(selected==2&&selected2==1) {
+					miControlador.graficaCircularPracticas();
+				}else if(selected==3 &&selected2==1) {
+					miControlador.graficaBarrasPracticas();
+				}}
+		});
 		FilterComboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int selected = FilterComboBox.getSelectedIndex();
-				switch (selected) {
-				case 1:
-					actualizarPanel3();
-					break;
-				case 2:
-					miControlador.graficaCircular();
-					break;
-				case 3:
-					miControlador.graficaBarras();
-					break;
-				default:
-					break;
+				int selected2= FilterComboBox2.getSelectedIndex();
+				if(selected==1&&selected2==1) {
+					miControlador.graficaLinealPracticas();
+				}else if(selected==2&&selected2==1) {
+					miControlador.graficaCircularPracticas();
+				}else if(selected==3 &&selected2==1) {
+					miControlador.graficaBarrasPracticas();
 				}}
 		});
 		FilterComboBox.setForeground(Color.WHITE);
 		FilterComboBox.setBackground(Color.GRAY);
-		FilterComboBox.setModel(new DefaultComboBoxModel(new String[] { "Selecciona","Lineal", "Circular", "Barras" }));
-		FilterComboBox.setBounds(47, 68, 71, 22);
+		FilterComboBox.setModel(new DefaultComboBoxModel(new String[] { "--Selecciona--","Lineal", "Circular", "Barras" }));
+		FilterComboBox.setBounds(721, 68, 108, 22);
 		getContentPane().add(FilterComboBox);
 
-		JComboBox FilterComboBox2 = new JComboBox();
-		FilterComboBox2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int selected = FilterComboBox2.getSelectedIndex();
-				switch (selected) {
-				case 1:
-					String titulo= "Alumnos en prácticas";
-					String leyenda="Alumnos"; 
-					String tiempo="Dias";
-					miControlador.graficaLineal(titulo,leyenda,tiempo);
-					break;
-				case 2:
-					miControlador.graficaCircular();
-					break;
-				case 3:
-					miControlador.graficaBarras();
-					break;
-				default:
-					break;
-				}}
-		});
-		FilterComboBox2.setForeground(Color.WHITE);
-		FilterComboBox2.setBackground(Color.GRAY);
-		FilterComboBox2.setModel(new DefaultComboBoxModel(new String[] { "Alumnos en Practicas", "Alumnos" }));
-		FilterComboBox2.setBounds(607, 68, 222, 22);
-		getContentPane().add(FilterComboBox2);
-
 		panelGrafos = new JPanel();
+		panelGrafos.setBackground(Color.WHITE);
 		panelGrafos.setBounds(44, 103, 785, 460);
 		getContentPane().add(panelGrafos);
 

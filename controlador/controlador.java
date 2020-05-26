@@ -364,17 +364,20 @@ public class controlador {
 		
 	}
 
-	public void graficaCircular() {
-		miModelo.dibujarGraficaCircular();
+	public void graficaCircularPracticas() {
+		miModelo.alumnosPracticas();
+		miModelo.dibujarGraficaCircularAlumnos();
 	}
 
-	public void graficaBarras() {
-		miModelo.dibujarGraficaBarras();
+	public void graficaBarrasPracticas() {
+		miModelo.alumnosPracticas();
+		miModelo.dibujarGraficaBarrasPracticas();
 		
 	}
 
-	public void graficaLineal(String titulo, String leyenda, String tiempo) {
-		miModelo.dibujarGraficaLineal(titulo,leyenda,tiempo);
+	public void graficaLinealPracticas() {
+		miModelo.alumnosPracticas();
+		miModelo.dibujarGraficaLinealPracticas();
 		
 	}
 

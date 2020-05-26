@@ -162,8 +162,8 @@ public class modelo {
 	private String SQAlumno = "SELECT * FROM PI.alumno";
 	private String SQLEmp = "SELECT * FROM PI.empresa";
 	private String SQLGrp = "SELECT * FROM PI.grupo";
-	private String SqlEstadisticasPracticas = "SELECT COUNT(ANEXO_2_1) FROM practica where ANEXO_2_1 ?";
-	private String SqlEstadisticasPracticas2 = "SELECT COUNT(?) FROM practica where ANEXO_2_1 ?";
+	private String SqlEstadisticasPracticas = "SELECT COUNT(ANEXO_2_1) FROM PI.practica where ? IS NOT NULL";
+	private String SqlEstadisticasPracticas2 = "SELECT COUNT(?) FROM PI.practica where ANEXO_2_1 IS NULL";
 	private JTable tablaTut;
 	private JTable tablaAnx;
 	private ChartPanel barPanel;
@@ -597,28 +597,29 @@ public class modelo {
 		return resultadoUsu;
 	}
 
-	public void dibujarGraficaBarras() {
+	public void dibujarGraficaBarrasPracticas() {
 		DefaultCategoryDataset barChart= new DefaultCategoryDataset();
-		barChart.setValue((200), "amount","Enero");
-		barChart.setValue((400), "amount","Febrero");
-		barChart.setValue((600), "amount","Marzo");
+		barChart.setValue((alumnosEstadisticas.get(0)), "cantidad","Alumnos en Prácticas");
+		barChart.setValue((alumnosEstadisticas.get(1)), "cantidad","Alumnos sin Prácticas");
+		barChart.setValue((alumnosEstadisticas.get(0)+alumnosEstadisticas.get(1)), "cantidad","Total Alumnos");
 		
-		JFreeChart barChart1 = ChartFactory.createBarChart("Cantidades dinero", "Monthly", "Cantidad", barChart, PlotOrientation.VERTICAL, false, true, false);
+		JFreeChart barChart1 = ChartFactory.createBarChart3D("Alumnos", "", "Cantidad", barChart, PlotOrientation.VERTICAL, false, true, false);
 		CategoryPlot barchrt= barChart1.getCategoryPlot();
 		barchrt.setRangeGridlinePaint(Color.orange);
 		barPanel = new ChartPanel(barChart1);
+		ventana_estadisticas.actualizarPanel();
 		
 	}
 	
-	public void dibujarGraficaCircular() {
+	public void dibujarGraficaCircularAlumnos() {
 		DefaultPieDataset circularChart= new DefaultPieDataset();
-		circularChart.setValue("A",200);
-		circularChart.setValue("B",300);
-		circularChart.setValue("C",400);
-		JFreeChart circulo= ChartFactory.createPieChart3D("Cantidades dinero",circularChart, true, true, false);
+		circularChart.setValue("Alumnos en Prácticas: "+alumnosEstadisticas.get(0),alumnosEstadisticas.get(0));
+		circularChart.setValue("Alumnos sin Prácticas: "+alumnosEstadisticas.get(1),alumnosEstadisticas.get(1));
+		JFreeChart circulo= ChartFactory.createPieChart3D("Alumnos",circularChart, true, true, false);
 		BufferedImage circchrt= circulo.createBufferedImage(785, 460);;
 		CircularPanel = new ChartPanel(circulo);
-		
+		CircularPanel.setBounds(44, 103, 785, 460);
+		ventana_estadisticas.actualizarPanel2();
 	}
 
 	public ChartPanel getBarPanel() {
@@ -629,16 +630,17 @@ public class modelo {
 		return CircularPanel;
 	}
 
-	public void dibujarGraficaLineal(String titulo, String leyenda, String tiempo) {
-		XYSeries series=new XYSeries(leyenda);
-		series.add(1, 5);
-		series.add(2, 10);
-		series.add(10, 20);
+	public void dibujarGraficaLinealPracticas() {
+		XYSeries series=new XYSeries("Alumnos");
+		series.add(0,0);
+		series.add(0,5);
+		series.add((int)alumnosEstadisticas.get(0),30);
 		XYDataset datos= new XYSeriesCollection(series);
-		JFreeChart linea= ChartFactory.createXYLineChart(titulo, "cantidad", tiempo, datos, PlotOrientation.HORIZONTAL, true, true, false);
+		JFreeChart linea= ChartFactory.createXYLineChart("Alumnos en prácticas", "cantidad alumnos", "Marzo", datos, PlotOrientation.HORIZONTAL, true, true, false);
 		BufferedImage linealImage= linea.createBufferedImage(785, 460);
 		linealPanel= new ChartPanel(linea);
-		
+		linealPanel.setBounds(44, 103, 785, 460);
+		ventana_estadisticas.actualizarPanel3();
 		
 	}
 
@@ -646,16 +648,18 @@ public class modelo {
 		return linealPanel;
 	}
 	public void alumnosPracticas() {
+		if (!alumnosEstadisticas.isEmpty()) {
+			alumnosEstadisticas.clear();
+		}
 		try {
 			PreparedStatement ps= conexion.prepareStatement(SqlEstadisticasPracticas);
-			ps.setString(1, "IS NOT NULL");
+			ps.setString(1, "ANEXO_2_1");
 			ResultSet rs=ps.executeQuery();
 			if(rs.next()) {
 				alumnosEstadisticas.add(rs.getInt(1));
 			}
-			PreparedStatement ps2= conexion.prepareStatement(SqlEstadisticasPracticas);
-			ps.setString(1, "*");
-			ps.setString(2, "IS NULL");
+			PreparedStatement ps2= conexion.prepareStatement(SqlEstadisticasPracticas2);
+			ps2.setString(1, "*");
 			ResultSet rs2=ps2.executeQuery();
 			if(rs2.next()) {
 				alumnosEstadisticas.add(rs2.getInt(1));
@@ -664,7 +668,5 @@ public class modelo {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	} 
-	
-	
+	}
 }
