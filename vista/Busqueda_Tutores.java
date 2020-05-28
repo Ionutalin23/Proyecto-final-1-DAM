@@ -112,6 +112,12 @@ public class Busqueda_Tutores extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
+// 		Label MSG borrado
+		JLabel lblSelcc = new JLabel("No ha seleccionado ninguna fila");
+		lblSelcc.setVisible(false);
+		lblSelcc.setBounds(225, 593, 426, 16);
+		contentPane.add(lblSelcc);
+
 // 		Subir button ============================	
 		lblCargar = new JLabel("Cargar");
 		lblCargar.setHorizontalAlignment(SwingConstants.CENTER);
@@ -271,13 +277,18 @@ public class Busqueda_Tutores extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				// ADD METHOD FOR DELETING SELECTED CELL
 				if (table.getSelectionModel().isSelectionEmpty()) {
-
+					lblSelcc.setVisible(true);
 				} else {
-
-					miModelo.setClave((String) table.getValueAt(table.getSelectedRow(), 0));
-					miModelo.setNombreTabla(NomTabla);
-					miModelo.setNombreClave(NomClave);
-					miControlador.ventana_conf_delete();
+					if (miModelo.getRol().equals("Tutor")) {
+						lblSelcc.setText("No tiene los permisos necesarios para eliminar datos");
+						lblSelcc.setVisible(true);
+					} else {
+						lblSelcc.setVisible(false);
+						miModelo.setClave((String) table.getValueAt(table.getSelectedRow(), 0));
+						miModelo.setNombreTabla(NomTabla);
+						miModelo.setNombreClave(NomClave);
+						miControlador.ventana_conf_delete();
+					}
 				}
 			}
 		});

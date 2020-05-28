@@ -109,6 +109,12 @@ public class Busqueda_Alumnos extends JFrame {
 //		POSICIONAR VENTANA EN EL CENTRO DE LA PANTALLA
 		setLocationRelativeTo(null);
 
+// 		Label MSG borrado
+		JLabel lblSelcc = new JLabel("No ha seleccionado ninguna fila");
+		lblSelcc.setVisible(false);
+		lblSelcc.setBounds(225, 593, 426, 16);
+		contentPane.add(lblSelcc);
+
 		lblUser = new JLabel("Logged as: Pedro Camacho");
 		lblUser.setBounds(560, 7, 208, 27);
 		contentPane.add(lblUser);
@@ -208,13 +214,18 @@ public class Busqueda_Alumnos extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				// ADD METHOD FOR DELETING SELECTED CELL
 				if (table.getSelectionModel().isSelectionEmpty()) {
-
+					lblSelcc.setVisible(true);
 				} else {
-
-					miModelo.setClave((String) table.getValueAt(table.getSelectedRow(), 3));
-					miModelo.setNombreTabla(NomTabla);
-					miModelo.setNombreClave(NomClave);
-					miControlador.ventana_conf_delete();
+					if (miModelo.getRol().equals("Tutor")) {
+						lblSelcc.setText("No tiene los permisos necesarios para eliminar datos");
+						lblSelcc.setVisible(true);
+					} else {
+						lblSelcc.setVisible(false);
+						miModelo.setClave((String) table.getValueAt(table.getSelectedRow(), 0));
+						miModelo.setNombreTabla(NomTabla);
+						miModelo.setNombreClave(NomClave);
+						miControlador.ventana_conf_delete();
+					}
 				}
 			}
 		});
