@@ -54,6 +54,7 @@ public class Ventana_Estadisticas extends JFrame {
 	private JLabel lblUser;
 	private JComboBox FilterComboBox2;
 	private JComboBox FilterComboBox;
+	private JLabel lblTipo;
 
 	public Ventana_Estadisticas() {
 		getContentPane().setBackground(Color.LIGHT_GRAY);
@@ -88,11 +89,12 @@ public class Ventana_Estadisticas extends JFrame {
 			}
 		});
 		
-		JLabel lblTipo = new JLabel("TIPO:");
+		lblTipo = new JLabel("TIPO:");
 		lblTipo.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblTipo.setVisible(false);
 		lblTipo.setForeground(Color.WHITE);
 		lblTipo.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblTipo.setBounds(637, 67, 76, 22);
+		lblTipo.setBounds(581, 67, 76, 22);
 		getContentPane().add(lblTipo);
 		
 		JLabel lblNewLabel = new JLabel("GRAFICA:");
@@ -153,7 +155,7 @@ public class Ventana_Estadisticas extends JFrame {
 			}
 
 			public void mouseClicked(MouseEvent e) {
-				miControlador.logout5();
+				miControlador.logout10();
 			}
 
 		});
@@ -165,38 +167,56 @@ public class Ventana_Estadisticas extends JFrame {
 		FilterComboBox2 = new JComboBox();
 		FilterComboBox2.setForeground(Color.WHITE);
 		FilterComboBox2.setBackground(Color.GRAY);
-		FilterComboBox2.setModel(new DefaultComboBoxModel(new String[] { "--Selecciona--","Alumnos en Practicas", "Alumnos" }));
+		FilterComboBox2.setModel(new DefaultComboBoxModel(new String[] { "--Selecciona--","Alumnos en Practicas", "Total Grupos" }));
 		FilterComboBox2.setBounds(122, 68, 222, 22);
 		getContentPane().add(FilterComboBox2);
 		FilterComboBox = new JComboBox();
 		FilterComboBox2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int selected = FilterComboBox.getSelectedIndex();
 				int selected2= FilterComboBox2.getSelectedIndex();
+				if(selected2==1) {
+					FilterComboBox.setVisible(true);
+					lblTipo.setVisible(true);
+					FilterComboBox.setModel(new DefaultComboBoxModel(new String[] { "--Selecciona--","Lineal", "Circular", "Barras" }));
+				}
+				if(selected2==2) {
+					FilterComboBox.setVisible(true);
+					lblTipo.setVisible(true);
+					FilterComboBox.setModel(new DefaultComboBoxModel(new String[] { "--Selecciona--", "Circular", "Barras" }));
+				}
+				int selected=FilterComboBox.getSelectedIndex();
 				if(selected==1&&selected2==1) {
 					miControlador.graficaLinealPracticas();
 				}else if(selected==2&&selected2==1) {
 					miControlador.graficaCircularPracticas();
 				}else if(selected==3 &&selected2==1) {
 					miControlador.graficaBarrasPracticas();
+				}else if(selected==1 && selected2==2) {
+					miControlador.graficaCircularGrupos();
+				}else if(selected==2 && selected2==2) {
+					miControlador.graficaBarrasGrupos();
 				}}
 		});
 		FilterComboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int selected = FilterComboBox.getSelectedIndex();
 				int selected2= FilterComboBox2.getSelectedIndex();
+				int selected=FilterComboBox.getSelectedIndex();
 				if(selected==1&&selected2==1) {
 					miControlador.graficaLinealPracticas();
 				}else if(selected==2&&selected2==1) {
 					miControlador.graficaCircularPracticas();
 				}else if(selected==3 &&selected2==1) {
 					miControlador.graficaBarrasPracticas();
+				}else if(selected==1 && selected2==2) {
+					miControlador.graficaCircularGrupos();
+				}else if(selected==2 && selected2==2) {
+					miControlador.graficaBarrasGrupos();
 				}}
 		});
 		FilterComboBox.setForeground(Color.WHITE);
 		FilterComboBox.setBackground(Color.GRAY);
-		FilterComboBox.setModel(new DefaultComboBoxModel(new String[] { "--Selecciona--","Lineal", "Circular", "Barras" }));
-		FilterComboBox.setBounds(721, 68, 108, 22);
+		FilterComboBox.setVisible(false);
+		FilterComboBox.setBounds(669, 68, 160, 22);
 		getContentPane().add(FilterComboBox);
 
 		panelGrafos = new JPanel();
@@ -221,24 +241,35 @@ public class Ventana_Estadisticas extends JFrame {
 
 	}
 
-	public void actualizarPanel() {
-		panelGrafos.removeAll();
-		panelGrafos.add(miModelo.getBarPanel(), BorderLayout.CENTER);
-		panelGrafos.validate();
-	}
-
 	public void actualizarLogged() {
 		lblUser.setText("Logged as: " + miModelo.getUSR());
 	}
+	public void actualizarPanel() {
+		panelGrafos.removeAll();
+		panelGrafos.add(miModelo.getBarPanelAlumnos(), BorderLayout.CENTER);
+		panelGrafos.validate();
+	}
 	public void actualizarPanel2() {
 		panelGrafos.removeAll();
-		panelGrafos.add(miModelo.getCircularPanel(), BorderLayout.CENTER);
+		panelGrafos.add(miModelo.getCircularPanelAlumnos(), BorderLayout.CENTER);
 		panelGrafos.validate();
 	}
 
 	public void actualizarPanel3() {
 		panelGrafos.removeAll();
-		panelGrafos.add(miModelo.getLinealPanel(), BorderLayout.CENTER);
+		panelGrafos.add(miModelo.getLinealPanelAlumnos(), BorderLayout.CENTER);
 		panelGrafos.validate();
 	}
+
+	public void actualizarPanel4() {
+		panelGrafos.removeAll();
+		panelGrafos.add(miModelo.getBarPanelGrupos(), BorderLayout.CENTER);
+		panelGrafos.validate();
+	}
+	public void actualizarPanel5() {
+		panelGrafos.removeAll();
+		panelGrafos.add(miModelo.getCircularGrupos(), BorderLayout.CENTER);
+		panelGrafos.validate();
+	}
+	
 }

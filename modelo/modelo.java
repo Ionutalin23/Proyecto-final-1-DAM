@@ -20,6 +20,8 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Scanner;
 
 import javax.swing.JFileChooser;
@@ -139,6 +141,7 @@ public class modelo {
 
 	private String[] credenciales = new String[3];
 	private ArrayList<Integer> alumnosEstadisticas= new ArrayList<Integer>();
+	private LinkedHashMap<String, Integer> gruposAlumnos= new LinkedHashMap<String, Integer>();
 
 	private Connection conexion;
 	private int fallos;
@@ -164,11 +167,14 @@ public class modelo {
 	private String SQLGrp = "SELECT * FROM PI.grupo";
 	private String SqlEstadisticasPracticas = "SELECT COUNT(ANEXO_2_1) FROM PI.practica where ? IS NOT NULL";
 	private String SqlEstadisticasPracticas2 = "SELECT COUNT(?) FROM PI.practica where ANEXO_2_1 IS NULL";
+	private String SqlGruposAlumnos="select nom_grupo \"GRUPO\", count(*) \"ALUMNOS\" from PI.grupo, PI.alumno, PI.pertenece where alumno.num_exp=pertenece.alumno_num_exp AND grupo.cod_grupo=pertenece.grupo_cod_grupo group by grupo.nom_grupo";
 	private JTable tablaTut;
 	private JTable tablaAnx;
-	private ChartPanel barPanel;
-	private ChartPanel CircularPanel;
-	private ChartPanel linealPanel;
+	private ChartPanel barPanelAlumnos;
+	private ChartPanel CircularPanelAlumnos;
+	private ChartPanel linealPanelAlumnos;
+	private ChartPanel barPanelGrupos;
+	private ChartPanel CircularPanelGrupos;
 
 	public void ConexionBBDD() {
 		lecturaFichero();
@@ -606,7 +612,7 @@ public class modelo {
 		JFreeChart barChart1 = ChartFactory.createBarChart3D("Alumnos", "", "Cantidad", barChart, PlotOrientation.VERTICAL, false, true, false);
 		CategoryPlot barchrt= barChart1.getCategoryPlot();
 		barchrt.setRangeGridlinePaint(Color.orange);
-		barPanel = new ChartPanel(barChart1);
+		barPanelAlumnos = new ChartPanel(barChart1);
 		ventana_estadisticas.actualizarPanel();
 		
 	}
@@ -617,17 +623,17 @@ public class modelo {
 		circularChart.setValue("Alumnos sin Prácticas: "+alumnosEstadisticas.get(1),alumnosEstadisticas.get(1));
 		JFreeChart circulo= ChartFactory.createPieChart3D("Alumnos",circularChart, true, true, false);
 		BufferedImage circchrt= circulo.createBufferedImage(785, 460);;
-		CircularPanel = new ChartPanel(circulo);
-		CircularPanel.setBounds(44, 103, 785, 460);
+		CircularPanelAlumnos = new ChartPanel(circulo);
+		CircularPanelAlumnos.setBounds(44, 103, 785, 460);
 		ventana_estadisticas.actualizarPanel2();
 	}
 
-	public ChartPanel getBarPanel() {
-		return barPanel;
+	public ChartPanel getBarPanelAlumnos() {
+		return barPanelAlumnos;
 	}
 
-	public ChartPanel getCircularPanel() {
-		return CircularPanel;
+	public ChartPanel getCircularPanelAlumnos() {
+		return CircularPanelAlumnos;
 	}
 
 	public void dibujarGraficaLinealPracticas() {
@@ -638,16 +644,16 @@ public class modelo {
 		XYDataset datos= new XYSeriesCollection(series);
 		JFreeChart linea= ChartFactory.createXYLineChart("Alumnos en prácticas", "cantidad alumnos", "Marzo", datos, PlotOrientation.HORIZONTAL, true, true, false);
 		BufferedImage linealImage= linea.createBufferedImage(785, 460);
-		linealPanel= new ChartPanel(linea);
-		linealPanel.setBounds(44, 103, 785, 460);
+		linealPanelAlumnos= new ChartPanel(linea);
+		linealPanelAlumnos.setBounds(44, 103, 785, 460);
 		ventana_estadisticas.actualizarPanel3();
 		
 	}
 
-	public ChartPanel getLinealPanel() {
-		return linealPanel;
+	public ChartPanel getLinealPanelAlumnos() {
+		return linealPanelAlumnos;
 	}
-	public void alumnosPracticas() {
+	public void alumnosPracticasAlumnos() {
 		if (!alumnosEstadisticas.isEmpty()) {
 			alumnosEstadisticas.clear();
 		}
@@ -668,5 +674,56 @@ public class modelo {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	public void GruposAlumnos() {
+		if (!gruposAlumnos.isEmpty()) {
+			gruposAlumnos.clear();
+		}
+		try {
+			PreparedStatement ps= conexion.prepareStatement(SqlGruposAlumnos);
+			ResultSet rs=ps.executeQuery();
+			int i=1;
+			while(rs.next()) {
+				gruposAlumnos.put(rs.getString("GRUPO"), rs.getInt("ALUMNOS"));
+				i++;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	public void dibujarGraficaBarrasGrupos() {
+		DefaultCategoryDataset barChart= new DefaultCategoryDataset();
+		barChart.setValue((gruposAlumnos.get(gruposAlumnos.keySet().toArray()[0])), "cantidad",(Comparable) gruposAlumnos.keySet().toArray()[0]);
+		barChart.setValue((gruposAlumnos.get(gruposAlumnos.keySet().toArray()[1])), "cantidad",(Comparable) gruposAlumnos.keySet().toArray()[1]);
+		barChart.setValue((gruposAlumnos.get(gruposAlumnos.keySet().toArray()[2])), "cantidad",(Comparable) gruposAlumnos.keySet().toArray()[2]);
+		barChart.setValue((gruposAlumnos.get(gruposAlumnos.keySet().toArray()[3])), "cantidad",(Comparable) gruposAlumnos.keySet().toArray()[3]);
+		barChart.setValue((gruposAlumnos.get(gruposAlumnos.keySet().toArray()[4])), "cantidad",(Comparable) gruposAlumnos.keySet().toArray()[4]);
+		
+		JFreeChart barChart1 = ChartFactory.createBarChart3D("Grupos", "", "Cantidad Alumnos", barChart, PlotOrientation.VERTICAL, false, true, false);
+		CategoryPlot barchrt= barChart1.getCategoryPlot();
+		barchrt.setRangeGridlinePaint(Color.orange);
+		barPanelGrupos = new ChartPanel(barChart1);
+		ventana_estadisticas.actualizarPanel4();
+	}
+	public ChartPanel getBarPanelGrupos() {
+		return barPanelGrupos;
+	}
+	public ChartPanel getCircularGrupos() {
+		return CircularPanelGrupos;
+	}
+	
+	public void dibujarGraficaCircularGrupos() {
+		DefaultPieDataset circularChart= new DefaultPieDataset();
+		circularChart.setValue(gruposAlumnos.keySet().toArray()[0]+": "+gruposAlumnos.get(gruposAlumnos.keySet().toArray()[0]),gruposAlumnos.get(gruposAlumnos.keySet().toArray()[0]));
+		circularChart.setValue(gruposAlumnos.keySet().toArray()[1]+": "+gruposAlumnos.get(gruposAlumnos.keySet().toArray()[1]),gruposAlumnos.get(gruposAlumnos.keySet().toArray()[1]));
+		circularChart.setValue(gruposAlumnos.keySet().toArray()[2]+": "+gruposAlumnos.get(gruposAlumnos.keySet().toArray()[2]),gruposAlumnos.get(gruposAlumnos.keySet().toArray()[2]));
+		circularChart.setValue(gruposAlumnos.keySet().toArray()[3]+": "+gruposAlumnos.get(gruposAlumnos.keySet().toArray()[3]),gruposAlumnos.get(gruposAlumnos.keySet().toArray()[3]));
+		circularChart.setValue(gruposAlumnos.keySet().toArray()[4]+": "+gruposAlumnos.get(gruposAlumnos.keySet().toArray()[4]),gruposAlumnos.get(gruposAlumnos.keySet().toArray()[4]));
+		JFreeChart circulo= ChartFactory.createPieChart3D("Grupos",circularChart, true, true, false);
+		BufferedImage circchrt= circulo.createBufferedImage(785, 460);;
+		CircularPanelGrupos = new ChartPanel(circulo);
+		CircularPanelGrupos.setBounds(44, 103, 785, 460);
+		ventana_estadisticas.actualizarPanel5();
 	}
 }

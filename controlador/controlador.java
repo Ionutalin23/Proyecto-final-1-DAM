@@ -288,6 +288,11 @@ public class controlador {
 		vista_ventana_login.setVisible(true);
 		miModelo.finalizar();
 	}
+	public void logout10() {
+		ventana_estadisticas.setVisible(false);
+		vista_ventana_login.setVisible(true);
+		miModelo.finalizar();
+	}
 
 	public void back5() {
 		vista_info_alumno.setVisible(false);
@@ -365,20 +370,26 @@ public class controlador {
 	}
 
 	public void graficaCircularPracticas() {
-		miModelo.alumnosPracticas();
+		miModelo.alumnosPracticasAlumnos();
 		miModelo.dibujarGraficaCircularAlumnos();
 	}
 
 	public void graficaBarrasPracticas() {
-		miModelo.alumnosPracticas();
-		miModelo.dibujarGraficaBarrasPracticas();
-		
+		miModelo.alumnosPracticasAlumnos();
+		miModelo.dibujarGraficaBarrasPracticas();	
 	}
 
 	public void graficaLinealPracticas() {
-		miModelo.alumnosPracticas();
+		miModelo.alumnosPracticasAlumnos();
 		miModelo.dibujarGraficaLinealPracticas();
-		
+	}
+	public void graficaBarrasGrupos() {
+		miModelo.GruposAlumnos();
+		miModelo.dibujarGraficaBarrasGrupos();	
+	}
+	public void graficaCircularGrupos() {
+		miModelo.GruposAlumnos();
+		miModelo.dibujarGraficaCircularGrupos();	
 	}
 
 	
