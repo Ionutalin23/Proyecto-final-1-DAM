@@ -32,6 +32,7 @@ import vista.Busqueda_Tutores;
 import vista.MenuVista;
 import vista.Ventana_Login;
 import vista.Ventana_Login_Config;
+import vista.Ventana_Mensaje_ERROR;
 import vista.Vista_Info_Alumno;
 import vista.Vista_Info_Empresa;
 import vista.Vista_Info_Grupo;
@@ -51,6 +52,7 @@ public class modelo {
 	private Vista_Info_Alumno vista_info_alumno;
 	private Vista_Info_Grupo vista_info_grupo;
 	private Ventana_Login_Config vista_login_config;
+	private Ventana_Mensaje_ERROR ventana_mensaje_error;
 	private String[] credenciales = new String[3];
 
 	private Connection conexion;
@@ -122,20 +124,25 @@ public class modelo {
 		this.vista_ventana_menu = vista_ventana_menu;
 	}
 
-	public void setVista_info_tutor(Vista_Info_Tutor vista_info_tutor) {
+	public void setVista(Vista_Info_Tutor vista_info_tutor) {
 		this.vista_info_tutor = vista_info_tutor;
 	}
 
-	public void setVista_info_empresa(Vista_Info_Empresa vista_info_empresa) {
+	public void setVista(Vista_Info_Empresa vista_info_empresa) {
 		this.vista_info_empresa = vista_info_empresa;
 	}
 
-	public void setVista_info_alumno(Vista_Info_Alumno vista_info_alumno) {
+	public void setVista(Vista_Info_Alumno vista_info_alumno) {
 		this.vista_info_alumno = vista_info_alumno;
 	}
 
-	public void setVista_info_grupo(Vista_Info_Grupo vista_info_grupo) {
+	public void setVista(Vista_Info_Grupo vista_info_grupo) {
 		this.vista_info_grupo = vista_info_grupo;
+	}
+	
+
+	public void setVista(Ventana_Mensaje_ERROR ventana_mensaje_error) {
+		this.ventana_mensaje_error = ventana_mensaje_error;
 	}
 
 	public void login(String usuario, String password) {
@@ -494,7 +501,7 @@ public class modelo {
 
 				Blob b = rs.getBlob(1);
 				byte barr[] = b.getBytes(1, (int) b.length());
-				FileOutputStream fout = new FileOutputStream("img/perfil.jpg");
+				FileOutputStream fout = new FileOutputStream("img/"+usu+".jpg");
 				fout.write(barr);
 				fout.close();
 			}
