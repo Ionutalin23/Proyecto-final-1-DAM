@@ -952,7 +952,7 @@ public class modelo {
 			String nacionalidad) {
 		PreparedStatement stmt;
 		try {
-			SimpleDateFormat formatt = new SimpleDateFormat("YYYY-MM-DD HH:");
+			SimpleDateFormat formatt = new SimpleDateFormat("YYYY-MM-DD");
 			java.util.Date utildate = formatt.parse(Fnac);
 			Date sqlDate = new Date(utildate.getTime());
 
