@@ -186,7 +186,7 @@ public class modelo {
 	private String resultadoEmpresa;
 	private String resultadoGrupo;
 	private String resultadoTutor;
-	private String resultadoUsuario;
+	private String resultadoUsuarioUpdate;
 
 	public void ConexionBBDD() {
 		lecturaFichero();
@@ -961,11 +961,21 @@ public class modelo {
 			
 			stmt.setInt(6, EXP);
 			int resul = stmt.executeUpdate();
+			if (resul>0) {
+				resultadoUsuarioUpdate="EXITO";
+				vista_info_alumno.actualizar2();
+			} else {
+				resultadoUsuarioUpdate="ERROR";
+				vista_info_alumno.actualizar2();
+			}
 		} catch (SQLException | ParseException e) {
 
 			e.printStackTrace();
 		}
 		
+	}
+	public String getResultadoUsuarioUpdate() {
+		return resultadoUsuarioUpdate;
 	}
 
 }
