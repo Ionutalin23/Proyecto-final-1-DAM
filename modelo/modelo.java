@@ -188,6 +188,8 @@ public class modelo {
 	private String resultadoTutor;
 	private String resultadoUsuario;
 	private boolean mod;
+	private String resultadoUsuarioUpdate;
+	private String resultadoGrupoUpdate;
 
 	public void ConexionBBDD() {
 		lecturaFichero();
@@ -964,6 +966,13 @@ public class modelo {
 
 			stmt.setInt(6, EXP);
 			int resul = stmt.executeUpdate();
+			if (resul > 0) {
+				resultadoUsuarioUpdate = "EXITO";
+				vista_info_alumno.actualizar2();
+			} else {
+				resultadoUsuarioUpdate = "ERROR";
+				vista_info_alumno.actualizar2();
+			}
 		} catch (SQLException | ParseException e) {
 
 			e.printStackTrace();
@@ -980,4 +989,35 @@ public class modelo {
 		return this.mod;
 	}
 
+	public String getResultadoUsuarioUpdate() {
+		return resultadoUsuarioUpdate;
+	}
+
+	public void modificarGrupo(int codigo, String grupo, int clave, String ciclo) {
+		PreparedStatement stmt;
+		try {
+			stmt = conexion.prepareStatement("UPDATE PI.grupo SET nom_grupo = ?, clave_ciclo = ?, nombre_ciclo = ? WHERE cod_grupo = ?");
+			stmt.setString(1, grupo);
+			stmt.setInt(2, clave);
+			stmt.setString(3, ciclo);
+			stmt.setInt(4, codigo);
+
+			int resul = stmt.executeUpdate();
+			if (resul > 0) {
+				resultadoGrupoUpdate = "EXITO";
+				vista_info_grupo.actualizar2();
+			} else {
+				resultadoGrupoUpdate = "ERROR";
+				vista_info_grupo.actualizar2();
+			}
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+	}
+
+	public String getResultadoGrupoUpdate() {
+		return resultadoGrupoUpdate;
+	}
+	
 }

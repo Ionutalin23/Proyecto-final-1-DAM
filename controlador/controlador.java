@@ -444,8 +444,13 @@ public class controlador {
 		
 	}
 
-
-
+	public void enviarDatosGrupos(String codigo, String nombre, String clave, String ciclo) {
+		vista_info_grupo.setTxtCodGrupo(codigo);
+		vista_info_grupo.setTxtName(nombre);
+		vista_info_grupo.setTxtClaveCiclo(clave);
+		vista_info_grupo.setTxtNomCiclo(ciclo);
+		busquedaGrupos.setVisible(false);
+		vista_info_grupo.setVisible(true);
+	}
 	
-
 }

@@ -376,6 +376,15 @@ public class Vista_Info_Alumno extends JFrame {
 			JOptionPane.showMessageDialog(this, "Error, por favor compruebe todos los datos");
 		}
 	}
+	public void actualizar2() {
+		String resultado = miModelo.getResultadoUsuarioUpdate();
+		if (resultado.equals("EXITO")) {
+			JOptionPane.showMessageDialog(this, "Usuario modificado con éxito");
+			clearFields();
+		}else{
+			JOptionPane.showMessageDialog(this, "Por favor, comprueba todos los campos");
+		}
+	}
 
 //	CLEAR FIELDS ========================
 	public void clearFields() {

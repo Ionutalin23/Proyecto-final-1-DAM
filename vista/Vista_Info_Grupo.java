@@ -144,7 +144,7 @@ public class Vista_Info_Grupo extends JFrame {
 		lblCrear.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCrear.setForeground(Color.WHITE);
 		lblCrear.setBackground(new Color(205, 92, 92));
-		lblCrear.setBounds(134, 478, 109, 48);
+		lblCrear.setBounds(192, 480, 109, 48);
 		pnlContenido.add(lblCrear);
 
 		JLabel lblCrearButton = new JLabel("");
@@ -173,9 +173,47 @@ public class Vista_Info_Grupo extends JFrame {
 				miControlador.insertarGrupo();
 			}
 		});
-		lblCrearButton.setBounds(134, 478, 110, 48);
+		lblCrearButton.setBounds(192, 480, 110, 48);
 		pnlContenido.add(lblCrearButton);
 		lblCrearButton.setIcon(new ImageIcon(button1));
+		
+// 		Boton Modificar
+		JLabel lblMod = new JLabel("MODIFICAR");
+		lblMod.setHorizontalAlignment(SwingConstants.CENTER);
+		lblMod.setForeground(Color.WHITE);
+		lblMod.setBackground(new Color(205, 92, 92));
+		lblMod.setBounds(43, 480, 109, 48);
+		pnlContenido.add(lblMod);
+		
+		JLabel lblModButton = new JLabel("");
+		lblModButton.setBounds(42, 480, 110, 48);
+		pnlContenido.add(lblModButton);
+		lblModButton.setIcon(new ImageIcon(button1));
+		lblModButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				lblModButton.setIcon(new ImageIcon(button3));
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				lblModButton.setIcon(new ImageIcon(button2));
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				lblModButton.setIcon(new ImageIcon(button2));
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				lblModButton.setIcon(new ImageIcon(button1));
+			}
+
+			public void mouseClicked(MouseEvent e) {
+				miModelo.modificarGrupo(Integer.parseInt(txtCodGrupo.getText()),txtName.getText(),Integer.parseInt(txtClaveCiclo.getText()),txtNomCiclo.getText());
+			}
+		});
 
 //		LOGOUT BUTTON ========================
 		lblLogout = new JLabel("LOGOUT");
@@ -256,7 +294,7 @@ public class Vista_Info_Grupo extends JFrame {
 
 	}
 
-//	GETTERS ========================
+//	GETTERS AND SETTERS ========================
 	public String getTxtCodGrupo() {
 		return txtCodGrupo.getText();
 	}
@@ -273,7 +311,23 @@ public class Vista_Info_Grupo extends JFrame {
 		return txtClaveCiclo.getText();
 	}
 	
-//	MVC ========================
+public void setTxtCodGrupo(String txtCodGrupo) {
+		this.txtCodGrupo.setText(txtCodGrupo);
+	}
+
+	public void setTxtName(String txtName) {
+		this.txtName.setText(txtName);
+	}
+
+	public void setTxtNomCiclo(String txtNomCiclo) {
+		this.txtNomCiclo.setText(txtNomCiclo);
+	}
+
+	public void setTxtClaveCiclo(String txtClaveCiclo) {
+		this.txtClaveCiclo.setText(txtClaveCiclo);
+	}
+
+	//	MVC ========================
 	public void setControlador(controlador miControlador) {
 		this.miControlador = miControlador;
 	}
@@ -310,6 +364,17 @@ public class Vista_Info_Grupo extends JFrame {
 	public void actualizarLogged() {
 
 		lblUser.setText("Logged as: " + miModelo.getUSR());
+	}
+
+	public void actualizar2() {
+		String resultado = miModelo.getResultadoGrupoUpdate();
+		if (resultado.equals("EXITO")) {
+			JOptionPane.showMessageDialog(this, "Grupo modificado con éxito");
+			//clearFields();
+		}else{
+			JOptionPane.showMessageDialog(this, "Por favor, comprueba todos los campos");
+		}
+		
 	}
 	
 	
