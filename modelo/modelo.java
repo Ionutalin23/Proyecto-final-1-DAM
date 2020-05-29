@@ -436,7 +436,7 @@ public class modelo {
 	}
 	
 //	MODIFICAR EMPRESA ========================
-	public void modificarEmpresa(String cif, String nombre, String direccion, String telefono, String localidad,
+	public void modificarEmpresa(String cif, String nombre, String direccion, int i, String localidad,
 			String representante, String email) {
 		PreparedStatement stmt;
 		try {
@@ -444,10 +444,10 @@ public class modelo {
 			stmt.setString(1, cif);
 			stmt.setString(2, nombre);
 			stmt.setString(3, direccion);
-			stmt.setString(4, telefono);
+			stmt.setInt(4, i);
 			stmt.setString(5, localidad);
-			stmt.setString(6, representante);
-			stmt.setString(7, email);
+			stmt.setString(6, email);
+			stmt.setString(7, representante);
 			
 			int resul = stmt.executeUpdate();
 		} catch (Exception e) {
@@ -999,6 +999,23 @@ public class modelo {
 			e.printStackTrace();
 		}
 
+	}
+	
+	public void modificarTutor(String dni, String nombre, String apellidos, int codCentro) {
+		PreparedStatement ps;
+		try {		
+			ps = conexion.prepareStatement("UPDATE PI.tutor SET nombre = ?, apellidos = ?, centro_cod_centro = ?  WHERE dni_tutor = ?");
+			ps.setString(1, dni);
+			ps.setString(2, nombre);
+			ps.setString(3, apellidos);
+			ps.setInt(4, codCentro);
+			
+			int resul = ps.executeUpdate();
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+		
 	}
 
 	public void setmodificar(boolean mod) {

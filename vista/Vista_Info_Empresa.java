@@ -173,7 +173,7 @@ public class Vista_Info_Empresa extends JFrame {
 		lblCrear.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCrear.setForeground(Color.WHITE);
 		lblCrear.setBackground(new Color(205, 92, 92));
-		lblCrear.setBounds(134, 487, 109, 48);
+		lblCrear.setBounds(192, 487, 109, 48);
 		pnlContenido.add(lblCrear);
 		
 		JLabel lblCrearButton = new JLabel("");
@@ -199,9 +199,46 @@ public class Vista_Info_Empresa extends JFrame {
 				miControlador.insertarEmpresa();
 			}
 		});
-		lblCrearButton.setBounds(134, 487, 110, 48);
+		
+		lblCrearButton.setBounds(192, 487, 110, 48);
 		pnlContenido.add(lblCrearButton);
 		lblCrearButton.setIcon(new ImageIcon(button1));
+		JLabel lblMod = new JLabel("MODIFICAR");
+		lblMod.setHorizontalAlignment(SwingConstants.CENTER);
+		lblMod.setForeground(Color.WHITE);
+		lblMod.setBackground(new Color(205, 92, 92));
+		lblMod.setBounds(55, 487, 109, 48);
+		pnlContenido.add(lblMod);
+		
+		JLabel lblModButton = new JLabel("");
+		lblModButton.setBounds(54, 487, 110, 48);
+		pnlContenido.add(lblModButton);
+		lblModButton.setIcon(new ImageIcon(button1));
+		lblModButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				lblModButton.setIcon(new ImageIcon(button3));
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				lblModButton.setIcon(new ImageIcon(button2));
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				lblModButton.setIcon(new ImageIcon(button2));
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				lblModButton.setIcon(new ImageIcon(button1));
+			}
+
+			public void mouseClicked(MouseEvent e) {
+				miModelo.modificarEmpresa(txtCif.getText(),txtName.getText(),txtDireccion.getText(),Integer.parseInt(txtTel.getText()),txtLocalidad.getText(),txtRepresentante.getText(),txtMail.getText());
+			}
+		});
 		
 //		LOGGED USER ========================
 		JPanel pnlUser = new JPanel();
