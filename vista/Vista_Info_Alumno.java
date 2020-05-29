@@ -34,18 +34,22 @@ public class Vista_Info_Alumno extends JFrame {
 	private JTextField txtExpediente;
 	private JLabel lblResul;
 	private JPanel pnlContenido;
+	private JLabel lblModButton;
+	private JLabel lblMod;
+	
+// 	Setting Images ======================== (Check all images are linked to correct folder to avoid null pointer exception)
+	ImageIcon ico = new ImageIcon(getClass().getResource("/images/logo.png"));
+	ImageIcon ico2 = new ImageIcon(getClass().getResource("/images/uni2.jpg"));
+	Image button1 = new ImageIcon(getClass().getResource("/images/boton1.png")).getImage().getScaledInstance(110,48, Image.SCALE_SMOOTH);
+	Image button2 = new ImageIcon(getClass().getResource("/images/boton2.png")).getImage().getScaledInstance(110,48, Image.SCALE_SMOOTH);
+	Image button3 = new ImageIcon(getClass().getResource("/images/boton3.png")).getImage().getScaledInstance(110,48, Image.SCALE_SMOOTH);
+	Image button4 = new ImageIcon(getClass().getResource("/img/loginbutton4.png")).getImage().getScaledInstance(110,48, Image.SCALE_SMOOTH);
+	Image back1 = new ImageIcon(getClass().getResource("/images/back1.png")).getImage().getScaledInstance(24, 24,Image.SCALE_SMOOTH);
+	Image back2 = new ImageIcon(getClass().getResource("/images/back2.png")).getImage().getScaledInstance(24, 24,Image.SCALE_SMOOTH);
+	Image back3 = new ImageIcon(getClass().getResource("/images/back3.png")).getImage().getScaledInstance(24, 24,Image.SCALE_SMOOTH);
 
 	public Vista_Info_Alumno() {
 
-//	 	Setting Images ======================== (Check all images are linked to correct folder to avoid null pointer exception)
-		ImageIcon ico = new ImageIcon(getClass().getResource("/images/logo.png"));
-		ImageIcon ico2 = new ImageIcon(getClass().getResource("/images/uni2.jpg"));
-		Image button1 = new ImageIcon(getClass().getResource("/images/boton1.png")).getImage().getScaledInstance(110,48, Image.SCALE_SMOOTH);
-		Image button2 = new ImageIcon(getClass().getResource("/images/boton2.png")).getImage().getScaledInstance(110,48, Image.SCALE_SMOOTH);
-		Image button3 = new ImageIcon(getClass().getResource("/images/boton3.png")).getImage().getScaledInstance(110,48, Image.SCALE_SMOOTH);
-		Image back1 = new ImageIcon(getClass().getResource("/images/back1.png")).getImage().getScaledInstance(24, 24,Image.SCALE_SMOOTH);
-		Image back2 = new ImageIcon(getClass().getResource("/images/back2.png")).getImage().getScaledInstance(24, 24,Image.SCALE_SMOOTH);
-		Image back3 = new ImageIcon(getClass().getResource("/images/back3.png")).getImage().getScaledInstance(24, 24,Image.SCALE_SMOOTH);
 
 //		Frame ========================
 		setTitle("");
@@ -280,6 +284,7 @@ public class Vista_Info_Alumno extends JFrame {
 			}
 
 			public void mouseClicked(MouseEvent e) {
+				
 				miControlador.insertarAlumno();
 			}
 		});
@@ -287,45 +292,24 @@ public class Vista_Info_Alumno extends JFrame {
 		lblCrearButton.setBounds(216, 500, 110, 48);
 		pnlContenido.add(lblCrearButton);
 		lblCrearButton.setIcon(new ImageIcon(button1));
-		
+		addWindowListener(new java.awt.event.WindowAdapter(){
+
+	        public void windowActivated(java.awt.event.WindowEvent evt){
+	            comprobarMod();
+	        }
+	  });
 // 		Boton Modificar
-		JLabel lblMod = new JLabel("MODIFICAR");
+		lblMod = new JLabel("MODIFICAR");
 		lblMod.setHorizontalAlignment(SwingConstants.CENTER);
 		lblMod.setForeground(Color.WHITE);
 		lblMod.setBackground(new Color(205, 92, 92));
 		lblMod.setBounds(54, 500, 109, 48);
 		pnlContenido.add(lblMod);
 		
-		JLabel lblModButton = new JLabel("");
+		lblModButton = new JLabel("");
 		lblModButton.setBounds(53, 500, 110, 48);
-		pnlContenido.add(lblModButton);
 		lblModButton.setIcon(new ImageIcon(button1));
-		lblModButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				lblModButton.setIcon(new ImageIcon(button3));
-			}
-
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				lblModButton.setIcon(new ImageIcon(button2));
-			}
-
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				lblModButton.setIcon(new ImageIcon(button2));
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-				lblModButton.setIcon(new ImageIcon(button1));
-			}
-
-			public void mouseClicked(MouseEvent e) {
-				miModelo.modificarAlumno(txtDni.getText(),txtName.getText(),txtApellidos.getText(),Integer.parseInt(txtExpediente.getText()),txtNacim.getText(),txtNacionalidad.getText() );
-			}
-		});
-
+		pnlContenido.add(lblModButton);
 //		BACKGROUND IMG ========================
 		JLabel lblPortada = new JLabel("");
 		lblPortada.setHorizontalAlignment(SwingConstants.LEFT);
@@ -335,7 +319,7 @@ public class Vista_Info_Alumno extends JFrame {
 		ico2.getImage().getScaledInstance(lblPortada.getWidth(), lblPortada.getHeight(), Image.SCALE_SMOOTH));
 		lblPortada.setIcon(new ImageIcon(Vista_Info_Alumno.class.getResource("/images/resi.jpg")));
 		lblPortada.setBackground(new Color(0, 0, 0));
-
+		
 	}
 
 // 	MVC ========================
@@ -424,5 +408,40 @@ public class Vista_Info_Alumno extends JFrame {
 
 	public void setTxtExpediente(String txtExpediente) {
 		this.txtExpediente.setText(txtExpediente);
+	}
+	public void comprobarMod() {
+		if (miModelo.getmodificar()) {
+			lblModButton.setIcon(new ImageIcon(button1));
+			lblModButton.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mousePressed(MouseEvent e) {
+					lblModButton.setIcon(new ImageIcon(button3));
+				}
+
+				@Override
+				public void mouseReleased(MouseEvent e) {
+					lblModButton.setIcon(new ImageIcon(button2));
+				}
+
+				@Override
+				public void mouseEntered(MouseEvent e) {
+					lblModButton.setIcon(new ImageIcon(button2));
+				}
+
+				@Override
+				public void mouseExited(MouseEvent e) {
+					lblModButton.setIcon(new ImageIcon(button1));
+				}
+
+				public void mouseClicked(MouseEvent e) {
+					comprobarMod();
+					miModelo.modificarAlumno(txtDni.getText(),txtName.getText(),txtApellidos.getText(),Integer.parseInt(txtExpediente.getText()),txtNacim.getText(),txtNacionalidad.getText() );
+				}
+			});
+		}else {
+			lblModButton.setIcon(new ImageIcon(button4));
+			
+		}
+		
 	}
 }

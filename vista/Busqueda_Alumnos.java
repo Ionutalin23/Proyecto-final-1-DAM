@@ -49,6 +49,7 @@ public class Busqueda_Alumnos extends JFrame {
 	private JLabel lblUser;
 	private String NomTabla = "alumno";
 	private String NomClave = "num_EXP";
+	private boolean modificar = false;
 
 // 	Setting Images ======================== (Check all images are linked to correct folder to avoid null pointer exception)
 	private Image img_bg = new ImageIcon(getClass().getResource("/img/bg9.jpg")).getImage().getScaledInstance(888, 664,
@@ -166,6 +167,7 @@ public class Busqueda_Alumnos extends JFrame {
 			}
 
 			public void mouseClicked(MouseEvent e) {
+				vasAModificar(modificar);
 				miControlador.nuevoAlumno();
 			}
 		});
@@ -194,6 +196,8 @@ public class Busqueda_Alumnos extends JFrame {
 			}
 
 			public void mouseClicked(MouseEvent e) {
+				modificar=true;
+				
 				int seleccion=table.getSelectedRow();
 				String dni=String.valueOf(table.getValueAt(seleccion, 0));
 				String nombre=String.valueOf(table.getValueAt(seleccion, 1));
@@ -201,7 +205,9 @@ public class Busqueda_Alumnos extends JFrame {
 				String expe=String.valueOf(table.getValueAt(seleccion, 3));
 				String nacim=String.valueOf(table.getValueAt(seleccion, 5));
 				String nacionalidad=String.valueOf(table.getValueAt(seleccion, 4));
+				vasAModificar(modificar);
 				miControlador.enviarDatosAlumnos(dni,nombre,apellidos,expe,nacim,nacionalidad);
+				
 			}
 		});
 		ModifyBtn.setBounds(10, 591, 89, 23);
@@ -412,5 +418,8 @@ public class Busqueda_Alumnos extends JFrame {
 
 	public String getNombreClave() {
 		return NomClave;
+	}
+	public void vasAModificar(boolean mod) {
+		miModelo.setmodificar(mod);
 	}
 }
