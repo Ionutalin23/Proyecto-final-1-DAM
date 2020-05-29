@@ -256,7 +256,7 @@ public class Vista_Info_Grupo extends JFrame {
 
 	}
 
-//	GETTERS ========================
+//	GETTERS & SETTERS ========================
 	public String getTxtCodGrupo() {
 		return txtCodGrupo.getText();
 	}
@@ -273,7 +273,23 @@ public class Vista_Info_Grupo extends JFrame {
 		return txtClaveCiclo.getText();
 	}
 	
-//	MVC ========================
+	public void setTxtCodGrupo(JTextField txtCodGrupo) {
+		this.txtCodGrupo = txtCodGrupo;
+	}
+
+	public void setTxtName(JTextField txtName) {
+		this.txtName = txtName;
+	}
+
+	public void setTxtNomCiclo(JTextField txtNomCiclo) {
+		this.txtNomCiclo = txtNomCiclo;
+	}
+
+	public void setTxtClaveCiclo(JTextField txtClaveCiclo) {
+		this.txtClaveCiclo = txtClaveCiclo;
+	}
+
+	//	MVC ========================
 	public void setControlador(controlador miControlador) {
 		this.miControlador = miControlador;
 	}

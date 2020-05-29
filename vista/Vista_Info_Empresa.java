@@ -291,7 +291,7 @@ public class Vista_Info_Empresa extends JFrame {
 		
 	}
 
-//	TXT GETTERS ========================
+//	GETTERS & SETTERS========================
 	public String getTxtCif() {
 		return txtCif.getText();
 	}
@@ -320,7 +320,35 @@ public class Vista_Info_Empresa extends JFrame {
 		return txtRepresentante.getText();
 	}
 	
-//	MCV ========================
+	public void setTxtCif(String txtCif) {
+		this.txtCif.setText(txtCif);
+	}
+
+	public void setTxtName(String txtName) {
+		this.txtName.setText(txtName);
+	}
+
+	public void setTxtDireccion(String txtDireccion) {
+		this.txtDireccion.setText(txtDireccion);
+	}
+
+	public void setTxtTel(String txtTel) {
+		this.txtTel.setText(txtTel);
+	}
+
+	public void setTxtLocalidad(String txtLocalidad) {
+		this.txtLocalidad.setText(txtLocalidad);
+	}
+
+	public void setTxtMail(String txtMail) {
+		this.txtMail.setText(txtMail);
+	}
+
+	public void setTxtRepresentante(String txtRepresentante) {
+		this.txtRepresentante.setText(txtRepresentante);
+	}
+
+	//	MCV ========================
 	public void setControlador(controlador miControlador) {
 		this.miControlador = miControlador;
 	}

@@ -188,7 +188,15 @@ public class Busqueda_Empresas extends JFrame {
 			}
 
 			public void mouseClicked(MouseEvent e) {
-				// ADD METHOD FOR MODIFYING SELECTED CELL
+				int seleccion=table.getSelectedRow();
+				String cif=String.valueOf(table.getValueAt(seleccion, 0));
+				String nombre=String.valueOf(table.getValueAt(seleccion, 1));
+				String direccion=String.valueOf(table.getValueAt(seleccion, 2));
+				String telefono=String.valueOf(table.getValueAt(seleccion, 3));
+				String localidad=String.valueOf(table.getValueAt(seleccion, 4));
+				String representante=String.valueOf(table.getValueAt(seleccion, 5));
+				String email=String.valueOf(table.getValueAt(seleccion, 6));
+				miControlador.enviarDatosEmpresa(cif, nombre,direccion, telefono, localidad, representante, email);
 			}
 		});
 		ModifyBtn.setBounds(10, 591, 89, 23);

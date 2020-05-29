@@ -249,7 +249,7 @@ public class Vista_Info_Tutor extends JFrame {
 	
 	}
 
-//	GETTERS ========================
+//	GETTERS & SETTERS ========================
 	public String getTxtDni() {
 		return txtDni.getText();
 	}
@@ -266,8 +266,23 @@ public class Vista_Info_Tutor extends JFrame {
 		return txtCodCentro.getText();
 	}
 	
-	
-// 	MCV ========================
+	public void setTxtDni(JTextField txtDni) {
+		this.txtDni = txtDni;
+	}
+
+	public void setTxtName(JTextField txtName) {
+		this.txtName = txtName;
+	}
+
+	public void setTxtApellidos(JTextField txtApellidos) {
+		this.txtApellidos = txtApellidos;
+	}
+
+	public void setTxtCodCentro(JTextField txtCodCentro) {
+		this.txtCodCentro = txtCodCentro;
+	}
+
+	// 	MCV ========================
 	public void setControlador(controlador miControlador) {
 		this.miControlador = miControlador;
 	}

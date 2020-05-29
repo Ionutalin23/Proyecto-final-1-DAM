@@ -351,7 +351,7 @@ public class Vista_Info_Alumno extends JFrame {
 	}
 
 	
-//	GETTERS ========================
+//	GETTERS & SETTERS ========================
 	public String getTxtDni() {
 		return txtDni.getText();
 	}
@@ -376,7 +376,31 @@ public class Vista_Info_Alumno extends JFrame {
 		return txtExpediente.getText();
 	}
 
-// 	UPDATE ========================
+	public void setTxtDni(JTextField txtDni) {
+		this.txtDni = txtDni;
+	}
+
+	public void setTxtName(JTextField txtName) {
+		this.txtName = txtName;
+	}
+
+	public void setTxtApellidos(JTextField txtApellidos) {
+		this.txtApellidos = txtApellidos;
+	}
+
+	public void setTxtNacim(JTextField txtNacim) {
+		this.txtNacim = txtNacim;
+	}
+
+	public void setTxtNacionalidad(JTextField txtNacionalidad) {
+		this.txtNacionalidad = txtNacionalidad;
+	}
+
+	public void setTxtExpediente(JTextField txtExpediente) {
+		this.txtExpediente = txtExpediente;
+	}
+
+	// 	UPDATE ========================
 	public void actualizar() {
 		String resultado = miModelo.getResultadoAlum();
 		if (resultado.equals("EXISTENTE")) {

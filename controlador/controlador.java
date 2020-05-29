@@ -250,6 +250,18 @@ public class controlador {
 		miModelo.finalizar();
 	}
 
+	public void enviarDatosEmpresa(String cif, String nombre, String direccion, String telefono, String localidad, String representante, String email) {
+		vista_info_empresa.setTxtCif(cif);
+		vista_info_empresa.setTxtName(nombre);
+		vista_info_empresa.setTxtDireccion(direccion);
+		vista_info_empresa.setTxtTel(telefono);
+		vista_info_empresa.setTxtLocalidad(localidad);
+		vista_info_empresa.setTxtMail(representante);
+		vista_info_empresa.setTxtRepresentante(email);
+		busquedaEmpresas.setVisible(false);
+		vista_info_empresa.setVisible(true);
+	}
+	
 	public void nuevoAlumno() {
 		busquedaAlumnos.setVisible(false);
 		vista_info_alumno.setVisible(true);
