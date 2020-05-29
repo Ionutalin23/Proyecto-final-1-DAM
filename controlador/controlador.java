@@ -37,7 +37,6 @@ public class controlador {
 	private Ventana_Mensaje_ERROR ventana_mensaje_error;
 	private Ventana_Estadisticas ventana_estadisticas;
 	private Ventana_Conf_Delete ventana_conf_delete;
-	
 
 
 	public void setVista(Busqueda_Alumnos busquedaAlumnos) {
@@ -438,13 +437,11 @@ public class controlador {
 		vista_info_alumno.setTxtName(nombre);
 		vista_info_alumno.setTxtNacionalidad(nacionalidad);
 		vista_info_alumno.setTxtExpediente(expe);
-		vista_info_alumno.setTxtNacim(nacim);
+		vista_info_alumno.setTxtNacim(nacim.substring(0, 10));
 		busquedaAlumnos.setVisible(false);
 		vista_info_alumno.setVisible(true);
 		
 	}
-
-
 
 	
 
