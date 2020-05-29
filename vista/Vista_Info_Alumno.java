@@ -254,7 +254,7 @@ public class Vista_Info_Alumno extends JFrame {
 		lblCrear.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCrear.setForeground(Color.WHITE);
 		lblCrear.setBackground(new Color(205, 92, 92));
-		lblCrear.setBounds(134, 500, 109, 48);
+		lblCrear.setBounds(217, 500, 109, 48);
 		pnlContenido.add(lblCrear);
 
 		JLabel lblCrearButton = new JLabel("");
@@ -283,9 +283,46 @@ public class Vista_Info_Alumno extends JFrame {
 				miControlador.insertarAlumno();
 			}
 		});
-		lblCrearButton.setBounds(133, 500, 110, 48);
+		lblCrearButton.setBounds(216, 500, 110, 48);
 		pnlContenido.add(lblCrearButton);
 		lblCrearButton.setIcon(new ImageIcon(button1));
+		
+// 		Boton Modificar
+		JLabel lblMod = new JLabel("MODIFICAR");
+		lblMod.setHorizontalAlignment(SwingConstants.CENTER);
+		lblMod.setForeground(Color.WHITE);
+		lblMod.setBackground(new Color(205, 92, 92));
+		lblMod.setBounds(54, 500, 109, 48);
+		pnlContenido.add(lblMod);
+		
+		JLabel lblModButton = new JLabel("");
+		lblModButton.setBounds(53, 500, 110, 48);
+		pnlContenido.add(lblModButton);
+		lblModButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				lblModButton.setIcon(new ImageIcon(button3));
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				lblModButton.setIcon(new ImageIcon(button2));
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				lblModButton.setIcon(new ImageIcon(button2));
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				lblModButton.setIcon(new ImageIcon(button1));
+			}
+
+			public void mouseClicked(MouseEvent e) {
+				miModelo.modificarAlumno(txtDni.getText(),txtName.getText(),txtApellidos.getText(),Integer.parseInt(txtExpediente.getText()),txtNacim.getText(),txtNacionalidad.getText() );
+			}
+		});
 
 //		BACKGROUND IMG ========================
 		JLabel lblPortada = new JLabel("");
@@ -386,6 +423,4 @@ public class Vista_Info_Alumno extends JFrame {
 	public void setTxtExpediente(String txtExpediente) {
 		this.txtExpediente.setText(txtExpediente);
 	}
-	
-
 }
