@@ -293,8 +293,8 @@ public class Vista_Info_Grupo extends JFrame {
 		lblPortada.setBackground(new Color(0, 0, 0));
 
 	}
+//	GETTERS & SETTERS ========================
 
-//	GETTERS AND SETTERS ========================
 	public String getTxtCodGrupo() {
 		return txtCodGrupo.getText();
 	}
@@ -325,6 +325,21 @@ public void setTxtCodGrupo(String txtCodGrupo) {
 
 	public void setTxtClaveCiclo(String txtClaveCiclo) {
 		this.txtClaveCiclo.setText(txtClaveCiclo);
+	}
+	public void setTxtCodGrupo(JTextField txtCodGrupo) {
+		this.txtCodGrupo = txtCodGrupo;
+	}
+
+	public void setTxtName(JTextField txtName) {
+		this.txtName = txtName;
+	}
+
+	public void setTxtNomCiclo(JTextField txtNomCiclo) {
+		this.txtNomCiclo = txtNomCiclo;
+	}
+
+	public void setTxtClaveCiclo(JTextField txtClaveCiclo) {
+		this.txtClaveCiclo = txtClaveCiclo;
 	}
 
 	//	MVC ========================

@@ -434,6 +434,27 @@ public class modelo {
 		}
 
 	}
+	
+//	MODIFICAR EMPRESA ========================
+	public void modificarEmpresa(String cif, String nombre, String direccion, String telefono, String localidad,
+			String representante, String email) {
+		PreparedStatement stmt;
+		try {
+			stmt = conexion.prepareStatement("UPDATE PI.EMPRESA SET CIF=?, NOMBRE=?, DIRECCION=?, TELEFONO=?, LOCALIDAD=?, EMAIL=?, RESP_EMPRESA=?");
+			stmt.setString(1, cif);
+			stmt.setString(2, nombre);
+			stmt.setString(3, direccion);
+			stmt.setString(4, telefono);
+			stmt.setString(5, localidad);
+			stmt.setString(6, representante);
+			stmt.setString(7, email);
+			
+			int resul = stmt.executeUpdate();
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		}
+	}
 
 	public void soundButton() {
 		AudioClip sonido;
