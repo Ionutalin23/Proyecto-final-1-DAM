@@ -263,31 +263,7 @@ public class Busqueda_Tutores extends JFrame {
 		contentPane.add(DeleteLbl);
 
 		DeleteBtn = new JLabel("");
-		DeleteBtn.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				DeleteBtn.setIcon(new ImageIcon(img_ButtonEliminarHover));
-			}
 
-			@Override
-			public void mouseExited(MouseEvent e) {
-				DeleteBtn.setIcon(new ImageIcon(img_ButtonEliminar));
-			}
-
-			public void mouseClicked(MouseEvent e) {
-				// ADD METHOD FOR DELETING SELECTED CELL
-				if (table.getSelectionModel().isSelectionEmpty()) {
-					lblSelcc.setVisible(true);
-				} else {
-
-					lblSelcc.setVisible(false);
-					miModelo.setClave((String) table.getValueAt(table.getSelectedRow(), 0));
-					miModelo.setNombreTabla(NomTabla);
-					miModelo.setNombreClave(NomClave);
-					miControlador.ventana_conf_delete();
-				}
-			}
-		});
 		DeleteBtn.setBounds(109, 591, 89, 23);
 		contentPane.add(DeleteBtn);
 		DeleteBtn.setIcon(new ImageIcon(img_ButtonEliminar));
@@ -460,6 +436,14 @@ public class Busqueda_Tutores extends JFrame {
 		lblBgColor.setBounds(0, 0, 888, 664);
 		getContentPane().add(lblBgColor);
 		lblBgColor.setIcon(new ImageIcon(img_bg));
+// 		window Listener
+//		addWindowListener(new java.awt.event.WindowAdapter() {
+//
+//			public void windowActivated(java.awt.event.WindowEvent evt) {
+//				
+//			}
+//
+//		});
 	}
 
 	public void actualizarLogged() {
@@ -477,5 +461,35 @@ public class Busqueda_Tutores extends JFrame {
 
 	public String getNombreClave() {
 		return NomClave;
+	}
+
+	private void estaSeleccionado() {
+		if (table.getSelectionModel().isSelectionEmpty()) {
+			DeleteBtn.setIcon(null);
+			DeleteBtn.setBackground(new Color(128, 128, 128));
+		} else {
+			DeleteBtn.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mousePressed(MouseEvent e) {
+					DeleteBtn.setIcon(new ImageIcon(img_ButtonEliminarHover));
+				}
+
+				@Override
+				public void mouseExited(MouseEvent e) {
+					DeleteBtn.setIcon(new ImageIcon(img_ButtonEliminar));
+				}
+
+				public void mouseClicked(MouseEvent e) {
+					// ADD METHOD FOR DELETING SELECTED CELL
+
+					miModelo.setClave((String) table.getValueAt(table.getSelectedRow(), 0));
+					miModelo.setNombreTabla(NomTabla);
+					miModelo.setNombreClave(NomClave);
+					miControlador.ventana_conf_delete();
+
+				}
+			});
+		}
+
 	}
 }
