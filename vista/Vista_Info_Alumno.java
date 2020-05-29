@@ -253,8 +253,12 @@ public class Vista_Info_Alumno extends JFrame {
 		JLabel lblCrear = new JLabel("CREAR");
 		lblCrear.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCrear.setForeground(Color.WHITE);
+
 		lblCrear.setBackground(new Color(205, 92, 92));
 		lblCrear.setBounds(208, 500, 109, 48);
+
+		lblCrear.setBackground(new Color(205, 92, 92));
+		lblCrear.setBounds(217, 500, 109, 48);
 		pnlContenido.add(lblCrear);
 
 		JLabel lblCrearButton = new JLabel("");
@@ -283,9 +287,19 @@ public class Vista_Info_Alumno extends JFrame {
 				miControlador.insertarAlumno();
 			}
 		});
+
 		lblCrearButton.setBounds(208, 500, 110, 48);
+		lblCrearButton.setBounds(216, 500, 110, 48);
 		pnlContenido.add(lblCrearButton);
 		lblCrearButton.setIcon(new ImageIcon(button1));
+		
+// 		Boton Modificar
+		JLabel lblMod = new JLabel("MODIFICAR");
+		lblMod.setHorizontalAlignment(SwingConstants.CENTER);
+		lblMod.setForeground(Color.WHITE);
+		lblMod.setBackground(new Color(205, 92, 92));
+		lblMod.setBounds(54, 500, 109, 48);
+		pnlContenido.add(lblMod);
 		
 		JLabel lblModify = new JLabel("MODIFICAR");
 		lblModify.setHorizontalAlignment(SwingConstants.CENTER);
@@ -295,6 +309,9 @@ public class Vista_Info_Alumno extends JFrame {
 		pnlContenido.add(lblModify);
 
 		JLabel lblModButton = new JLabel("");
+		lblModButton.setBounds(53, 500, 110, 48);
+		pnlContenido.add(lblModButton);
+		lblModButton.setIcon(new ImageIcon(button1));
 		lblModButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
@@ -317,8 +334,9 @@ public class Vista_Info_Alumno extends JFrame {
 			}
 
 			public void mouseClicked(MouseEvent e) {
-				
+				miModelo.modificarAlumno(txtDni.getText(),txtName.getText(),txtApellidos.getText(),Integer.parseInt(txtExpediente.getText()),txtNacim.getText(),txtNacionalidad.getText() );
 			}
+
 		});
 		lblModButton.setBounds(65, 500, 116, 48);
 		pnlContenido.add(lblModButton);

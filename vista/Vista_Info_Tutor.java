@@ -219,7 +219,7 @@ public class Vista_Info_Tutor extends JFrame {
 			}
 
 			public void mouseClicked(MouseEvent e) {
-
+				miModelo.modificarTutor(txtDni.getText(), txtName.getText(), txtApellidos.getText(), txtCodCentro.getText());
 			}
 		});
 		lblModButton.setBounds(83, 478, 116, 48);
