@@ -254,7 +254,7 @@ public class Vista_Info_Alumno extends JFrame {
 		lblCrear.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCrear.setForeground(Color.WHITE);
 		lblCrear.setBackground(new Color(205, 92, 92));
-		lblCrear.setBounds(190, 500, 109, 48);
+		lblCrear.setBounds(208, 500, 109, 48);
 		pnlContenido.add(lblCrear);
 
 		JLabel lblCrearButton = new JLabel("");
@@ -283,7 +283,7 @@ public class Vista_Info_Alumno extends JFrame {
 				miControlador.insertarAlumno();
 			}
 		});
-		lblCrearButton.setBounds(190, 500, 110, 48);
+		lblCrearButton.setBounds(208, 500, 110, 48);
 		pnlContenido.add(lblCrearButton);
 		lblCrearButton.setIcon(new ImageIcon(button1));
 		
@@ -291,7 +291,7 @@ public class Vista_Info_Alumno extends JFrame {
 		lblModify.setHorizontalAlignment(SwingConstants.CENTER);
 		lblModify.setForeground(Color.WHITE);
 		lblModify.setBackground(new Color(205, 92, 92));
-		lblModify.setBounds(32, 500, 109, 48);
+		lblModify.setBounds(65, 500, 109, 48);
 		pnlContenido.add(lblModify);
 
 		JLabel lblModButton = new JLabel("");
@@ -320,7 +320,7 @@ public class Vista_Info_Alumno extends JFrame {
 				
 			}
 		});
-		lblModButton.setBounds(32, 500, 116, 48);
+		lblModButton.setBounds(65, 500, 116, 48);
 		pnlContenido.add(lblModButton);
 		lblModButton.setIcon(new ImageIcon(button1));
 

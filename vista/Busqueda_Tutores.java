@@ -191,7 +191,14 @@ public class Busqueda_Tutores extends JFrame {
 		contentPane.add(TableView);
 
 		table = new JTable();
-
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (!table.getSelectionModel().isSelectionEmpty()) {
+					ModifyBtn.setEnabled(true);
+				}
+			}
+		});
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		TableView.setViewportView(table);
 		addWindowListener(new WindowAdapter() {
@@ -236,6 +243,7 @@ public class Busqueda_Tutores extends JFrame {
 		contentPane.add(ModifyLbl);
 
 		ModifyBtn = new JLabel("");
+		ModifyBtn.setEnabled(false);
 		ModifyBtn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
