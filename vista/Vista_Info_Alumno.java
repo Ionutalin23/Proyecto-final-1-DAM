@@ -254,7 +254,7 @@ public class Vista_Info_Alumno extends JFrame {
 		lblCrear.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCrear.setForeground(Color.WHITE);
 		lblCrear.setBackground(new Color(205, 92, 92));
-		lblCrear.setBounds(134, 500, 109, 48);
+		lblCrear.setBounds(190, 500, 109, 48);
 		pnlContenido.add(lblCrear);
 
 		JLabel lblCrearButton = new JLabel("");
@@ -283,9 +283,46 @@ public class Vista_Info_Alumno extends JFrame {
 				miControlador.insertarAlumno();
 			}
 		});
-		lblCrearButton.setBounds(133, 500, 110, 48);
+		lblCrearButton.setBounds(190, 500, 110, 48);
 		pnlContenido.add(lblCrearButton);
 		lblCrearButton.setIcon(new ImageIcon(button1));
+		
+		JLabel lblModify = new JLabel("MODIFICAR");
+		lblModify.setHorizontalAlignment(SwingConstants.CENTER);
+		lblModify.setForeground(Color.WHITE);
+		lblModify.setBackground(new Color(205, 92, 92));
+		lblModify.setBounds(32, 500, 109, 48);
+		pnlContenido.add(lblModify);
+
+		JLabel lblModButton = new JLabel("");
+		lblModButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				lblModButton.setIcon(new ImageIcon(button3));
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				lblModButton.setIcon(new ImageIcon(button2));
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				lblModButton.setIcon(new ImageIcon(button2));
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				lblModButton.setIcon(new ImageIcon(button1));
+			}
+
+			public void mouseClicked(MouseEvent e) {
+				
+			}
+		});
+		lblModButton.setBounds(32, 500, 116, 48);
+		pnlContenido.add(lblModButton);
+		lblModButton.setIcon(new ImageIcon(button1));
 
 //		BACKGROUND IMG ========================
 		JLabel lblPortada = new JLabel("");
@@ -386,6 +423,4 @@ public class Vista_Info_Alumno extends JFrame {
 	public void setTxtExpediente(String txtExpediente) {
 		this.txtExpediente.setText(txtExpediente);
 	}
-	
-
 }
