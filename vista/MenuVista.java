@@ -510,10 +510,6 @@ public class MenuVista extends JFrame {
 		lblEstadist.setBounds(70, 561, 283, 27);
 		pnlMed.add(lblEstadist);
 
-		lblEnConstruccion = new JLabel("EN CONSTRUCCION");
-		lblEnConstruccion.setForeground(Color.RED);
-		lblEnConstruccion.setHorizontalAlignment(SwingConstants.CENTER);
-		lblEnConstruccion.setVisible(false);
 		lblStatsBtn = new JLabel("");
 		lblStatsBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/Btn.png")));
 		lblStatsBtn.setBounds(70, 561, 283, 27);
@@ -540,7 +536,7 @@ public class MenuVista extends JFrame {
 			}
 
 			public void mouseClicked(MouseEvent e) {
-				lblEnConstruccion.setVisible(true);
+				miControlador.VentanaEstadisticas();
 				miModelo.soundButton();
 			}
 
@@ -550,8 +546,6 @@ public class MenuVista extends JFrame {
 //				vista.setVisible(true);
 //			}
 		});
-		lblEnConstruccion.setBounds(111, 588, 218, 16);
-		pnlMed.add(lblEnConstruccion);
 
 		lblGrupBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/Btn.png")));
 		lblGrupBtn.setBounds(70, 505, 283, 27);
@@ -579,13 +573,11 @@ public class MenuVista extends JFrame {
 	}
 
 	public void cambiarTutor() {
-		lblEnConstruccion.setVisible(false);
 		lblEstadist.setVisible(false);
 		lblStatsBtn.setVisible(false);
 	}
 
 	public void cambiarDirector() {
-		lblEnConstruccion.setVisible(true);
 		lblEstadist.setVisible(true);
 		lblStatsBtn.setVisible(true);
 	}

@@ -32,11 +32,11 @@ import java.awt.Image;
 
 public class Busqueda_Tutores extends JFrame {
 
-/**
-	 * 
-	 */
+	/**
+		 * 
+		 */
 	private static final long serialVersionUID = 1L;
-	//	GUI Content ========================
+	// GUI Content ========================
 	private JPanel contentPane;
 	private JTable table;
 	private JTextField SearchField;
@@ -51,6 +51,8 @@ public class Busqueda_Tutores extends JFrame {
 	private JLabel CreateNewBtn;
 	private JLabel SearchBtn;
 	private JLabel lblUser;
+	private String NomTabla = "tutor";
+	private String NomClave = "dni_tutor";
 
 // 	Setting Images ======================== (Check all images are linked to correct folder to avoid null pointer exception)
 	private Image img_bg = new ImageIcon(getClass().getResource("/img/bg9.jpg")).getImage().getScaledInstance(888, 664,
@@ -109,6 +111,12 @@ public class Busqueda_Tutores extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+
+// 		Label MSG borrado
+		JLabel lblSelcc = new JLabel("No ha seleccionado ninguna fila");
+		lblSelcc.setVisible(false);
+		lblSelcc.setBounds(225, 593, 426, 16);
+		contentPane.add(lblSelcc);
 
 // 		Subir button ============================	
 		lblCargar = new JLabel("Cargar");
@@ -268,6 +276,16 @@ public class Busqueda_Tutores extends JFrame {
 
 			public void mouseClicked(MouseEvent e) {
 				// ADD METHOD FOR DELETING SELECTED CELL
+				if (table.getSelectionModel().isSelectionEmpty()) {
+					lblSelcc.setVisible(true);
+				} else {
+
+					lblSelcc.setVisible(false);
+					miModelo.setClave((String) table.getValueAt(table.getSelectedRow(), 0));
+					miModelo.setNombreTabla(NomTabla);
+					miModelo.setNombreClave(NomClave);
+					miControlador.ventana_conf_delete();
+				}
 			}
 		});
 		DeleteBtn.setBounds(109, 591, 89, 23);
@@ -455,5 +473,9 @@ public class Busqueda_Tutores extends JFrame {
 
 	public void setTable(JTable tabla) {
 		this.table = tabla;
+	}
+
+	public String getNombreClave() {
+		return NomClave;
 	}
 }

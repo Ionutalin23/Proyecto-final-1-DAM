@@ -1,6 +1,9 @@
 package modelo;
 
 import java.applet.AudioClip;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -16,13 +19,24 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Scanner;
 
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JRadioButton;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.general.DefaultPieDataset;
+import org.jfree.data.general.PieDataset;
+import org.jfree.data.xy.XYDataset;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
 
 import vista.Busqueda_Alumnos;
 import vista.Busqueda_Anexos;
@@ -30,6 +44,8 @@ import vista.Busqueda_Empresas;
 import vista.Busqueda_Grupos;
 import vista.Busqueda_Tutores;
 import vista.MenuVista;
+import vista.Ventana_Estadisticas;
+import vista.Ventana_Conf_Delete;
 import vista.Ventana_Login;
 import vista.Ventana_Login_Config;
 import vista.Ventana_Mensaje_ERROR;
@@ -38,8 +54,18 @@ import vista.Vista_Info_Empresa;
 import vista.Vista_Info_Grupo;
 import vista.Vista_Info_Tutor;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
+
 public class modelo {
 
+//	================================================ MVC =========================================
 	private Ventana_Login vista_ventana_login;
 	private MenuVista vista_ventana_menu;
 	private Busqueda_Alumnos busquedaAlumnos;
@@ -53,44 +79,9 @@ public class modelo {
 	private Vista_Info_Grupo vista_info_grupo;
 	private Ventana_Login_Config vista_login_config;
 	private Ventana_Mensaje_ERROR ventana_mensaje_error;
-	private String[] credenciales = new String[3];
-
-	private Connection conexion;
-	private int fallos;
-	private String resultado;
-	private String resultadoAlum;
-	private String resultadoUsu;
-	private String USR;
-	private String rol;
-	private String SQLanexo2_1 = "SELECT nombre, apellidos, anexo_2_1 FROM PI.alumno, PI.practica WHERE num_exp=alumno_num_exp";
-	private String SQLanexo1 = "SELECT E.nombre \"Empresa\",C.cod_centro, C.localidad, C.director, CO.anexo_1 FROM PI.centro C, PI.colabora CO, PI.empresa E WHERE CO.centro_cod_centro=C.cod_centro AND  CO.empresa_cif=E.cif";
-	private String SQLanexo2_2 = "SELECT A.nombre, A.apellidos, E.nombre \"EMPRESA\", PR.horario, G.Anexo_2_2 FROM PI.alumno A, PI.pertenece P, PI.grupo GR, PI.gestiona G, PI.Tutor T, PI.centro C, "
-			+ "PI.colabora CO, PI.Empresa E, PI.practica PR WHERE A.num_exp=P.alumno_num_exp AND T.dni_tutor=G.tutor_dni_tutor AND C.cod_centro=T.centro_cod_centro AND CO.empresa_cif=E.cif "
-			+ "AND P.grupo_cod_grupo=GR.cod_grupo AND G.grupo_cod_grupo=GR.cod_grupo AND CO.centro_cod_centro=C.cod_centro\n"
-			+ "AND PR.empresa_cif=E.cif AND PR.alumno_num_exp=A.num_exp";
-	private String SQLanexo3 = "SELECT A.nombre, A.apellidos, A.dni, PR.anexo_3 FROM PI.alumno A, PI.practica PR WHERE num_exp=alumno_num_exp";
-	private String SQLanexo7 = "SELECT A.nombre, A.apellidos, PR.anexo_7 FROM PI.alumno A, PI.practica PR WHERE A.num_exp=PR.alumno_num_exp";
-	private String SQLanexo8 = "SELECT A.nombre, A.apellidos,CONCAT(C.localidad,CONCAT(',',C.cod_centro)) \"CENTRO\", E.Nombre \"EMPRESA\", PR.anexo_8 FROM PI.alumno A, PI.practica PR, PI.empresa E, PI.centro C, PI.colabora CO WHERE num_exp=alumno_num_exp AND PR.empresa_cif=E.cif\n"
-			+ "AND CO.empresa_cif=E.cif AND C.cod_centro=CO.centro_cod_centro";
-	private String SQLTut = "SELECT * FROM PI.TUTOR";
-	private String SQLTut_2 = "SELECT nombre, apellidos,clave_ciclo, nombre_ciclo FROM PI.Tutor TU, PI.Grupo GR, PI.Gestiona GE WHERE TU.dni_tutor = GE.tutor_dni_tutor AND GE.grupo_cod_grupo = GR.cod_grupo AND nombre_ciclo ='DAMM'";
-	private String SQAlumno = "SELECT * FROM PI.alumno";
-	private String SQLEmp = "SELECT * FROM PI.empresa";
-	private String SQLGrp = "SELECT * FROM PI.grupo";
-	private JTable tablaTut;
-	private JTable tablaAnx;
-
-	public void ConexionBBDD() {
-		lecturaFichero();
-		try {
-			Class.forName("oracle.jdbc.driver.OracleDriver");
-			conexion = DriverManager.getConnection(credenciales[2], credenciales[0], credenciales[1]);
-			System.out.println(" - Conexión con ORACLE establecida -");
-		} catch (Exception e) {
-			System.out.println(" – Error de Conexión con ORACLE -");
-			e.printStackTrace();
-		}
-	}
+	private Ventana_Estadisticas ventana_estadisticas;
+	private Ventana_Conf_Delete ventana_conf_delete;
+//  ============================================================================================================================
 
 	public void setVista(Busqueda_Alumnos busquedaAlumnos) {
 		this.busquedaAlumnos = busquedaAlumnos;
@@ -139,10 +130,75 @@ public class modelo {
 	public void setVista(Vista_Info_Grupo vista_info_grupo) {
 		this.vista_info_grupo = vista_info_grupo;
 	}
-	
 
 	public void setVista(Ventana_Mensaje_ERROR ventana_mensaje_error) {
 		this.ventana_mensaje_error = ventana_mensaje_error;
+	}
+
+	public void setVista(Ventana_Estadisticas ventana_estadisticas) {
+		this.ventana_estadisticas = ventana_estadisticas;
+	}
+
+//  ========================================================================= MVC ====================================================
+
+	private String[] credenciales = new String[3];
+	private ArrayList<Integer> alumnosEstadisticas = new ArrayList<Integer>();
+	private LinkedHashMap<String, Integer> gruposAlumnos = new LinkedHashMap<String, Integer>();
+	private String nombreTabla;
+	private String nombreClave;
+	private String clave;
+	private Connection conexion;
+	private int fallos;
+	private String resultado;
+	private String resultadoAlum;
+	private String resultadoUsu;
+	private String resultadoDEL;
+	private String USR;
+	private String rol;
+	private String SQLanexo2_1 = "SELECT nombre, apellidos, anexo_2_1 FROM PI.alumno, PI.practica WHERE num_exp=alumno_num_exp";
+	private String SQLanexo1 = "SELECT E.nombre \"Empresa\",C.cod_centro, C.localidad, C.director, CO.anexo_1 FROM PI.centro C, PI.colabora CO, PI.empresa E WHERE CO.centro_cod_centro=C.cod_centro AND  CO.empresa_cif=E.cif";
+	private String SQLanexo2_2 = "SELECT A.nombre, A.apellidos, E.nombre \"EMPRESA\", PR.horario, G.Anexo_2_2 FROM PI.alumno A, PI.pertenece P, PI.grupo GR, PI.gestiona G, PI.Tutor T, PI.centro C, "
+			+ "PI.colabora CO, PI.Empresa E, PI.practica PR WHERE A.num_exp=P.alumno_num_exp AND T.dni_tutor=G.tutor_dni_tutor AND C.cod_centro=T.centro_cod_centro AND CO.empresa_cif=E.cif "
+			+ "AND P.grupo_cod_grupo=GR.cod_grupo AND G.grupo_cod_grupo=GR.cod_grupo AND CO.centro_cod_centro=C.cod_centro\n"
+			+ "AND PR.empresa_cif=E.cif AND PR.alumno_num_exp=A.num_exp";
+	private String SQLanexo3 = "SELECT A.nombre, A.apellidos, A.dni, PR.anexo_3 FROM PI.alumno A, PI.practica PR WHERE num_exp=alumno_num_exp";
+	private String SQLanexo7 = "SELECT A.nombre, A.apellidos, PR.anexo_7 FROM PI.alumno A, PI.practica PR WHERE A.num_exp=PR.alumno_num_exp";
+	private String SQLanexo8 = "SELECT A.nombre, A.apellidos,CONCAT(C.localidad,CONCAT(',',C.cod_centro)) \"CENTRO\", E.Nombre \"EMPRESA\", PR.anexo_8 FROM PI.alumno A, PI.practica PR, PI.empresa E, PI.centro C, PI.colabora CO WHERE num_exp=alumno_num_exp AND PR.empresa_cif=E.cif\n"
+			+ "AND CO.empresa_cif=E.cif AND C.cod_centro=CO.centro_cod_centro";
+	private String SQLTut = "SELECT * FROM PI.TUTOR";
+	private String SQLTut_2 = "SELECT nombre, apellidos,clave_ciclo, nombre_ciclo FROM PI.Tutor TU, PI.Grupo GR, PI.Gestiona GE WHERE TU.dni_tutor = GE.tutor_dni_tutor AND GE.grupo_cod_grupo = GR.cod_grupo AND nombre_ciclo ='DAMM'";
+	private String SQAlumno = "SELECT * FROM PI.alumno";
+	private String SQLEmp = "SELECT * FROM PI.empresa";
+	private String SQLGrp = "SELECT * FROM PI.grupo";
+	private String SqlEstadisticasPracticas = "SELECT COUNT(ANEXO_2_1) FROM PI.practica where ? IS NOT NULL";
+	private String SqlEstadisticasPracticas2 = "SELECT COUNT(?) FROM PI.practica where ANEXO_2_1 IS NULL";
+	private String SqlGruposAlumnos = "select nom_grupo \"GRUPO\", count(*) \"ALUMNOS\" from PI.grupo, PI.alumno, PI.pertenece where alumno.num_exp=pertenece.alumno_num_exp AND grupo.cod_grupo=pertenece.grupo_cod_grupo group by grupo.nom_grupo";
+	private JTable tablaTut;
+	private JTable tablaAnx;
+	private ChartPanel barPanelAlumnos;
+	private ChartPanel CircularPanelAlumnos;
+	private ChartPanel linealPanelAlumnos;
+	private ChartPanel barPanelGrupos;
+	private ChartPanel CircularPanelGrupos;
+	private String resultadoEmpresa;
+	private String resultadoGrupo;
+	private String resultadoTutor;
+	private String resultadoUsuario;
+
+	public void ConexionBBDD() {
+		lecturaFichero();
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			conexion = DriverManager.getConnection(credenciales[2], credenciales[0], credenciales[1]);
+			System.out.println(" - Conexión con ORACLE establecida -");
+		} catch (Exception e) {
+			System.out.println(" – Error de Conexión con ORACLE -");
+			e.printStackTrace();
+		}
+	}
+
+	public void setVista(Ventana_Conf_Delete ventana_conf_delete) {
+		this.ventana_conf_delete = ventana_conf_delete;
 	}
 
 	public void login(String usuario, String password) {
@@ -437,6 +493,7 @@ public class modelo {
 		return tablaAnx;
 	}
 
+//	NUEVO ALUMNO ========================
 	public void añadirAlumno(String dni, String nombre, String apellido, String expediente, String nacionalidad,
 			String fechaNacim) {
 		String consulta = "SELECT * FROM PI.alumno WHERE DNI=?";
@@ -501,7 +558,7 @@ public class modelo {
 
 				Blob b = rs.getBlob(1);
 				byte barr[] = b.getBytes(1, (int) b.length());
-				FileOutputStream fout = new FileOutputStream("img/"+usu+".jpg");
+				FileOutputStream fout = new FileOutputStream("img/" + usu + ".jpg");
 				fout.write(barr);
 				fout.close();
 			}
@@ -544,8 +601,8 @@ public class modelo {
 				ins.close();
 			}
 		} catch (SQLException e) {
-			if (username.isEmpty() || nombre.isEmpty() || apellido.isEmpty() || rol2.isEmpty()
-					|| password.isEmpty() || email.isEmpty()) {
+			if (username.isEmpty() || nombre.isEmpty() || apellido.isEmpty() || rol2.isEmpty() || password.isEmpty()
+					|| email.isEmpty()) {
 				resultadoUsu = "VACIO";
 				vista_ventana_login.actualizar2();
 			} else {
@@ -554,10 +611,335 @@ public class modelo {
 			}
 
 		}
-		
+
 	}
+
 	public String getResultadoUsu() {
 		return resultadoUsu;
+	}
+
+	public void dibujarGraficaBarrasPracticas() {
+		DefaultCategoryDataset barChart = new DefaultCategoryDataset();
+		barChart.setValue((alumnosEstadisticas.get(0)), "cantidad", "Alumnos en Prácticas");
+		barChart.setValue((alumnosEstadisticas.get(1)), "cantidad", "Alumnos sin Prácticas");
+		barChart.setValue((alumnosEstadisticas.get(0) + alumnosEstadisticas.get(1)), "cantidad", "Total Alumnos");
+
+		JFreeChart barChart1 = ChartFactory.createBarChart3D("Alumnos", "", "Cantidad", barChart,
+				PlotOrientation.VERTICAL, false, true, false);
+		CategoryPlot barchrt = barChart1.getCategoryPlot();
+		barchrt.setRangeGridlinePaint(Color.orange);
+		barPanelAlumnos = new ChartPanel(barChart1);
+		ventana_estadisticas.actualizarPanel();
+
+	}
+
+	public void dibujarGraficaCircularAlumnos() {
+		DefaultPieDataset circularChart = new DefaultPieDataset();
+		circularChart.setValue("Alumnos en Prácticas: " + alumnosEstadisticas.get(0), alumnosEstadisticas.get(0));
+		circularChart.setValue("Alumnos sin Prácticas: " + alumnosEstadisticas.get(1), alumnosEstadisticas.get(1));
+		JFreeChart circulo = ChartFactory.createPieChart3D("Alumnos", circularChart, true, true, false);
+		BufferedImage circchrt = circulo.createBufferedImage(785, 460);
+		;
+		CircularPanelAlumnos = new ChartPanel(circulo);
+		CircularPanelAlumnos.setBounds(44, 103, 785, 460);
+		ventana_estadisticas.actualizarPanel2();
+	}
+
+	public ChartPanel getBarPanelAlumnos() {
+		return barPanelAlumnos;
+	}
+
+	public ChartPanel getCircularPanelAlumnos() {
+		return CircularPanelAlumnos;
+	}
+
+	public void dibujarGraficaLinealPracticas() {
+		XYSeries series = new XYSeries("Alumnos");
+		series.add(0, 0);
+		series.add(0, 5);
+		series.add((int) alumnosEstadisticas.get(0), 30);
+		XYDataset datos = new XYSeriesCollection(series);
+		JFreeChart linea = ChartFactory.createXYLineChart("Alumnos en prácticas", "cantidad alumnos", "Marzo", datos,
+				PlotOrientation.HORIZONTAL, true, true, false);
+		BufferedImage linealImage = linea.createBufferedImage(785, 460);
+		linealPanelAlumnos = new ChartPanel(linea);
+		linealPanelAlumnos.setBounds(44, 103, 785, 460);
+		ventana_estadisticas.actualizarPanel3();
+
+	}
+
+	public ChartPanel getLinealPanelAlumnos() {
+		return linealPanelAlumnos;
+	}
+
+	public void alumnosPracticasAlumnos() {
+		if (!alumnosEstadisticas.isEmpty()) {
+			alumnosEstadisticas.clear();
+		}
+		try {
+			PreparedStatement ps = conexion.prepareStatement(SqlEstadisticasPracticas);
+			ps.setString(1, "ANEXO_2_1");
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				alumnosEstadisticas.add(rs.getInt(1));
+			}
+			PreparedStatement ps2 = conexion.prepareStatement(SqlEstadisticasPracticas2);
+			ps2.setString(1, "*");
+			ResultSet rs2 = ps2.executeQuery();
+			if (rs2.next()) {
+				alumnosEstadisticas.add(rs2.getInt(1));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public void GruposAlumnos() {
+		if (!gruposAlumnos.isEmpty()) {
+			gruposAlumnos.clear();
+		}
+		try {
+			PreparedStatement ps = conexion.prepareStatement(SqlGruposAlumnos);
+			ResultSet rs = ps.executeQuery();
+			int i = 1;
+			while (rs.next()) {
+				gruposAlumnos.put(rs.getString("GRUPO"), rs.getInt("ALUMNOS"));
+				i++;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public void dibujarGraficaBarrasGrupos() {
+		DefaultCategoryDataset barChart = new DefaultCategoryDataset();
+		barChart.setValue((gruposAlumnos.get(gruposAlumnos.keySet().toArray()[0])), "cantidad",
+				(Comparable) gruposAlumnos.keySet().toArray()[0]);
+		barChart.setValue((gruposAlumnos.get(gruposAlumnos.keySet().toArray()[1])), "cantidad",
+				(Comparable) gruposAlumnos.keySet().toArray()[1]);
+		barChart.setValue((gruposAlumnos.get(gruposAlumnos.keySet().toArray()[2])), "cantidad",
+				(Comparable) gruposAlumnos.keySet().toArray()[2]);
+		barChart.setValue((gruposAlumnos.get(gruposAlumnos.keySet().toArray()[3])), "cantidad",
+				(Comparable) gruposAlumnos.keySet().toArray()[3]);
+		barChart.setValue((gruposAlumnos.get(gruposAlumnos.keySet().toArray()[4])), "cantidad",
+				(Comparable) gruposAlumnos.keySet().toArray()[4]);
+
+		JFreeChart barChart1 = ChartFactory.createBarChart3D("Grupos", "", "Cantidad Alumnos", barChart,
+				PlotOrientation.VERTICAL, false, true, false);
+		CategoryPlot barchrt = barChart1.getCategoryPlot();
+		barchrt.setRangeGridlinePaint(Color.orange);
+		barPanelGrupos = new ChartPanel(barChart1);
+		ventana_estadisticas.actualizarPanel4();
+	}
+
+	public ChartPanel getBarPanelGrupos() {
+		return barPanelGrupos;
+	}
+
+	public ChartPanel getCircularGrupos() {
+		return CircularPanelGrupos;
+	}
+
+	public void dibujarGraficaCircularGrupos() {
+		DefaultPieDataset circularChart = new DefaultPieDataset();
+		circularChart.setValue(
+				gruposAlumnos.keySet().toArray()[0] + ": " + gruposAlumnos.get(gruposAlumnos.keySet().toArray()[0]),
+				gruposAlumnos.get(gruposAlumnos.keySet().toArray()[0]));
+		circularChart.setValue(
+				gruposAlumnos.keySet().toArray()[1] + ": " + gruposAlumnos.get(gruposAlumnos.keySet().toArray()[1]),
+				gruposAlumnos.get(gruposAlumnos.keySet().toArray()[1]));
+		circularChart.setValue(
+				gruposAlumnos.keySet().toArray()[2] + ": " + gruposAlumnos.get(gruposAlumnos.keySet().toArray()[2]),
+				gruposAlumnos.get(gruposAlumnos.keySet().toArray()[2]));
+		circularChart.setValue(
+				gruposAlumnos.keySet().toArray()[3] + ": " + gruposAlumnos.get(gruposAlumnos.keySet().toArray()[3]),
+				gruposAlumnos.get(gruposAlumnos.keySet().toArray()[3]));
+		circularChart.setValue(
+				gruposAlumnos.keySet().toArray()[4] + ": " + gruposAlumnos.get(gruposAlumnos.keySet().toArray()[4]),
+				gruposAlumnos.get(gruposAlumnos.keySet().toArray()[4]));
+		JFreeChart circulo = ChartFactory.createPieChart3D("Grupos", circularChart, true, true, false);
+		BufferedImage circchrt = circulo.createBufferedImage(785, 460);
+		;
+		CircularPanelGrupos = new ChartPanel(circulo);
+		CircularPanelGrupos.setBounds(44, 103, 785, 460);
+		ventana_estadisticas.actualizarPanel5();
+	}
+
+//ELIMINAR DATOS
+	public void borrarDato(String clave, String nombre, String nombreClave) {
+
+		nombre = "PI." + nombre;
+		String delete = "DELETE FROM " + nombre + " WHERE " + nombreClave + " = '" + clave + "'";
+
+		try {
+			Statement ins = conexion.createStatement();
+			ResultSet rs = ins.executeQuery(delete);
+			ins.close();
+			rs.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public void setClave(String clave) {
+		this.clave = clave;
+	}
+
+	public String getClave() {
+		return this.clave;
+	}
+
+	public void setNombreTabla(String nomTabla) {
+		this.nombreTabla = nomTabla;
+
+	}
+
+	public String getNombreTabla() {
+		return this.nombreTabla;
+	}
+
+	public String getNombreClave() {
+		return this.nombreClave;
+	}
+
+	public void setNombreClave(String nomClave) {
+		this.nombreClave = nomClave;
+
+	}
+
+//	NUEVA EMPRESA ========================
+	public void añadirEmpresa(String cif, String nombre, String direccion, String telefono, String localidad,
+			String representante, String email) {
+		String consulta = "SELECT * FROM PI.empresa WHERE CIF=?";
+		String insert = "insert into PI.empresa values(?,?,?,?,?,?,?)";
+		try {
+			PreparedStatement cons = conexion.prepareStatement(consulta);
+			cons.setString(1, cif);
+			ResultSet rs = cons.executeQuery();
+			if (rs.next()) {
+				resultadoEmpresa = "EXISTENTE";
+				vista_info_empresa.actualizar();
+			} else {
+				PreparedStatement ins = conexion.prepareStatement(insert);
+				ins.setString(1, cif);
+				ins.setString(2, nombre);
+				ins.setString(3, direccion);
+				ins.setString(4, telefono);
+				ins.setString(5, localidad);
+				ins.setString(6, representante);
+				ins.setString(7, email);
+				int resul = ins.executeUpdate();
+				if (resul > 0) {
+					resultadoEmpresa = "EXITO";
+					vista_info_empresa.actualizar();
+				}
+				cons.close();
+				rs.close();
+				ins.close();
+			}
+		} catch (SQLException e) {
+			if (cif.isEmpty() || nombre.isEmpty() || direccion.isEmpty() || telefono.isEmpty() || localidad.isEmpty()
+					|| representante.isEmpty() || email.isEmpty()) {
+				resultadoEmpresa = "VACIO";
+				vista_info_empresa.actualizar();
+			} else {
+				resultadoEmpresa = "ERROR";
+				vista_info_empresa.actualizar();
+			}
+
+		}
+	}
+
+	public String getResultadoEmpresa() {
+		return resultadoEmpresa;
+	}
+
+//	NUEVO GRUPO========================
+	public void añadirGrupo(String codGrupo, String nombre, String ciclo, String claveCiclo) {
+		String consulta = "SELECT * FROM PI.grupo WHERE cod_grupo=?";
+		String insert = "insert into PI.empresa values(?,?,?,?)";
+		try {
+			PreparedStatement cons = conexion.prepareStatement(consulta);
+			cons.setString(1, codGrupo);
+			ResultSet rs = cons.executeQuery();
+			if (rs.next()) {
+				resultadoGrupo = "EXISTENTE";
+				vista_info_grupo.actualizar();
+			} else {
+				PreparedStatement ins = conexion.prepareStatement(insert);
+				ins.setString(1, codGrupo);
+				ins.setString(2, nombre);
+				ins.setString(3, ciclo);
+				ins.setString(4, claveCiclo);
+				int resul = ins.executeUpdate();
+				if (resul > 0) {
+					resultadoGrupo = "EXITO";
+					vista_info_grupo.actualizar();
+				}
+				cons.close();
+				rs.close();
+				ins.close();
+			}
+		} catch (SQLException e) {
+			if (codGrupo.isEmpty() || nombre.isEmpty() || ciclo.isEmpty() || claveCiclo.isEmpty()) {
+				resultadoGrupo = "VACIO";
+				vista_info_grupo.actualizar();
+			} else {
+				resultadoGrupo = "ERROR";
+				vista_info_grupo.actualizar();
+			}
+
+		}
+	}
+
+	public String getResultadoGrupo() {
+		return resultadoGrupo;
+	}
+
+//	NUEVO TUTOR ========================
+	public void añadirTutor(String dni, String nombre, String apellidos, String codCentro) {
+		String consulta = "SELECT * FROM PI.tutor WHERE dni_tutor=?";
+		String insert = "insert into PI.empresa values(?,?,?,?)";
+		try {
+			PreparedStatement cons = conexion.prepareStatement(consulta);
+			cons.setString(1, dni);
+			ResultSet rs = cons.executeQuery();
+			if (rs.next()) {
+				resultadoTutor = "EXISTENTE";
+				vista_info_tutor.actualizar();
+			} else {
+				PreparedStatement ins = conexion.prepareStatement(insert);
+				ins.setString(1, dni);
+				ins.setString(2, nombre);
+				ins.setString(3, apellidos);
+				ins.setString(4, codCentro);
+				int resul = ins.executeUpdate();
+				if (resul > 0) {
+					resultadoTutor = "EXITO";
+					vista_info_tutor.actualizar();
+				}
+				cons.close();
+				rs.close();
+				ins.close();
+			}
+		} catch (SQLException e) {
+			if (dni.isEmpty() || nombre.isEmpty() || apellidos.isEmpty() || codCentro.isEmpty()) {
+				resultadoTutor = "VACIO";
+				vista_info_tutor.actualizar();
+			} else {
+				resultadoTutor = "ERROR";
+				vista_info_tutor.actualizar();
+			}
+
+		}
+	}
+
+	public String getResultadoTutor() {
+		return resultadoTutor;
 	}
 
 }
