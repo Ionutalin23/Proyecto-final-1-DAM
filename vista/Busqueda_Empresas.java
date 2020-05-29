@@ -219,16 +219,12 @@ public class Busqueda_Empresas extends JFrame {
 				if (table.getSelectionModel().isSelectionEmpty()) {
 					lblSelcc.setVisible(true);
 				} else {
-					if (miModelo.getRol().equals("Tutor")) {
-						lblSelcc.setText("No tiene los permisos necesarios para eliminar datos");
-						lblSelcc.setVisible(true);
-					} else {
-						lblSelcc.setVisible(false);
-						miModelo.setClave((String) table.getValueAt(table.getSelectedRow(), 0));
-						miModelo.setNombreTabla(NomTabla);
-						miModelo.setNombreClave(NomClave);
-						miControlador.ventana_conf_delete();
-					}
+
+					lblSelcc.setVisible(false);
+					miModelo.setClave((String) table.getValueAt(table.getSelectedRow(), 0));
+					miModelo.setNombreTabla(NomTabla);
+					miModelo.setNombreClave(NomClave);
+					miControlador.ventana_conf_delete();
 				}
 			}
 		});
