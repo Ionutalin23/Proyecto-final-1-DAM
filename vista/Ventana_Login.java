@@ -62,6 +62,7 @@ public class Ventana_Login extends JFrame {
 	private Image arrow2 = new ImageIcon(Ventana_Login.class.getResource("/img/arrow2.png")).getImage()
 			.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
 	private JLabel lblLogin;
+	private JLabel lblRegister;
 	private JPasswordField txtPassword;
 	private JTextField txtUsuario;
 
@@ -333,13 +334,13 @@ public class Ventana_Login extends JFrame {
 		lblPasswdText.setBounds(290, 288, 118, 20);
 		getContentPane().add(lblPasswdText);
 
+//		LOGIN BUTTON ========================
 		lblLogin = new JLabel("LOGIN");
 		lblLogin.setHorizontalAlignment(SwingConstants.CENTER);
 		lblLogin.setFont(new Font("Century Gothic", Font.BOLD, 15));
 		lblLogin.setForeground(Color.WHITE);
 		lblLogin.setBounds(348, 396, 109, 36);
 		getContentPane().add(lblLogin);
-
 		lblLoginButton = new JLabel("");
 		lblLoginButton.addMouseListener(new MouseAdapter() {
 			@Override
@@ -373,7 +374,8 @@ public class Ventana_Login extends JFrame {
 		lblLoginButton.setBounds(348, 396, 118, 48);
 		getContentPane().add(lblLoginButton);
 		lblLoginButton.setIcon(new ImageIcon(img_buttonLogin));
-
+		
+//		UEM LOGO ========================
 		JLabel lblIconUEM = new JLabel("");
 		lblIconUEM.setBounds(332, 63, 154, 125);
 
@@ -413,7 +415,8 @@ public class Ventana_Login extends JFrame {
 		txtPassword = new JPasswordField();
 		txtPassword.setBounds(332, 321, 173, 36);
 		getContentPane().add(txtPassword);
-
+		
+//		BACKGROUND ========================
 		JLabel lblBgColor = new JLabel("");
 		lblBgColor.setBounds(0, 0, 784, 511);
 		getContentPane().add(lblBgColor);
@@ -432,6 +435,7 @@ public class Ventana_Login extends JFrame {
 
 	}
 
+// GETTER ========================
 	public String getUsuario() {
 
 		return txtUsuario.getText();
@@ -442,6 +446,7 @@ public class Ventana_Login extends JFrame {
 		return String.valueOf(txtPassword.getPassword());
 	}
 
+//	ACTUALIZAR ========================
 	public void actualizar() {
 		String resultado = miModelo.getResultado();
 		if (resultado.equals("Correcto")) {

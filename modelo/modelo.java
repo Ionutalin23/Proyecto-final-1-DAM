@@ -26,6 +26,7 @@ import java.util.Scanner;
 
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JRadioButton;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -62,7 +63,6 @@ import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 
-
 public class modelo {
 
 //	================================================ MVC =========================================
@@ -82,6 +82,7 @@ public class modelo {
 	private Ventana_Estadisticas ventana_estadisticas;
 	private Ventana_Conf_Delete ventana_conf_delete;
 //  ============================================================================================================================
+
 	public void setVista(Busqueda_Alumnos busquedaAlumnos) {
 		this.busquedaAlumnos = busquedaAlumnos;
 	}
@@ -133,16 +134,16 @@ public class modelo {
 	public void setVista(Ventana_Mensaje_ERROR ventana_mensaje_error) {
 		this.ventana_mensaje_error = ventana_mensaje_error;
 	}
-	
+
 	public void setVista(Ventana_Estadisticas ventana_estadisticas) {
 		this.ventana_estadisticas = ventana_estadisticas;
 	}
-	
+
 //  ========================================================================= MVC ====================================================
 
 	private String[] credenciales = new String[3];
-	private ArrayList<Integer> alumnosEstadisticas= new ArrayList<Integer>();
-	private LinkedHashMap<String, Integer> gruposAlumnos= new LinkedHashMap<String, Integer>();
+	private ArrayList<Integer> alumnosEstadisticas = new ArrayList<Integer>();
+	private LinkedHashMap<String, Integer> gruposAlumnos = new LinkedHashMap<String, Integer>();
 	private String nombreTabla;
 	private String nombreClave;
 	private String clave;
@@ -171,7 +172,7 @@ public class modelo {
 	private String SQLGrp = "SELECT * FROM PI.grupo";
 	private String SqlEstadisticasPracticas = "SELECT COUNT(ANEXO_2_1) FROM PI.practica where ? IS NOT NULL";
 	private String SqlEstadisticasPracticas2 = "SELECT COUNT(?) FROM PI.practica where ANEXO_2_1 IS NULL";
-	private String SqlGruposAlumnos="select nom_grupo \"GRUPO\", count(*) \"ALUMNOS\" from PI.grupo, PI.alumno, PI.pertenece where alumno.num_exp=pertenece.alumno_num_exp AND grupo.cod_grupo=pertenece.grupo_cod_grupo group by grupo.nom_grupo";
+	private String SqlGruposAlumnos = "select nom_grupo \"GRUPO\", count(*) \"ALUMNOS\" from PI.grupo, PI.alumno, PI.pertenece where alumno.num_exp=pertenece.alumno_num_exp AND grupo.cod_grupo=pertenece.grupo_cod_grupo group by grupo.nom_grupo";
 	private JTable tablaTut;
 	private JTable tablaAnx;
 	private ChartPanel barPanelAlumnos;
@@ -179,6 +180,10 @@ public class modelo {
 	private ChartPanel linealPanelAlumnos;
 	private ChartPanel barPanelGrupos;
 	private ChartPanel CircularPanelGrupos;
+	private String resultadoEmpresa;
+	private String resultadoGrupo;
+	private String resultadoTutor;
+	private String resultadoUsuario;
 
 	public void ConexionBBDD() {
 		lecturaFichero();
@@ -488,6 +493,7 @@ public class modelo {
 		return tablaAnx;
 	}
 
+//	NUEVO ALUMNO ========================
 	public void añadirAlumno(String dni, String nombre, String apellido, String expediente, String nacionalidad,
 			String fechaNacim) {
 		String consulta = "SELECT * FROM PI.alumno WHERE DNI=?";
@@ -611,26 +617,29 @@ public class modelo {
 	public String getResultadoUsu() {
 		return resultadoUsu;
 	}
+
 	public void dibujarGraficaBarrasPracticas() {
-		DefaultCategoryDataset barChart= new DefaultCategoryDataset();
-		barChart.setValue((alumnosEstadisticas.get(0)), "cantidad","Alumnos en Prácticas");
-		barChart.setValue((alumnosEstadisticas.get(1)), "cantidad","Alumnos sin Prácticas");
-		barChart.setValue((alumnosEstadisticas.get(0)+alumnosEstadisticas.get(1)), "cantidad","Total Alumnos");
-		
-		JFreeChart barChart1 = ChartFactory.createBarChart3D("Alumnos", "", "Cantidad", barChart, PlotOrientation.VERTICAL, false, true, false);
-		CategoryPlot barchrt= barChart1.getCategoryPlot();
+		DefaultCategoryDataset barChart = new DefaultCategoryDataset();
+		barChart.setValue((alumnosEstadisticas.get(0)), "cantidad", "Alumnos en Prácticas");
+		barChart.setValue((alumnosEstadisticas.get(1)), "cantidad", "Alumnos sin Prácticas");
+		barChart.setValue((alumnosEstadisticas.get(0) + alumnosEstadisticas.get(1)), "cantidad", "Total Alumnos");
+
+		JFreeChart barChart1 = ChartFactory.createBarChart3D("Alumnos", "", "Cantidad", barChart,
+				PlotOrientation.VERTICAL, false, true, false);
+		CategoryPlot barchrt = barChart1.getCategoryPlot();
 		barchrt.setRangeGridlinePaint(Color.orange);
 		barPanelAlumnos = new ChartPanel(barChart1);
 		ventana_estadisticas.actualizarPanel();
-		
+
 	}
-	
+
 	public void dibujarGraficaCircularAlumnos() {
-		DefaultPieDataset circularChart= new DefaultPieDataset();
-		circularChart.setValue("Alumnos en Prácticas: "+alumnosEstadisticas.get(0),alumnosEstadisticas.get(0));
-		circularChart.setValue("Alumnos sin Prácticas: "+alumnosEstadisticas.get(1),alumnosEstadisticas.get(1));
-		JFreeChart circulo= ChartFactory.createPieChart3D("Alumnos",circularChart, true, true, false);
-		BufferedImage circchrt= circulo.createBufferedImage(785, 460);;
+		DefaultPieDataset circularChart = new DefaultPieDataset();
+		circularChart.setValue("Alumnos en Prácticas: " + alumnosEstadisticas.get(0), alumnosEstadisticas.get(0));
+		circularChart.setValue("Alumnos sin Prácticas: " + alumnosEstadisticas.get(1), alumnosEstadisticas.get(1));
+		JFreeChart circulo = ChartFactory.createPieChart3D("Alumnos", circularChart, true, true, false);
+		BufferedImage circchrt = circulo.createBufferedImage(785, 460);
+		;
 		CircularPanelAlumnos = new ChartPanel(circulo);
 		CircularPanelAlumnos.setBounds(44, 103, 785, 460);
 		ventana_estadisticas.actualizarPanel2();
@@ -645,37 +654,39 @@ public class modelo {
 	}
 
 	public void dibujarGraficaLinealPracticas() {
-		XYSeries series=new XYSeries("Alumnos");
-		series.add(0,0);
-		series.add(0,5);
-		series.add((int)alumnosEstadisticas.get(0),30);
-		XYDataset datos= new XYSeriesCollection(series);
-		JFreeChart linea= ChartFactory.createXYLineChart("Alumnos en prácticas", "cantidad alumnos", "Marzo", datos, PlotOrientation.HORIZONTAL, true, true, false);
-		BufferedImage linealImage= linea.createBufferedImage(785, 460);
-		linealPanelAlumnos= new ChartPanel(linea);
+		XYSeries series = new XYSeries("Alumnos");
+		series.add(0, 0);
+		series.add(0, 5);
+		series.add((int) alumnosEstadisticas.get(0), 30);
+		XYDataset datos = new XYSeriesCollection(series);
+		JFreeChart linea = ChartFactory.createXYLineChart("Alumnos en prácticas", "cantidad alumnos", "Marzo", datos,
+				PlotOrientation.HORIZONTAL, true, true, false);
+		BufferedImage linealImage = linea.createBufferedImage(785, 460);
+		linealPanelAlumnos = new ChartPanel(linea);
 		linealPanelAlumnos.setBounds(44, 103, 785, 460);
 		ventana_estadisticas.actualizarPanel3();
-		
+
 	}
 
 	public ChartPanel getLinealPanelAlumnos() {
 		return linealPanelAlumnos;
 	}
+
 	public void alumnosPracticasAlumnos() {
 		if (!alumnosEstadisticas.isEmpty()) {
 			alumnosEstadisticas.clear();
 		}
 		try {
-			PreparedStatement ps= conexion.prepareStatement(SqlEstadisticasPracticas);
+			PreparedStatement ps = conexion.prepareStatement(SqlEstadisticasPracticas);
 			ps.setString(1, "ANEXO_2_1");
-			ResultSet rs=ps.executeQuery();
-			if(rs.next()) {
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
 				alumnosEstadisticas.add(rs.getInt(1));
 			}
-			PreparedStatement ps2= conexion.prepareStatement(SqlEstadisticasPracticas2);
+			PreparedStatement ps2 = conexion.prepareStatement(SqlEstadisticasPracticas2);
 			ps2.setString(1, "*");
-			ResultSet rs2=ps2.executeQuery();
-			if(rs2.next()) {
+			ResultSet rs2 = ps2.executeQuery();
+			if (rs2.next()) {
 				alumnosEstadisticas.add(rs2.getInt(1));
 			}
 		} catch (SQLException e) {
@@ -683,15 +694,16 @@ public class modelo {
 			e.printStackTrace();
 		}
 	}
+
 	public void GruposAlumnos() {
 		if (!gruposAlumnos.isEmpty()) {
 			gruposAlumnos.clear();
 		}
 		try {
-			PreparedStatement ps= conexion.prepareStatement(SqlGruposAlumnos);
-			ResultSet rs=ps.executeQuery();
-			int i=1;
-			while(rs.next()) {
+			PreparedStatement ps = conexion.prepareStatement(SqlGruposAlumnos);
+			ResultSet rs = ps.executeQuery();
+			int i = 1;
+			while (rs.next()) {
 				gruposAlumnos.put(rs.getString("GRUPO"), rs.getInt("ALUMNOS"));
 				i++;
 			}
@@ -700,49 +712,70 @@ public class modelo {
 			e.printStackTrace();
 		}
 	}
+
 	public void dibujarGraficaBarrasGrupos() {
-		DefaultCategoryDataset barChart= new DefaultCategoryDataset();
-		barChart.setValue((gruposAlumnos.get(gruposAlumnos.keySet().toArray()[0])), "cantidad",(Comparable) gruposAlumnos.keySet().toArray()[0]);
-		barChart.setValue((gruposAlumnos.get(gruposAlumnos.keySet().toArray()[1])), "cantidad",(Comparable) gruposAlumnos.keySet().toArray()[1]);
-		barChart.setValue((gruposAlumnos.get(gruposAlumnos.keySet().toArray()[2])), "cantidad",(Comparable) gruposAlumnos.keySet().toArray()[2]);
-		barChart.setValue((gruposAlumnos.get(gruposAlumnos.keySet().toArray()[3])), "cantidad",(Comparable) gruposAlumnos.keySet().toArray()[3]);
-		barChart.setValue((gruposAlumnos.get(gruposAlumnos.keySet().toArray()[4])), "cantidad",(Comparable) gruposAlumnos.keySet().toArray()[4]);
-		
-		JFreeChart barChart1 = ChartFactory.createBarChart3D("Grupos", "", "Cantidad Alumnos", barChart, PlotOrientation.VERTICAL, false, true, false);
-		CategoryPlot barchrt= barChart1.getCategoryPlot();
+		DefaultCategoryDataset barChart = new DefaultCategoryDataset();
+		barChart.setValue((gruposAlumnos.get(gruposAlumnos.keySet().toArray()[0])), "cantidad",
+				(Comparable) gruposAlumnos.keySet().toArray()[0]);
+		barChart.setValue((gruposAlumnos.get(gruposAlumnos.keySet().toArray()[1])), "cantidad",
+				(Comparable) gruposAlumnos.keySet().toArray()[1]);
+		barChart.setValue((gruposAlumnos.get(gruposAlumnos.keySet().toArray()[2])), "cantidad",
+				(Comparable) gruposAlumnos.keySet().toArray()[2]);
+		barChart.setValue((gruposAlumnos.get(gruposAlumnos.keySet().toArray()[3])), "cantidad",
+				(Comparable) gruposAlumnos.keySet().toArray()[3]);
+		barChart.setValue((gruposAlumnos.get(gruposAlumnos.keySet().toArray()[4])), "cantidad",
+				(Comparable) gruposAlumnos.keySet().toArray()[4]);
+
+		JFreeChart barChart1 = ChartFactory.createBarChart3D("Grupos", "", "Cantidad Alumnos", barChart,
+				PlotOrientation.VERTICAL, false, true, false);
+		CategoryPlot barchrt = barChart1.getCategoryPlot();
 		barchrt.setRangeGridlinePaint(Color.orange);
 		barPanelGrupos = new ChartPanel(barChart1);
 		ventana_estadisticas.actualizarPanel4();
 	}
+
 	public ChartPanel getBarPanelGrupos() {
 		return barPanelGrupos;
 	}
+
 	public ChartPanel getCircularGrupos() {
 		return CircularPanelGrupos;
 	}
-	
+
 	public void dibujarGraficaCircularGrupos() {
-		DefaultPieDataset circularChart= new DefaultPieDataset();
-		circularChart.setValue(gruposAlumnos.keySet().toArray()[0]+": "+gruposAlumnos.get(gruposAlumnos.keySet().toArray()[0]),gruposAlumnos.get(gruposAlumnos.keySet().toArray()[0]));
-		circularChart.setValue(gruposAlumnos.keySet().toArray()[1]+": "+gruposAlumnos.get(gruposAlumnos.keySet().toArray()[1]),gruposAlumnos.get(gruposAlumnos.keySet().toArray()[1]));
-		circularChart.setValue(gruposAlumnos.keySet().toArray()[2]+": "+gruposAlumnos.get(gruposAlumnos.keySet().toArray()[2]),gruposAlumnos.get(gruposAlumnos.keySet().toArray()[2]));
-		circularChart.setValue(gruposAlumnos.keySet().toArray()[3]+": "+gruposAlumnos.get(gruposAlumnos.keySet().toArray()[3]),gruposAlumnos.get(gruposAlumnos.keySet().toArray()[3]));
-		circularChart.setValue(gruposAlumnos.keySet().toArray()[4]+": "+gruposAlumnos.get(gruposAlumnos.keySet().toArray()[4]),gruposAlumnos.get(gruposAlumnos.keySet().toArray()[4]));
-		JFreeChart circulo= ChartFactory.createPieChart3D("Grupos",circularChart, true, true, false);
-		BufferedImage circchrt= circulo.createBufferedImage(785, 460);;
+		DefaultPieDataset circularChart = new DefaultPieDataset();
+		circularChart.setValue(
+				gruposAlumnos.keySet().toArray()[0] + ": " + gruposAlumnos.get(gruposAlumnos.keySet().toArray()[0]),
+				gruposAlumnos.get(gruposAlumnos.keySet().toArray()[0]));
+		circularChart.setValue(
+				gruposAlumnos.keySet().toArray()[1] + ": " + gruposAlumnos.get(gruposAlumnos.keySet().toArray()[1]),
+				gruposAlumnos.get(gruposAlumnos.keySet().toArray()[1]));
+		circularChart.setValue(
+				gruposAlumnos.keySet().toArray()[2] + ": " + gruposAlumnos.get(gruposAlumnos.keySet().toArray()[2]),
+				gruposAlumnos.get(gruposAlumnos.keySet().toArray()[2]));
+		circularChart.setValue(
+				gruposAlumnos.keySet().toArray()[3] + ": " + gruposAlumnos.get(gruposAlumnos.keySet().toArray()[3]),
+				gruposAlumnos.get(gruposAlumnos.keySet().toArray()[3]));
+		circularChart.setValue(
+				gruposAlumnos.keySet().toArray()[4] + ": " + gruposAlumnos.get(gruposAlumnos.keySet().toArray()[4]),
+				gruposAlumnos.get(gruposAlumnos.keySet().toArray()[4]));
+		JFreeChart circulo = ChartFactory.createPieChart3D("Grupos", circularChart, true, true, false);
+		BufferedImage circchrt = circulo.createBufferedImage(785, 460);
+		;
 		CircularPanelGrupos = new ChartPanel(circulo);
 		CircularPanelGrupos.setBounds(44, 103, 785, 460);
 		ventana_estadisticas.actualizarPanel5();
 	}
+
 //ELIMINAR DATOS
 	public void borrarDato(String clave, String nombre, String nombreClave) {
 
 		nombre = "PI." + nombre;
-		String delete = "DELETE FROM " + nombre + " WHERE " + nombreClave + " = '" + clave + "'"; 
+		String delete = "DELETE FROM " + nombre + " WHERE " + nombreClave + " = '" + clave + "'";
 
 		try {
 			Statement ins = conexion.createStatement();
-			ResultSet rs=ins.executeQuery(delete);
+			ResultSet rs = ins.executeQuery(delete);
 			ins.close();
 			rs.close();
 
@@ -777,4 +810,136 @@ public class modelo {
 		this.nombreClave = nomClave;
 
 	}
+
+//	NUEVA EMPRESA ========================
+	public void añadirEmpresa(String cif, String nombre, String direccion, String telefono, String localidad,
+			String representante, String email) {
+		String consulta = "SELECT * FROM PI.empresa WHERE CIF=?";
+		String insert = "insert into PI.empresa values(?,?,?,?,?,?,?)";
+		try {
+			PreparedStatement cons = conexion.prepareStatement(consulta);
+			cons.setString(1, cif);
+			ResultSet rs = cons.executeQuery();
+			if (rs.next()) {
+				resultadoEmpresa = "EXISTENTE";
+				vista_info_empresa.actualizar();
+			} else {
+				PreparedStatement ins = conexion.prepareStatement(insert);
+				ins.setString(1, cif);
+				ins.setString(2, nombre);
+				ins.setString(3, direccion);
+				ins.setString(4, telefono);
+				ins.setString(5, localidad);
+				ins.setString(6, representante);
+				ins.setString(7, email);
+				int resul = ins.executeUpdate();
+				if (resul > 0) {
+					resultadoEmpresa = "EXITO";
+					vista_info_empresa.actualizar();
+				}
+				cons.close();
+				rs.close();
+				ins.close();
+			}
+		} catch (SQLException e) {
+			if (cif.isEmpty() || nombre.isEmpty() || direccion.isEmpty() || telefono.isEmpty() || localidad.isEmpty()
+					|| representante.isEmpty() || email.isEmpty()) {
+				resultadoEmpresa = "VACIO";
+				vista_info_empresa.actualizar();
+			} else {
+				resultadoEmpresa = "ERROR";
+				vista_info_empresa.actualizar();
+			}
+
+		}
+	}
+
+	public String getResultadoEmpresa() {
+		return resultadoEmpresa;
+	}
+
+//	NUEVO GRUPO========================
+	public void añadirGrupo(String codGrupo, String nombre, String ciclo, String claveCiclo) {
+		String consulta = "SELECT * FROM PI.grupo WHERE cod_grupo=?";
+		String insert = "insert into PI.empresa values(?,?,?,?)";
+		try {
+			PreparedStatement cons = conexion.prepareStatement(consulta);
+			cons.setString(1, codGrupo);
+			ResultSet rs = cons.executeQuery();
+			if (rs.next()) {
+				resultadoGrupo = "EXISTENTE";
+				vista_info_grupo.actualizar();
+			} else {
+				PreparedStatement ins = conexion.prepareStatement(insert);
+				ins.setString(1, codGrupo);
+				ins.setString(2, nombre);
+				ins.setString(3, ciclo);
+				ins.setString(4, claveCiclo);
+				int resul = ins.executeUpdate();
+				if (resul > 0) {
+					resultadoGrupo = "EXITO";
+					vista_info_grupo.actualizar();
+				}
+				cons.close();
+				rs.close();
+				ins.close();
+			}
+		} catch (SQLException e) {
+			if (codGrupo.isEmpty() || nombre.isEmpty() || ciclo.isEmpty() || claveCiclo.isEmpty()) {
+				resultadoGrupo = "VACIO";
+				vista_info_grupo.actualizar();
+			} else {
+				resultadoGrupo = "ERROR";
+				vista_info_grupo.actualizar();
+			}
+
+		}
+	}
+
+	public String getResultadoGrupo() {
+		return resultadoGrupo;
+	}
+
+//	NUEVO TUTOR ========================
+	public void añadirTutor(String dni, String nombre, String apellidos, String codCentro) {
+		String consulta = "SELECT * FROM PI.tutor WHERE dni_tutor=?";
+		String insert = "insert into PI.empresa values(?,?,?,?)";
+		try {
+			PreparedStatement cons = conexion.prepareStatement(consulta);
+			cons.setString(1, dni);
+			ResultSet rs = cons.executeQuery();
+			if (rs.next()) {
+				resultadoTutor = "EXISTENTE";
+				vista_info_tutor.actualizar();
+			} else {
+				PreparedStatement ins = conexion.prepareStatement(insert);
+				ins.setString(1, dni);
+				ins.setString(2, nombre);
+				ins.setString(3, apellidos);
+				ins.setString(4, codCentro);
+				int resul = ins.executeUpdate();
+				if (resul > 0) {
+					resultadoTutor = "EXITO";
+					vista_info_tutor.actualizar();
+				}
+				cons.close();
+				rs.close();
+				ins.close();
+			}
+		} catch (SQLException e) {
+			if (dni.isEmpty() || nombre.isEmpty() || apellidos.isEmpty() || codCentro.isEmpty()) {
+				resultadoTutor = "VACIO";
+				vista_info_tutor.actualizar();
+			} else {
+				resultadoTutor = "ERROR";
+				vista_info_tutor.actualizar();
+			}
+
+		}
+	}
+
+	public String getResultadoTutor() {
+		return resultadoTutor;
+	}
+
 }

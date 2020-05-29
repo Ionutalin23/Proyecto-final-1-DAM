@@ -1,8 +1,7 @@
 package controlador;
-
 import javax.swing.JOptionPane;
+import javax.swing.JRadioButton;
 import javax.swing.JTable;
-
 import modelo.modelo;
 import vista.Busqueda_Alumnos;
 import vista.Busqueda_Anexos;
@@ -339,11 +338,10 @@ public class controlador {
 		ventana_login_config.setVisible(false);
 		vista_ventana_login.setVisible(true);
 	}
-
 	public void saveTable(JTable tabla) {
 		miModelo.downloadTable(tabla);
 	}
-	public void insertarDato() {
+	public void insertarAlumno() {
 		String dni=vista_info_alumno.getTxtDni();
 		String nombre=vista_info_alumno.getTxtName();
 		String apellido=vista_info_alumno.getTxtApellidos();
@@ -351,6 +349,33 @@ public class controlador {
 		String nacionalidad=vista_info_alumno.getTxtNacionalidad();
 		String fechaNacim=vista_info_alumno.getTxtNacim();
 		miModelo.añadirAlumno(dni,nombre,apellido,expediente,nacionalidad,fechaNacim);
+	}
+	
+	public void insertarEmpresa() {
+		String cif=vista_info_empresa.getTxtCif();
+		String nombre=vista_info_empresa.getTxtName();
+		String direccion=vista_info_empresa.getTxtDireccion();
+		String telefono=vista_info_empresa.getTxtTel();
+		String localidad=vista_info_empresa.getTxtLocalidad();
+		String representante=vista_info_empresa.getTxtRepresentante();
+		String email=vista_info_empresa.getTxtMail();
+		miModelo.añadirEmpresa(cif, nombre, direccion, telefono, localidad, representante, email);
+	}
+	
+	public void insertarGrupo() {
+		String codGrupo=vista_info_grupo.getTxtCodGrupo();
+		String nombre=vista_info_grupo.getTxtName();
+		String claveCiclo=vista_info_grupo.getTxtClaveCiclo();
+		String nomCiclo=vista_info_grupo.getTxtNomCiclo();
+		miModelo.añadirGrupo(codGrupo, nombre, claveCiclo, nomCiclo);
+	}
+	
+	public void insertarTutor() {
+		String dni=vista_info_tutor.getTxtDni();
+		String nombre=vista_info_tutor.getTxtName();
+		String apellidos=vista_info_tutor.getTxtApellidos();
+		String codCentro=vista_info_tutor.getTxtCodCentro();
+		miModelo.añadirTutor(dni, nombre, apellidos, codCentro);
 	}
 
 	public void insertarUsuario() {

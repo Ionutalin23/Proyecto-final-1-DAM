@@ -20,6 +20,7 @@ import modelo.modelo;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 
 public class Vista_Info_Tutor extends JFrame {
 	private controlador miControlador;
@@ -32,6 +33,7 @@ public class Vista_Info_Tutor extends JFrame {
 	private JLabel lblLogout;
 	private JLabel lblBack;
 	private JLabel lblUser;
+	private JPanel pnlContenido;
 	
 	public Vista_Info_Tutor() {
 		setTitle("");
@@ -42,11 +44,9 @@ public class Vista_Info_Tutor extends JFrame {
 		setLocationRelativeTo(null);
 		
 		ImageIcon ico =new ImageIcon(getClass().getResource("/images/logo.png"));
-		
 		Image button1= new ImageIcon(getClass().getResource("/images/boton1.png")).getImage().getScaledInstance(110, 48, Image.SCALE_SMOOTH);
 		Image button2= new ImageIcon(getClass().getResource("/images/boton2.png")).getImage().getScaledInstance(110, 48, Image.SCALE_SMOOTH);
 		Image button3= new ImageIcon(getClass().getResource("/images/boton3.png")).getImage().getScaledInstance(110, 48, Image.SCALE_SMOOTH);
-		
 		Image back1= new ImageIcon(getClass().getResource("/images/back1.png")).getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH);
 		Image back2= new ImageIcon(getClass().getResource("/images/back2.png")).getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH);
 		Image back3= new ImageIcon(getClass().getResource("/images/back3.png")).getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH);
@@ -64,6 +64,7 @@ public class Vista_Info_Tutor extends JFrame {
 		panel.add(pnlUser);
 		pnlUser.setLayout(null);
 		
+//		LOGGED AS LBL ========================
 		lblUser = new JLabel("Logged as: Pedro Camacho");
 		lblUser.setForeground(new Color(255, 255, 255));
 		lblUser.setFont(new Font("Tahoma", Font.BOLD, 15));
@@ -71,6 +72,7 @@ public class Vista_Info_Tutor extends JFrame {
 		lblUser.setBounds(0, 0, 208, 27);
 		pnlUser.add(lblUser);
 		
+//		UEM LOGO ========================
 		JLabel lblLogo = new JLabel("");
 		lblLogo.setForeground(new Color(0, 0, 0));
 		lblLogo.setBounds(25, 555, 162, 49);
@@ -79,18 +81,21 @@ public class Vista_Info_Tutor extends JFrame {
 		lblLogo.setIcon(img);
 		lblLogo.setBackground(new Color(0, 0, 0));
 		
+//		FORM ========================
 		JPanel pnlContenido = new JPanel();
 		pnlContenido.setBounds(230, 32, 405, 561);
 		panel.add(pnlContenido);
 		pnlContenido.setBackground(new Color(226,106,106,240));
 		pnlContenido.setLayout(null);
 		
+		//FORM TITLE ========================
 		JLabel lblTitle = new JLabel("Informaci\u00F3n del tutor:");
 		lblTitle.setForeground(new Color(255, 255, 255));
 		lblTitle.setFont(new Font("Century Gothic", Font.BOLD, 24));
 		lblTitle.setBounds(35, 82, 267, 29);
 		pnlContenido.add(lblTitle);
 		
+		//DNI TEXT FIELD ========================
 		JLabel lblDni = new JLabel("DNI:");
 		lblDni.setForeground(new Color(0, 0, 0));
 		lblDni.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -102,6 +107,7 @@ public class Vista_Info_Tutor extends JFrame {
 		pnlContenido.add(txtDni);
 		txtDni.setColumns(10);
 		
+		//NOMBRE TEXT FIELD ========================
 		JLabel lblName = new JLabel("NOMBRE:");
 		lblName.setForeground(Color.BLACK);
 		lblName.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -113,6 +119,7 @@ public class Vista_Info_Tutor extends JFrame {
 		txtName.setBounds(35, 240, 267, 22);
 		pnlContenido.add(txtName);
 		
+		//APELLIDOS TEXT FIELD ========================
 		JLabel lblApellidos = new JLabel("APELLIDOS:");
 		lblApellidos.setForeground(Color.BLACK);
 		lblApellidos.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -124,6 +131,7 @@ public class Vista_Info_Tutor extends JFrame {
 		txtApellidos.setBounds(35, 304, 267, 22);
 		pnlContenido.add(txtApellidos);
 		
+		//CODIGO DE CENTRO TEXT FIELD ========================
 		JLabel lblCodCentro = new JLabel("C\u00D3DIGO DE CENTRO:");
 		lblCodCentro.setForeground(Color.BLACK);
 		lblCodCentro.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -135,6 +143,7 @@ public class Vista_Info_Tutor extends JFrame {
 		txtCodCentro.setBounds(35, 368, 267, 22);
 		pnlContenido.add(txtCodCentro);
 		
+//		CREAR BUTTON ========================
 		JLabel lblCrear = new JLabel("CREAR");
 		lblCrear.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCrear.setForeground(Color.WHITE);
@@ -160,11 +169,16 @@ public class Vista_Info_Tutor extends JFrame {
 			public void mouseExited(MouseEvent e) {
 				lblCrearButton.setIcon(new ImageIcon(button1));
 			}
+			
+			public void mouseClicked(MouseEvent e) {
+				miControlador.insertarTutor();
+			}
 		});
 		lblCrearButton.setBounds(134, 478, 110, 48);
 		pnlContenido.add(lblCrearButton);
 		lblCrearButton.setIcon(new ImageIcon(button1));
 		
+//		LOGOUT BUTTON ========================
 		lblLogout = new JLabel("LOGOUT");
 		lblLogout.setHorizontalAlignment(SwingConstants.CENTER);
 		lblLogout.setForeground(Color.WHITE);
@@ -198,6 +212,7 @@ public class Vista_Info_Tutor extends JFrame {
 		pnlContenido.add(lblLogoutButton);
 		lblLogoutButton.setIcon(new ImageIcon(button1));
 		
+//		BACK BUTTON ========================
 		lblBack = new JLabel("");
 		lblBack.addMouseListener(new MouseAdapter() {
 			@Override
@@ -224,6 +239,7 @@ public class Vista_Info_Tutor extends JFrame {
 		lblBack.setBounds(35, 13, 24, 24);
 		pnlContenido.add(lblBack);
 		
+//		BACKGROUND IMG ========================
 		JLabel lblFondo = new JLabel("");
 		lblFondo.setIcon(new ImageIcon(Vista_Info_Tutor.class.getResource("/images/uni.jpg")));
 		lblFondo.setHorizontalAlignment(SwingConstants.LEFT);
@@ -233,6 +249,25 @@ public class Vista_Info_Tutor extends JFrame {
 	
 	}
 
+//	GETTERS ========================
+	public String getTxtDni() {
+		return txtDni.getText();
+	}
+
+	public String getTxtName() {
+		return txtName.getText();
+	}
+
+	public String getTxtApellidos() {
+		return txtApellidos.getText();
+	}
+
+	public String getTxtCodCentro() {
+		return txtCodCentro.getText();
+	}
+	
+	
+// 	MCV ========================
 	public void setControlador(controlador miControlador) {
 		this.miControlador = miControlador;
 	}
@@ -241,6 +276,31 @@ public class Vista_Info_Tutor extends JFrame {
 		this.miModelo = miModelo;
 	}
 
+// 	UPDATE ========================
+	public void actualizar() {
+		String resultado = miModelo.getResultadoTutor();
+		if (resultado.equals("EXISTENTE")) {
+			JOptionPane.showMessageDialog(this, "El tutor ya existe");
+		} else if (resultado.equals("EXITO")) {
+			JOptionPane.showMessageDialog(this, "Tutor añadido con éxito");
+			clearFields();
+		}else if(resultado.equals("VACIO")){
+			JOptionPane.showMessageDialog(this, "Por favor, rellene todos los campos");
+		}else {
+			JOptionPane.showMessageDialog(this, "Error, por favor compruebe todos los datos");
+		}
+	}
+	
+//	CLEAR FIELDS ========================
+	public void clearFields() {
+		for (Object obj : pnlContenido.getComponents()) {
+			if (obj instanceof JTextField) {
+				((JTextField) obj).setText("");
+			}
+		}
+	}
+	
+//	UPDATE ========================
 	public void actualizarLogged() {
 		
 		lblUser.setText("Logged as: "+miModelo.getUSR());
