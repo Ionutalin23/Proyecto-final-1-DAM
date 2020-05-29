@@ -128,6 +128,14 @@ public class Busqueda_Alumnos extends JFrame {
 		contentPane.add(TableView);
 
 		table = new JTable();
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (!table.getSelectionModel().isSelectionEmpty()) {
+					ModifyBtn.setEnabled(true);
+				}
+			}
+		});
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		TableView.setViewportView(table);
 
@@ -173,6 +181,7 @@ public class Busqueda_Alumnos extends JFrame {
 		contentPane.add(ModifyLbl);
 
 		ModifyBtn = new JLabel("");
+		ModifyBtn.setEnabled(false);
 		ModifyBtn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
@@ -185,7 +194,14 @@ public class Busqueda_Alumnos extends JFrame {
 			}
 
 			public void mouseClicked(MouseEvent e) {
-				// ADD METHOD FOR MODIFYING SELECTED CELL
+				int seleccion=table.getSelectedRow();
+				String dni=String.valueOf(table.getValueAt(seleccion, 0));
+				String nombre=String.valueOf(table.getValueAt(seleccion, 1));
+				String apellidos=String.valueOf(table.getValueAt(seleccion, 2));
+				String expe=String.valueOf(table.getValueAt(seleccion, 3));
+				String nacim=String.valueOf(table.getValueAt(seleccion, 5));
+				String nacionalidad=String.valueOf(table.getValueAt(seleccion, 4));
+				miControlador.enviarDatosAlumnos(dni,nombre,apellidos,expe,nacim,nacionalidad);
 			}
 		});
 		ModifyBtn.setBounds(10, 591, 89, 23);

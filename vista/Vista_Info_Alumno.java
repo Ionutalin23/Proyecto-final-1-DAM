@@ -363,4 +363,29 @@ public class Vista_Info_Alumno extends JFrame {
 		}
 	}
 
+	public void setTxtDni(String txtDni) {
+		this.txtDni.setText(txtDni);
+	}
+
+	public void setTxtName(String txtName) {
+		this.txtName.setText(txtName);
+	}
+
+	public void setTxtApellidos(String txtApellidos) {
+		this.txtApellidos.setText(txtApellidos);
+	}
+
+	public void setTxtNacim(String txtNacim) {
+		this.txtNacim.setText(txtNacim);
+	}
+
+	public void setTxtNacionalidad(String txtNacionalidad) {
+		this.txtNacionalidad.setText(txtNacionalidad);
+	}
+
+	public void setTxtExpediente(String txtExpediente) {
+		this.txtExpediente.setText(txtExpediente);
+	}
+	
+
 }

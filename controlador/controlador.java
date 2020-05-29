@@ -430,6 +430,19 @@ public class controlador {
 		miModelo.dibujarGraficaCircularGrupos();	
 	}
 
+	public void enviarDatosAlumnos(String dni, String nombre, String apellidos, String expe, String nacim,
+			String nacionalidad) {
+		vista_info_alumno.setTxtDni(dni);
+		vista_info_alumno.setTxtApellidos(apellidos);
+		vista_info_alumno.setTxtName(nombre);
+		vista_info_alumno.setTxtNacionalidad(nacionalidad);
+		vista_info_alumno.setTxtExpediente(expe);
+		vista_info_alumno.setTxtNacim(nacim);
+		busquedaAlumnos.setVisible(false);
+		vista_info_alumno.setVisible(true);
+		
+	}
+
 	
 
 }
