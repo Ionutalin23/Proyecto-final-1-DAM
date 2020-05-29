@@ -298,6 +298,7 @@ public class Vista_Info_Alumno extends JFrame {
 		JLabel lblModButton = new JLabel("");
 		lblModButton.setBounds(53, 500, 110, 48);
 		pnlContenido.add(lblModButton);
+		lblModButton.setIcon(new ImageIcon(button1));
 		lblModButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
