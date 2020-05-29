@@ -49,6 +49,8 @@ public class Ventana_Login extends JFrame {
 			.getScaledInstance(110, 48, Image.SCALE_SMOOTH);
 	private Image img_buttonLogin3 = new ImageIcon(Ventana_Login.class.getResource("/img/loginbutton3.png")).getImage()
 			.getScaledInstance(110, 48, Image.SCALE_SMOOTH);
+	private Image img_buttonLogin4 = new ImageIcon(Ventana_Login.class.getResource("/img/loginbutton4.png")).getImage()
+			.getScaledInstance(110, 48, Image.SCALE_SMOOTH);
 	private Image img_bg = new ImageIcon(Ventana_Login.class.getResource("/img/bg9.jpg")).getImage()
 			.getScaledInstance(800, 590, Image.SCALE_SMOOTH);
 	private Image img_bg2 = new ImageIcon(Ventana_Login.class.getResource("/img/bg9.jpg")).getImage()
@@ -147,6 +149,12 @@ public class Ventana_Login extends JFrame {
 				pnlRegister.add(lblRespuesta_1);
 		
 				txtPassR = new JPasswordField();
+				txtPassR.addKeyListener(new KeyAdapter() {
+					@Override
+					public void keyReleased(KeyEvent e) {
+						comprobarCampos();
+					}
+				});
 				txtPassR.setBounds(274, 239, 159, 36);
 				pnlRegister.add(txtPassR);
 
@@ -200,38 +208,47 @@ public class Ventana_Login extends JFrame {
 		lblRegister.setForeground(Color.WHITE);
 		lblRegister.setBounds(189, 409, 109, 36);
 		pnlRegister.add(lblRegister);
-
 		lblRegisterBtn = new JLabel("");
+		lblRegisterBtn.setEnabled(false);
 		lblRegisterBtn.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				lblRegisterBtn.setIcon(new ImageIcon(img_buttonLogin3));
-			}
+				@Override
+				public void mousePressed(MouseEvent e) {
+					if (lblRegisterBtn.isEnabled()) {
+						lblRegisterBtn.setIcon(new ImageIcon(img_buttonLogin3));
+					}
+				}
 
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				lblRegisterBtn.setIcon(new ImageIcon(img_buttonLogin2));
-			}
+				@Override
+				public void mouseReleased(MouseEvent e) {
+					if (lblRegisterBtn.isEnabled()) {
+						lblRegisterBtn.setIcon(new ImageIcon(img_buttonLogin2));
+					}
+				}
 
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				lblRegisterBtn.setIcon(new ImageIcon(img_buttonLogin2));
-			}
+				@Override
+				public void mouseEntered(MouseEvent e) {
+					if (lblRegisterBtn.isEnabled()) {
+						lblRegisterBtn.setIcon(new ImageIcon(img_buttonLogin2));
+					}
+				}
 
-			@Override
-			public void mouseExited(MouseEvent e) {
-				lblRegisterBtn.setIcon(new ImageIcon(img_buttonLogin));
-			}
+				@Override
+				public void mouseExited(MouseEvent e) {
+					if (lblRegisterBtn.isEnabled()) {
+						lblRegisterBtn.setIcon(new ImageIcon(img_buttonLogin));
+					}
+				}
 
-			public void mouseClicked(MouseEvent e) {
-				miModelo.ConexionBBDD();
-				miControlador.insertarUsuario();
-
-			}
-		});
+				public void mouseClicked(MouseEvent e) {
+					if (lblRegisterBtn.isEnabled()) {
+						miModelo.ConexionBBDD();
+						miControlador.insertarUsuario();
+					}
+				}
+			});
+		lblRegisterBtn.setIcon(new ImageIcon(img_buttonLogin));
 		lblRegisterBtn.setBounds(189, 408, 118, 48);
 		pnlRegister.add(lblRegisterBtn);
-		lblRegisterBtn.setIcon(new ImageIcon(img_buttonLogin));
 
 		lblArrow = new JLabel("");
 		lblArrow.addMouseListener(new MouseAdapter() {
@@ -266,26 +283,56 @@ public class Ventana_Login extends JFrame {
 		pnlRegister.add(lblArrow);
 
 		txtNameR = new JTextField();
+		txtNameR.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				comprobarCampos();
+			}
+		});
 		txtNameR.setBounds(58, 151, 159, 35);
 		pnlRegister.add(txtNameR);
 		txtNameR.setColumns(10);
 
 		txtUserR = new JTextField();
+		txtUserR.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				comprobarCampos();
+			}
+		});
 		txtUserR.setColumns(10);
 		txtUserR.setBounds(274, 151, 159, 35);
 		pnlRegister.add(txtUserR);
 
 		txtRolR = new JTextField();
+		txtRolR.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				comprobarCampos();
+			}
+		});
 		txtRolR.setColumns(10);
 		txtRolR.setBounds(274, 336, 159, 35);
 		pnlRegister.add(txtRolR);
 
 		txtApellidoR = new JTextField();
+		txtApellidoR.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				comprobarCampos();
+			}
+		});
 		txtApellidoR.setColumns(10);
 		txtApellidoR.setBounds(58, 239, 159, 35);
 		pnlRegister.add(txtApellidoR);
 
 		txtMailR = new JTextField();
+		txtMailR.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				comprobarCampos();
+			}
+		});
 		txtMailR.setColumns(10);
 		txtMailR.setBounds(58, 336, 159, 35);
 		pnlRegister.add(txtMailR);
@@ -505,4 +552,12 @@ public class Ventana_Login extends JFrame {
 			}
 		}
 	}
+	public void comprobarCampos() {
+		if(!txtApellidoR.getText().isEmpty()&&!txtMailR.getText().isEmpty()&&!txtNameR.getText().isEmpty()&&!(txtPassR.getPassword().length<=0)&&!txtRolR.getText().isEmpty()&&!txtUserR.getText().isEmpty()) {
+			lblRegisterBtn.setEnabled(true);
+		}else {
+			lblRegisterBtn.setEnabled(false);
+		}		
+	}
+	
 }
