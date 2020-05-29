@@ -187,6 +187,7 @@ public class modelo {
 	private String resultadoGrupo;
 	private String resultadoTutor;
 	private String resultadoUsuarioUpdate;
+	private String resultadoGrupoUpdate;
 
 	public void ConexionBBDD() {
 		lecturaFichero();
@@ -945,37 +946,67 @@ public class modelo {
 		return resultadoTutor;
 	}
 
-	public void modificarAlumno(String DNI, String nombre, String apellidos, int EXP,  String Fnac, String nacionalidad) {
+	public void modificarAlumno(String DNI, String nombre, String apellidos, int EXP, String Fnac,
+			String nacionalidad) {
 		PreparedStatement stmt;
 		try {
 			SimpleDateFormat formatt = new SimpleDateFormat("YYYY-MM-DD HH:");
 			java.util.Date utildate = formatt.parse(Fnac);
 			Date sqlDate = new Date(utildate.getTime());
-			
-			stmt = conexion.prepareStatement("UPDATE PI.Alumno SET DNI=?, NOMBRE = ?, APELLIDOS = ?, NACIONALIDAD = ?, FECHA_NACIM=?  WHERE NUM_EXP = ?");
+
+			stmt = conexion.prepareStatement(
+					"UPDATE PI.Alumno SET DNI=?, NOMBRE = ?, APELLIDOS = ?, NACIONALIDAD = ?, FECHA_NACIM=?  WHERE NUM_EXP = ?");
 			stmt.setString(1, DNI);
 			stmt.setString(2, nombre);
 			stmt.setString(3, apellidos);
 			stmt.setString(4, nacionalidad);
-			stmt.setDate(5, sqlDate );
-			
+			stmt.setDate(5, sqlDate);
+
 			stmt.setInt(6, EXP);
 			int resul = stmt.executeUpdate();
-			if (resul>0) {
-				resultadoUsuarioUpdate="EXITO";
+			if (resul > 0) {
+				resultadoUsuarioUpdate = "EXITO";
 				vista_info_alumno.actualizar2();
 			} else {
-				resultadoUsuarioUpdate="ERROR";
+				resultadoUsuarioUpdate = "ERROR";
 				vista_info_alumno.actualizar2();
 			}
 		} catch (SQLException | ParseException e) {
 
 			e.printStackTrace();
 		}
-		
+
 	}
+
 	public String getResultadoUsuarioUpdate() {
 		return resultadoUsuarioUpdate;
 	}
 
+	public void modificarGrupo(int codigo, String grupo, int clave, String ciclo) {
+		PreparedStatement stmt;
+		try {
+			stmt = conexion.prepareStatement("UPDATE PI.grupo SET nom_grupo = ?, clave_ciclo = ?, nombre_ciclo = ? WHERE cod_grupo = ?");
+			stmt.setString(1, grupo);
+			stmt.setInt(2, clave);
+			stmt.setString(3, ciclo);
+			stmt.setInt(4, codigo);
+
+			int resul = stmt.executeUpdate();
+			if (resul > 0) {
+				resultadoGrupoUpdate = "EXITO";
+				vista_info_grupo.actualizar2();
+			} else {
+				resultadoGrupoUpdate = "ERROR";
+				vista_info_grupo.actualizar2();
+			}
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+	}
+
+	public String getResultadoGrupoUpdate() {
+		return resultadoGrupoUpdate;
+	}
+	
 }

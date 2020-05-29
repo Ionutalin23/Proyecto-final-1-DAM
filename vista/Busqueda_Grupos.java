@@ -125,6 +125,14 @@ public class Busqueda_Grupos extends JFrame {
 		contentPane.add(TableView);
 
 		table = new JTable();
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (!table.getSelectionModel().isSelectionEmpty()) {
+					ModifyBtn.setEnabled(true);
+				}
+			}
+		});
 		table.setModel(
 				new DefaultTableModel(
 						new Object[][] { { "1", "Benjamin", "Buford" }, { "1", "Dan", "Taylor" },
@@ -178,6 +186,7 @@ public class Busqueda_Grupos extends JFrame {
 		contentPane.add(ModifyLbl);
 
 		ModifyBtn = new JLabel("");
+		ModifyBtn.setEnabled(false);
 		ModifyBtn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
@@ -190,7 +199,12 @@ public class Busqueda_Grupos extends JFrame {
 			}
 
 			public void mouseClicked(MouseEvent e) {
-				// ADD METHOD FOR MODIFYING SELECTED CELL
+				int seleccion=table.getSelectedRow();
+				String codigo=String.valueOf(table.getValueAt(seleccion, 0));
+				String nombre=String.valueOf(table.getValueAt(seleccion, 1));
+				String clave=String.valueOf(table.getValueAt(seleccion, 2));
+				String ciclo=String.valueOf(table.getValueAt(seleccion, 3));
+				miControlador.enviarDatosGrupos(codigo,nombre,clave,ciclo);
 			}
 		});
 		ModifyBtn.setBounds(10, 591, 89, 23);
