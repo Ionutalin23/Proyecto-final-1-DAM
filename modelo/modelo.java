@@ -971,7 +971,7 @@ public class modelo {
 	public void modificarTutor(String dni, String nombre, String apellidos, int codCentro) {
 		PreparedStatement ps;
 		try {		
-			ps = conexion.prepareStatement("UPDATE PI.tutor SET dni_tutor=?, nombre = ?, apellidos = ?, centro_cod_centro = ?  WHERE dni_tutor = ?");
+			ps = conexion.prepareStatement("UPDATE PI.tutor SET nombre = ?, apellidos = ?, centro_cod_centro = ?  WHERE dni_tutor = ?");
 			ps.setString(1, dni);
 			ps.setString(2, nombre);
 			ps.setString(3, apellidos);
