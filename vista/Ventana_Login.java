@@ -210,7 +210,7 @@ public class Ventana_Login extends JFrame {
 		lblRegister.setBounds(189, 409, 109, 36);
 		pnlRegister.add(lblRegister);
 		lblRegisterBtn = new JLabel("");
-		lblRegisterBtn.setEnabled(false);
+		lblRegisterBtn.setEnabled(false); //PONES EL BOTON COMO DESHABILITADO AL PRINCIPIO
 		lblRegisterBtn.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mousePressed(MouseEvent e) {
@@ -304,7 +304,7 @@ public class Ventana_Login extends JFrame {
 		txtUserR.setColumns(10);
 		txtUserR.setBounds(274, 151, 159, 35);
 		pnlRegister.add(txtUserR);
-
+		// ESTO EN CADA TXTFIELD DEL FORMULARIO
 		txtRolR = new JTextField();
 		txtRolR.addKeyListener(new KeyAdapter() {
 			@Override
@@ -558,7 +558,8 @@ public class Ventana_Login extends JFrame {
 		}
 	}
 	public void comprobarCampos() {
-		if(!txtApellidoR.getText().isEmpty()&&!txtMailR.getText().isEmpty()&&!txtNameR.getText().isEmpty()&&!(txtPassR.getPassword().length<=0)&&!txtRolR.getText().isEmpty()&&!txtUserR.getText().isEmpty()) {
+		if(!txtApellidoR.getText().isEmpty()&&!txtMailR.getText().isEmpty()&&!txtNameR.getText().isEmpty()&&
+				!(txtPassR.getPassword().length<=0)&&!txtRolR.getText().isEmpty()&&!txtUserR.getText().isEmpty()) {
 			lblRegisterBtn.setEnabled(true);
 		}else {
 			lblRegisterBtn.setEnabled(false);
