@@ -56,6 +56,9 @@ public class modelo {
 	private int fallos;
 	private String resultado;
 	private String resultadoAlum;
+	private String resultadoEmpresa;
+	private String resultadoGrupo;
+	private String resultadoTutor;
 	private String resultadoUsuario;
 	private String USR;
 	private String rol;
@@ -387,6 +390,7 @@ public class modelo {
 		}
 	}
 
+//	NUEVO ALUMNO ========================
 	public void añadirAlumno(String dni, String nombre, String apellido, String expediente, String nacionalidad, String fechaNacim) {
 		String consulta="SELECT * FROM PI.alumno WHERE DNI=?";
 		String insert="insert into PI.alumno values(?,?,?,?,?,?)";
@@ -430,6 +434,136 @@ public class modelo {
 		return resultadoAlum;
 	}
 	
+//	NUEVA EMPRESA ========================
+	public void añadirEmpresa(String cif, String nombre, String direccion, String telefono, String localidad, String representante, String email) {
+		String consulta="SELECT * FROM PI.empresa WHERE CIF=?";
+		String insert="insert into PI.empresa values(?,?,?,?,?,?,?)";
+		try {
+			PreparedStatement cons=conexion.prepareStatement(consulta);
+			cons.setString(1, cif);
+			ResultSet rs= cons.executeQuery();
+			if (rs.next()) {
+				resultadoEmpresa="EXISTENTE";
+				vista_info_empresa.actualizar();
+			}else {
+					PreparedStatement ins=conexion.prepareStatement(insert);
+					ins.setString(1, cif);
+					ins.setString(2, nombre);
+					ins.setString(3, direccion);
+					ins.setString(4, telefono);
+					ins.setString(5, localidad);
+					ins.setString(6, representante);
+					ins.setString(7, email);
+					int resul=ins.executeUpdate();
+					if (resul>0) {
+						resultadoEmpresa="EXITO";
+						vista_info_empresa.actualizar();
+					}
+					cons.close();
+					rs.close();
+					ins.close();
+				}
+		} catch (SQLException e) {
+			if (cif.isEmpty()||nombre.isEmpty()||direccion.isEmpty()||telefono.isEmpty()||localidad.isEmpty()||representante.isEmpty()||email.isEmpty()) {
+				resultadoEmpresa="VACIO";
+				vista_info_empresa.actualizar();
+			}else {
+				resultadoEmpresa="ERROR";
+				vista_info_empresa.actualizar();
+			}
+			
+		}
+	}
+	
+	public String getResultadoEmpresa() {
+		return resultadoEmpresa;
+	}
+	
+//	NUEVO GRUPO========================
+	public void añadirGrupo(String codGrupo, String nombre, String ciclo, String claveCiclo) {
+		String consulta="SELECT * FROM PI.grupo WHERE cod_grupo=?";
+		String insert="insert into PI.empresa values(?,?,?,?)";
+		try {
+			PreparedStatement cons=conexion.prepareStatement(consulta);
+			cons.setString(1, codGrupo);
+			ResultSet rs= cons.executeQuery();
+			if (rs.next()) {
+				resultadoGrupo="EXISTENTE";
+				vista_info_grupo.actualizar();
+			}else {
+					PreparedStatement ins=conexion.prepareStatement(insert);
+					ins.setString(1, codGrupo);
+					ins.setString(2, nombre);
+					ins.setString(3, ciclo);
+					ins.setString(4, claveCiclo);
+					int resul=ins.executeUpdate();
+					if (resul>0) {
+						resultadoGrupo="EXITO";
+						vista_info_grupo.actualizar();
+					}
+					cons.close();
+					rs.close();
+					ins.close();
+				}
+		} catch (SQLException e) {
+			if (codGrupo.isEmpty()||nombre.isEmpty()||ciclo.isEmpty()||claveCiclo.isEmpty()) {
+				resultadoGrupo="VACIO";
+				vista_info_grupo.actualizar();
+			}else {
+				resultadoGrupo="ERROR";
+				vista_info_grupo.actualizar();
+			}
+			
+		}
+	}
+	
+	public String getResultadoGrupo() {
+		return resultadoGrupo;
+	}
+	
+//	NUEVO TUTOR ========================
+	public void añadirTutor(String dni, String nombre, String apellidos, String codCentro) {
+		String consulta="SELECT * FROM PI.tutor WHERE dni_tutor=?";
+		String insert="insert into PI.empresa values(?,?,?,?)";
+		try {
+			PreparedStatement cons=conexion.prepareStatement(consulta);
+			cons.setString(1, dni);
+			ResultSet rs= cons.executeQuery();
+			if (rs.next()) {
+				resultadoTutor="EXISTENTE";
+				vista_info_tutor.actualizar();
+			}else {
+					PreparedStatement ins=conexion.prepareStatement(insert);
+					ins.setString(1, dni);
+					ins.setString(2, nombre);
+					ins.setString(3, apellidos);
+					ins.setString(4, codCentro);
+					int resul=ins.executeUpdate();
+					if (resul>0) {
+						resultadoTutor="EXITO";
+						vista_info_tutor.actualizar();
+					}
+					cons.close();
+					rs.close();
+					ins.close();
+				}
+		} catch (SQLException e) {
+			if (dni.isEmpty()||nombre.isEmpty()||apellidos.isEmpty()||codCentro.isEmpty()) {
+				resultadoTutor="VACIO";
+				vista_info_tutor.actualizar();
+			}else {
+				resultadoTutor="ERROR";
+				vista_info_tutor.actualizar();
+			}
+			
+		}
+	}
+	
+	public String getResultadoTutor() {
+		return resultadoTutor;
+	}
+	
+//	NUEVO USUARIO ========================
 	public void añadirUsuario(String user, String password, String rol, String email, String nombre, String apellido) {
 		String consulta="SELECT * FROM PI.users";
 		String insert="insert into PI.users values(?,?,?,?,?,?)";
