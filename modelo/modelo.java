@@ -13,12 +13,15 @@ import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.sql.Blob;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -940,6 +943,29 @@ public class modelo {
 
 	public String getResultadoTutor() {
 		return resultadoTutor;
+	}
+
+	public void modificarAlumno(String DNI, String nombre, String apellidos, int EXP,  String Fnac, String nacionalidad) {
+		PreparedStatement stmt;
+		try {
+			SimpleDateFormat formatt = new SimpleDateFormat("YYYY-MM-DD HH:");
+			java.util.Date utildate = formatt.parse(Fnac);
+			Date sqlDate = new Date(utildate.getTime());
+			
+			stmt = conexion.prepareStatement("UPDATE PI.Alumno SET DNI=?, NOMBRE = ?, APELLIDOS = ?, NACIONALIDAD = ?, FECHA_NACIM=?  WHERE NUM_EXP = ?");
+			stmt.setString(1, DNI);
+			stmt.setString(2, nombre);
+			stmt.setString(3, apellidos);
+			stmt.setString(4, nacionalidad);
+			stmt.setDate(5, sqlDate );
+			
+			stmt.setInt(6, EXP);
+			int resul = stmt.executeUpdate();
+		} catch (SQLException | ParseException e) {
+
+			e.printStackTrace();
+		}
+		
 	}
 
 }
