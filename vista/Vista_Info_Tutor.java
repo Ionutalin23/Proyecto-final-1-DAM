@@ -248,7 +248,24 @@ public class Vista_Info_Tutor extends JFrame {
 		
 	
 	}
+//  SETTERS=========================
+	public void setTxtDni(String txtDni) {
+		this.txtDni.setText(txtDni);
+	}
 
+	public void setTxtName(String txtName) {
+		this.txtName.setText(txtName);
+	}
+
+	public void setTxtApellidos(String txtApellidos) {
+		this.txtApellidos.setText(txtApellidos);
+	}
+	
+	public void setTxtCodCentro(String txtCodCentro) {
+		this.txtCodCentro.setText(txtCodCentro);
+	}
+	
+	
 //	GETTERS ========================
 	public String getTxtDni() {
 		return txtDni.getText();

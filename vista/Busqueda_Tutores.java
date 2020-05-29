@@ -248,7 +248,12 @@ public class Busqueda_Tutores extends JFrame {
 			}
 
 			public void mouseClicked(MouseEvent e) {
-				// ADD METHOD FOR MODIFYING SELECTED CELL
+				int seleccion=table.getSelectedRow();
+				String dni=String.valueOf(table.getValueAt(seleccion, 0));
+				String nombre=String.valueOf(table.getValueAt(seleccion, 1));
+				String apellidos=String.valueOf(table.getValueAt(seleccion, 2));
+				String codCentro=String.valueOf(table.getValueAt(seleccion, 3));
+				miControlador.enviarDatosTutor(dni,nombre,apellidos,codCentro);
 			}
 		});
 		ModifyBtn.setBounds(10, 591, 89, 23);

@@ -442,6 +442,15 @@ public class controlador {
 		vista_info_alumno.setVisible(true);
 		
 	}
+	public void enviarDatosTutor(String dni, String nombre, String apellidos, String CodCentro) {
+		vista_info_tutor.setTxtDni(dni);
+		vista_info_tutor.setTxtApellidos(apellidos);
+		vista_info_tutor.setTxtName(nombre);
+		vista_info_tutor.setTxtCodCentro(CodCentro);
+		busquedaTutores.setVisible(false);
+		vista_info_tutor.setVisible(true);
+		
+	}
 
 	
 
