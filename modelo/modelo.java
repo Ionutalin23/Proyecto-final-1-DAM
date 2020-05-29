@@ -187,6 +187,7 @@ public class modelo {
 	private String resultadoGrupo;
 	private String resultadoTutor;
 	private String resultadoUsuario;
+	private boolean mod;
 
 	public void ConexionBBDD() {
 		lecturaFichero();
@@ -945,27 +946,38 @@ public class modelo {
 		return resultadoTutor;
 	}
 
-	public void modificarAlumno(String DNI, String nombre, String apellidos, int EXP,  String Fnac, String nacionalidad) {
+	public void modificarAlumno(String DNI, String nombre, String apellidos, int EXP, String Fnac,
+			String nacionalidad) {
 		PreparedStatement stmt;
 		try {
 			SimpleDateFormat formatt = new SimpleDateFormat("YYYY-MM-DD HH:");
 			java.util.Date utildate = formatt.parse(Fnac);
 			Date sqlDate = new Date(utildate.getTime());
-			
-			stmt = conexion.prepareStatement("UPDATE PI.Alumno SET DNI=?, NOMBRE = ?, APELLIDOS = ?, NACIONALIDAD = ?, FECHA_NACIM=?  WHERE NUM_EXP = ?");
+
+			stmt = conexion.prepareStatement(
+					"UPDATE PI.Alumno SET DNI=?, NOMBRE = ?, APELLIDOS = ?, NACIONALIDAD = ?, FECHA_NACIM=?  WHERE NUM_EXP = ?");
 			stmt.setString(1, DNI);
 			stmt.setString(2, nombre);
 			stmt.setString(3, apellidos);
 			stmt.setString(4, nacionalidad);
-			stmt.setDate(5, sqlDate );
-			
+			stmt.setDate(5, sqlDate);
+
 			stmt.setInt(6, EXP);
 			int resul = stmt.executeUpdate();
 		} catch (SQLException | ParseException e) {
 
 			e.printStackTrace();
 		}
-		
+
+	}
+
+	public void setmodificar(boolean mod) {
+		this.mod = mod;
+
+	}
+
+	public boolean getmodificar() {
+		return this.mod;
 	}
 
 }
