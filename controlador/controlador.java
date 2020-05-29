@@ -11,6 +11,7 @@ import vista.Busqueda_Grupos;
 import vista.Busqueda_Tutores;
 import vista.MenuVista;
 import vista.Ventana_Estadisticas;
+import vista.Ventana_Conf_Delete;
 import vista.Ventana_Login;
 import vista.Ventana_Login_Config;
 import vista.Ventana_Mensaje_ERROR;
@@ -36,6 +37,8 @@ public class controlador {
 	private Vista_Info_Grupo vista_info_grupo;
 	private Ventana_Mensaje_ERROR ventana_mensaje_error;
 	private Ventana_Estadisticas ventana_estadisticas;
+	private Ventana_Conf_Delete ventana_conf_delete;
+
 
 	public void setVista(Busqueda_Alumnos busquedaAlumnos) {
 		this.busquedaAlumnos = busquedaAlumnos;
@@ -93,12 +96,18 @@ public class controlador {
 	public void setVista(Ventana_Mensaje_ERROR ventana_mensaje_error) {
 		this.ventana_mensaje_error = ventana_mensaje_error;
 	}
+
 	
 	public void setVista(Ventana_Estadisticas ventana_estadisticas) {
 		this.ventana_estadisticas = ventana_estadisticas;
 	}
+	public void setVista(Ventana_Conf_Delete ventana_conf_delete) {
+		this.ventana_conf_delete = ventana_conf_delete;
+	}
 
 // ================================================================================
+
+	
 
 	public void login() {
 		String usuario = vista_ventana_login.getUsuario();
@@ -362,6 +371,10 @@ public class controlador {
 		vista_ventana_login.setVisible(false);
 		ventana_mensaje_error.setVisible(true);
 	}
+	public void ventana_conf_delete() {
+		ventana_conf_delete.setVisible(true);
+	}
+
 
 	public void VentanaEstadisticas() {
 		vista_ventana_menu.setVisible(false);

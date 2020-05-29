@@ -539,4 +539,9 @@ INSERT INTO pertenece(alumno_num_exp,grupo_cod_grupo, acad) VALUES(1111175,0001,
 -- insert into PI.USERS values(?,?,?,?,?,?,?);
 -- INSERT INTO USERS(USR,PWD,ROL,EMAIL,NOMBRE,APELLIDO,FOTO) VALUES ('Pablo Benito2','pablo123','tutor','email@hotmail.com','pablobenito','benitopablo',NULL);
 
+-- ---------------------------------------DELETES----------------------------------------------- --
+-- DELETE FROM alumno WHERE DNI= ;
+-- DELETE FROM empresa WHERE CIF= ;
+-- DELETE FROM grupo WHERE cod_grupo= ;
+-- DELETE FROM tutor WHERE DNI_tutor= ;
 

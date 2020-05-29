@@ -46,6 +46,8 @@ public class Busqueda_Empresas extends JFrame {
 	private JLabel CreateNewBtn;
 	private JLabel SearchBtn;
 	private JLabel lblUser;
+	private String NomTabla = "empresa";
+	private String NomClave = "cif";
 
 // 	Setting Images ======================== (Check all images are linked to correct folder to avoid null pointer exception)
 	private Image img_bg = new ImageIcon(getClass().getResource("/img/bg9.jpg")).getImage().getScaledInstance(888, 664,
@@ -113,6 +115,11 @@ public class Busqueda_Empresas extends JFrame {
 		lblUser.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblUser.setHorizontalAlignment(SwingConstants.CENTER);
 
+// 		Label MSG borrado
+		JLabel lblSelcc = new JLabel("No ha seleccionado ninguna fila");
+		lblSelcc.setVisible(false);
+		lblSelcc.setBounds(225, 593, 426, 16);
+		contentPane.add(lblSelcc);
 //		Table View ========================
 		JScrollPane TableView = new JScrollPane();
 		TableView.setBounds(10, 137, 852, 443);
@@ -209,6 +216,20 @@ public class Busqueda_Empresas extends JFrame {
 
 			public void mouseClicked(MouseEvent e) {
 				// ADD METHOD FOR DELETING SELECTED CELL
+				if (table.getSelectionModel().isSelectionEmpty()) {
+					lblSelcc.setVisible(true);
+				} else {
+					if (miModelo.getRol().equals("Tutor")) {
+						lblSelcc.setText("No tiene los permisos necesarios para eliminar datos");
+						lblSelcc.setVisible(true);
+					} else {
+						lblSelcc.setVisible(false);
+						miModelo.setClave((String) table.getValueAt(table.getSelectedRow(), 0));
+						miModelo.setNombreTabla(NomTabla);
+						miModelo.setNombreClave(NomClave);
+						miControlador.ventana_conf_delete();
+					}
+				}
 			}
 		});
 		DeleteBtn.setBounds(109, 591, 89, 23);
@@ -376,5 +397,9 @@ public class Busqueda_Empresas extends JFrame {
 	public void actualizarLogged() {
 		lblUser.setText("Logged as: " + miModelo.getUSR());
 
+	}
+
+	public String getNombreClave() {
+		return NomClave;
 	}
 }
