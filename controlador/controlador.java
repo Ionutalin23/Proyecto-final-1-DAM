@@ -442,7 +442,5 @@ public class controlador {
 		vista_info_alumno.setVisible(true);
 		
 	}
-
 	
-
 }
