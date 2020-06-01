@@ -9,6 +9,7 @@ import vista.Busqueda_Empresas;
 import vista.Busqueda_Grupos;
 import vista.Busqueda_Tutores;
 import vista.MenuVista;
+import vista.Ventana_Conf_Anexo;
 import vista.Ventana_Estadisticas;
 import vista.Ventana_Conf_Delete;
 import vista.Ventana_Login;
@@ -37,6 +38,7 @@ public class controlador {
 	private Ventana_Mensaje_ERROR ventana_mensaje_error;
 	private Ventana_Estadisticas ventana_estadisticas;
 	private Ventana_Conf_Delete ventana_conf_delete;
+	private Ventana_Conf_Anexo ventana_conf_anexo;
 
 
 	public void setVista(Busqueda_Alumnos busquedaAlumnos) {
@@ -102,6 +104,9 @@ public class controlador {
 	}
 	public void setVista(Ventana_Conf_Delete ventana_conf_delete) {
 		this.ventana_conf_delete = ventana_conf_delete;
+	}
+	public void setVista(Ventana_Conf_Anexo ventana_conf_anexo) {
+		this.ventana_conf_anexo = ventana_conf_anexo;
 	}
 
 // ================================================================================
@@ -450,6 +455,36 @@ public class controlador {
 		vista_info_grupo.setTxtNomCiclo(ciclo);
 		busquedaGrupos.setVisible(false);
 		vista_info_grupo.setVisible(true);
+	}
+
+	public void enviarDatosAnexo1(String cif,String empresa, String cod_centro, String localidad, String director,String anexo_1) {
+		miModelo.modificarAnexo1(cif,empresa,cod_centro,localidad,director,anexo_1);
+	}
+
+	public void enviarDatosAnexo_2_1(String expe, String nombre, String apellidos, String anexo_2_1) {
+		miModelo.modificarAnexo2(expe,nombre,apellidos,anexo_2_1);
+	}
+
+	public void enviarDatosAnexo_2_2(String expe, String nombre, String apellidos, String grupo,String empresa,
+			String horario, String anexo_2_2) {
+		miModelo.modificarAnexo2_2(expe,nombre,apellidos,grupo,empresa,horario,anexo_2_2);
+	}
+
+	public void enviarDatosAnexo_3(String expe, String nombre, String apellidos, String anexo_3) {
+		miModelo.modificarAnexo3(expe,nombre,apellidos,anexo_3);
+	}
+
+	public void enviarDatosAnexo_7(String expe, String nombre, String apellidos, String anexo_7) {
+		miModelo.modificarAnexo7(expe,nombre,apellidos,anexo_7);
+	}
+
+	public void enviarDatosAnexo8(String expe, String nombre, String apellidos, String centro, String empresa,
+			String anexo_8) {
+		miModelo.modificarAnexo8(expe,nombre,apellidos,centro,empresa,anexo_8);
+	}
+
+	public void ConfirmarDeleteAnexo() {
+		ventana_conf_anexo.setVisible(true);
 	}
 	
 }
