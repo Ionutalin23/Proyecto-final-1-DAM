@@ -240,7 +240,7 @@ public class Busqueda_Alumnos extends JFrame {
 				} else {
 
 					lblSelcc.setVisible(false);
-					miModelo.setClave((String) table.getValueAt(table.getSelectedRow(), 0));
+					miModelo.setClave((String) table.getValueAt(table.getSelectedRow(), 3));
 					miModelo.setNombreTabla(NomTabla);
 					miModelo.setNombreClave(NomClave);
 					miControlador.ventana_conf_delete();

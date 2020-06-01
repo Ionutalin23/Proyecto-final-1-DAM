@@ -434,13 +434,14 @@ public class modelo {
 		}
 
 	}
-	
+
 //	MODIFICAR EMPRESA ========================
 	public void modificarEmpresa(String cif, String nombre, String direccion, int i, String localidad,
 			String representante, String email) {
 		PreparedStatement stmt;
 		try {
-			stmt = conexion.prepareStatement("UPDATE PI.EMPRESA SET CIF=?, NOMBRE=?, DIRECCION=?, TELEFONO=?, LOCALIDAD=?, EMAIL=?, RESP_EMPRESA=?");
+			stmt = conexion.prepareStatement(
+					"UPDATE PI.EMPRESA SET CIF=?, NOMBRE=?, DIRECCION=?, TELEFONO=?, LOCALIDAD=?, EMAIL=?, RESP_EMPRESA=?");
 			stmt.setString(1, cif);
 			stmt.setString(2, nombre);
 			stmt.setString(3, direccion);
@@ -448,10 +449,10 @@ public class modelo {
 			stmt.setString(5, localidad);
 			stmt.setString(6, email);
 			stmt.setString(7, representante);
-			
+
 			int resul = stmt.executeUpdate();
 		} catch (Exception e) {
-			
+
 			e.printStackTrace();
 		}
 	}
@@ -796,9 +797,9 @@ public class modelo {
 
 //ELIMINAR DATOS
 	public void borrarDato(String clave, String nombre, String nombreClave) {
-
+		String delete;
 		nombre = "PI." + nombre;
-		String delete = "DELETE FROM " + nombre + " WHERE " + nombreClave + " = '" + clave + "'";
+		delete = "DELETE FROM " + nombre + " WHERE " + nombreClave + " = '" + clave + "'";
 
 		try {
 			Statement ins = conexion.createStatement();
@@ -1000,22 +1001,23 @@ public class modelo {
 		}
 
 	}
-	
+
 	public void modificarTutor(String dni, String nombre, String apellidos, int codCentro) {
 		PreparedStatement ps;
-		try {		
-			ps = conexion.prepareStatement("UPDATE PI.tutor SET nombre = ?, apellidos = ?, centro_cod_centro = ?  WHERE dni_tutor = ?");
+		try {
+			ps = conexion.prepareStatement(
+					"UPDATE PI.tutor SET nombre = ?, apellidos = ?, centro_cod_centro = ?  WHERE dni_tutor = ?");
 			ps.setString(1, dni);
 			ps.setString(2, nombre);
 			ps.setString(3, apellidos);
 			ps.setInt(4, codCentro);
-			
+
 			int resul = ps.executeUpdate();
 		} catch (SQLException e) {
 
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	public void setmodificar(boolean mod) {
@@ -1034,7 +1036,8 @@ public class modelo {
 	public void modificarGrupo(int codigo, String grupo, int clave, String ciclo) {
 		PreparedStatement stmt;
 		try {
-			stmt = conexion.prepareStatement("UPDATE PI.grupo SET nom_grupo = ?, clave_ciclo = ?, nombre_ciclo = ? WHERE cod_grupo = ?");
+			stmt = conexion.prepareStatement(
+					"UPDATE PI.grupo SET nom_grupo = ?, clave_ciclo = ?, nombre_ciclo = ? WHERE cod_grupo = ?");
 			stmt.setString(1, grupo);
 			stmt.setInt(2, clave);
 			stmt.setString(3, ciclo);
@@ -1057,5 +1060,5 @@ public class modelo {
 	public String getResultadoGrupoUpdate() {
 		return resultadoGrupoUpdate;
 	}
-	
+
 }
