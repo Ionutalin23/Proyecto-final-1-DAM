@@ -24,6 +24,7 @@ import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
+import javax.swing.Timer;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -51,6 +52,8 @@ public class Busqueda_Tutores extends JFrame {
 	private JLabel CreateNewBtn;
 	private JLabel SearchBtn;
 	private JLabel lblUser;
+	private JLabel lblSelcc;
+	private int temp = 5000;
 	private String NomTabla = "tutor";
 	private String NomClave = "dni_tutor";
 
@@ -113,7 +116,7 @@ public class Busqueda_Tutores extends JFrame {
 		contentPane.setLayout(null);
 
 // 		Label MSG borrado
-		JLabel lblSelcc = new JLabel("No ha seleccionado ninguna fila");
+		lblSelcc = new JLabel("No ha seleccionado ninguna fila");
 		lblSelcc.setVisible(false);
 		lblSelcc.setBounds(225, 593, 426, 16);
 		contentPane.add(lblSelcc);
@@ -256,12 +259,12 @@ public class Busqueda_Tutores extends JFrame {
 			}
 
 			public void mouseClicked(MouseEvent e) {
-				int seleccion=table.getSelectedRow();
-				String dni=String.valueOf(table.getValueAt(seleccion, 0));
-				String nombre=String.valueOf(table.getValueAt(seleccion, 1));
-				String apellidos=String.valueOf(table.getValueAt(seleccion, 2));
-				String codCentro=String.valueOf(table.getValueAt(seleccion, 3));
-				miControlador.enviarDatosTutor(dni,nombre,apellidos,codCentro);
+				int seleccion = table.getSelectedRow();
+				String dni = String.valueOf(table.getValueAt(seleccion, 0));
+				String nombre = String.valueOf(table.getValueAt(seleccion, 1));
+				String apellidos = String.valueOf(table.getValueAt(seleccion, 2));
+				String codCentro = String.valueOf(table.getValueAt(seleccion, 3));
+				miControlador.enviarDatosTutor(dni, nombre, apellidos, codCentro);
 			}
 		});
 		ModifyBtn.setBounds(10, 591, 89, 23);
@@ -298,6 +301,7 @@ public class Busqueda_Tutores extends JFrame {
 					miModelo.setNombreTabla(NomTabla);
 					miModelo.setNombreClave(NomClave);
 					miControlador.ventana_conf_delete();
+
 				}
 			}
 		});
@@ -491,4 +495,18 @@ public class Busqueda_Tutores extends JFrame {
 	public String getNombreClave() {
 		return NomClave;
 	}
+
+	public void actualizarDELETE() {
+		lblSelcc.setText("Borrado realizado con ÉXITO");
+		lblSelcc.setVisible(true);
+		ActionListener ocultarLabel = new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				lblSelcc.setVisible(false);
+			}
+		};
+		new Timer(temp, ocultarLabel).start();
+	}
+
 }

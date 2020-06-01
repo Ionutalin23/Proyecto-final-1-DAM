@@ -190,6 +190,7 @@ public class modelo {
 	private boolean mod;
 	private String resultadoUsuarioUpdate;
 	private String resultadoGrupoUpdate;
+	private boolean exitoDelete;
 
 	public void ConexionBBDD() {
 		lecturaFichero();
@@ -804,6 +805,7 @@ public class modelo {
 		try {
 			Statement ins = conexion.createStatement();
 			ResultSet rs = ins.executeQuery(delete);
+			exitoDelete = true;
 			ins.close();
 			rs.close();
 
@@ -812,7 +814,9 @@ public class modelo {
 		}
 
 	}
-
+	public boolean getStatusDelete() {
+		return exitoDelete;
+	}
 	public void setClave(String clave) {
 		this.clave = clave;
 	}

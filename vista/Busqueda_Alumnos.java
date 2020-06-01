@@ -24,6 +24,7 @@ import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
+import javax.swing.Timer;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -47,9 +48,11 @@ public class Busqueda_Alumnos extends JFrame {
 	private JLabel CreateNewBtn;
 	private JLabel SearchBtn;
 	private JLabel lblUser;
+	private JLabel lblSelcc;
 	private String NomTabla = "alumno";
 	private String NomClave = "num_EXP";
 	private boolean modificar = false;
+	private int temp = 5000;
 
 // 	Setting Images ======================== (Check all images are linked to correct folder to avoid null pointer exception)
 	private Image img_bg = new ImageIcon(getClass().getResource("/img/bg9.jpg")).getImage().getScaledInstance(888, 664,
@@ -111,7 +114,7 @@ public class Busqueda_Alumnos extends JFrame {
 		setLocationRelativeTo(null);
 
 // 		Label MSG borrado
-		JLabel lblSelcc = new JLabel("No ha seleccionado ninguna fila");
+		lblSelcc = new JLabel("No ha seleccionado ninguna fila");
 		lblSelcc.setVisible(false);
 		lblSelcc.setBounds(225, 593, 426, 16);
 		contentPane.add(lblSelcc);
@@ -244,6 +247,8 @@ public class Busqueda_Alumnos extends JFrame {
 					miModelo.setNombreTabla(NomTabla);
 					miModelo.setNombreClave(NomClave);
 					miControlador.ventana_conf_delete();
+					
+					
 				}
 
 			}
@@ -414,6 +419,18 @@ public class Busqueda_Alumnos extends JFrame {
 	public void actualizarLogged() {
 		lblUser.setText("Logged as: " + miModelo.getUSR());
 
+	}
+	public void actualizarDELETE() {
+		lblSelcc.setText("Borrado realizado con ÉXITO");
+		lblSelcc.setVisible(true);
+		ActionListener ocultarLabel = new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				lblSelcc.setVisible(false);
+			}
+		};
+		new Timer(temp, ocultarLabel).start();
 	}
 
 	public String getNombreClave() {

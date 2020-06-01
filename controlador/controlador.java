@@ -1,4 +1,5 @@
 package controlador;
+
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JTable;
@@ -38,7 +39,6 @@ public class controlador {
 	private Ventana_Estadisticas ventana_estadisticas;
 	private Ventana_Conf_Delete ventana_conf_delete;
 
-
 	public void setVista(Busqueda_Alumnos busquedaAlumnos) {
 		this.busquedaAlumnos = busquedaAlumnos;
 	}
@@ -66,7 +66,6 @@ public class controlador {
 	public void setVista(Ventana_Login vista_ventana_login) {
 		this.vista_ventana_login = vista_ventana_login;
 	}
-	
 
 	public void setVista(Ventana_Login_Config ventana_login_config) {
 		this.ventana_login_config = ventana_login_config;
@@ -91,22 +90,20 @@ public class controlador {
 	public void setVista(Vista_Info_Grupo vista_info_grupo) {
 		this.vista_info_grupo = vista_info_grupo;
 	}
-	
+
 	public void setVista(Ventana_Mensaje_ERROR ventana_mensaje_error) {
 		this.ventana_mensaje_error = ventana_mensaje_error;
 	}
 
-	
 	public void setVista(Ventana_Estadisticas ventana_estadisticas) {
 		this.ventana_estadisticas = ventana_estadisticas;
 	}
+
 	public void setVista(Ventana_Conf_Delete ventana_conf_delete) {
 		this.ventana_conf_delete = ventana_conf_delete;
 	}
 
 // ================================================================================
-
-	
 
 	public void login() {
 		String usuario = vista_ventana_login.getUsuario();
@@ -123,11 +120,11 @@ public class controlador {
 	}
 
 	public void accesoTut() {
-		
+
 		vista_ventana_login.setVisible(false);
 		vista_ventana_menu.cambiarTutor();
 		vista_ventana_menu.setVisible(true);
-		
+
 		vista_ventana_menu.actualizarLogged();
 		vista_info_alumno.actualizarLogged();
 		vista_info_empresa.actualizarLogged();
@@ -142,11 +139,11 @@ public class controlador {
 	}
 
 	public void accesoDir() {
-		
+
 		vista_ventana_login.setVisible(false);
 		vista_ventana_menu.setVisible(true);
 		vista_ventana_menu.cambiarDirector();
-		
+
 		vista_ventana_menu.actualizarLogged();
 		vista_info_alumno.actualizarLogged();
 		vista_info_empresa.actualizarLogged();
@@ -250,7 +247,8 @@ public class controlador {
 		miModelo.finalizar();
 	}
 
-	public void enviarDatosEmpresa(String cif, String nombre, String direccion, String telefono, String localidad, String representante, String email) {
+	public void enviarDatosEmpresa(String cif, String nombre, String direccion, String telefono, String localidad,
+			String representante, String email) {
 		vista_info_empresa.setTxtCif(cif);
 		vista_info_empresa.setTxtName(nombre);
 		vista_info_empresa.setTxtDireccion(direccion);
@@ -261,7 +259,7 @@ public class controlador {
 		busquedaEmpresas.setVisible(false);
 		vista_info_empresa.setVisible(true);
 	}
-	
+
 	public void nuevoAlumno() {
 		busquedaAlumnos.setVisible(false);
 		vista_info_alumno.setVisible(true);
@@ -308,6 +306,7 @@ public class controlador {
 		vista_ventana_login.setVisible(true);
 		miModelo.finalizar();
 	}
+
 	public void logout10() {
 		ventana_estadisticas.setVisible(false);
 		vista_ventana_login.setVisible(true);
@@ -337,66 +336,71 @@ public class controlador {
 		busquedaTutores.setVisible(true);
 
 	}
+
 	public void back9() {
 		ventana_estadisticas.setVisible(false);
 		vista_ventana_menu.setVisible(true);
 
 	}
+
 	public void loginConfig() {
 		ventana_login_config.setVisible(true);
 		vista_ventana_login.setVisible(false);
 	}
+
 	public void loginConfigSalir() {
 		ventana_login_config.setVisible(false);
 		vista_ventana_login.setVisible(true);
 	}
+
 	public void saveTable(JTable tabla) {
 		miModelo.downloadTable(tabla);
 	}
+
 	public void insertarAlumno() {
-		String dni=vista_info_alumno.getTxtDni();
-		String nombre=vista_info_alumno.getTxtName();
-		String apellido=vista_info_alumno.getTxtApellidos();
-		String expediente=vista_info_alumno.getTxtExpediente();
-		String nacionalidad=vista_info_alumno.getTxtNacionalidad();
-		String fechaNacim=vista_info_alumno.getTxtNacim();
-		miModelo.añadirAlumno(dni,nombre,apellido,expediente,nacionalidad,fechaNacim);
+		String dni = vista_info_alumno.getTxtDni();
+		String nombre = vista_info_alumno.getTxtName();
+		String apellido = vista_info_alumno.getTxtApellidos();
+		String expediente = vista_info_alumno.getTxtExpediente();
+		String nacionalidad = vista_info_alumno.getTxtNacionalidad();
+		String fechaNacim = vista_info_alumno.getTxtNacim();
+		miModelo.añadirAlumno(dni, nombre, apellido, expediente, nacionalidad, fechaNacim);
 	}
-	
+
 	public void insertarEmpresa() {
-		String cif=vista_info_empresa.getTxtCif();
-		String nombre=vista_info_empresa.getTxtName();
-		String direccion=vista_info_empresa.getTxtDireccion();
-		String telefono=vista_info_empresa.getTxtTel();
-		String localidad=vista_info_empresa.getTxtLocalidad();
-		String representante=vista_info_empresa.getTxtRepresentante();
-		String email=vista_info_empresa.getTxtMail();
+		String cif = vista_info_empresa.getTxtCif();
+		String nombre = vista_info_empresa.getTxtName();
+		String direccion = vista_info_empresa.getTxtDireccion();
+		String telefono = vista_info_empresa.getTxtTel();
+		String localidad = vista_info_empresa.getTxtLocalidad();
+		String representante = vista_info_empresa.getTxtRepresentante();
+		String email = vista_info_empresa.getTxtMail();
 		miModelo.añadirEmpresa(cif, nombre, direccion, telefono, localidad, representante, email);
 	}
-	
+
 	public void insertarGrupo() {
-		String codGrupo=vista_info_grupo.getTxtCodGrupo();
-		String nombre=vista_info_grupo.getTxtName();
-		String claveCiclo=vista_info_grupo.getTxtClaveCiclo();
-		String nomCiclo=vista_info_grupo.getTxtNomCiclo();
+		String codGrupo = vista_info_grupo.getTxtCodGrupo();
+		String nombre = vista_info_grupo.getTxtName();
+		String claveCiclo = vista_info_grupo.getTxtClaveCiclo();
+		String nomCiclo = vista_info_grupo.getTxtNomCiclo();
 		miModelo.añadirGrupo(codGrupo, nombre, claveCiclo, nomCiclo);
 	}
-	
+
 	public void insertarTutor() {
-		String dni=vista_info_tutor.getTxtDni();
-		String nombre=vista_info_tutor.getTxtName();
-		String apellidos=vista_info_tutor.getTxtApellidos();
-		String codCentro=vista_info_tutor.getTxtCodCentro();
+		String dni = vista_info_tutor.getTxtDni();
+		String nombre = vista_info_tutor.getTxtName();
+		String apellidos = vista_info_tutor.getTxtApellidos();
+		String codCentro = vista_info_tutor.getTxtCodCentro();
 		miModelo.añadirTutor(dni, nombre, apellidos, codCentro);
 	}
 
 	public void insertarUsuario() {
-		String nombre=vista_ventana_login.getTxtNameR();
-		String apellido=vista_ventana_login.getTxtApellidoR();
-		String email=vista_ventana_login.getTxtMailR();
-		String username=vista_ventana_login.getTxtUserR();
-		String password=vista_ventana_login.getTxtPassR();
-		String rol=vista_ventana_login.getTxtRolR();
+		String nombre = vista_ventana_login.getTxtNameR();
+		String apellido = vista_ventana_login.getTxtApellidoR();
+		String email = vista_ventana_login.getTxtMailR();
+		String username = vista_ventana_login.getTxtUserR();
+		String password = vista_ventana_login.getTxtPassR();
+		String rol = vista_ventana_login.getTxtRolR();
 		miModelo.añadirUsuario(username, password, rol, email, nombre, apellido);
 	}
 
@@ -408,15 +412,15 @@ public class controlador {
 		vista_ventana_login.setVisible(false);
 		ventana_mensaje_error.setVisible(true);
 	}
+
 	public void ventana_conf_delete() {
 		ventana_conf_delete.setVisible(true);
 	}
 
-
 	public void VentanaEstadisticas() {
 		vista_ventana_menu.setVisible(false);
 		ventana_estadisticas.setVisible(true);
-		
+
 	}
 
 	public void graficaCircularPracticas() {
@@ -426,20 +430,22 @@ public class controlador {
 
 	public void graficaBarrasPracticas() {
 		miModelo.alumnosPracticasAlumnos();
-		miModelo.dibujarGraficaBarrasPracticas();	
+		miModelo.dibujarGraficaBarrasPracticas();
 	}
 
 	public void graficaLinealPracticas() {
 		miModelo.alumnosPracticasAlumnos();
 		miModelo.dibujarGraficaLinealPracticas();
 	}
+
 	public void graficaBarrasGrupos() {
 		miModelo.GruposAlumnos();
-		miModelo.dibujarGraficaBarrasGrupos();	
+		miModelo.dibujarGraficaBarrasGrupos();
 	}
+
 	public void graficaCircularGrupos() {
 		miModelo.GruposAlumnos();
-		miModelo.dibujarGraficaCircularGrupos();	
+		miModelo.dibujarGraficaCircularGrupos();
 	}
 
 	public void enviarDatosAlumnos(String dni, String nombre, String apellidos, String expe, String nacim,
@@ -452,8 +458,9 @@ public class controlador {
 		vista_info_alumno.setTxtNacim(nacim.substring(0, 10));
 		busquedaAlumnos.setVisible(false);
 		vista_info_alumno.setVisible(true);
-		
+
 	}
+
 	public void enviarDatosTutor(String dni, String nombre, String apellidos, String CodCentro) {
 		vista_info_tutor.setTxtDni(dni);
 		vista_info_tutor.setTxtApellidos(apellidos);
@@ -461,7 +468,7 @@ public class controlador {
 		vista_info_tutor.setTxtCodCentro(CodCentro);
 		busquedaTutores.setVisible(false);
 		vista_info_tutor.setVisible(true);
-		
+
 	}
 
 	public void enviarDatosGrupos(String codigo, String nombre, String clave, String ciclo) {
@@ -472,5 +479,13 @@ public class controlador {
 		busquedaGrupos.setVisible(false);
 		vista_info_grupo.setVisible(true);
 	}
-	
+
+	public void actualizarEstadoDel() {
+		busquedaAlumnos.actualizarDELETE();
+		busquedaEmpresas.actualizarDELETE();
+		busquedaGrupos.actualizarDELETE();
+		busquedaTutores.actualizarDELETE();
+
+	}
+
 }

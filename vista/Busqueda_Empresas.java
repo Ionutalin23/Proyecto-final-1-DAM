@@ -23,6 +23,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.Timer;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -46,6 +47,8 @@ public class Busqueda_Empresas extends JFrame {
 	private JLabel CreateNewBtn;
 	private JLabel SearchBtn;
 	private JLabel lblUser;
+	private JLabel lblSelcc;
+	private int temp = 5000;
 	private String NomTabla = "empresa";
 	private String NomClave = "cif";
 
@@ -116,7 +119,7 @@ public class Busqueda_Empresas extends JFrame {
 		lblUser.setHorizontalAlignment(SwingConstants.CENTER);
 
 // 		Label MSG borrado
-		JLabel lblSelcc = new JLabel("No ha seleccionado ninguna fila");
+		lblSelcc = new JLabel("No ha seleccionado ninguna fila");
 		lblSelcc.setVisible(false);
 		lblSelcc.setBounds(225, 593, 426, 16);
 		contentPane.add(lblSelcc);
@@ -188,15 +191,15 @@ public class Busqueda_Empresas extends JFrame {
 			}
 
 			public void mouseClicked(MouseEvent e) {
-				int seleccion=table.getSelectedRow();
-				String cif=String.valueOf(table.getValueAt(seleccion, 0));
-				String nombre=String.valueOf(table.getValueAt(seleccion, 1));
-				String direccion=String.valueOf(table.getValueAt(seleccion, 2));
-				String telefono=String.valueOf(table.getValueAt(seleccion, 3));
-				String localidad=String.valueOf(table.getValueAt(seleccion, 4));
-				String representante=String.valueOf(table.getValueAt(seleccion, 5));
-				String email=String.valueOf(table.getValueAt(seleccion, 6));
-				miControlador.enviarDatosEmpresa(cif, nombre,direccion, telefono, localidad, representante, email);
+				int seleccion = table.getSelectedRow();
+				String cif = String.valueOf(table.getValueAt(seleccion, 0));
+				String nombre = String.valueOf(table.getValueAt(seleccion, 1));
+				String direccion = String.valueOf(table.getValueAt(seleccion, 2));
+				String telefono = String.valueOf(table.getValueAt(seleccion, 3));
+				String localidad = String.valueOf(table.getValueAt(seleccion, 4));
+				String representante = String.valueOf(table.getValueAt(seleccion, 5));
+				String email = String.valueOf(table.getValueAt(seleccion, 6));
+				miControlador.enviarDatosEmpresa(cif, nombre, direccion, telefono, localidad, representante, email);
 			}
 		});
 		ModifyBtn.setBounds(10, 591, 89, 23);
@@ -233,6 +236,7 @@ public class Busqueda_Empresas extends JFrame {
 					miModelo.setNombreTabla(NomTabla);
 					miModelo.setNombreClave(NomClave);
 					miControlador.ventana_conf_delete();
+
 				}
 			}
 		});
@@ -401,6 +405,19 @@ public class Busqueda_Empresas extends JFrame {
 	public void actualizarLogged() {
 		lblUser.setText("Logged as: " + miModelo.getUSR());
 
+	}
+
+	public void actualizarDELETE() {
+		lblSelcc.setText("Borrado realizado con ÉXITO");
+		lblSelcc.setVisible(true);
+		ActionListener ocultarLabel = new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				lblSelcc.setVisible(false);
+			}
+		};
+		new Timer(temp, ocultarLabel).start();
 	}
 
 	public String getNombreClave() {
