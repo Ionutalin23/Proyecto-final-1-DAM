@@ -189,6 +189,16 @@ public class modelo {
 	private String SqlEstadisticasPracticas = "SELECT COUNT(ANEXO_2_1) FROM PI.practica where ? IS NOT NULL";
 	private String SqlEstadisticasPracticas2 = "SELECT COUNT(?) FROM PI.practica where ANEXO_2_1 IS NULL";
 	private String SqlGruposAlumnos = "select nom_grupo \"GRUPO\", count(*) \"ALUMNOS\" from PI.grupo, PI.alumno, PI.pertenece where alumno.num_exp=pertenece.alumno_num_exp AND grupo.cod_grupo=pertenece.grupo_cod_grupo group by grupo.nom_grupo";
+	private String SQLanexo1Busqueda = "SELECT E.cif, E.nombre \"Empresa\",C.cod_centro, C.localidad, C.director, CO.anexo_1 FROM PI.centro C, PI.colabora CO, PI.empresa E WHERE CO.centro_cod_centro=C.cod_centro AND  CO.empresa_cif=E.cif AND E.nombre LIKE ?";
+	private String SQLanexo2_1Busqueda = "SELECT num_exp \"EXPEDIENTE\",nombre, apellidos, anexo_2_1 FROM PI.alumno, PI.practica WHERE num_exp=alumno_num_exp AND nombre LIKE ?";	
+	private String SQLanexo2_2Busqueda = "SELECT A.num_Exp,A.nombre, A.apellidos,CONCAT(GR.nom_grupo,CONCAT(',',GR.cod_grupo)) \"GRUPO\", CONCAT(E.nombre,CONCAT(',',E.cif)) \"EMPRESA\", PR.horario, G.Anexo_2_2 FROM PI.alumno A, PI.pertenece P, PI.grupo GR, PI.gestiona G, PI.Tutor T, PI.centro C, "
+			+ "PI.colabora CO, PI.Empresa E, PI.practica PR WHERE A.num_exp=P.alumno_num_exp AND T.dni_tutor=G.tutor_dni_tutor AND C.cod_centro=T.centro_cod_centro AND CO.empresa_cif=E.cif "
+			+ "AND P.grupo_cod_grupo=GR.cod_grupo AND G.grupo_cod_grupo=GR.cod_grupo AND CO.centro_cod_centro=C.cod_centro\n"
+			+ "AND PR.empresa_cif=E.cif AND PR.alumno_num_exp=A.num_exp AND A.nombre LIKE ?";
+	private String SQLanexo3Busqueda = "SELECT A.num_exp, A.nombre, A.apellidos, PR.anexo_3 FROM PI.alumno A, PI.practica PR WHERE num_exp=alumno_num_exp AND A.nombre LIKE ?";
+	private String SQLanexo7Busqueda = "SELECT A.num_exp, A.nombre, A.apellidos, PR.anexo_7 FROM PI.alumno A, PI.practica PR WHERE A.num_exp=PR.alumno_num_exp AND A.nombre LIKE ?";
+	private String SQLanexo8Busqueda = "SELECT A.num_exp, A.nombre, A.apellidos,CONCAT(C.localidad,CONCAT(',',C.cod_centro)) \"CENTRO\", CONCAT(E.nombre,CONCAT(',',E.cif)) \"EMPRESA\", PR.anexo_8 FROM PI.alumno A, PI.practica PR, PI.empresa E, PI.centro C, PI.colabora CO WHERE num_exp=alumno_num_exp AND PR.empresa_cif=E.cif\n"
+			+ "AND CO.empresa_cif=E.cif AND C.cod_centro=CO.centro_cod_centro AND A.nombre LIKE ?";
 	private JTable tablaTut;
 	private JTable tablaAnx;
 	private ChartPanel barPanelAlumnos;
@@ -1466,5 +1476,89 @@ public class modelo {
 			e.printStackTrace();
 		}
 	}
+	private int getColumnasBusquedaAnexos(String SQL,String Condicion) {
+		int num = 0;
+		try {
+			PreparedStatement pst = conexion.prepareStatement(SQL);
+			pst.setString(1,"%"+Condicion+"%");
+			ResultSet rs = pst.executeQuery();
+			ResultSetMetaData rsmd = rs.getMetaData();
+			num = rsmd.getColumnCount();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return num;
+	}
+
+	private int getFilasBusquedaAnexos(String SQL,String Condicion) {
+		int numFilas = 0;
+		try {
+			PreparedStatement pst = conexion.prepareStatement(SQL);
+			pst.setString(1,"%"+Condicion+"%");
+			ResultSet rs = pst.executeQuery();
+			while (rs.next()) {
+				numFilas++;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return numFilas;
+	}
+	public TableModel getTablaBusquedaAnexos(String SQL,String Condicion) {
+
+		int numColumnas = getColumnasBusquedaAnexos(SQL,Condicion);
+		int numFilas = getFilasBusquedaAnexos(SQL,Condicion);
+
+		String[] cabecera = new String[numColumnas];
+
+		Object[][] contenido = new Object[numFilas][numColumnas];
+
+		try {
+			PreparedStatement pst = conexion.prepareStatement(SQL);
+			pst.setString(1,"%"+Condicion+"%");;
+			ResultSet rs = pst.executeQuery();
+			ResultSetMetaData rsmd = rs.getMetaData();
+			for (int i = 0; i < numColumnas; i++) {
+				cabecera[i] = rsmd.getColumnName(i + 1);
+			}
+			int fila = 0;
+			while (rs.next()) {
+				for (int column = 1; column <= numColumnas; column++) {
+					contenido[fila][column - 1] = rs.getString(column);
+				}
+				fila++;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return new DefaultTableModel(contenido, cabecera);
+
+	}
+	public String getSQLanexo1Busqueda() {
+		return SQLanexo1Busqueda;
+	}
+
+	public String getSQLanexo2_1Busqueda() {
+		return SQLanexo2_1Busqueda;
+	}
+
+	public String getSQLanexo2_2Busqueda() {
+		return SQLanexo2_2Busqueda;
+	}
+
+	public String getSQLanexo3Busqueda() {
+		return SQLanexo3Busqueda;
+	}
+
+	public String getSQLanexo7Busqueda() {
+		return SQLanexo7Busqueda;
+	}
+
+	public String getSQLanexo8Busqueda() {
+		return SQLanexo8Busqueda;
+	}
+	
+	
 	
 }

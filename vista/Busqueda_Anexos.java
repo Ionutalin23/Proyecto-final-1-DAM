@@ -54,8 +54,6 @@ public class Busqueda_Anexos extends JFrame {
 	private JLabel DeleteLbl;
 	private JLabel DownloadBtn;
 	private JLabel DownloadLbl;
-	private JLabel CreateViewLbl;
-	private JLabel CreateViewBtn;
 	private JLabel CreateNewLbl;
 	private JLabel CreateNewBtn;
 	private JLabel SearchBtn;
@@ -187,8 +185,10 @@ public class Busqueda_Anexos extends JFrame {
 
 		addWindowListener(new WindowAdapter() {
 			public void windowActivated(WindowEvent e) {
-				String SQL = miModelo.getSQLanexo1();
-				table.setModel(miModelo.getTabla(SQL));
+				if(selected==0) {
+					String SQL = miModelo.getSQLanexo1();
+					table.setModel(miModelo.getTabla(SQL));
+				}
 			}
 		});
 
@@ -357,41 +357,34 @@ public class Busqueda_Anexos extends JFrame {
 		ViewComboBox.setBackground(Color.GRAY);
 		ViewComboBox.setForeground(Color.WHITE);
 		ViewComboBox.setModel(new DefaultComboBoxModel(new String[] { "DAM-2020" }));
-		ViewComboBox.setBounds(648, 104, 96, 22);
+		ViewComboBox.setBounds(740, 103, 96, 22);
 		contentPane.add(ViewComboBox);
-
-//		Create New View Button ========================
-		CreateViewLbl = new JLabel("Crear Vista");
-		CreateViewLbl.setBounds(775, 104, 71, 23);
-		CreateViewLbl.setFont(new Font("Century Gothic", Font.PLAIN, 12));
-		CreateViewLbl.setForeground(Color.BLACK);
-		contentPane.add(CreateViewLbl);
-
-		CreateViewBtn = new JLabel("");
-		CreateViewBtn.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				CreateViewBtn.setIcon(new ImageIcon(img_default1ButtonHover));
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-				CreateViewBtn.setIcon(new ImageIcon(img_default1Button));
-			}
-
-			public void mouseClicked(MouseEvent e) {
-				// ADD METHOD FOR CREATING VIEW
-			}
-		});
-		CreateViewBtn.setBounds(754, 104, 106, 23);
-		contentPane.add(CreateViewBtn);
-		CreateViewBtn.setIcon(new ImageIcon(img_default1Button));
 
 //		Search Field ========================
 		SearchField = new JTextField();
 		SearchField.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent arg0) {
+				if(selected==0) {
+					String condicion=SearchField.getText();
+					table.setModel(miModelo.getTablaBusquedaAnexos(miModelo.getSQLanexo1Busqueda(), condicion));
+				}else if(selected==1) {
+					String condicion=SearchField.getText();
+					table.setModel(miModelo.getTablaBusquedaAnexos(miModelo.getSQLanexo2_1Busqueda(), condicion));
+				}else if(selected==2) {
+					String condicion=SearchField.getText();
+					table.setModel(miModelo.getTablaBusquedaAnexos(miModelo.getSQLanexo2_2Busqueda(), condicion));
+				}else if(selected==3) {
+					String condicion=SearchField.getText();
+					table.setModel(miModelo.getTablaBusquedaAnexos(miModelo.getSQLanexo3Busqueda(), condicion));
+				}else if(selected==4) {
+					String condicion=SearchField.getText();
+					table.setModel(miModelo.getTablaBusquedaAnexos(miModelo.getSQLanexo7Busqueda(), condicion));
+				}else if(selected==5) {
+					String condicion=SearchField.getText();
+					table.setModel(miModelo.getTablaBusquedaAnexos(miModelo.getSQLanexo8Busqueda(), condicion));
+				}
+				
 			}
 		});
 		SearchField.setBounds(10, 103, 271, 23);
