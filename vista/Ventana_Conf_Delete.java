@@ -130,8 +130,9 @@ public class Ventana_Conf_Delete extends JFrame {
 
 			public void mouseClicked(MouseEvent e) {
 				miModelo.borrarDato(miModelo.getClave(),miModelo.getNombreTabla(), miModelo.getNombreClave());
+				miControlador.actualizarEstadoDel();
 				setVisible(false);
-
+				
 			}
 		});
 		lblSIBtn.setIcon(new ImageIcon(img_buttonLogin));

@@ -23,6 +23,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.Timer;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -46,6 +47,8 @@ public class Busqueda_Grupos extends JFrame {
 	private JLabel CreateNewBtn;
 	private JLabel SearchBtn;
 	private JLabel lblUser;
+	private JLabel lblSelcc;
+	private int temp = 5000;
 	private String NomTabla = "grupo";
 	private String NomClave = "cod_grupo";
 
@@ -115,7 +118,7 @@ public class Busqueda_Grupos extends JFrame {
 		lblUser.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblUser.setHorizontalAlignment(SwingConstants.CENTER);
 // 		label seleccion de fila
-		JLabel lblSelcc = new JLabel("No ha seleccionado ninguna fila");
+		lblSelcc = new JLabel("No ha seleccionado ninguna fila");
 		lblSelcc.setVisible(false);
 		lblSelcc.setBounds(225, 593, 426, 16);
 		contentPane.add(lblSelcc);
@@ -199,12 +202,12 @@ public class Busqueda_Grupos extends JFrame {
 			}
 
 			public void mouseClicked(MouseEvent e) {
-				int seleccion=table.getSelectedRow();
-				String codigo=String.valueOf(table.getValueAt(seleccion, 1));
-				String nombre=String.valueOf(table.getValueAt(seleccion, 2));
-				String clave=String.valueOf(table.getValueAt(seleccion, 3));
-				String ciclo=String.valueOf(table.getValueAt(seleccion, 4));
-				miControlador.enviarDatosGrupos(codigo,nombre,clave,ciclo);
+				int seleccion = table.getSelectedRow();
+				String codigo = String.valueOf(table.getValueAt(seleccion, 0));
+				String nombre = String.valueOf(table.getValueAt(seleccion, 1));
+				String clave = String.valueOf(table.getValueAt(seleccion, 2));
+				String ciclo = String.valueOf(table.getValueAt(seleccion, 3));
+				miControlador.enviarDatosGrupos(codigo, nombre, clave, ciclo);
 			}
 		});
 		ModifyBtn.setBounds(10, 591, 89, 23);
@@ -241,6 +244,7 @@ public class Busqueda_Grupos extends JFrame {
 					miModelo.setNombreTabla(NomTabla);
 					miModelo.setNombreClave(NomClave);
 					miControlador.ventana_conf_delete();
+
 				}
 
 			}
@@ -419,4 +423,18 @@ public class Busqueda_Grupos extends JFrame {
 	public String getNombreClave() {
 		return NomClave;
 	}
+
+	public void actualizarDELETE() {
+		lblSelcc.setText("Borrado realizado con ÉXITO");
+		lblSelcc.setVisible(true);
+		ActionListener ocultarLabel = new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				lblSelcc.setVisible(false);
+			}
+		};
+		new Timer(temp, ocultarLabel).start();
+	}
+
 }

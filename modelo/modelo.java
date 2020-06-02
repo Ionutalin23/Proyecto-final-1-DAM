@@ -143,15 +143,12 @@ public class modelo {
 	public void setVista(Ventana_Estadisticas ventana_estadisticas) {
 		this.ventana_estadisticas = ventana_estadisticas;
 	}
+
 	public void setVista(Ventana_Conf_Anexo ventana_conf_anexo) {
 		this.ventana_conf_anexo = ventana_conf_anexo;
 	}
-	
 
 //  ========================================================================= MVC ====================================================
-
-	
-
 
 	private String[] credenciales = new String[3];
 	private ArrayList<Integer> alumnosEstadisticas = new ArrayList<Integer>();
@@ -190,7 +187,7 @@ public class modelo {
 	private String SqlEstadisticasPracticas2 = "SELECT COUNT(?) FROM PI.practica where ANEXO_2_1 IS NULL";
 	private String SqlGruposAlumnos = "select nom_grupo \"GRUPO\", count(*) \"ALUMNOS\" from PI.grupo, PI.alumno, PI.pertenece where alumno.num_exp=pertenece.alumno_num_exp AND grupo.cod_grupo=pertenece.grupo_cod_grupo group by grupo.nom_grupo";
 	private String SQLanexo1Busqueda = "SELECT E.cif, E.nombre \"Empresa\",C.cod_centro, C.localidad, C.director, CO.anexo_1 FROM PI.centro C, PI.colabora CO, PI.empresa E WHERE CO.centro_cod_centro=C.cod_centro AND  CO.empresa_cif=E.cif AND E.nombre LIKE ?";
-	private String SQLanexo2_1Busqueda = "SELECT num_exp \"EXPEDIENTE\",nombre, apellidos, anexo_2_1 FROM PI.alumno, PI.practica WHERE num_exp=alumno_num_exp AND nombre LIKE ?";	
+	private String SQLanexo2_1Busqueda = "SELECT num_exp \"EXPEDIENTE\",nombre, apellidos, anexo_2_1 FROM PI.alumno, PI.practica WHERE num_exp=alumno_num_exp AND nombre LIKE ?";
 	private String SQLanexo2_2Busqueda = "SELECT A.num_Exp,A.nombre, A.apellidos,CONCAT(GR.nom_grupo,CONCAT(',',GR.cod_grupo)) \"GRUPO\", CONCAT(E.nombre,CONCAT(',',E.cif)) \"EMPRESA\", PR.horario, G.Anexo_2_2 FROM PI.alumno A, PI.pertenece P, PI.grupo GR, PI.gestiona G, PI.Tutor T, PI.centro C, "
 			+ "PI.colabora CO, PI.Empresa E, PI.practica PR WHERE A.num_exp=P.alumno_num_exp AND T.dni_tutor=G.tutor_dni_tutor AND C.cod_centro=T.centro_cod_centro AND CO.empresa_cif=E.cif "
 			+ "AND P.grupo_cod_grupo=GR.cod_grupo AND G.grupo_cod_grupo=GR.cod_grupo AND CO.centro_cod_centro=C.cod_centro\n"
@@ -219,6 +216,7 @@ public class modelo {
 	private String anexo3Update;
 	private String anexo7Update;
 	private String anexo8Update;
+	private boolean exitoDelete;
 
 	public void ConexionBBDD() {
 		lecturaFichero();
@@ -463,13 +461,14 @@ public class modelo {
 		}
 
 	}
-	
+
 //	MODIFICAR EMPRESA ========================
 	public void modificarEmpresa(String cif, String nombre, String direccion, int i, String localidad,
 			String representante, String email) {
 		PreparedStatement stmt;
 		try {
-			stmt = conexion.prepareStatement("UPDATE PI.EMPRESA SET CIF=?, NOMBRE=?, DIRECCION=?, TELEFONO=?, LOCALIDAD=?, EMAIL=?, RESP_EMPRESA=?");
+			stmt = conexion.prepareStatement(
+					"UPDATE PI.EMPRESA SET CIF=?, NOMBRE=?, DIRECCION=?, TELEFONO=?, LOCALIDAD=?, EMAIL=?, RESP_EMPRESA=?");
 			stmt.setString(1, cif);
 			stmt.setString(2, nombre);
 			stmt.setString(3, direccion);
@@ -477,10 +476,10 @@ public class modelo {
 			stmt.setString(5, localidad);
 			stmt.setString(6, email);
 			stmt.setString(7, representante);
-			
+
 			int resul = stmt.executeUpdate();
 		} catch (Exception e) {
-			
+
 			e.printStackTrace();
 		}
 	}
@@ -825,13 +824,14 @@ public class modelo {
 
 //ELIMINAR DATOS
 	public void borrarDato(String clave, String nombre, String nombreClave) {
-
+		String delete;
 		nombre = "PI." + nombre;
-		String delete = "DELETE FROM " + nombre + " WHERE " + nombreClave + " = '" + clave + "'";
+		delete = "DELETE FROM " + nombre + " WHERE " + nombreClave + " = '" + clave + "'";
 
 		try {
 			Statement ins = conexion.createStatement();
 			ResultSet rs = ins.executeQuery(delete);
+			exitoDelete = true;
 			ins.close();
 			rs.close();
 
@@ -839,6 +839,10 @@ public class modelo {
 			e.printStackTrace();
 		}
 
+	}
+
+	public boolean getStatusDelete() {
+		return exitoDelete;
 	}
 
 	public void setClave(String clave) {
@@ -1029,22 +1033,23 @@ public class modelo {
 		}
 
 	}
-	
+
 	public void modificarTutor(String dni, String nombre, String apellidos, int codCentro) {
 		PreparedStatement ps;
-		try {		
-			ps = conexion.prepareStatement("UPDATE PI.tutor SET nombre = ?, apellidos = ?, centro_cod_centro = ?  WHERE dni_tutor = ?");
+		try {
+			ps = conexion.prepareStatement(
+					"UPDATE PI.tutor SET nombre = ?, apellidos = ?, centro_cod_centro = ?  WHERE dni_tutor = ?");
 			ps.setString(1, dni);
 			ps.setString(2, nombre);
 			ps.setString(3, apellidos);
 			ps.setInt(4, codCentro);
-			
+
 			int resul = ps.executeUpdate();
 		} catch (SQLException e) {
 
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	public void setmodificar(boolean mod) {
@@ -1063,7 +1068,8 @@ public class modelo {
 	public void modificarGrupo(int codigo, String grupo, int clave, String ciclo) {
 		PreparedStatement stmt;
 		try {
-			stmt = conexion.prepareStatement("UPDATE PI.grupo SET nom_grupo = ?, clave_ciclo = ?, nombre_ciclo = ? WHERE cod_grupo = ?");
+			stmt = conexion.prepareStatement(
+					"UPDATE PI.grupo SET nom_grupo = ?, clave_ciclo = ?, nombre_ciclo = ? WHERE cod_grupo = ?");
 			stmt.setString(1, grupo);
 			stmt.setInt(2, clave);
 			stmt.setString(3, ciclo);
@@ -1086,20 +1092,22 @@ public class modelo {
 	public String getResultadoGrupoUpdate() {
 		return resultadoGrupoUpdate;
 	}
+
 	public String getAnexo1Update() {
 		return anexo1Update;
 	}
-	
-	
+
 	public String getAnexo2Update() {
 		return anexo2Update;
 	}
 
-	public void modificarAnexo1(String cif,String empresa, String cod_centro, String localidad, String director, String anexo_1) {
-		PreparedStatement stmt,stmt2,stmt3,stmt4;
+	public void modificarAnexo1(String cif, String empresa, String cod_centro, String localidad, String director,
+			String anexo_1) {
+		PreparedStatement stmt, stmt2, stmt3, stmt4;
 		try {
-			int codigo=Integer.parseInt(cod_centro);
-			stmt = conexion.prepareStatement("UPDATE PI.colabora SET anexo_1 = ? WHERE centro_cod_centro = ? AND empresa_cif= ?");
+			int codigo = Integer.parseInt(cod_centro);
+			stmt = conexion.prepareStatement(
+					"UPDATE PI.colabora SET anexo_1 = ? WHERE centro_cod_centro = ? AND empresa_cif= ?");
 			stmt2 = conexion.prepareStatement("UPDATE PI.empresa SET nombre = ? WHERE cif= ?");
 			stmt3 = conexion.prepareStatement("UPDATE PI.centro SET localidad = ? WHERE cod_centro = ?");
 			stmt4 = conexion.prepareStatement("UPDATE PI.centro SET director = ? WHERE cod_centro = ?");
@@ -1116,7 +1124,7 @@ public class modelo {
 			int resul2 = stmt2.executeUpdate();
 			int resul3 = stmt3.executeUpdate();
 			int resul4 = stmt4.executeUpdate();
-			if (resul > 0 && resul2> 0&& resul3> 0&& resul4> 0) {
+			if (resul > 0 && resul2 > 0 && resul3 > 0 && resul4 > 0) {
 				anexo1Update = "EXITO";
 				busquedaAnexos.actualizar();
 			} else {
@@ -1130,7 +1138,7 @@ public class modelo {
 	}
 
 	public void modificarAnexo2(String expe, String nombre, String apellidos, String anexo_2_1) {
-		PreparedStatement stmt,stmt2,stmt3,stmt4;
+		PreparedStatement stmt, stmt2, stmt3, stmt4;
 		int resul3;
 		try {
 			if (!anexo_2_1.equals("null") && !anexo_2_1.isEmpty()) {
@@ -1150,24 +1158,24 @@ public class modelo {
 				resul3 = stmt3.executeUpdate();
 				int resul = stmt.executeUpdate();
 				int resul2 = stmt2.executeUpdate();
-				if (resul > 0 && resul2> 0 && resul3>0) {
+				if (resul > 0 && resul2 > 0 && resul3 > 0) {
 					anexo2Update = "EXITO";
 					busquedaAnexos.actualizar2();
 				} else {
 					anexo2Update = "ERROR";
 					busquedaAnexos.actualizar2();
 				}
-			}else {
+			} else {
 				stmt = conexion.prepareStatement("UPDATE PI.alumno SET nombre = ? WHERE num_exp = ?");
 				stmt2 = conexion.prepareStatement("UPDATE PI.alumno SET apellidos = ? WHERE num_exp= ?");
 				stmt.setString(1, nombre);
 				stmt.setString(2, expe);
 				stmt2.setString(1, apellidos);
 				stmt2.setString(2, expe);
-				
+
 				int resul = stmt.executeUpdate();
 				int resul2 = stmt2.executeUpdate();
-				if (resul > 0 && resul2> 0) {
+				if (resul > 0 && resul2 > 0) {
 					anexo2Update = "EXITO";
 					busquedaAnexos.actualizar2();
 				} else {
@@ -1175,19 +1183,19 @@ public class modelo {
 					busquedaAnexos.actualizar2();
 				}
 			}
-			
+
 		} catch (SQLException | ParseException e) {
 
 			e.printStackTrace();
 		}
 	}
 
-	public void modificarAnexo2_2(String expe, String nombre, String apellidos, String grupo,String empresa,
+	public void modificarAnexo2_2(String expe, String nombre, String apellidos, String grupo, String empresa,
 			String horario, String anexo_2_2) {
-		PreparedStatement stmt,stmt2,stmt3,stmt4,stmt5;
-		String[] grupoArray=grupo.split(",");
-		String[] empresaArray=empresa.split(",");
-		int codigo=Integer.parseInt(grupoArray[1]);
+		PreparedStatement stmt, stmt2, stmt3, stmt4, stmt5;
+		String[] grupoArray = grupo.split(",");
+		String[] empresaArray = empresa.split(",");
+		int codigo = Integer.parseInt(grupoArray[1]);
 		try {
 			if (!anexo_2_2.equals("null") && !anexo_2_2.isEmpty()) {
 //				SimpleDateFormat formatt = new SimpleDateFormat("dd/MM/yyyy HH:");
@@ -1215,14 +1223,14 @@ public class modelo {
 				int resul2 = stmt2.executeUpdate();
 				int resul4 = stmt4.executeUpdate();
 				int resul5 = stmt5.executeUpdate();
-				if (resul > 0 && resul2> 0 && resul3>0&& resul4>0 && resul5>0) {
+				if (resul > 0 && resul2 > 0 && resul3 > 0 && resul4 > 0 && resul5 > 0) {
 					anexo2_2Update = "EXITO";
 					busquedaAnexos.actualizar3();
 				} else {
 					anexo2_2Update = "ERROR";
 					busquedaAnexos.actualizar3();
 				}
-			}else {
+			} else {
 				stmt = conexion.prepareStatement("UPDATE PI.alumno SET nombre = ?, apellidos=? WHERE num_exp = ?");
 				stmt2 = conexion.prepareStatement("UPDATE PI.practica SET horario = ? WHERE alumno_num_exp= ?");
 				stmt4 = conexion.prepareStatement("UPDATE PI.grupo SET nom_grupo = ? WHERE cod_grupo = ?");
@@ -1237,12 +1245,12 @@ public class modelo {
 				stmt4.setInt(2, codigo);
 				stmt5.setString(1, empresaArray[0]);
 				stmt5.setString(2, empresaArray[1]);
-				
+
 				int resul = stmt.executeUpdate();
 				int resul2 = stmt2.executeUpdate();
 				int resul4 = stmt4.executeUpdate();
 				int resul5 = stmt5.executeUpdate();
-				if (resul > 0 && resul2> 0&& resul4>0 && resul5>0) {
+				if (resul > 0 && resul2 > 0 && resul4 > 0 && resul5 > 0) {
 					anexo2_2Update = "EXITO";
 					busquedaAnexos.actualizar3();
 				} else {
@@ -1250,12 +1258,12 @@ public class modelo {
 					busquedaAnexos.actualizar3();
 				}
 			}
-			
+
 		} catch (SQLException | ParseException e) {
 
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	public String getAnexo2_2Update() {
@@ -1263,7 +1271,7 @@ public class modelo {
 	}
 
 	public void modificarAnexo3(String expe, String nombre, String apellidos, String anexo_3) {
-		PreparedStatement stmt,stmt2;
+		PreparedStatement stmt, stmt2;
 		int resul2;
 		try {
 			if (!anexo_3.equals("null") && !anexo_3.isEmpty()) {
@@ -1280,19 +1288,19 @@ public class modelo {
 				stmt2.setString(2, expe);
 				resul2 = stmt2.executeUpdate();
 				int resul = stmt.executeUpdate();
-				if (resul > 0 && resul2> 0) {
+				if (resul > 0 && resul2 > 0) {
 					anexo3Update = "EXITO";
 					busquedaAnexos.actualizar4();
 				} else {
 					anexo3Update = "ERROR";
 					busquedaAnexos.actualizar4();
 				}
-			}else {
+			} else {
 				stmt = conexion.prepareStatement("UPDATE PI.alumno SET nombre = ?, apellidos=? WHERE num_exp = ?");
 				stmt.setString(1, nombre);
 				stmt.setString(2, apellidos);
 				stmt.setString(3, expe);
-				
+
 				int resul = stmt.executeUpdate();
 				if (resul > 0) {
 					anexo2Update = "EXITO";
@@ -1302,18 +1310,19 @@ public class modelo {
 					busquedaAnexos.actualizar4();
 				}
 			}
-			
+
 		} catch (SQLException | ParseException e) {
 
 			e.printStackTrace();
 		}
 	}
+
 	public String getAnexo3Update() {
 		return anexo3Update;
 	}
 
 	public void modificarAnexo7(String expe, String nombre, String apellidos, String anexo_7) {
-		PreparedStatement stmt,stmt2;
+		PreparedStatement stmt, stmt2;
 		int resul2;
 		try {
 			if (!anexo_7.equals("null") && !anexo_7.isEmpty()) {
@@ -1330,19 +1339,19 @@ public class modelo {
 				stmt2.setString(2, expe);
 				resul2 = stmt2.executeUpdate();
 				int resul = stmt.executeUpdate();
-				if (resul > 0 && resul2> 0) {
+				if (resul > 0 && resul2 > 0) {
 					anexo7Update = "EXITO";
 					busquedaAnexos.actualizar5();
 				} else {
 					anexo7Update = "ERROR";
 					busquedaAnexos.actualizar5();
 				}
-			}else {
+			} else {
 				stmt = conexion.prepareStatement("UPDATE PI.alumno SET nombre = ?, apellidos=? WHERE num_exp = ?");
 				stmt.setString(1, nombre);
 				stmt.setString(2, apellidos);
 				stmt.setString(3, expe);
-				
+
 				int resul = stmt.executeUpdate();
 				if (resul > 0) {
 					anexo7Update = "EXITO";
@@ -1352,23 +1361,24 @@ public class modelo {
 					busquedaAnexos.actualizar5();
 				}
 			}
-			
+
 		} catch (SQLException | ParseException e) {
 
 			e.printStackTrace();
 		}
 	}
+
 	public String getAnexo7Update() {
 		return anexo7Update;
 	}
 
 	public void modificarAnexo8(String expe, String nombre, String apellidos, String centro, String empresa,
 			String anexo_8) {
-		PreparedStatement stmt,stmt2,stmt3,stmt4;
+		PreparedStatement stmt, stmt2, stmt3, stmt4;
 		int resul4;
-		String[] centroArray=centro.split(",");
-		String[] empresaArray=empresa.split(",");
-		int cod_centro=Integer.parseInt(centroArray[1]);
+		String[] centroArray = centro.split(",");
+		String[] empresaArray = empresa.split(",");
+		int cod_centro = Integer.parseInt(centroArray[1]);
 		try {
 			if (!anexo_8.equals("null") && !anexo_8.isEmpty()) {
 //				SimpleDateFormat formatt = new SimpleDateFormat("dd/MM/yyyy HH:");
@@ -1392,14 +1402,14 @@ public class modelo {
 				int resul = stmt.executeUpdate();
 				int resul2 = stmt2.executeUpdate();
 				int resul3 = stmt3.executeUpdate();
-				if (resul > 0 && resul2> 0 && resul3>0&& resul4>0) {
+				if (resul > 0 && resul2 > 0 && resul3 > 0 && resul4 > 0) {
 					anexo8Update = "EXITO";
 					busquedaAnexos.actualizar6();
 				} else {
 					anexo8Update = "ERROR";
 					busquedaAnexos.actualizar6();
 				}
-			}else {
+			} else {
 				stmt = conexion.prepareStatement("UPDATE PI.alumno SET nombre= ?, apellidos = ? WHERE num_exp= ?");
 				stmt2 = conexion.prepareStatement("UPDATE PI.centro SET localidad= ? WHERE cod_centro= ?");
 				stmt3 = conexion.prepareStatement("UPDATE PI.empresa SET nombre = ? WHERE cif = ?");
@@ -1410,11 +1420,11 @@ public class modelo {
 				stmt2.setInt(2, cod_centro);
 				stmt3.setString(1, empresaArray[0]);
 				stmt3.setString(2, empresaArray[1]);
-				
+
 				int resul = stmt.executeUpdate();
 				int resul2 = stmt2.executeUpdate();
 				int resul3 = stmt3.executeUpdate();
-				if (resul > 0 && resul2> 0&& resul3> 0) {
+				if (resul > 0 && resul2 > 0 && resul3 > 0) {
 					anexo8Update = "EXITO";
 					busquedaAnexos.actualizar6();
 				} else {
@@ -1422,7 +1432,7 @@ public class modelo {
 					busquedaAnexos.actualizar6();
 				}
 			}
-			
+
 		} catch (SQLException | ParseException e) {
 
 			e.printStackTrace();
@@ -1456,7 +1466,7 @@ public class modelo {
 	public void setNombreTablaAnexo(String nombreTablaAnexo) {
 		this.nombreTablaAnexo = nombreTablaAnexo;
 	}
-	
+
 	public int getAnexoSeleccionado() {
 		return anexoSeleccionado;
 	}
@@ -1468,8 +1478,9 @@ public class modelo {
 	public void anularAnexo(String nombreTablaAnexo2, String nombreAnexo2, String cifEmpresa2) {
 		PreparedStatement stmt;
 		try {
-			stmt = conexion.prepareStatement("UPDATE PI."+nombreTablaAnexo2+" SET "+nombreAnexo2+" = ? WHERE empresa_cif = ?");
-			stmt.setNull(1,java.sql.Types.VARCHAR);
+			stmt = conexion.prepareStatement(
+					"UPDATE PI." + nombreTablaAnexo2 + " SET " + nombreAnexo2 + " = ? WHERE empresa_cif = ?");
+			stmt.setNull(1, java.sql.Types.VARCHAR);
 			stmt.setString(2, cifEmpresa2);
 			int resul = stmt.executeUpdate();
 			if (resul > 0) {
@@ -1488,8 +1499,9 @@ public class modelo {
 	public void anularAnexo2(String nombreTablaAnexo2, String nombreAnexo2, String cifEmpresa2) {
 		PreparedStatement stmt;
 		try {
-			stmt = conexion.prepareStatement("UPDATE PI."+nombreTablaAnexo2+" SET "+nombreAnexo2+" = ? WHERE alumno_num_exp = ?");
-			stmt.setNull(1,java.sql.Types.DATE);
+			stmt = conexion.prepareStatement(
+					"UPDATE PI." + nombreTablaAnexo2 + " SET " + nombreAnexo2 + " = ? WHERE alumno_num_exp = ?");
+			stmt.setNull(1, java.sql.Types.DATE);
 			stmt.setString(2, cifEmpresa2);
 			int resul = stmt.executeUpdate();
 			if (resul > 0) {
@@ -1508,9 +1520,10 @@ public class modelo {
 	public void anularAnexo2_2(String nombreTablaAnexo2, String nombreAnexo2, String cifEmpresa2) {
 		PreparedStatement stmt;
 		try {
-			String[] array=cifEmpresa2.split(",");
-			stmt = conexion.prepareStatement("UPDATE PI."+nombreTablaAnexo2+" SET "+nombreAnexo2+" = ? WHERE grupo_cod_grupo = ?");
-			stmt.setNull(1,java.sql.Types.DATE);
+			String[] array = cifEmpresa2.split(",");
+			stmt = conexion.prepareStatement(
+					"UPDATE PI." + nombreTablaAnexo2 + " SET " + nombreAnexo2 + " = ? WHERE grupo_cod_grupo = ?");
+			stmt.setNull(1, java.sql.Types.DATE);
 			stmt.setInt(2, Integer.parseInt(array[1]));
 			int resul = stmt.executeUpdate();
 			if (resul > 0) {
@@ -1525,11 +1538,12 @@ public class modelo {
 			e.printStackTrace();
 		}
 	}
-	private int getColumnasBusquedaAnexos(String SQL,String Condicion) {
+
+	private int getColumnasBusquedaAnexos(String SQL, String Condicion) {
 		int num = 0;
 		try {
 			PreparedStatement pst = conexion.prepareStatement(SQL);
-			pst.setString(1,"%"+Condicion+"%");
+			pst.setString(1, "%" + Condicion + "%");
 			ResultSet rs = pst.executeQuery();
 			ResultSetMetaData rsmd = rs.getMetaData();
 			num = rsmd.getColumnCount();
@@ -1539,11 +1553,11 @@ public class modelo {
 		return num;
 	}
 
-	private int getFilasBusquedaAnexos(String SQL,String Condicion) {
+	private int getFilasBusquedaAnexos(String SQL, String Condicion) {
 		int numFilas = 0;
 		try {
 			PreparedStatement pst = conexion.prepareStatement(SQL);
-			pst.setString(1,"%"+Condicion+"%");
+			pst.setString(1, "%" + Condicion + "%");
 			ResultSet rs = pst.executeQuery();
 			while (rs.next()) {
 				numFilas++;
@@ -1553,10 +1567,11 @@ public class modelo {
 		}
 		return numFilas;
 	}
-	public TableModel getTablaBusquedaAnexos(String SQL,String Condicion) {
 
-		int numColumnas = getColumnasBusquedaAnexos(SQL,Condicion);
-		int numFilas = getFilasBusquedaAnexos(SQL,Condicion);
+	public TableModel getTablaBusquedaAnexos(String SQL, String Condicion) {
+
+		int numColumnas = getColumnasBusquedaAnexos(SQL, Condicion);
+		int numFilas = getFilasBusquedaAnexos(SQL, Condicion);
 
 		String[] cabecera = new String[numColumnas];
 
@@ -1564,7 +1579,8 @@ public class modelo {
 
 		try {
 			PreparedStatement pst = conexion.prepareStatement(SQL);
-			pst.setString(1,"%"+Condicion+"%");;
+			pst.setString(1, "%" + Condicion + "%");
+			;
 			ResultSet rs = pst.executeQuery();
 			ResultSetMetaData rsmd = rs.getMetaData();
 			for (int i = 0; i < numColumnas; i++) {
@@ -1584,6 +1600,7 @@ public class modelo {
 		return new DefaultTableModel(contenido, cabecera);
 
 	}
+
 	public String getSQLanexo1Busqueda() {
 		return SQLanexo1Busqueda;
 	}
@@ -1607,7 +1624,5 @@ public class modelo {
 	public String getSQLanexo8Busqueda() {
 		return SQLanexo8Busqueda;
 	}
-	
-	
-	
+
 }
