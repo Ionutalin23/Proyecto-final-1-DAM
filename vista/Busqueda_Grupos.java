@@ -200,10 +200,10 @@ public class Busqueda_Grupos extends JFrame {
 
 			public void mouseClicked(MouseEvent e) {
 				int seleccion=table.getSelectedRow();
-				String codigo=String.valueOf(table.getValueAt(seleccion, 0));
-				String nombre=String.valueOf(table.getValueAt(seleccion, 1));
-				String clave=String.valueOf(table.getValueAt(seleccion, 2));
-				String ciclo=String.valueOf(table.getValueAt(seleccion, 3));
+				String codigo=String.valueOf(table.getValueAt(seleccion, 1));
+				String nombre=String.valueOf(table.getValueAt(seleccion, 2));
+				String clave=String.valueOf(table.getValueAt(seleccion, 3));
+				String ciclo=String.valueOf(table.getValueAt(seleccion, 4));
 				miControlador.enviarDatosGrupos(codigo,nombre,clave,ciclo);
 			}
 		});
