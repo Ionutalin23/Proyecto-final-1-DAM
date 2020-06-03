@@ -523,4 +523,34 @@ public class controlador {
 
 	}
 
+	public void graficaCircularAlumnosTutor() {
+		miModelo.GruposAlumnosTutor();
+		miModelo.dibujargraficaCircularAlumnosTutor();
+	}
+
+	public void graficaBarrasAlumnosTutor() {
+		miModelo.GruposAlumnosTutor();
+		miModelo.dibujarGraficaBarrasAlumnosTutor();
+	}
+
+	public void graficaCircularTutoresCiclo() {
+		miModelo.tutoresCiclo();
+		miModelo.dibujargraficaCircularTutoresCiclo();
+	}
+
+	public void graficaBarrasTutoresCiclo() {
+		miModelo.tutoresCiclo();
+		miModelo.dibujarBarrasTutoresCiclo();
+	}
+
+	public void graficaCircularAlumnosEmpresa() {
+		miModelo.alumnosEmpresa();
+		miModelo.dibujargraficaCircularAlumnosEmpresa();
+	}
+
+	public void graficaBarrasAlumnosEmpresa() {
+		miModelo.alumnosEmpresa();
+		miModelo.dibujargraficaBarrasAlumnosEmpresa();
+	}
+
 }

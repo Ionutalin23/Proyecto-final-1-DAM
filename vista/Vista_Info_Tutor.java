@@ -12,6 +12,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.JTextField;
 import java.awt.Color;
 import javax.swing.SwingConstants;
+import javax.swing.Timer;
 import javax.swing.border.BevelBorder;
 
 import controlador.controlador;
@@ -34,6 +35,8 @@ public class Vista_Info_Tutor extends JFrame {
 	private JLabel lblBack;
 	private JLabel lblUser;
 	private JPanel pnlContenido;
+	private int temp = 5000;
+	private JLabel lblRespuesta;
 
 	public Vista_Info_Tutor() {
 		setTitle("");
@@ -155,7 +158,7 @@ public class Vista_Info_Tutor extends JFrame {
 		lblCrear.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCrear.setForeground(Color.WHITE);
 		lblCrear.setBackground(new Color(205, 92, 92));
-		lblCrear.setBounds(220, 478, 109, 48);
+		lblCrear.setBounds(193, 445, 109, 48);
 		pnlContenido.add(lblCrear);
 
 		JLabel lblCrearButton = new JLabel("");
@@ -184,7 +187,7 @@ public class Vista_Info_Tutor extends JFrame {
 				miControlador.insertarTutor();
 			}
 		});
-		lblCrearButton.setBounds(219, 478, 110, 48);
+		lblCrearButton.setBounds(192, 445, 110, 48);
 		pnlContenido.add(lblCrearButton);
 		lblCrearButton.setIcon(new ImageIcon(button1));
 		
@@ -193,7 +196,7 @@ public class Vista_Info_Tutor extends JFrame {
 		lblModify.setHorizontalAlignment(SwingConstants.CENTER);
 		lblModify.setForeground(Color.WHITE);
 		lblModify.setBackground(new Color(205, 92, 92));
-		lblModify.setBounds(83, 478, 109, 48);
+		lblModify.setBounds(45, 445, 109, 48);
 		pnlContenido.add(lblModify);
 
 		JLabel lblModButton = new JLabel("");
@@ -222,7 +225,7 @@ public class Vista_Info_Tutor extends JFrame {
 				miModelo.modificarTutor(txtDni.getText(), txtName.getText(), txtApellidos.getText(), Integer.parseInt(txtCodCentro.getText()));
 			}
 		});
-		lblModButton.setBounds(83, 478, 116, 48);
+		lblModButton.setBounds(45, 445, 109, 48);
 		pnlContenido.add(lblModButton);
 		lblModButton.setIcon(new ImageIcon(button1));
 
@@ -294,6 +297,15 @@ public class Vista_Info_Tutor extends JFrame {
 		lblBack.setIcon(new ImageIcon(Vista_Info_Alumno.class.getResource("/images/back1.png")));
 		lblBack.setBounds(35, 13, 24, 24);
 		pnlContenido.add(lblBack);
+		
+		lblRespuesta = new JLabel("New label");
+		lblRespuesta.setBackground(Color.WHITE);
+		lblRespuesta.setForeground(Color.WHITE);
+		lblRespuesta.setHorizontalAlignment(SwingConstants.CENTER);
+		lblRespuesta.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblRespuesta.setBounds(55, 509, 247, 29);
+		pnlContenido.add(lblRespuesta);
+		lblRespuesta.setText("");
 
 //		BACKGROUND IMG ========================
 		JLabel lblFondo = new JLabel("");
@@ -377,6 +389,24 @@ public class Vista_Info_Tutor extends JFrame {
 		} else {
 			JOptionPane.showMessageDialog(this, "Error, por favor compruebe todos los datos");
 		}
+	}
+	public void actualizarUpdate() {
+		String resultado=miModelo.getResultadoTutor();
+		if(resultado.equals("EXITO")) {
+			lblRespuesta.setText("Tutor modificado con ÉXITO");
+		}else {
+			lblRespuesta.setText("Error,No se ha podido modifcar el tutor");
+		}
+		//lblRespuesta.setVisible(true);
+		ActionListener ocultarLabel = new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//lblRespuesta.setVisible(false);
+				lblRespuesta.setText("");
+			}
+		};
+		new Timer(temp, ocultarLabel).start();
 	}
 
 //	CLEAR FIELDS ========================
