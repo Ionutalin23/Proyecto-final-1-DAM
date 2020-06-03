@@ -145,7 +145,7 @@ public class Busqueda_Alumnos extends JFrame {
 
 		addWindowListener(new WindowAdapter() {
 			public void windowActivated(WindowEvent e) {
-				String SQL = miModelo.getSQLalumnos();
+				String SQL = miModelo.getSQLalumnos2();
 				table.setModel(miModelo.getTabla(SQL));
 			}
 		});
@@ -258,12 +258,24 @@ public class Busqueda_Alumnos extends JFrame {
 		DeleteBtn.setIcon(new ImageIcon(img_ButtonEliminar));
 
 //		View Combo Box ========================
-		JComboBox ViewComboBox = new JComboBox();
-		ViewComboBox.setBackground(Color.GRAY);
-		ViewComboBox.setForeground(Color.WHITE);
-		ViewComboBox.setModel(new DefaultComboBoxModel(new String[] { "DAM-2020" }));
-		ViewComboBox.setBounds(648, 104, 96, 22);
-		contentPane.add(ViewComboBox);
+		JComboBox AñoAcad = new JComboBox();
+		AñoAcad.setBackground(Color.GRAY);
+		AñoAcad.setForeground(Color.WHITE);
+		AñoAcad.setModel(new DefaultComboBoxModel(new String[] { "DAM-2020", "DAM-2019" }));
+		AñoAcad.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int selected = AñoAcad.getSelectedIndex();
+				if (selected == 0) {
+					String SQL = miModelo.getSQLalumnos2();
+					table.setModel(miModelo.getTabla(SQL));
+				} else if (selected == 1) {
+					String SQL = miModelo.getSQLalumnos();
+					table.setModel(miModelo.getTabla(SQL));
+				}
+			}
+		});
+		AñoAcad.setBounds(648, 104, 96, 22);
+		contentPane.add(AñoAcad);
 
 //		Create New View Button ========================
 		CreateViewLbl = new JLabel("Crear Vista");

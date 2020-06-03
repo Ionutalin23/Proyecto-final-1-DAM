@@ -168,11 +168,23 @@ public class modelo {
 	private String SQLanexo7 = "SELECT A.nombre, A.apellidos, PR.anexo_7 FROM PI.alumno A, PI.practica PR WHERE A.num_exp=PR.alumno_num_exp";
 	private String SQLanexo8 = "SELECT A.nombre, A.apellidos,CONCAT(C.localidad,CONCAT(',',C.cod_centro)) \"CENTRO\", E.Nombre \"EMPRESA\", PR.anexo_8 FROM PI.alumno A, PI.practica PR, PI.empresa E, PI.centro C, PI.colabora CO WHERE num_exp=alumno_num_exp AND PR.empresa_cif=E.cif\n"
 			+ "AND CO.empresa_cif=E.cif AND C.cod_centro=CO.centro_cod_centro";
+	
+	
 	private String SQLTut = "SELECT * FROM PI.TUTOR";
 	private String SQLTut_2 = "SELECT nombre, apellidos,clave_ciclo, nombre_ciclo FROM PI.Tutor TU, PI.Grupo GR, PI.Gestiona GE WHERE TU.dni_tutor = GE.tutor_dni_tutor AND GE.grupo_cod_grupo = GR.cod_grupo AND nombre_ciclo ='DAMM'";
-	private String SQAlumno = "SELECT * FROM PI.alumno";
+	
+	
+	private String SQAlumno = "SELECT AL.dni, AL.nombre, AL.apellidos, AL.num_exp, AL.nacionalidad, AL.fecha_nacim FROM PI.alumno AL, PI.Pertenece PE WHERE AL.num_exp = PE.alumno_num_exp AND PE.acad = '2018-2019'";
+	private String SQLAlumno2= "SELECT AL.dni, AL.nombre, AL.apellidos, AL.num_exp, AL.nacionalidad, AL.fecha_nacim FROM PI.alumno AL, PI.Pertenece PE WHERE AL.num_exp = PE.alumno_num_exp AND PE.acad = '2019-2020'";
+	
 	private String SQLEmp = "SELECT * FROM PI.empresa";
-	private String SQLGrp = "SELECT * FROM PI.grupo";
+	
+	
+	private String SQLGrp = "SELECT DISTINCT GR.cod_grupo, GR.nom_grupo, GR.clave_ciclo, GR.nombre_ciclo FROM PI.grupo GR, PI.Pertenece PE WHERE GR.cod_grupo = PE.grupo_cod_grupo AND PE.acad ='2018-2019'  ";
+	private String SQLGrp2 = "SELECT DISTINCT GR.cod_grupo, GR.nom_grupo, GR.clave_ciclo, GR.nombre_ciclo FROM PI.grupo GR, PI.Pertenece PE WHERE GR.cod_grupo = PE.grupo_cod_grupo AND PE.acad ='2019-2020' ";
+
+	
+	
 	private String SqlEstadisticasPracticas = "SELECT COUNT(ANEXO_2_1) FROM PI.practica where ? IS NOT NULL";
 	private String SqlEstadisticasPracticas2 = "SELECT COUNT(?) FROM PI.practica where ANEXO_2_1 IS NULL";
 	private String SqlGruposAlumnos = "select nom_grupo \"GRUPO\", count(*) \"ALUMNOS\" from PI.grupo, PI.alumno, PI.pertenece where alumno.num_exp=pertenece.alumno_num_exp AND grupo.cod_grupo=pertenece.grupo_cod_grupo group by grupo.nom_grupo";
@@ -321,9 +333,15 @@ public class modelo {
 	public String getSQLalumnos() {
 		return SQAlumno;
 	}
+	public String getSQLalumnos2() {
+		return SQLAlumno2;
+	}
 
 	public String getSQLGrp() {
 		return SQLGrp;
+	}
+	public String getSQLGrp2() {
+		return SQLGrp2;
 	}
 
 	private int getColumnas(String SQL) {

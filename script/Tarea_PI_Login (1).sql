@@ -294,8 +294,8 @@ INSERT INTO grupo(cod_grupo, nom_grupo, clave_ciclo, nombre_ciclo) VALUES(0002, 
 INSERT INTO grupo(cod_grupo, nom_grupo, clave_ciclo, nombre_ciclo) VALUES(0003, 'DAW-2020', 0052, 'DAW');
 INSERT INTO grupo(cod_grupo, nom_grupo, clave_ciclo, nombre_ciclo) VALUES(0004, 'TAFAD_2020', 0053, 'TAFAD');
 INSERT INTO grupo(cod_grupo, nom_grupo, clave_ciclo, nombre_ciclo) VALUES(0005, 'ENFERMERIA-2020', 0054, 'ENFERMERIA');
-INSERT INTO grupo(cod_grupo, nom_grupo, clave_ciclo, nombre_ciclo) VALUES(0006, 'MEDICINA-2020', 0055, 'MEDICINA');
-INSERT INTO grupo(cod_grupo, nom_grupo, clave_ciclo, nombre_ciclo) VALUES(0007, 'INGENIERIA-2020', 0056, 'INGENIERIA');
+INSERT INTO grupo(cod_grupo, nom_grupo, clave_ciclo, nombre_ciclo) VALUES(0006, 'DAM-2019', 0055, 'DAM');
+INSERT INTO grupo(cod_grupo, nom_grupo, clave_ciclo, nombre_ciclo) VALUES(0007, 'ASIR-2019', 0056, 'ASIR');
 INSERT INTO grupo(cod_grupo, nom_grupo, clave_ciclo, nombre_ciclo) VALUES(0008, 'VIDEOJUEGOS-2020', 0057, 'VIDEOJUEGOS');
 INSERT INTO grupo(cod_grupo, nom_grupo, clave_ciclo, nombre_ciclo) VALUES(0009, 'ARTES_2020', 0058, 'ARTES');
 INSERT INTO grupo(cod_grupo, nom_grupo, clave_ciclo, nombre_ciclo) VALUES(00010, 'IMAGEN-2020', 0059, 'IMAGEN');
@@ -326,6 +326,11 @@ INSERT INTO tutor(dni_tutor, nombre, apellidos, centro_cod_centro) VALUES('19000
 INSERT INTO tutor(dni_tutor, nombre, apellidos, centro_cod_centro) VALUES('19000001M', 'Marisa ', 'Maria', 4);
 INSERT INTO tutor(dni_tutor, nombre, apellidos, centro_cod_centro) VALUES('19000001N', 'Monse ', 'Rodriguez', 5);
 INSERT INTO tutor(dni_tutor, nombre, apellidos, centro_cod_centro) VALUES('19000001O', 'Carmen ', 'Carlota', 6);
+INSERT INTO tutor(dni_tutor, nombre, apellidos, centro_cod_centro) VALUES('15800001A', 'Miguel ', 'Porten', 6);
+INSERT INTO tutor(dni_tutor, nombre, apellidos, centro_cod_centro) VALUES('15500001A', 'Silvia ', 'Abril', 6);
+
+
+
 
 INSERT INTO registra(tutor_dni_tutor,USERS_USR) VALUES('15000001A','Pedro Camacho');
 INSERT INTO registra(tutor_dni_tutor,USERS_USR) VALUES('16000001B','Raul Dominguez');
@@ -365,17 +370,19 @@ INSERT INTO colabora(centro_cod_centro, empresa_cif, numconv, anexo_1, fecha) VA
 INSERT INTO colabora(centro_cod_centro, empresa_cif, numconv, anexo_1, fecha) VALUES(4,'S80000000', 15005, '3/03/15', '2/05/11');
 
 INSERT INTO gestiona(tutor_dni_tutor, grupo_cod_grupo, anexo_2_2, acad) VALUES('15000001A',0001, '2/7/15', '2019-2020');
+INSERT INTO gestiona(tutor_dni_tutor, grupo_cod_grupo, anexo_2_2, acad) VALUES('15800001A',0001, '2/7/15', '2018-2019');
 INSERT INTO gestiona(tutor_dni_tutor, grupo_cod_grupo, anexo_2_2, acad) VALUES('16000001B',0002, '2/7/15', '2019-2020');
+INSERT INTO gestiona(tutor_dni_tutor, grupo_cod_grupo, anexo_2_2, acad) VALUES('15500001A',0002, '2/7/15', '2018-2019');
 INSERT INTO gestiona(tutor_dni_tutor, grupo_cod_grupo, anexo_2_2, acad) VALUES('17000001C',0003, '2/7/15', '2019-2020');
 INSERT INTO gestiona(tutor_dni_tutor, grupo_cod_grupo, anexo_2_2, acad) VALUES('18000001D',0004, '2/7/15', '2019-2020');
 INSERT INTO gestiona(tutor_dni_tutor, grupo_cod_grupo, anexo_2_2, acad) VALUES('19000001E',0005, '2/7/15', '2019-2020');
 
-INSERT INTO practica(empresa_cif, alumno_num_exp, anexo_2_1, anexo_3,anexo_7, anexo_8, fecha_ini, fecha_fin, horario,tutore,acad) VALUES('I19000000', 1111112, '2/7/15', '2/7/15', '2/7/15', '2/7/15', '2/7/15', '3/7/15', 'de 9 a 5', 'Pedro ','2019-2020');
-INSERT INTO practica(empresa_cif, alumno_num_exp, anexo_2_1, anexo_3,anexo_7, anexo_8, fecha_ini, fecha_fin, horario,tutore,acad) VALUES('I18000000', 1111113, '2/7/15', '2/7/15', '2/7/15', '2/7/15', '2/7/15', '3/7/15', 'de 9 a 5', 'Raul','2019-2020');
-INSERT INTO practica(empresa_cif, alumno_num_exp, anexo_2_1, anexo_3,anexo_7, anexo_8, fecha_ini, fecha_fin, horario,tutore,acad) VALUES('I17000000', 1111114, '2/7/15', '2/7/15', '2/7/15', '2/7/15', '2/7/15', '3/7/15', 'de 9 a 5', 'Ernesto','2019-2020');
-INSERT INTO practica(empresa_cif, alumno_num_exp, anexo_2_1, anexo_3,anexo_7, anexo_8, fecha_ini, fecha_fin, horario,tutore,acad) VALUES('I16000000', 1111115, '2/7/15', '2/7/15', '2/7/15', '2/7/15', '2/7/15', '3/7/15', 'de 9 a 5', 'Antonio','2019-2020');
-INSERT INTO practica(empresa_cif, alumno_num_exp, anexo_2_1, anexo_3,anexo_7, anexo_8, fecha_ini, fecha_fin, horario,tutore,acad) VALUES('I15000000', 1111116, '2/7/15', '2/7/15', '2/7/15', '2/7/15', '2/7/15', '3/7/15', 'de 9 a 5', 'Felipe','2019-2020');
-INSERT INTO practica(empresa_cif, alumno_num_exp, anexo_2_1, anexo_3,anexo_7, anexo_8, fecha_ini, fecha_fin, horario,tutore,acad) VALUES('I19000000', 1111117, '2/7/15', '2/7/15', '2/7/15', '2/7/15', '2/7/15', '3/7/15', 'de 9 a 5', 'Pedro ','2019-2020');
+INSERT INTO practica(empresa_cif, alumno_num_exp, anexo_2_1, anexo_3,anexo_7, anexo_8, fecha_ini, fecha_fin, horario,tutore,acad) VALUES('I19000000', 1111112, '2/7/15', '2/7/15', '2/7/15', '2/7/15', '2/7/15', '3/7/15', 'de 9 a 5', 'Pedro ','2018-2019');
+INSERT INTO practica(empresa_cif, alumno_num_exp, anexo_2_1, anexo_3,anexo_7, anexo_8, fecha_ini, fecha_fin, horario,tutore,acad) VALUES('I18000000', 1111113, '2/7/15', '2/7/15', '2/7/15', '2/7/15', '2/7/15', '3/7/15', 'de 9 a 5', 'Raul','2018-2019');
+INSERT INTO practica(empresa_cif, alumno_num_exp, anexo_2_1, anexo_3,anexo_7, anexo_8, fecha_ini, fecha_fin, horario,tutore,acad) VALUES('I17000000', 1111114, '2/7/15', '2/7/15', '2/7/15', '2/7/15', '2/7/15', '3/7/15', 'de 9 a 5', 'Ernesto','2018-2019');
+INSERT INTO practica(empresa_cif, alumno_num_exp, anexo_2_1, anexo_3,anexo_7, anexo_8, fecha_ini, fecha_fin, horario,tutore,acad) VALUES('I16000000', 1111115, '2/7/15', '2/7/15', '2/7/15', '2/7/15', '2/7/15', '3/7/15', 'de 9 a 5', 'Antonio','2018-2019');
+INSERT INTO practica(empresa_cif, alumno_num_exp, anexo_2_1, anexo_3,anexo_7, anexo_8, fecha_ini, fecha_fin, horario,tutore,acad) VALUES('I15000000', 1111116, '2/7/15', '2/7/15', '2/7/15', '2/7/15', '2/7/15', '3/7/15', 'de 9 a 5', 'Felipe','2018-2019');
+INSERT INTO practica(empresa_cif, alumno_num_exp, anexo_2_1, anexo_3,anexo_7, anexo_8, fecha_ini, fecha_fin, horario,tutore,acad) VALUES('I19000000', 1111117, '2/7/15', '2/7/15', '2/7/15', '2/7/15', '2/7/15', '3/7/15', 'de 9 a 5', 'Pedro ','2018-2019');
 INSERT INTO practica(empresa_cif, alumno_num_exp, anexo_2_1, anexo_3,anexo_7, anexo_8, fecha_ini, fecha_fin, horario,tutore,acad) VALUES('I18000000', 1111118, '2/7/15', '2/7/15', '2/7/15', '2/7/15', '2/7/15', '3/7/15', 'de 9 a 5', 'Raul','2019-2020');
 INSERT INTO practica(empresa_cif, alumno_num_exp, anexo_2_1, anexo_3,anexo_7, anexo_8, fecha_ini, fecha_fin, horario,tutore,acad) VALUES('I17000000', 1111119, '2/7/15', '2/7/15', '2/7/15', '2/7/15', '2/7/15', '3/7/15', 'de 9 a 5', 'Ernesto','2019-2020');
 INSERT INTO practica(empresa_cif, alumno_num_exp, anexo_2_1, anexo_3,anexo_7, anexo_8, fecha_ini, fecha_fin, horario,tutore,acad) VALUES('I16000000', 1111120, '2/7/15', '2/7/15', '2/7/15', '2/7/15', '2/7/15', '3/7/15', 'de 9 a 5', 'Antonio','2019-2020');
@@ -435,13 +442,13 @@ INSERT INTO practica(empresa_cif, alumno_num_exp, anexo_2_1, anexo_3,anexo_7, an
 INSERT INTO practica(empresa_cif, alumno_num_exp, anexo_2_1, anexo_3,anexo_7, anexo_8, fecha_ini, fecha_fin, horario,tutore,acad) VALUES('I19000000', 1111174, '2/7/16', '2/7/15', '2/7/15', '2/7/15', '2/7/15', '3/7/15', 'de 9 a 5', 'Antonio','2019-2020');
 INSERT INTO practica(empresa_cif, alumno_num_exp, anexo_2_1, anexo_3,anexo_7, anexo_8, fecha_ini, fecha_fin, horario,tutore,acad) VALUES('I15000000', 1111175, '2/7/16', '2/7/15', '2/7/15', '2/7/15', '2/7/15', '3/7/15', 'de 9 a 5', 'Antonio','2019-2020');
 
-INSERT INTO pertenece(alumno_num_exp,grupo_cod_grupo, acad) VALUES(1111112,0001, '2019-2020');
-INSERT INTO pertenece(alumno_num_exp,grupo_cod_grupo, acad) VALUES(1111113,0002, '2019-2020');
-INSERT INTO pertenece(alumno_num_exp,grupo_cod_grupo, acad) VALUES(1111114,0003, '2019-2020');
-INSERT INTO pertenece(alumno_num_exp,grupo_cod_grupo, acad) VALUES(1111115,0004, '2019-2020');
-INSERT INTO pertenece(alumno_num_exp,grupo_cod_grupo, acad) VALUES(1111116,0005, '2019-2020');
-INSERT INTO pertenece(alumno_num_exp,grupo_cod_grupo, acad) VALUES(1111117,0001, '2019-2020');
-INSERT INTO pertenece(alumno_num_exp,grupo_cod_grupo, acad) VALUES(1111118,0002, '2019-2020');
+INSERT INTO pertenece(alumno_num_exp,grupo_cod_grupo, acad) VALUES(1111112,0007, '2018-2019');
+INSERT INTO pertenece(alumno_num_exp,grupo_cod_grupo, acad) VALUES(1111113,0007, '2018-2019');
+INSERT INTO pertenece(alumno_num_exp,grupo_cod_grupo, acad) VALUES(1111114,0007, '2018-2019');
+INSERT INTO pertenece(alumno_num_exp,grupo_cod_grupo, acad) VALUES(1111115,0006, '2018-2019');
+INSERT INTO pertenece(alumno_num_exp,grupo_cod_grupo, acad) VALUES(1111116,0006, '2018-2019');
+INSERT INTO pertenece(alumno_num_exp,grupo_cod_grupo, acad) VALUES(1111117,0006, '2018-2019');
+INSERT INTO pertenece(alumno_num_exp,grupo_cod_grupo, acad) VALUES(1111118,0006, '2018-2019');
 INSERT INTO pertenece(alumno_num_exp,grupo_cod_grupo, acad) VALUES(1111119,0003, '2019-2020');
 INSERT INTO pertenece(alumno_num_exp,grupo_cod_grupo, acad) VALUES(1111120,0004, '2019-2020');
 INSERT INTO pertenece(alumno_num_exp,grupo_cod_grupo, acad) VALUES(1111121,0005, '2019-2020');
