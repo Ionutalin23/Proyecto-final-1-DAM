@@ -225,6 +225,11 @@ public class modelo {
 			"PI.empresa E, PI.colabora CO,PI.centro C, PI.tutor T, PI.gestiona G, PI.grupo GR, PI.pertenece P WHERE A.num_exp=PR.alumno_num_exp AND PR.empresa_cif=E.cif\n" + 
 			"AND E.cif=CO.empresa_cif AND CO.centro_cod_centro=C.cod_centro AND C.cod_centro=T.centro_cod_centro AND T.dni_tutor=G.tutor_dni_tutor\n" + 
 			"AND G.grupo_cod_grupo=GR.cod_grupo AND GR.cod_grupo=P.grupo_cod_grupo AND P.alumno_num_exp=A.num_exp";
+	private String SQLinforme5="select PR.acad \"AÑO\", A.num_exp \"EXP.\", A.nombre \"NOMBRE\",GR.nombre_ciclo \"CICLO\",GR.nom_grupo \"GRUPO\",\n" + 
+			"E.nombre \"EMPRESA\", E.localidad \"PROVINCIA\",E.resp_empresa \"RESP.E.\",PR.tutore \"TUTOR E.\",E.telefono \"TLF.\",\n" + 
+			"CONCAT(PR.fecha_ini,CONCAT(',',PR.fecha_fin)) \"F.INI-FIN\",T.nombre \"TUTOR C.\",E.email \"email\" FROM PI.practica PR,\n" + 
+			"PI.alumno A, PI.grupo GR, PI.empresa E,PI.tutor T, PI.gestiona G, PI.pertenece P,PI.centro C,PI.colabora CO WHERE T.dni_tutor=G.tutor_dni_tutor AND G.grupo_cod_grupo=GR.cod_grupo AND GR.cod_grupo=P.grupo_cod_grupo AND P.alumno_num_exp=A.num_exp AND A.num_exp=PR.alumno_num_exp AND PR.empresa_cif=E.cif "
+			+ "AND E.cif=CO.empresa_cif AND CO.centro_cod_centro=C.cod_centro AND C.cod_centro=T.centro_cod_centro";
 	private String SQLTutoresCiclo="SELECT G.acad \"AÑO\", GR.nombre_ciclo \"CICLO\",count(*) \"TUTORES\" FROM PI.grupo GR, PI.gestiona G, PI.tutor T, PI.centro C WHERE GR.cod_grupo=G.grupo_cod_grupo AND G.tutor_dni_tutor=T.dni_tutor AND T.centro_cod_centro=C.cod_Centro\n" + 
 			"group by g.acad,gr.nombre_ciclo";
 	private String SQLAlumnosEmpresa="Select P.acad \"AÑO\", E.nombre \"EMPRESA\",count(*) \"ALUMNOS\" FROM PI.pertenece P, PI.grupo GR, PI.gestiona G, PI.tutor T, PI.colabora CO, PI.empresa E, PI.practica PR, PI.alumno A WHERE A.num_exp=PR.alumno_num_exp AND PR.empresa_cif=E.cif AND"
@@ -1699,6 +1704,10 @@ public class modelo {
 
 	public String getSQLinforme4() {
 		return SQLinforme4;
+	}
+
+	public String getSQLinforme5() {
+		return SQLinforme5;
 	}
 
 	public void GruposAlumnosTutor() {
