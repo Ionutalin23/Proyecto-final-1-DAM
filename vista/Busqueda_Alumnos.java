@@ -261,7 +261,7 @@ public class Busqueda_Alumnos extends JFrame {
 		JComboBox AñoAcad = new JComboBox();
 		AñoAcad.setBackground(Color.GRAY);
 		AñoAcad.setForeground(Color.WHITE);
-		AñoAcad.setModel(new DefaultComboBoxModel(new String[] { "DAM-2020", "DAM-2019" }));
+		AñoAcad.setModel(new DefaultComboBoxModel(new String[] { "CURSO-2020", "CURSO-2019" }));
 		AñoAcad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int selected = AñoAcad.getSelectedIndex();

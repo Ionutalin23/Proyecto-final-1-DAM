@@ -47,7 +47,7 @@ CREATE TABLE colabora (
     centro_cod_centro   NUMBER(1) NOT NULL,
     empresa_cif         VARCHAR2(15 CHAR) NOT NULL,
     numconv             NUMBER NOT NULL,
-    anexo_1             VARCHAR2(50 CHAR) NOT NULL,
+    anexo_1             VARCHAR2(50 CHAR),
     fecha               DATE NOT NULL
 );
 
@@ -69,7 +69,7 @@ ALTER TABLE empresa ADD CONSTRAINT empresa_pk PRIMARY KEY ( cif );
 CREATE TABLE gestiona (
     tutor_dni_tutor   VARCHAR2(9 CHAR) NOT NULL,
     grupo_cod_grupo   NUMBER(5) NOT NULL,
-    anexo_2_2         DATE NOT NULL,
+    anexo_2_2         DATE ,
     acad             VARCHAR2(9) NOT NULL
 );
 
@@ -98,10 +98,10 @@ ALTER TABLE pertenece ADD CONSTRAINT pertenece_pk PRIMARY KEY ( grupo_cod_grupo 
 CREATE TABLE practica (
     empresa_cif      VARCHAR2(15 CHAR) NOT NULL,
     alumno_num_exp   NUMBER(15) NOT NULL,
-    anexo_2_1        DATE NOT NULL,
-    anexo_3          DATE NOT NULL,
-    anexo_7          DATE NOT NULL,
-    anexo_8          DATE NOT NULL,
+    anexo_2_1        DATE ,
+    anexo_3          DATE ,
+    anexo_7          DATE ,
+    anexo_8          DATE ,
     fecha_ini        DATE NOT NULL,
     fecha_fin        DATE NOT NULL,
     horario          VARCHAR2(50 CHAR) NOT NULL,
