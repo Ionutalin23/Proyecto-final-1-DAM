@@ -47,6 +47,7 @@ import vista.Busqueda_Empresas;
 import vista.Busqueda_Grupos;
 import vista.Busqueda_Tutores;
 import vista.MenuVista;
+import vista.Ventana_Conf_Anexo;
 import vista.Ventana_Estadisticas;
 import vista.Ventana_Conf_Delete;
 import vista.Ventana_Login;
@@ -84,6 +85,7 @@ public class modelo {
 	private Ventana_Mensaje_ERROR ventana_mensaje_error;
 	private Ventana_Estadisticas ventana_estadisticas;
 	private Ventana_Conf_Delete ventana_conf_delete;
+	private Ventana_Conf_Anexo ventana_conf_anexo;
 //  ============================================================================================================================
 
 	public void setVista(Busqueda_Alumnos busquedaAlumnos) {
@@ -142,14 +144,25 @@ public class modelo {
 		this.ventana_estadisticas = ventana_estadisticas;
 	}
 
+	public void setVista(Ventana_Conf_Anexo ventana_conf_anexo) {
+		this.ventana_conf_anexo = ventana_conf_anexo;
+	}
+
 //  ========================================================================= MVC ====================================================
 
 	private String[] credenciales = new String[3];
 	private ArrayList<Integer> alumnosEstadisticas = new ArrayList<Integer>();
 	private LinkedHashMap<String, Integer> gruposAlumnos = new LinkedHashMap<String, Integer>();
+	private LinkedHashMap<String, Integer> tutorAlumnos = new LinkedHashMap<String, Integer>();
+	private LinkedHashMap<String, Integer> tutorCiclos = new LinkedHashMap<String, Integer>();
+	private LinkedHashMap<String, Integer> alumnosEmpresa = new LinkedHashMap<String, Integer>();
 	private String nombreTabla;
 	private String nombreClave;
 	private String clave;
+	private String cifEmpresa;
+	private int anexoSeleccionado;
+	private String nombreAnexo;
+	private String nombreTablaAnexo;
 	private Connection conexion;
 	private int fallos;
 	private String resultado;
@@ -158,15 +171,15 @@ public class modelo {
 	private String resultadoDEL;
 	private String USR;
 	private String rol;
-	private String SQLanexo2_1 = "SELECT nombre, apellidos, anexo_2_1 FROM PI.alumno, PI.practica WHERE num_exp=alumno_num_exp";
-	private String SQLanexo1 = "SELECT E.nombre \"Empresa\",C.cod_centro, C.localidad, C.director, CO.anexo_1 FROM PI.centro C, PI.colabora CO, PI.empresa E WHERE CO.centro_cod_centro=C.cod_centro AND  CO.empresa_cif=E.cif";
-	private String SQLanexo2_2 = "SELECT A.nombre, A.apellidos, E.nombre \"EMPRESA\", PR.horario, G.Anexo_2_2 FROM PI.alumno A, PI.pertenece P, PI.grupo GR, PI.gestiona G, PI.Tutor T, PI.centro C, "
+	private String SQLanexo2_1 = "SELECT num_exp \"EXPEDIENTE\",nombre, apellidos, anexo_2_1 FROM PI.alumno, PI.practica WHERE num_exp=alumno_num_exp";
+	private String SQLanexo1 = "SELECT E.cif, E.nombre \"Empresa\",C.cod_centro, C.localidad, C.director, CO.anexo_1 FROM PI.centro C, PI.colabora CO, PI.empresa E WHERE CO.centro_cod_centro=C.cod_centro AND  CO.empresa_cif=E.cif";
+	private String SQLanexo2_2 = "SELECT A.num_Exp,A.nombre, A.apellidos,CONCAT(GR.nom_grupo,CONCAT(',',GR.cod_grupo)) \"GRUPO\", CONCAT(E.nombre,CONCAT(',',E.cif)) \"EMPRESA\", PR.horario, G.Anexo_2_2 FROM PI.alumno A, PI.pertenece P, PI.grupo GR, PI.gestiona G, PI.Tutor T, PI.centro C, "
 			+ "PI.colabora CO, PI.Empresa E, PI.practica PR WHERE A.num_exp=P.alumno_num_exp AND T.dni_tutor=G.tutor_dni_tutor AND C.cod_centro=T.centro_cod_centro AND CO.empresa_cif=E.cif "
 			+ "AND P.grupo_cod_grupo=GR.cod_grupo AND G.grupo_cod_grupo=GR.cod_grupo AND CO.centro_cod_centro=C.cod_centro\n"
 			+ "AND PR.empresa_cif=E.cif AND PR.alumno_num_exp=A.num_exp";
-	private String SQLanexo3 = "SELECT A.nombre, A.apellidos, A.dni, PR.anexo_3 FROM PI.alumno A, PI.practica PR WHERE num_exp=alumno_num_exp";
-	private String SQLanexo7 = "SELECT A.nombre, A.apellidos, PR.anexo_7 FROM PI.alumno A, PI.practica PR WHERE A.num_exp=PR.alumno_num_exp";
-	private String SQLanexo8 = "SELECT A.nombre, A.apellidos,CONCAT(C.localidad,CONCAT(',',C.cod_centro)) \"CENTRO\", E.Nombre \"EMPRESA\", PR.anexo_8 FROM PI.alumno A, PI.practica PR, PI.empresa E, PI.centro C, PI.colabora CO WHERE num_exp=alumno_num_exp AND PR.empresa_cif=E.cif\n"
+	private String SQLanexo3 = "SELECT A.num_exp, A.nombre, A.apellidos, PR.anexo_3 FROM PI.alumno A, PI.practica PR WHERE num_exp=alumno_num_exp";
+	private String SQLanexo7 = "SELECT A.num_exp, A.nombre, A.apellidos, PR.anexo_7 FROM PI.alumno A, PI.practica PR WHERE A.num_exp=PR.alumno_num_exp";
+	private String SQLanexo8 = "SELECT A.num_exp, A.nombre, A.apellidos,CONCAT(C.localidad,CONCAT(',',C.cod_centro)) \"CENTRO\", CONCAT(E.nombre,CONCAT(',',E.cif)) \"EMPRESA\", PR.anexo_8 FROM PI.alumno A, PI.practica PR, PI.empresa E, PI.centro C, PI.colabora CO WHERE num_exp=alumno_num_exp AND PR.empresa_cif=E.cif\n"
 			+ "AND CO.empresa_cif=E.cif AND C.cod_centro=CO.centro_cod_centro";
 	
 	
@@ -191,13 +204,45 @@ public class modelo {
 	private String SqlEstadisticasPracticas = "SELECT COUNT(ANEXO_2_1) FROM PI.practica where ? IS NOT NULL";
 	private String SqlEstadisticasPracticas2 = "SELECT COUNT(?) FROM PI.practica where ANEXO_2_1 IS NULL";
 	private String SqlGruposAlumnos = "select nom_grupo \"GRUPO\", count(*) \"ALUMNOS\" from PI.grupo, PI.alumno, PI.pertenece where alumno.num_exp=pertenece.alumno_num_exp AND grupo.cod_grupo=pertenece.grupo_cod_grupo group by grupo.nom_grupo";
+	private String SqlAlumnosTutor="SELECT G.acad \"AÑO\", concat(t.nombre,concat('-->',gr.nombre_ciclo)) \"TUTOR\",count(*) \"Alumnos\" FROM PI.grupo GR, PI.gestiona G, PI.tutor T, PI.alumno A, PI.pertenece P WHERE GR.cod_grupo=G.grupo_cod_grupo AND G.tutor_dni_tutor=T.dni_tutor\n" + 
+			"AND A.num_exp=P.alumno_num_exp AND P.grupo_cod_grupo=GR.cod_grupo group by G.acad, T.nombre, GR.nombre_ciclo";
+	private String SQLanexo1Busqueda = "SELECT E.cif, E.nombre \"Empresa\",C.cod_centro, C.localidad, C.director, CO.anexo_1 FROM PI.centro C, PI.colabora CO, PI.empresa E WHERE CO.centro_cod_centro=C.cod_centro AND  CO.empresa_cif=E.cif AND E.nombre LIKE ?";
+	private String SQLanexo2_1Busqueda = "SELECT num_exp \"EXPEDIENTE\",nombre, apellidos, anexo_2_1 FROM PI.alumno, PI.practica WHERE num_exp=alumno_num_exp AND nombre LIKE ?";
+	private String SQLanexo2_2Busqueda = "SELECT A.num_Exp,A.nombre, A.apellidos,CONCAT(GR.nom_grupo,CONCAT(',',GR.cod_grupo)) \"GRUPO\", CONCAT(E.nombre,CONCAT(',',E.cif)) \"EMPRESA\", PR.horario, G.Anexo_2_2 FROM PI.alumno A, PI.pertenece P, PI.grupo GR, PI.gestiona G, PI.Tutor T, PI.centro C, "
+			+ "PI.colabora CO, PI.Empresa E, PI.practica PR WHERE A.num_exp=P.alumno_num_exp AND T.dni_tutor=G.tutor_dni_tutor AND C.cod_centro=T.centro_cod_centro AND CO.empresa_cif=E.cif "
+			+ "AND P.grupo_cod_grupo=GR.cod_grupo AND G.grupo_cod_grupo=GR.cod_grupo AND CO.centro_cod_centro=C.cod_centro\n"
+			+ "AND PR.empresa_cif=E.cif AND PR.alumno_num_exp=A.num_exp AND A.nombre LIKE ?";
+	private String SQLanexo3Busqueda = "SELECT A.num_exp, A.nombre, A.apellidos, PR.anexo_3 FROM PI.alumno A, PI.practica PR WHERE num_exp=alumno_num_exp AND A.nombre LIKE ?";
+	private String SQLanexo7Busqueda = "SELECT A.num_exp, A.nombre, A.apellidos, PR.anexo_7 FROM PI.alumno A, PI.practica PR WHERE A.num_exp=PR.alumno_num_exp AND A.nombre LIKE ?";
+	private String SQLanexo8Busqueda = "SELECT A.num_exp, A.nombre, A.apellidos,CONCAT(C.localidad,CONCAT(',',C.cod_centro)) \"CENTRO\", CONCAT(E.nombre,CONCAT(',',E.cif)) \"EMPRESA\", PR.anexo_8 FROM PI.alumno A, PI.practica PR, PI.empresa E, PI.centro C, PI.colabora CO WHERE num_exp=alumno_num_exp AND PR.empresa_cif=E.cif\n"
+			+ "AND CO.empresa_cif=E.cif AND C.cod_centro=CO.centro_cod_centro AND A.nombre LIKE ?";
+	private String SQLinforme1 = "SELECT G.acad \"AÑO\", T.nombre \"TUTOR\", GR.nombre_ciclo \"Ciclo\", count(*) \"Alumnos\", E.nombre \"EMPRESA\", PR.anexo_2_1 \"Anexo 2.1\",PR.anexo_3 \"Anexo 3\",PR.anexo_7 \"Anexo 7\", PR.anexo_8 \"Anexo 8\" FROM PI.grupo GR, PI.gestiona G, PI.tutor T, PI.alumno A, PI.pertenece P, PI.practica PR, PI.empresa E WHERE GR.cod_grupo=G.grupo_cod_grupo AND G.tutor_dni_tutor=T.dni_tutor\n" + 
+			"AND A.num_exp=P.alumno_num_exp AND P.grupo_cod_grupo=GR.cod_grupo AND A.num_exp=PR.alumno_num_exp AND PR.empresa_cif=E.cif group by G.acad, T.nombre, GR.nombre_ciclo,E.nombre, PR.anexo_2_1, PR.anexo_3, PR.anexo_7, PR.anexo_8";
+	private String SQLinforme2 ="SELECT G.acad \"AÑO\", GR.nombre_ciclo \"CICLO\", T.dni_tutor \"DNI\", T.nombre, T.apellidos, C.Localidad \"CENTRO\", GR.nom_grupo \"GRUPO\" FROM PI.grupo GR, PI.gestiona G, PI.tutor T, PI.centro C WHERE GR.cod_grupo=G.grupo_cod_grupo AND G.tutor_dni_tutor=T.dni_tutor AND T.centro_cod_centro=C.cod_Centro";
+	private String SQLinforme3 ="Select P.acad \"AÑO\", CO.numconv \"Nºconv\", E.nombre \"EMPRESA\", A.dni, A.nombre, GR.nom_grupo \"GRUPO\", T.nombre \"TUTOR.C\", PR.tutore \"TUTORE\" FROM PI.pertenece P, PI.grupo GR, PI.gestiona G, PI.tutor T, PI.colabora CO, PI.empresa E, PI.practica PR, PI.alumno A "
+			+ "WHERE A.num_exp=PR.alumno_num_exp AND PR.empresa_cif=E.cif AND E.cif=CO.empresa_cif AND A.num_Exp=P.alumno_num_exp AND P.grupo_cod_grupo=GR.cod_grupo AND GR.cod_grupo=G.grupo_cod_grupo AND G.tutor_dni_tutor=T.dni_tutor order by E.nombre";
+	private String SQLinforme4="SELECT PR.acad \"AÑO\", T.nombre \"TUTOR C.\",GR.nombre_ciclo \"CICLO\",A.nombre \"ALUMNO\", E.nombre \"EMPRESA\",CO.numconv \"NºCONV\",concat(PR.fecha_ini,concat('-',PR.fecha_fin)) \"FECHAS\", PR.horario \"HORARIO\", PR.tutore \"TUTOR E.\" FROM PI.alumno A, PI.practica PR,\n" + 
+			"PI.empresa E, PI.colabora CO,PI.centro C, PI.tutor T, PI.gestiona G, PI.grupo GR, PI.pertenece P WHERE A.num_exp=PR.alumno_num_exp AND PR.empresa_cif=E.cif\n" + 
+			"AND E.cif=CO.empresa_cif AND CO.centro_cod_centro=C.cod_centro AND C.cod_centro=T.centro_cod_centro AND T.dni_tutor=G.tutor_dni_tutor\n" + 
+			"AND G.grupo_cod_grupo=GR.cod_grupo AND GR.cod_grupo=P.grupo_cod_grupo AND P.alumno_num_exp=A.num_exp";
+	private String SQLTutoresCiclo="SELECT G.acad \"AÑO\", GR.nombre_ciclo \"CICLO\",count(*) \"TUTORES\" FROM PI.grupo GR, PI.gestiona G, PI.tutor T, PI.centro C WHERE GR.cod_grupo=G.grupo_cod_grupo AND G.tutor_dni_tutor=T.dni_tutor AND T.centro_cod_centro=C.cod_Centro\n" + 
+			"group by g.acad,gr.nombre_ciclo";
+	private String SQLAlumnosEmpresa="Select P.acad \"AÑO\", E.nombre \"EMPRESA\",count(*) \"ALUMNOS\" FROM PI.pertenece P, PI.grupo GR, PI.gestiona G, PI.tutor T, PI.colabora CO, PI.empresa E, PI.practica PR, PI.alumno A WHERE A.num_exp=PR.alumno_num_exp AND PR.empresa_cif=E.cif AND"
+			+ " E.cif=CO.empresa_cif AND A.num_Exp=P.alumno_num_exp AND P.grupo_cod_grupo=GR.cod_grupo AND GR.cod_grupo=G.grupo_cod_grupo AND G.tutor_dni_tutor=T.dni_tutor group by P.acad,E.nombre";
 	private JTable tablaTut;
 	private JTable tablaAnx;
 	private ChartPanel barPanelAlumnos;
 	private ChartPanel CircularPanelAlumnos;
 	private ChartPanel linealPanelAlumnos;
 	private ChartPanel barPanelGrupos;
+	private ChartPanel barPanelAlumnosTutor;
 	private ChartPanel CircularPanelGrupos;
+	private ChartPanel CircularPanelAlumnosTutor;
+	private ChartPanel CircularPanelTutoresCiclo;
+	private ChartPanel barPanelTutoresCiclo;
+	private ChartPanel CircularPanelAlumnosEmpresa;
+	private ChartPanel barPanelAlumnosEmpresa;
+	
 	private String resultadoEmpresa;
 	private String resultadoGrupo;
 	private String resultadoTutor;
@@ -205,6 +250,12 @@ public class modelo {
 	private boolean mod;
 	private String resultadoUsuarioUpdate;
 	private String resultadoGrupoUpdate;
+	private String anexo1Update;
+	private String anexo2Update;
+	private String anexo2_2Update;
+	private String anexo3Update;
+	private String anexo7Update;
+	private String anexo8Update;
 	private boolean exitoDelete;
 
 	public void ConexionBBDD() {
@@ -614,7 +665,7 @@ public class modelo {
 
 				Blob b = rs.getBlob(1);
 				byte barr[] = b.getBytes(1, (int) b.length());
-				FileOutputStream fout = new FileOutputStream("img/" + usu + ".jpg");
+				FileOutputStream fout = new FileOutputStream("/img/" + usu + ".jpg");
 				fout.write(barr);
 				fout.close();
 			}
@@ -841,9 +892,11 @@ public class modelo {
 		}
 
 	}
+
 	public boolean getStatusDelete() {
 		return exitoDelete;
 	}
+
 	public void setClave(String clave) {
 		this.clave = clave;
 	}
@@ -1038,12 +1091,19 @@ public class modelo {
 		try {
 			ps = conexion.prepareStatement(
 					"UPDATE PI.tutor SET nombre = ?, apellidos = ?, centro_cod_centro = ?  WHERE dni_tutor = ?");
-			ps.setString(1, dni);
-			ps.setString(2, nombre);
-			ps.setString(3, apellidos);
-			ps.setInt(4, codCentro);
+			ps.setString(1, nombre);
+			ps.setString(2, apellidos);
+			ps.setInt(3, codCentro);
+			ps.setString(4, dni);
 
 			int resul = ps.executeUpdate();
+			if (resul>0) {
+				resultadoTutor="EXITO";
+				vista_info_tutor.actualizarUpdate();
+			}else {
+				resultadoTutor="ERROR";
+				vista_info_tutor.actualizarUpdate();
+			}
 		} catch (SQLException e) {
 
 			e.printStackTrace();
@@ -1092,4 +1152,745 @@ public class modelo {
 		return resultadoGrupoUpdate;
 	}
 
+	public String getAnexo1Update() {
+		return anexo1Update;
+	}
+
+	public String getAnexo2Update() {
+		return anexo2Update;
+	}
+
+	public void modificarAnexo1(String cif, String empresa, String cod_centro, String localidad, String director,
+			String anexo_1) {
+		PreparedStatement stmt, stmt2, stmt3, stmt4;
+		try {
+			int codigo = Integer.parseInt(cod_centro);
+			stmt = conexion.prepareStatement(
+					"UPDATE PI.colabora SET anexo_1 = ? WHERE centro_cod_centro = ? AND empresa_cif= ?");
+			stmt2 = conexion.prepareStatement("UPDATE PI.empresa SET nombre = ? WHERE cif= ?");
+			stmt3 = conexion.prepareStatement("UPDATE PI.centro SET localidad = ? WHERE cod_centro = ?");
+			stmt4 = conexion.prepareStatement("UPDATE PI.centro SET director = ? WHERE cod_centro = ?");
+			stmt4.setString(1, director);
+			stmt4.setString(2, cod_centro);
+			stmt3.setString(1, localidad);
+			stmt3.setString(2, cod_centro);
+			stmt2.setString(1, empresa);
+			stmt2.setString(2, cif);
+			stmt.setString(1, anexo_1);
+			stmt.setString(2, cod_centro);
+			stmt.setString(3, cif);
+			int resul = stmt.executeUpdate();
+			int resul2 = stmt2.executeUpdate();
+			int resul3 = stmt3.executeUpdate();
+			int resul4 = stmt4.executeUpdate();
+			if (resul > 0 && resul2 > 0 && resul3 > 0 && resul4 > 0) {
+				anexo1Update = "EXITO";
+				busquedaAnexos.actualizar();
+			} else {
+				anexo1Update = "ERROR";
+				busquedaAnexos.actualizar();
+			}
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+	}
+
+	public void modificarAnexo2(String expe, String nombre, String apellidos, String anexo_2_1) {
+		PreparedStatement stmt, stmt2, stmt3, stmt4;
+		int resul3;
+		try {
+			if (!anexo_2_1.equals("null") && !anexo_2_1.isEmpty()) {
+//				SimpleDateFormat formatt = new SimpleDateFormat("dd/MM/yyyy HH:");
+				SimpleDateFormat formatt = new SimpleDateFormat("YYYY-MM-DD HH:");
+				java.util.Date utildate = formatt.parse(anexo_2_1);
+				Date sqlDate = new Date(utildate.getTime());
+				stmt3 = conexion.prepareStatement("UPDATE PI.practica SET anexo_2_1 = ? WHERE alumno_num_exp = ?");
+				stmt = conexion.prepareStatement("UPDATE PI.alumno SET nombre = ? WHERE num_exp = ?");
+				stmt2 = conexion.prepareStatement("UPDATE PI.alumno SET apellidos = ? WHERE num_exp= ?");
+				stmt.setString(1, nombre);
+				stmt.setString(2, expe);
+				stmt2.setString(1, apellidos);
+				stmt2.setString(2, expe);
+				stmt3.setDate(1, sqlDate);
+				stmt3.setString(2, expe);
+				resul3 = stmt3.executeUpdate();
+				int resul = stmt.executeUpdate();
+				int resul2 = stmt2.executeUpdate();
+				if (resul > 0 && resul2 > 0 && resul3 > 0) {
+					anexo2Update = "EXITO";
+					busquedaAnexos.actualizar2();
+				} else {
+					anexo2Update = "ERROR";
+					busquedaAnexos.actualizar2();
+				}
+			} else {
+				stmt = conexion.prepareStatement("UPDATE PI.alumno SET nombre = ? WHERE num_exp = ?");
+				stmt2 = conexion.prepareStatement("UPDATE PI.alumno SET apellidos = ? WHERE num_exp= ?");
+				stmt.setString(1, nombre);
+				stmt.setString(2, expe);
+				stmt2.setString(1, apellidos);
+				stmt2.setString(2, expe);
+
+				int resul = stmt.executeUpdate();
+				int resul2 = stmt2.executeUpdate();
+				if (resul > 0 && resul2 > 0) {
+					anexo2Update = "EXITO";
+					busquedaAnexos.actualizar2();
+				} else {
+					anexo2Update = "ERROR";
+					busquedaAnexos.actualizar2();
+				}
+			}
+
+		} catch (SQLException | ParseException e) {
+
+			e.printStackTrace();
+		}
+	}
+
+	public void modificarAnexo2_2(String expe, String nombre, String apellidos, String grupo, String empresa,
+			String horario, String anexo_2_2) {
+		PreparedStatement stmt, stmt2, stmt3, stmt4, stmt5;
+		String[] grupoArray = grupo.split(",");
+		String[] empresaArray = empresa.split(",");
+		int codigo = Integer.parseInt(grupoArray[1]);
+		try {
+			if (!anexo_2_2.equals("null") && !anexo_2_2.isEmpty()) {
+//				SimpleDateFormat formatt = new SimpleDateFormat("dd/MM/yyyy HH:");
+				SimpleDateFormat formatt = new SimpleDateFormat("YYYY-MM-DD HH:");
+				java.util.Date utildate = formatt.parse(anexo_2_2);
+				Date sqlDate = new Date(utildate.getTime());
+				stmt = conexion.prepareStatement("UPDATE PI.alumno SET nombre = ?, apellidos=? WHERE num_exp = ?");
+				stmt2 = conexion.prepareStatement("UPDATE PI.practica SET horario = ? WHERE alumno_num_exp= ?");
+				stmt3 = conexion.prepareStatement("UPDATE PI.gestiona SET anexo_2_2 = ? WHERE grupo_cod_grupo = ?");
+				stmt4 = conexion.prepareStatement("UPDATE PI.grupo SET nom_grupo = ? WHERE cod_grupo = ?");
+				stmt5 = conexion.prepareStatement("UPDATE PI.empresa SET nombre = ? WHERE cif = ?");
+				stmt.setString(1, nombre);
+				stmt.setString(2, apellidos);
+				stmt.setString(3, expe);
+				stmt2.setString(1, horario);
+				stmt2.setString(2, expe);
+				stmt3.setDate(1, sqlDate);
+				stmt3.setInt(2, codigo);
+				stmt4.setString(1, grupoArray[0]);
+				stmt4.setInt(2, codigo);
+				stmt5.setString(1, empresaArray[0]);
+				stmt5.setString(2, empresaArray[1]);
+				int resul3 = stmt3.executeUpdate();
+				int resul = stmt.executeUpdate();
+				int resul2 = stmt2.executeUpdate();
+				int resul4 = stmt4.executeUpdate();
+				int resul5 = stmt5.executeUpdate();
+				if (resul > 0 && resul2 > 0 && resul3 > 0 && resul4 > 0 && resul5 > 0) {
+					anexo2_2Update = "EXITO";
+					busquedaAnexos.actualizar3();
+				} else {
+					anexo2_2Update = "ERROR";
+					busquedaAnexos.actualizar3();
+				}
+			} else {
+				stmt = conexion.prepareStatement("UPDATE PI.alumno SET nombre = ?, apellidos=? WHERE num_exp = ?");
+				stmt2 = conexion.prepareStatement("UPDATE PI.practica SET horario = ? WHERE alumno_num_exp= ?");
+				stmt4 = conexion.prepareStatement("UPDATE PI.grupo SET nom_grupo = ? WHERE cod_grupo = ?");
+				stmt5 = conexion.prepareStatement("UPDATE PI.empresa SET nombre = ? WHERE cif = ?");
+
+				stmt.setString(1, nombre);
+				stmt.setString(2, apellidos);
+				stmt.setString(3, expe);
+				stmt2.setString(1, horario);
+				stmt2.setString(2, expe);
+				stmt4.setString(1, grupoArray[0]);
+				stmt4.setInt(2, codigo);
+				stmt5.setString(1, empresaArray[0]);
+				stmt5.setString(2, empresaArray[1]);
+
+				int resul = stmt.executeUpdate();
+				int resul2 = stmt2.executeUpdate();
+				int resul4 = stmt4.executeUpdate();
+				int resul5 = stmt5.executeUpdate();
+				if (resul > 0 && resul2 > 0 && resul4 > 0 && resul5 > 0) {
+					anexo2_2Update = "EXITO";
+					busquedaAnexos.actualizar3();
+				} else {
+					anexo2_2Update = "ERROR";
+					busquedaAnexos.actualizar3();
+				}
+			}
+
+		} catch (SQLException | ParseException e) {
+
+			e.printStackTrace();
+		}
+
+	}
+
+	public String getAnexo2_2Update() {
+		return anexo2_2Update;
+	}
+
+	public void modificarAnexo3(String expe, String nombre, String apellidos, String anexo_3) {
+		PreparedStatement stmt, stmt2;
+		int resul2;
+		try {
+			if (!anexo_3.equals("null") && !anexo_3.isEmpty()) {
+//				SimpleDateFormat formatt = new SimpleDateFormat("dd/MM/yyyy HH:");
+				SimpleDateFormat formatt = new SimpleDateFormat("YYYY-MM-DD HH:");
+				java.util.Date utildate = formatt.parse(anexo_3);
+				Date sqlDate = new Date(utildate.getTime());
+				stmt2 = conexion.prepareStatement("UPDATE PI.practica SET anexo_3 = ? WHERE alumno_num_exp = ?");
+				stmt = conexion.prepareStatement("UPDATE PI.alumno SET nombre = ?, apellidos=? WHERE num_exp = ?");
+				stmt.setString(1, nombre);
+				stmt.setString(2, apellidos);
+				stmt.setString(3, expe);
+				stmt2.setDate(1, sqlDate);
+				stmt2.setString(2, expe);
+				resul2 = stmt2.executeUpdate();
+				int resul = stmt.executeUpdate();
+				if (resul > 0 && resul2 > 0) {
+					anexo3Update = "EXITO";
+					busquedaAnexos.actualizar4();
+				} else {
+					anexo3Update = "ERROR";
+					busquedaAnexos.actualizar4();
+				}
+			} else {
+				stmt = conexion.prepareStatement("UPDATE PI.alumno SET nombre = ?, apellidos=? WHERE num_exp = ?");
+				stmt.setString(1, nombre);
+				stmt.setString(2, apellidos);
+				stmt.setString(3, expe);
+
+				int resul = stmt.executeUpdate();
+				if (resul > 0) {
+					anexo2Update = "EXITO";
+					busquedaAnexos.actualizar4();
+				} else {
+					anexo2Update = "ERROR";
+					busquedaAnexos.actualizar4();
+				}
+			}
+
+		} catch (SQLException | ParseException e) {
+
+			e.printStackTrace();
+		}
+	}
+
+	public String getAnexo3Update() {
+		return anexo3Update;
+	}
+
+	public void modificarAnexo7(String expe, String nombre, String apellidos, String anexo_7) {
+		PreparedStatement stmt, stmt2;
+		int resul2;
+		try {
+			if (!anexo_7.equals("null") && !anexo_7.isEmpty()) {
+//				SimpleDateFormat formatt = new SimpleDateFormat("dd/MM/yyyy HH:");
+				SimpleDateFormat formatt = new SimpleDateFormat("YYYY-MM-DD HH:");
+				java.util.Date utildate = formatt.parse(anexo_7);
+				Date sqlDate = new Date(utildate.getTime());
+				stmt2 = conexion.prepareStatement("UPDATE PI.practica SET anexo_7 = ? WHERE alumno_num_exp = ?");
+				stmt = conexion.prepareStatement("UPDATE PI.alumno SET nombre = ?, apellidos=? WHERE num_exp = ?");
+				stmt.setString(1, nombre);
+				stmt.setString(2, apellidos);
+				stmt.setString(3, expe);
+				stmt2.setDate(1, sqlDate);
+				stmt2.setString(2, expe);
+				resul2 = stmt2.executeUpdate();
+				int resul = stmt.executeUpdate();
+				if (resul > 0 && resul2 > 0) {
+					anexo7Update = "EXITO";
+					busquedaAnexos.actualizar5();
+				} else {
+					anexo7Update = "ERROR";
+					busquedaAnexos.actualizar5();
+				}
+			} else {
+				stmt = conexion.prepareStatement("UPDATE PI.alumno SET nombre = ?, apellidos=? WHERE num_exp = ?");
+				stmt.setString(1, nombre);
+				stmt.setString(2, apellidos);
+				stmt.setString(3, expe);
+
+				int resul = stmt.executeUpdate();
+				if (resul > 0) {
+					anexo7Update = "EXITO";
+					busquedaAnexos.actualizar5();
+				} else {
+					anexo7Update = "ERROR";
+					busquedaAnexos.actualizar5();
+				}
+			}
+
+		} catch (SQLException | ParseException e) {
+
+			e.printStackTrace();
+		}
+	}
+
+	public String getAnexo7Update() {
+		return anexo7Update;
+	}
+
+	public void modificarAnexo8(String expe, String nombre, String apellidos, String centro, String empresa,
+			String anexo_8) {
+		PreparedStatement stmt, stmt2, stmt3, stmt4;
+		int resul4;
+		String[] centroArray = centro.split(",");
+		String[] empresaArray = empresa.split(",");
+		int cod_centro = Integer.parseInt(centroArray[1]);
+		try {
+			if (!anexo_8.equals("null") && !anexo_8.isEmpty()) {
+//				SimpleDateFormat formatt = new SimpleDateFormat("dd/MM/yyyy HH:");
+				SimpleDateFormat formatt = new SimpleDateFormat("YYYY-MM-DD HH:");
+				java.util.Date utildate = formatt.parse(anexo_8);
+				Date sqlDate = new Date(utildate.getTime());
+				stmt = conexion.prepareStatement("UPDATE PI.alumno SET nombre= ?, apellidos = ? WHERE num_exp= ?");
+				stmt2 = conexion.prepareStatement("UPDATE PI.centro SET localidad= ? WHERE cod_centro= ?");
+				stmt3 = conexion.prepareStatement("UPDATE PI.empresa SET nombre = ? WHERE cif = ?");
+				stmt4 = conexion.prepareStatement("UPDATE PI.practica SET anexo_8 = ? WHERE alumno_num_exp = ?");
+				stmt.setString(1, nombre);
+				stmt.setString(2, apellidos);
+				stmt.setString(3, expe);
+				stmt2.setString(1, centroArray[0]);
+				stmt2.setInt(2, cod_centro);
+				stmt3.setString(1, empresaArray[0]);
+				stmt3.setString(2, empresaArray[1]);
+				stmt4.setDate(1, sqlDate);
+				stmt4.setString(2, expe);
+				resul4 = stmt4.executeUpdate();
+				int resul = stmt.executeUpdate();
+				int resul2 = stmt2.executeUpdate();
+				int resul3 = stmt3.executeUpdate();
+				if (resul > 0 && resul2 > 0 && resul3 > 0 && resul4 > 0) {
+					anexo8Update = "EXITO";
+					busquedaAnexos.actualizar6();
+				} else {
+					anexo8Update = "ERROR";
+					busquedaAnexos.actualizar6();
+				}
+			} else {
+				stmt = conexion.prepareStatement("UPDATE PI.alumno SET nombre= ?, apellidos = ? WHERE num_exp= ?");
+				stmt2 = conexion.prepareStatement("UPDATE PI.centro SET localidad= ? WHERE cod_centro= ?");
+				stmt3 = conexion.prepareStatement("UPDATE PI.empresa SET nombre = ? WHERE cif = ?");
+				stmt.setString(1, nombre);
+				stmt.setString(2, apellidos);
+				stmt.setString(3, expe);
+				stmt2.setString(1, centroArray[0]);
+				stmt2.setInt(2, cod_centro);
+				stmt3.setString(1, empresaArray[0]);
+				stmt3.setString(2, empresaArray[1]);
+
+				int resul = stmt.executeUpdate();
+				int resul2 = stmt2.executeUpdate();
+				int resul3 = stmt3.executeUpdate();
+				if (resul > 0 && resul2 > 0 && resul3 > 0) {
+					anexo8Update = "EXITO";
+					busquedaAnexos.actualizar6();
+				} else {
+					anexo8Update = "ERROR";
+					busquedaAnexos.actualizar6();
+				}
+			}
+
+		} catch (SQLException | ParseException e) {
+
+			e.printStackTrace();
+		}
+	}
+
+	public String getAnexo8Update() {
+		return anexo8Update;
+	}
+
+	public String getCifEmpresa() {
+		return cifEmpresa;
+	}
+
+	public void setCifEmpresa(String cifEmpresa) {
+		this.cifEmpresa = cifEmpresa;
+	}
+
+	public String getNombreAnexo() {
+		return nombreAnexo;
+	}
+
+	public void setNombreAnexo(String nombreAnexo) {
+		this.nombreAnexo = nombreAnexo;
+	}
+
+	public String getNombreTablaAnexo() {
+		return nombreTablaAnexo;
+	}
+
+	public void setNombreTablaAnexo(String nombreTablaAnexo) {
+		this.nombreTablaAnexo = nombreTablaAnexo;
+	}
+
+	public int getAnexoSeleccionado() {
+		return anexoSeleccionado;
+	}
+
+	public void setAnexoSeleccionado(int selected) {
+		this.anexoSeleccionado = selected;
+	}
+
+	public void anularAnexo(String nombreTablaAnexo2, String nombreAnexo2, String cifEmpresa2) {
+		PreparedStatement stmt;
+		try {
+			stmt = conexion.prepareStatement(
+					"UPDATE PI." + nombreTablaAnexo2 + " SET " + nombreAnexo2 + " = ? WHERE empresa_cif = ?");
+			stmt.setNull(1, java.sql.Types.VARCHAR);
+			stmt.setString(2, cifEmpresa2);
+			int resul = stmt.executeUpdate();
+			if (resul > 0) {
+				anexo1Update = "EXITO";
+				busquedaAnexos.actualizar();
+			} else {
+				anexo1Update = "ERROR";
+				busquedaAnexos.actualizar();
+			}
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+	}
+
+	public void anularAnexo2(String nombreTablaAnexo2, String nombreAnexo2, String cifEmpresa2) {
+		PreparedStatement stmt;
+		try {
+			stmt = conexion.prepareStatement(
+					"UPDATE PI." + nombreTablaAnexo2 + " SET " + nombreAnexo2 + " = ? WHERE alumno_num_exp = ?");
+			stmt.setNull(1, java.sql.Types.DATE);
+			stmt.setString(2, cifEmpresa2);
+			int resul = stmt.executeUpdate();
+			if (resul > 0) {
+				anexo2Update = "EXITO";
+				busquedaAnexos.actualizar2();
+			} else {
+				anexo2Update = "ERROR";
+				busquedaAnexos.actualizar2();
+			}
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+	}
+
+	public void anularAnexo2_2(String nombreTablaAnexo2, String nombreAnexo2, String cifEmpresa2) {
+		PreparedStatement stmt;
+		try {
+			String[] array = cifEmpresa2.split(",");
+			stmt = conexion.prepareStatement(
+					"UPDATE PI." + nombreTablaAnexo2 + " SET " + nombreAnexo2 + " = ? WHERE grupo_cod_grupo = ?");
+			stmt.setNull(1, java.sql.Types.DATE);
+			stmt.setInt(2, Integer.parseInt(array[1]));
+			int resul = stmt.executeUpdate();
+			if (resul > 0) {
+				anexo2_2Update = "EXITO";
+				busquedaAnexos.actualizar3();
+			} else {
+				anexo2_2Update = "ERROR";
+				busquedaAnexos.actualizar3();
+			}
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+	}
+
+	private int getColumnasBusquedaAnexos(String SQL, String Condicion) {
+		int num = 0;
+		try {
+			PreparedStatement pst = conexion.prepareStatement(SQL);
+			pst.setString(1, "%" + Condicion + "%");
+			ResultSet rs = pst.executeQuery();
+			ResultSetMetaData rsmd = rs.getMetaData();
+			num = rsmd.getColumnCount();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return num;
+	}
+
+	private int getFilasBusquedaAnexos(String SQL, String Condicion) {
+		int numFilas = 0;
+		try {
+			PreparedStatement pst = conexion.prepareStatement(SQL);
+			pst.setString(1, "%" + Condicion + "%");
+			ResultSet rs = pst.executeQuery();
+			while (rs.next()) {
+				numFilas++;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return numFilas;
+	}
+
+	public TableModel getTablaBusquedaAnexos(String SQL, String Condicion) {
+
+		int numColumnas = getColumnasBusquedaAnexos(SQL, Condicion);
+		int numFilas = getFilasBusquedaAnexos(SQL, Condicion);
+
+		String[] cabecera = new String[numColumnas];
+
+		Object[][] contenido = new Object[numFilas][numColumnas];
+
+		try {
+			PreparedStatement pst = conexion.prepareStatement(SQL);
+			pst.setString(1, "%" + Condicion + "%");
+			;
+			ResultSet rs = pst.executeQuery();
+			ResultSetMetaData rsmd = rs.getMetaData();
+			for (int i = 0; i < numColumnas; i++) {
+				cabecera[i] = rsmd.getColumnName(i + 1);
+			}
+			int fila = 0;
+			while (rs.next()) {
+				for (int column = 1; column <= numColumnas; column++) {
+					contenido[fila][column - 1] = rs.getString(column);
+				}
+				fila++;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return new DefaultTableModel(contenido, cabecera);
+
+	}
+
+	public String getSQLanexo1Busqueda() {
+		return SQLanexo1Busqueda;
+	}
+
+	public String getSQLanexo2_1Busqueda() {
+		return SQLanexo2_1Busqueda;
+	}
+
+	public String getSQLanexo2_2Busqueda() {
+		return SQLanexo2_2Busqueda;
+	}
+
+	public String getSQLanexo3Busqueda() {
+		return SQLanexo3Busqueda;
+	}
+
+	public String getSQLanexo7Busqueda() {
+		return SQLanexo7Busqueda;
+	}
+
+	public String getSQLanexo8Busqueda() {
+		return SQLanexo8Busqueda;
+	}
+
+	public String getSQLinforme1() {
+		return SQLinforme1;
+	}
+	
+
+	public String getSQLinforme2() {
+		return SQLinforme2;
+	}
+
+	public String getSQLinforme3() {
+		return SQLinforme3;
+	}
+
+	public String getSQLinforme4() {
+		return SQLinforme4;
+	}
+
+	public void GruposAlumnosTutor() {
+
+		if (!tutorAlumnos.isEmpty()) {
+			tutorAlumnos.clear();
+		}
+		try {
+			PreparedStatement ps = conexion.prepareStatement(SqlAlumnosTutor);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				tutorAlumnos.put(rs.getString("TUTOR"), rs.getInt("ALUMNOS"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public void dibujargraficaCircularAlumnosTutor() {
+		DefaultPieDataset circularChart = new DefaultPieDataset();
+		circularChart.setValue(
+				tutorAlumnos.keySet().toArray()[0] + ": " + tutorAlumnos.get(tutorAlumnos.keySet().toArray()[0]),
+				tutorAlumnos.get(tutorAlumnos.keySet().toArray()[0]));
+		circularChart.setValue(
+				tutorAlumnos.keySet().toArray()[1] + ": " + tutorAlumnos.get(tutorAlumnos.keySet().toArray()[1]),
+				tutorAlumnos.get(tutorAlumnos.keySet().toArray()[1]));
+		circularChart.setValue(
+				tutorAlumnos.keySet().toArray()[2] + ": " + tutorAlumnos.get(tutorAlumnos.keySet().toArray()[2]),
+				tutorAlumnos.get(tutorAlumnos.keySet().toArray()[2]));
+		circularChart.setValue(
+				tutorAlumnos.keySet().toArray()[3] + ": " + tutorAlumnos.get(tutorAlumnos.keySet().toArray()[3]),
+				tutorAlumnos.get(tutorAlumnos.keySet().toArray()[3]));
+		JFreeChart circulo = ChartFactory.createPieChart3D("Alumnos Tutor", circularChart, true, true, false);
+		BufferedImage circchrt = circulo.createBufferedImage(785, 460);
+		;
+		CircularPanelAlumnosTutor = new ChartPanel(circulo);
+		CircularPanelAlumnosTutor.setBounds(44, 103, 785, 460);
+		ventana_estadisticas.actualizarPanel6();
+	}
+
+	public ChartPanel getCircularPanelAlumnosTutor() {
+		return CircularPanelAlumnosTutor;
+	}
+
+	public void dibujarGraficaBarrasAlumnosTutor() {
+		DefaultCategoryDataset barChart = new DefaultCategoryDataset();
+		barChart.setValue((tutorAlumnos.get(tutorAlumnos.keySet().toArray()[0])), "cantidad",
+				(Comparable) tutorAlumnos.keySet().toArray()[0]);
+		barChart.setValue((tutorAlumnos.get(tutorAlumnos.keySet().toArray()[1])), "cantidad",
+				(Comparable) tutorAlumnos.keySet().toArray()[1]);
+		barChart.setValue((tutorAlumnos.get(tutorAlumnos.keySet().toArray()[2])), "cantidad",
+				(Comparable) tutorAlumnos.keySet().toArray()[2]);
+		barChart.setValue((tutorAlumnos.get(tutorAlumnos.keySet().toArray()[3])), "cantidad",
+				(Comparable) tutorAlumnos.keySet().toArray()[3]);
+
+		JFreeChart barChart1 = ChartFactory.createBarChart3D("Alumnos Tutor", "", "Cantidad Alumnos", barChart,
+				PlotOrientation.VERTICAL, false, true, false);
+		CategoryPlot barchrt = barChart1.getCategoryPlot();
+		barchrt.setRangeGridlinePaint(Color.orange);
+		barPanelAlumnosTutor = new ChartPanel(barChart1);
+		ventana_estadisticas.actualizarPanel7();
+	}
+	public ChartPanel getBarPanelAlumnosTutor() {
+		return barPanelAlumnosTutor;
+	}
+
+	public void tutoresCiclo() {
+		if (!tutorCiclos.isEmpty()) {
+			tutorCiclos.clear();
+		}
+		try {
+			PreparedStatement ps = conexion.prepareStatement(SQLTutoresCiclo);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				tutorCiclos.put(rs.getString("CICLO"), rs.getInt("TUTORES"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public void dibujargraficaCircularTutoresCiclo() {
+
+		DefaultPieDataset circularChart = new DefaultPieDataset();
+		circularChart.setValue(
+				tutorCiclos.keySet().toArray()[0] + ": " + tutorCiclos.get(tutorCiclos.keySet().toArray()[0]),
+				tutorCiclos.get(tutorCiclos.keySet().toArray()[0]));
+		circularChart.setValue(
+				tutorCiclos.keySet().toArray()[1] + ": " + tutorCiclos.get(tutorCiclos.keySet().toArray()[1]),
+				tutorCiclos.get(tutorCiclos.keySet().toArray()[1]));
+		circularChart.setValue(
+				tutorCiclos.keySet().toArray()[2] + ": " + tutorCiclos.get(tutorCiclos.keySet().toArray()[2]),
+				tutorCiclos.get(tutorCiclos.keySet().toArray()[2]));
+		circularChart.setValue(
+				tutorCiclos.keySet().toArray()[3] + ": " + tutorCiclos.get(tutorCiclos.keySet().toArray()[3]),
+				tutorCiclos.get(tutorCiclos.keySet().toArray()[3]));
+		JFreeChart circulo = ChartFactory.createPieChart3D("Tutores Ciclo", circularChart, true, true, false);
+		BufferedImage circchrt = circulo.createBufferedImage(785, 460);
+		;
+		CircularPanelTutoresCiclo = new ChartPanel(circulo);
+		CircularPanelTutoresCiclo.setBounds(44, 103, 785, 460);
+		ventana_estadisticas.actualizarPanel8();
+	}
+
+	public ChartPanel getCircularPanelTutoresCiclo() {
+		return CircularPanelTutoresCiclo;
+	}
+
+	public ChartPanel getBarPanelTutoresCiclo() {
+		return barPanelTutoresCiclo;
+	}
+
+	public void dibujarBarrasTutoresCiclo() {
+
+		DefaultCategoryDataset barChart = new DefaultCategoryDataset();
+		barChart.setValue((tutorCiclos.get(tutorCiclos.keySet().toArray()[0])), "cantidad",
+				(Comparable) tutorCiclos.keySet().toArray()[0]);
+		barChart.setValue((tutorCiclos.get(tutorCiclos.keySet().toArray()[1])), "cantidad",
+				(Comparable) tutorCiclos.keySet().toArray()[1]);
+		barChart.setValue((tutorCiclos.get(tutorCiclos.keySet().toArray()[2])), "cantidad",
+				(Comparable) tutorCiclos.keySet().toArray()[2]);
+		barChart.setValue((tutorCiclos.get(tutorCiclos.keySet().toArray()[3])), "cantidad",
+				(Comparable) tutorCiclos.keySet().toArray()[3]);
+
+		JFreeChart barChart1 = ChartFactory.createBarChart3D("Tutores Ciclo", "", "Cantidad Tutores", barChart,
+				PlotOrientation.VERTICAL, false, true, false);
+		CategoryPlot barchrt = barChart1.getCategoryPlot();
+		barchrt.setRangeGridlinePaint(Color.orange);
+		barPanelTutoresCiclo = new ChartPanel(barChart1);
+		ventana_estadisticas.actualizarPanel9();
+	
+	}
+
+	public void alumnosEmpresa() {
+		if (!alumnosEmpresa.isEmpty()) {
+			alumnosEmpresa.clear();
+		}
+		try {
+			PreparedStatement ps = conexion.prepareStatement(SQLAlumnosEmpresa);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				alumnosEmpresa.put(rs.getString("EMPRESA"), rs.getInt("ALUMNOS"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+		
+	}
+
+	public void dibujargraficaCircularAlumnosEmpresa() {
+
+
+		DefaultPieDataset circularChart = new DefaultPieDataset();
+			for (int i = 0; i < alumnosEmpresa.size(); i++) {
+				circularChart.setValue(
+						alumnosEmpresa.keySet().toArray()[i] + ": " + alumnosEmpresa.get(alumnosEmpresa.keySet().toArray()[i]),
+						alumnosEmpresa.get(alumnosEmpresa.keySet().toArray()[i]));
+			}
+		JFreeChart circulo = ChartFactory.createPieChart3D("Alumnos Empresa", circularChart, true, true, false);
+		BufferedImage circchrt = circulo.createBufferedImage(785, 460);
+		;
+		CircularPanelAlumnosEmpresa = new ChartPanel(circulo);
+		CircularPanelAlumnosEmpresa.setBounds(44, 103, 785, 460);
+		ventana_estadisticas.actualizarPanel10();
+	}
+
+	public ChartPanel getCircularPanelAlumnosEmpresa() {
+		return CircularPanelAlumnosEmpresa;
+	}
+	public ChartPanel getBarPanelAlumnosEmpresa() {
+		return barPanelAlumnosEmpresa;
+	}
+
+	public void dibujargraficaBarrasAlumnosEmpresa() {
+
+
+		DefaultCategoryDataset barChart = new DefaultCategoryDataset();
+			for (int i = 0; i < alumnosEmpresa.size(); i++) {
+				barChart.setValue((alumnosEmpresa.get(alumnosEmpresa.keySet().toArray()[i])), "cantidad",
+						(Comparable) alumnosEmpresa.keySet().toArray()[i]);
+			}
+		JFreeChart barChart1 = ChartFactory.createBarChart3D("Alumnos Empresa", "", "Cantidad Alumnos", barChart,
+				PlotOrientation.VERTICAL, false, true, false);
+		CategoryPlot barchrt = barChart1.getCategoryPlot();
+		barchrt.setRangeGridlinePaint(Color.orange);
+		barPanelAlumnosEmpresa = new ChartPanel(barChart1);
+		ventana_estadisticas.actualizarPanel11();
+	}
+	
+	
 }

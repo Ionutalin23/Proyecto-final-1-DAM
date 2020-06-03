@@ -11,6 +11,7 @@ import vista.Busqueda_Tutores;
 import vista.MenuVista;
 import vista.Ventana_Estadisticas;
 import vista.Ventana_Conf_Delete;
+import vista.Ventana_Conf_Anexo;
 import vista.Ventana_Login;
 import vista.Ventana_Login_Config;
 import vista.Ventana_Mensaje_ERROR;
@@ -44,6 +45,7 @@ public class Main {
 		
 		Ventana_Mensaje_ERROR ventana_mensaje_error= new Ventana_Mensaje_ERROR();
 		Ventana_Conf_Delete ventana_Conf_Delete = new Ventana_Conf_Delete();
+		Ventana_Conf_Anexo ventana_conf_anexo = new Ventana_Conf_Anexo();
 		
 		miControlador.setModelo(miModelo);
 		miControlador.setVista(vista_ventana_login);
@@ -61,6 +63,8 @@ public class Main {
 		miControlador.setVista(ventana_mensaje_error);
 		miControlador.setVista(ventana_estadisticas);
 		miControlador.setVista(ventana_Conf_Delete);
+		miControlador.setVista(ventana_conf_anexo);
+		
 		miModelo.setVista(vista_ventana_login);
 		miModelo.setVista(vista_ventana_menu);
 		miModelo.setVista(busquedaAlumnos);
@@ -76,6 +80,8 @@ public class Main {
 		miModelo.setVista(ventana_mensaje_error);
 		miModelo.setVista(ventana_estadisticas);
 		miModelo.setVista(ventana_Conf_Delete);
+		miModelo.setVista(ventana_conf_anexo);
+		
 		vista_info_grupo.setControlador(miControlador);
 		vista_info_grupo.setModelo(miModelo);
 		
@@ -121,7 +127,11 @@ public class Main {
 		ventana_Conf_Delete.setControlador(miControlador);
 		ventana_Conf_Delete.setModelo(miModelo);
 		
+		ventana_conf_anexo.setControlador(miControlador);
+		ventana_conf_anexo.setModelo(miModelo);
+		
 		vista_ventana_login.setVisible(true);
+		
 
 	}
 }

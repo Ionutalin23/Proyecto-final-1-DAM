@@ -48,6 +48,8 @@ public class MenuVista extends JFrame {
 			.getScaledInstance(202, 148, Image.SCALE_SMOOTH);
 	Image imgPerfil = new ImageIcon(getClass().getResource("/img/perfil.jpg")).getImage()
 			.getScaledInstance(167, 128, Image.SCALE_SMOOTH);
+	Image bgColor = new ImageIcon(getClass().getResource("/img/bg9.jpg")).getImage()
+			.getScaledInstance(254, 617, Image.SCALE_SMOOTH);
 	private JLabel lblLogout;
 	private JLabel lblUser;
 	private JLabel lblEstadist;
@@ -57,6 +59,7 @@ public class MenuVista extends JFrame {
 	private JPanel pnlMenu;
 	private JPanel pnlUser;
 	private JLabel lblPhoto;
+	private JLabel lblBGpColor;
 
 	public MenuVista() {
 		getContentPane().setBackground(Color.LIGHT_GRAY);
@@ -78,7 +81,7 @@ public class MenuVista extends JFrame {
 					Animacion.Animacion.mover_izquierda(264, 12, 2, 2, BtnMenu);
 					Animacion.Animacion.mover_izquierda(0, -260, 2, 2, pnlMenu);
 				} else {
-					miModelo.loadImagenUSR();
+					//miModelo.loadImagenUSR();
 					Image imgPerfil = new ImageIcon(getClass().getResource("/img/"+miModelo.getUSR()+".jpg")).getImage()
 							.getScaledInstance(167, 128, Image.SCALE_SMOOTH);
 					lblPhoto.setIcon(new ImageIcon(imgPerfil));
@@ -221,6 +224,11 @@ public class MenuVista extends JFrame {
 		lblPhoto.setBounds(49, 31, 167, 128);
 		pnlMenu.add(lblPhoto);
 		
+		lblBGpColor = new JLabel("New label");
+		lblBGpColor.setIcon(new ImageIcon(bgColor));
+		lblBGpColor.setBounds(0, 0, 254, 617);
+		pnlMenu.add(lblBGpColor);
+		
 //		-------------------------------------------------------------------------------------------
 
 		lblLogout = new JLabel("LOGOUT");
@@ -267,19 +275,20 @@ public class MenuVista extends JFrame {
 		pnlUser = new JPanel();
 		pnlUser.setBounds(49, 13, 196, 27);
 		getContentPane().add(pnlUser);
-		pnlUser.setForeground(new Color(240, 248, 255));
-		pnlUser.setBackground(new Color(192, 192, 192, 190));
+		pnlUser.setForeground(new Color(255, 0, 0));
+		pnlUser.setBackground(new Color(245, 245, 245));
 		pnlUser.setLayout(null);
 
 		lblUser = new JLabel("Logged as: Pedro Camacho");
+		lblUser.setBackground(new Color(211, 211, 211));
 		lblUser.setBounds(0, 0, 196, 27);
 		pnlUser.add(lblUser);
-		lblUser.setForeground(new Color(255, 255, 255));
+		lblUser.setForeground(new Color(139, 0, 0));
 		lblUser.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblUser.setHorizontalAlignment(SwingConstants.CENTER);
 
 		JPanel pnlMed = new JPanel();
-		pnlMed.setBounds(269, 0, 412, 617);
+		pnlMed.setBounds(257, 0, 412, 617);
 		pnlMed.setBackground(new Color(255, 255, 255, 200));
 		getContentPane().add(pnlMed);
 		pnlMed.setLayout(null);
@@ -553,7 +562,7 @@ public class MenuVista extends JFrame {
 
 		JLabel lblBg = new JLabel("");
 		lblBg.setForeground(SystemColor.window);
-		lblBg.setIcon(new ImageIcon(MenuVista.class.getResource("/img/uem.jpg")));
+		lblBg.setIcon(new ImageIcon(MenuVista.class.getResource("/images/uni.jpg")));
 		lblBg.setBackground(new Color(255, 99, 71));
 		lblBg.setBounds(1, 0, 888, 664);
 		getContentPane().add(lblBg);
