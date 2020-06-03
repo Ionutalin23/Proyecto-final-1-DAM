@@ -10,6 +10,8 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Color;
+
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.border.BevelBorder;
@@ -31,6 +33,7 @@ import java.sql.Date;
 import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
+import javax.swing.JComboBox;
 
 public class Ventana_Login_Config extends JFrame {
 
@@ -84,7 +87,7 @@ public class Ventana_Login_Config extends JFrame {
 
 //	Respuesta de datos introducidos ========================
 		lblRespuesta = new JLabel("");
-		lblRespuesta.setBounds(290, 396, 215, 26);
+		lblRespuesta.setBounds(290, 421, 215, 20);
 		lblRespuesta.setVisible(false);
 		getContentPane().add(lblRespuesta);
 
@@ -162,7 +165,7 @@ public class Ventana_Login_Config extends JFrame {
 		lblModificar.setHorizontalAlignment(SwingConstants.CENTER);
 		lblModificar.setFont(new Font("Century Gothic", Font.BOLD, 15));
 		lblModificar.setForeground(Color.WHITE);
-		lblModificar.setBounds(348, 427, 109, 36);
+		lblModificar.setBounds(349, 443, 109, 36);
 		getContentPane().add(lblModificar);
 
 		JLabel lblModificarBtn = new JLabel("");
@@ -194,7 +197,7 @@ public class Ventana_Login_Config extends JFrame {
 				lblRespuesta.setVisible(true);
 			}
 		});
-		lblModificarBtn.setBounds(348, 427, 118, 47);
+		lblModificarBtn.setBounds(349, 443, 118, 47);
 		getContentPane().add(lblModificarBtn);
 		lblModificarBtn.setIcon(new ImageIcon(img_buttonLogin));
 
@@ -252,6 +255,7 @@ public class Ventana_Login_Config extends JFrame {
 		lblTitulo.setFont(new Font("Dialog", Font.BOLD, 16));
 		lblTitulo.setBounds(272, 140, 256, 20);
 		getContentPane().add(lblTitulo);
+
 
 //	Background Image ========================
 		JLabel lblBgColor = new JLabel("");
