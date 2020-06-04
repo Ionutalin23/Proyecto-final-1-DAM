@@ -137,7 +137,7 @@ public class Ventana_config_User extends JFrame {
 			}
 
 			public void mouseClicked(MouseEvent e) {
-				miControlador.back5();
+				miControlador.back10();
 			}
 		});
 		
