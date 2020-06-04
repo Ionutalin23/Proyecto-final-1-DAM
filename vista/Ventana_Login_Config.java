@@ -107,7 +107,7 @@ public class Ventana_Login_Config extends JFrame {
 
 		JLabel lblUsrText = new JLabel("USUARIO:");
 		lblUsrText.setForeground(Color.WHITE);
-		lblUsrText.setFont(new Font("Century Gothic", Font.BOLD, 14));
+		lblUsrText.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblUsrText.setBounds(290, 255, 92, 20);
 		getContentPane().add(lblUsrText);
 
@@ -129,7 +129,7 @@ public class Ventana_Login_Config extends JFrame {
 		panel_1.add(txtPasswordBD);
 
 		JLabel lblPasswdText = new JLabel("CONTRASE\u00D1A:");
-		lblPasswdText.setFont(new Font("Century Gothic", Font.BOLD, 14));
+		lblPasswdText.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblPasswdText.setForeground(Color.WHITE);
 		lblPasswdText.setBounds(290, 326, 118, 20);
 		getContentPane().add(lblPasswdText);
@@ -152,7 +152,7 @@ public class Ventana_Login_Config extends JFrame {
 		panel_2.add(txtUrlBD);
 
 		JLabel lblUrl = new JLabel("URL:");
-		lblUrl.setFont(new Font("Century Gothic", Font.BOLD, 14));
+		lblUrl.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblUrl.setForeground(Color.WHITE);
 		lblUrl.setBounds(290, 177, 92, 20);
 		getContentPane().add(lblUrl);
@@ -249,8 +249,8 @@ public class Ventana_Login_Config extends JFrame {
 
 		JLabel lblTitulo = new JLabel("Configuracion de Base de Datos");
 		lblTitulo.setForeground(Color.WHITE);
-		lblTitulo.setFont(new Font("Dialog", Font.BOLD, 16));
-		lblTitulo.setBounds(272, 140, 256, 20);
+		lblTitulo.setFont(new Font("Century Gothic", Font.BOLD, 24));
+		lblTitulo.setBounds(272, 140, 415, 36);
 		getContentPane().add(lblTitulo);
 
 //	Background Image ========================

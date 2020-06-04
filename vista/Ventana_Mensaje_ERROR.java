@@ -96,13 +96,13 @@ public class Ventana_Mensaje_ERROR extends JFrame {
 		
 		txtMessage = new JTextArea();
 		txtMessage.setOpaque(false);
-		txtMessage.setForeground(Color.BLACK);
+		txtMessage.setForeground(Color.WHITE);
 		txtMessage.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 		txtMessage.setEditable(false);
-		txtMessage.setFont(new Font("Century Gothic", Font.BOLD, 14));
+		txtMessage.setFont(new Font("Tahoma", Font.BOLD, 14));
 		txtMessage.setBackground(new Color(255, 255, 255, 150));
 		txtMessage.setText("    PARECE QUE HAS INTRODUCIDO LA CONTRASE\u00D1A\r\n Y EL USUARIO ERR\u00D3NEOS TRES VECES CONSECUTIVAS...\r\n\r\n Por su seguridad y la de la aplicaci\u00F3n, se proceder\u00E1\r\n             el cierre autom\u00E1tico de la misma.\n");
-		txtMessage.setBounds(49, 109, 379, 110);
+		txtMessage.setBounds(39, 109, 420, 110);
 		getContentPane().add(txtMessage);
 		
 		lblError = new JLabel("Oops.... :/");

@@ -438,8 +438,8 @@ public class Busqueda_Anexos extends JFrame {
 		JLabel WindowTitle = new JLabel("Anexos");
 		WindowTitle.setVerticalAlignment(SwingConstants.BOTTOM);
 		WindowTitle.setForeground(Color.WHITE);
-		WindowTitle.setFont(new Font("Tahoma", Font.BOLD, 18));
-		WindowTitle.setBounds(389, 12, 82, 23);
+		WindowTitle.setFont(new Font("Century Gothic", Font.BOLD, 24));
+		WindowTitle.setBounds(389, 12, 113, 23);
 		contentPane.add(WindowTitle);
 
 //		Background Image ========================

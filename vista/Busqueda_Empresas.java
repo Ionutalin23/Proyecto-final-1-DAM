@@ -387,8 +387,8 @@ public class Busqueda_Empresas extends JFrame {
 //		Window Title ========================
 		JLabel WindowTitle = new JLabel("Empresas");
 		WindowTitle.setForeground(Color.WHITE);
-		WindowTitle.setFont(new Font("Tahoma", Font.BOLD, 18));
-		WindowTitle.setBounds(389, 12, 96, 22);
+		WindowTitle.setFont(new Font("Century Gothic", Font.BOLD, 24));
+		WindowTitle.setBounds(389, 12, 128, 37);
 		contentPane.add(WindowTitle);
 
 //		Background Image ========================

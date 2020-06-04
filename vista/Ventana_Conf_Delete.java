@@ -140,10 +140,10 @@ public class Ventana_Conf_Delete extends JFrame {
 		
 		txtMessage = new JTextArea();
 		txtMessage.setOpaque(false);
-		txtMessage.setForeground(Color.BLACK);
+		txtMessage.setForeground(Color.WHITE);
 		txtMessage.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 		txtMessage.setEditable(false);
-		txtMessage.setFont(new Font("Century Gothic", Font.BOLD, 14));
+		txtMessage.setFont(new Font("Tahoma", Font.BOLD, 14));
 		txtMessage.setBackground(new Color(255, 255, 255, 150));
 		txtMessage.setText(
 				"    Parece que quieres eliminar un dato. ¿Estas seguro?");

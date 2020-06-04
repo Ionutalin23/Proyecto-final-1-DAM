@@ -400,8 +400,8 @@ public class Busqueda_Alumnos extends JFrame {
 //		Window Title ========================
 		JLabel WindowTitle = new JLabel("Alumnos");
 		WindowTitle.setForeground(Color.WHITE);
-		WindowTitle.setFont(new Font("Tahoma", Font.BOLD, 18));
-		WindowTitle.setBounds(389, 12, 82, 14);
+		WindowTitle.setFont(new Font("Century Gothic", Font.BOLD, 24));
+		WindowTitle.setBounds(379, 12, 106, 27);
 		contentPane.add(WindowTitle);
 
 //		Background Image ========================

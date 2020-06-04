@@ -351,7 +351,7 @@ public class Busqueda_Grupos extends JFrame {
 		lblLogout.setBounds(780, 11, 82, 23);
 		getContentPane().add(lblLogout);
 		lblLogout.setHorizontalAlignment(SwingConstants.CENTER);
-		lblLogout.setForeground(Color.WHITE);
+		lblLogout.setForeground(Color.WHITE);		
 		lblLogout.setBackground(new Color(205, 92, 92));
 
 		JLabel lblLogoutButton = new JLabel("");
@@ -396,8 +396,8 @@ public class Busqueda_Grupos extends JFrame {
 //		Window Title ========================
 		JLabel WindowTitle = new JLabel("Grupos");
 		WindowTitle.setForeground(Color.WHITE);
-		WindowTitle.setFont(new Font("Tahoma", Font.BOLD, 18));
-		WindowTitle.setBounds(389, 12, 82, 22);
+		WindowTitle.setFont(new Font("Century Gothic", Font.BOLD, 24));
+		WindowTitle.setBounds(389, 12, 96, 41);
 		contentPane.add(WindowTitle);
 
 //		Background Image ========================

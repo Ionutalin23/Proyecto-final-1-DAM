@@ -464,8 +464,8 @@ public class Busqueda_Tutores extends JFrame {
 //		Window Title ========================
 		JLabel WindowTitle = new JLabel("Tutores");
 		WindowTitle.setForeground(Color.WHITE);
-		WindowTitle.setFont(new Font("Tahoma", Font.BOLD, 18));
-		WindowTitle.setBounds(389, 12, 82, 14);
+		WindowTitle.setFont(new Font("Century Gothic", Font.BOLD, 24));
+		WindowTitle.setBounds(389, 12, 106, 31);
 		contentPane.add(WindowTitle);
 
 //		Background Image ========================

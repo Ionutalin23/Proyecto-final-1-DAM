@@ -161,51 +161,51 @@ public class Ventana_Login extends JFrame {
 
 		JLabel lblUser = new JLabel("USUARIO:");
 		lblUser.setForeground(Color.WHITE);
-		lblUser.setFont(new Font("Century Gothic", Font.BOLD, 14));
+		lblUser.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblUser.setBounds(274, 119, 130, 36);
 		pnlRegister.add(lblUser);
 
 		JLabel lblRegister;
 		lblRegisterTitle = new JLabel("REGISTER");
 		lblRegisterTitle.setForeground(Color.WHITE);
-		lblRegisterTitle.setFont(new Font("Tahoma", Font.BOLD, 32));
+		lblRegisterTitle.setFont(new Font("Century GOTHIC", Font.BOLD, 24));
 		lblRegisterTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		lblRegisterTitle.setBounds(106, 27, 203, 79);
 		pnlRegister.add(lblRegisterTitle);
 
 		JLabel lblName = new JLabel("NOMBRE:");
 		lblName.setForeground(Color.WHITE);
-		lblName.setFont(new Font("Century Gothic", Font.BOLD, 14));
+		lblName.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblName.setBounds(58, 119, 130, 36);
 		pnlRegister.add(lblName);
 
 		JLabel lblApellido = new JLabel("APELLIDO:");
 		lblApellido.setForeground(Color.WHITE);
-		lblApellido.setFont(new Font("Century Gothic", Font.BOLD, 14));
+		lblApellido.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblApellido.setBounds(58, 199, 130, 36);
 		pnlRegister.add(lblApellido);
 
 		JLabel lblRegPwd = new JLabel("CONTRASE\u00D1A:");
-		lblRegPwd.setFont(new Font("Century Gothic", Font.BOLD, 14));
+		lblRegPwd.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblRegPwd.setForeground(Color.WHITE);
 		lblRegPwd.setBounds(274, 199, 130, 36);
 		pnlRegister.add(lblRegPwd);
 
 		JLabel lblRol = new JLabel("ROL:");
-		lblRol.setFont(new Font("Century Gothic", Font.BOLD, 14));
+		lblRol.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblRol.setForeground(Color.WHITE);
 		lblRol.setBounds(274, 287, 130, 36);
 		pnlRegister.add(lblRol);
 
 		JLabel lblEmail = new JLabel("EMAIL:");
 		lblEmail.setForeground(Color.WHITE);
-		lblEmail.setFont(new Font("Century Gothic", Font.BOLD, 14));
+		lblEmail.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblEmail.setBounds(58, 287, 130, 36);
 		pnlRegister.add(lblEmail);
 
 		lblRegister = new JLabel("Register");
 		lblRegister.setHorizontalAlignment(SwingConstants.CENTER);
-		lblRegister.setFont(new Font("Century Gothic", Font.BOLD, 15));
+		lblRegister.setFont(new Font("Century Gothic", Font.BOLD, 14));
 		lblRegister.setForeground(Color.WHITE);
 		lblRegister.setBounds(189, 409, 109, 36);
 		pnlRegister.add(lblRegister);
