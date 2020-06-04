@@ -24,8 +24,8 @@ import vista.Vista_Info_Tutor;
 public class Main {
 	public static void main(String[] args) {
 		
-		controlador miControlador = new controlador();
 		
+		controlador miControlador = new controlador();
 		modelo miModelo = new modelo();
 		
 		Ventana_Login vista_ventana_login = new Ventana_Login();
