@@ -25,6 +25,7 @@ import modelo.modelo;
 
 import java.awt.SystemColor;
 import javax.swing.border.LineBorder;
+import java.awt.Cursor;
 
 public class MenuVista extends JFrame {
 	private controlador miControlador;
@@ -55,11 +56,7 @@ public class MenuVista extends JFrame {
 	private JLabel lblEstadist;
 	private JLabel lblEnConstruccion;
 	private JLabel lblStatsBtn;
-	private JLabel BtnMenu;
-	private JPanel pnlMenu;
 	private JPanel pnlUser;
-	private JLabel lblPhoto;
-	private JLabel lblBGpColor;
 
 	public MenuVista() {
 		getContentPane().setBackground(Color.LIGHT_GRAY);
@@ -71,175 +68,18 @@ public class MenuVista extends JFrame {
 		getContentPane().setLayout(null);
 //		POSICIONAR VENTANA EN EL CENTRO DE LA PANTALLA
 		setLocationRelativeTo(null);
-		// USER SETTINGS PANEL-------------------------------------------------------
-		BtnMenu = new JLabel("");
-		BtnMenu.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent arg0) {
-				int posicion = BtnMenu.getX();
-				if (posicion > 12) {
-					
-					Animacion.Animacion.mover_izquierda(264, 12, 2, 2, BtnMenu);
-					Animacion.Animacion.mover_izquierda(0, -260, 2, 2, pnlMenu);
-				} else {
-					//miModelo.loadImagenUSR();
-					Image imgPerfil = new ImageIcon(getClass().getResource("/img/"+miModelo.getUSR()+".jpg")).getImage()
-							.getScaledInstance(167, 128, Image.SCALE_SMOOTH);
-					lblPhoto.setIcon(new ImageIcon(imgPerfil));
-					Animacion.Animacion.mover_derecha(12, 220, 2, 2, BtnMenu);
-					Animacion.Animacion.mover_derecha(-260, 0, 2, 2, pnlMenu);
-				}
-			}
-		});
-		BtnMenu.setIcon(new ImageIcon(MenuVista.class.getResource("/images/menu.png")));
-		BtnMenu.setBounds(12, 13, 25, 27);
-		getContentPane().add(BtnMenu);
-		pnlMenu = new JPanel();
-		pnlMenu.setBackground(new Color(220, 20, 60));
-		pnlMenu.setForeground(new Color(0, 0, 0));
-		pnlMenu.setBounds(-260, 0, 254, 617);
-		getContentPane().add(pnlMenu);
-		pnlMenu.setLayout(null);
-		
-				JLabel btnPerfil = new JLabel("");
-				btnPerfil.addMouseListener(new MouseAdapter() {
-					@Override
-					public void mousePressed(MouseEvent e) {
-						btnPerfil.setIcon(new ImageIcon(buttonMenu3));
-					}
-
-					public void mouseRelesed(MouseEvent e) {
-						btnPerfil.setIcon(new ImageIcon(buttonMenu2));
-					}
-
-					public void mouseEntered(MouseEvent arg0) {
-						btnPerfil.setIcon(new ImageIcon(buttonMenu2));
-					}
-
-					public void mouseExited(MouseEvent e) {
-						btnPerfil.setIcon(new ImageIcon(buttonMenu1));
-					}
-				});
-				
-				JLabel lblAjustes = new JLabel("AJUSTES");
-				lblAjustes.setFont(new Font("Tahoma", Font.BOLD, 14));
-				lblAjustes.setHorizontalAlignment(SwingConstants.CENTER);
-				lblAjustes.setBounds(49, 340, 160, 37);
-				pnlMenu.add(lblAjustes);
-				btnPerfil.setIcon(new ImageIcon(buttonMenu1));
-				btnPerfil.setBounds(49, 340, 160, 37);
-				pnlMenu.add(btnPerfil);
-		
-		JLabel lblPerfil = new JLabel("MI PERFIL");
-		lblPerfil.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblPerfil.setHorizontalAlignment(SwingConstants.CENTER);
-		lblPerfil.setBounds(49, 264, 160, 37);
-		pnlMenu.add(lblPerfil);
-
-		// Menu Buttons
-		// -----------------------------------------------------------------------------
-
-		JLabel lblMessages = new JLabel("MENSAJES");
-		lblMessages.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblMessages.setHorizontalAlignment(SwingConstants.CENTER);
-		lblMessages.setBounds(49, 190, 160, 37);
-		pnlMenu.add(lblMessages);
-
-		JLabel btnMessages = new JLabel("");
-		btnMessages.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				btnMessages.setIcon(new ImageIcon(buttonMenu3));
-			}
-
-			public void mouseRelesed(MouseEvent e) {
-				btnMessages.setIcon(new ImageIcon(buttonMenu2));
-			}
-
-			public void mouseEntered(MouseEvent arg0) {
-				btnMessages.setIcon(new ImageIcon(buttonMenu2));
-			}
-
-			public void mouseExited(MouseEvent e) {
-				btnMessages.setIcon(new ImageIcon(buttonMenu1));
-			}
-		});
-		btnMessages.setIcon(new ImageIcon(buttonMenu1));
-		btnMessages.setBounds(49, 264, 160, 37);
-		pnlMenu.add(btnMessages);
-
-		JLabel btnAjustes = new JLabel("");
-		btnAjustes.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				btnAjustes.setIcon(new ImageIcon(buttonMenu3));
-			}
-
-			public void mouseRelesed(MouseEvent e) {
-				btnAjustes.setIcon(new ImageIcon(buttonMenu2));
-			}
-
-			public void mouseEntered(MouseEvent arg0) {
-				btnAjustes.setIcon(new ImageIcon(buttonMenu2));
-			}
-
-			public void mouseExited(MouseEvent e) {
-				btnAjustes.setIcon(new ImageIcon(buttonMenu1));
-			}
-		});
-		btnAjustes.setIcon(new ImageIcon(buttonMenu1));
-		btnAjustes.setBounds(49, 190, 160, 37);
-		pnlMenu.add(btnAjustes);
-		
-		JLabel lblHelp = new JLabel("AYUDA");
-		lblHelp.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblHelp.setHorizontalAlignment(SwingConstants.CENTER);
-		lblHelp.setBounds(49, 417, 160, 37);
-		pnlMenu.add(lblHelp);
-
-		
-		JLabel btnHelp = new JLabel("");
-		btnHelp.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				btnHelp.setIcon(new ImageIcon(buttonMenu3));
-			}
-
-			public void mouseRelesed(MouseEvent e) {
-				btnHelp.setIcon(new ImageIcon(buttonMenu2));
-			}
-
-			public void mouseEntered(MouseEvent arg0) {
-				btnHelp.setIcon(new ImageIcon(buttonMenu2));
-			}
-
-			public void mouseExited(MouseEvent e) {
-				btnHelp.setIcon(new ImageIcon(buttonMenu1));
-			}
-		});
-		btnHelp.setIcon(new ImageIcon(buttonMenu1));
-		btnHelp.setBounds(49, 417, 160, 37);
-		pnlMenu.add(btnHelp);
-		
-		lblPhoto = new JLabel("");
-		lblPhoto.setBounds(49, 31, 167, 128);
-		pnlMenu.add(lblPhoto);
-		
-		lblBGpColor = new JLabel("New label");
-		lblBGpColor.setIcon(new ImageIcon(bgColor));
-		lblBGpColor.setBounds(0, 0, 254, 617);
-		pnlMenu.add(lblBGpColor);
 		
 //		-------------------------------------------------------------------------------------------
 
 		lblLogout = new JLabel("LOGOUT");
-		lblLogout.setBounds(753, 13, 92, 27);
+		lblLogout.setBounds(745, 13, 92, 27);
 		getContentPane().add(lblLogout);
 		lblLogout.setHorizontalAlignment(SwingConstants.CENTER);
 		lblLogout.setForeground(Color.WHITE);
 		lblLogout.setBackground(new Color(205, 92, 92));
 
 		JLabel lblLogoutButton = new JLabel("");
-		lblLogoutButton.setBounds(753, 13, 92, 27);
+		lblLogoutButton.setBounds(745, 13, 92, 27);
 		getContentPane().add(lblLogoutButton);
 		lblLogoutButton.addMouseListener(new MouseAdapter() {
 			@Override
@@ -273,13 +113,32 @@ public class MenuVista extends JFrame {
 //		------------------------------------------------------------------------------
 
 		pnlUser = new JPanel();
-		pnlUser.setBounds(49, 13, 196, 27);
+		pnlUser.setBounds(51, 13, 196, 27);
+		pnlUser.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				pnlUser.setBackground(new Color(224, 24, 24,220));
+				lblUser.setForeground(new Color(255, 255, 255));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				pnlUser.setBackground(new Color(245, 245, 245,220));
+				lblUser.setForeground(new Color(139, 0, 0));
+			}
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				miModelo.soundButton();
+				//miControlador.verPerfil();
+				
+			}
+		});
 		getContentPane().add(pnlUser);
 		pnlUser.setForeground(new Color(255, 0, 0));
 		pnlUser.setBackground(new Color(245, 245, 245));
 		pnlUser.setLayout(null);
 
 		lblUser = new JLabel("Logged as: Pedro Camacho");
+		lblUser.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		lblUser.setBackground(new Color(211, 211, 211));
 		lblUser.setBounds(0, 0, 196, 27);
 		pnlUser.add(lblUser);
@@ -288,13 +147,13 @@ public class MenuVista extends JFrame {
 		lblUser.setHorizontalAlignment(SwingConstants.CENTER);
 
 		JPanel pnlMed = new JPanel();
-		pnlMed.setBounds(257, 0, 412, 617);
+		pnlMed.setBounds(259, 0, 439, 617);
 		pnlMed.setBackground(new Color(255, 255, 255, 200));
 		getContentPane().add(pnlMed);
 		pnlMed.setLayout(null);
 
 		lblAnexos = new JLabel("Anexos");
-		lblAnexos.setBounds(70, 241, 283, 27);
+		lblAnexos.setBounds(86, 229, 283, 27);
 		pnlMed.add(lblAnexos);
 		lblAnexos.setBackground(new Color(205, 92, 92));
 		lblAnexos.setHorizontalAlignment(SwingConstants.CENTER);
@@ -302,7 +161,7 @@ public class MenuVista extends JFrame {
 		lblAnexos.setForeground(new Color(255, 255, 255));
 
 		JLabel lblAnxBtn = new JLabel("");
-		lblAnxBtn.setBounds(70, 241, 283, 27);
+		lblAnxBtn.setBounds(86, 229, 283, 27);
 		pnlMed.add(lblAnxBtn);
 		lblAnxBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/Btn.png")));
 		lblAnxBtn.addMouseListener(new MouseAdapter() {
@@ -339,7 +198,7 @@ public class MenuVista extends JFrame {
 		});
 
 		lblTuto = new JLabel("Tutores");
-		lblTuto.setBounds(70, 308, 283, 27);
+		lblTuto.setBounds(86, 292, 283, 27);
 		pnlMed.add(lblTuto);
 		lblTuto.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTuto.setForeground(Color.WHITE);
@@ -381,11 +240,11 @@ public class MenuVista extends JFrame {
 		});
 
 		lblTutoBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/Btn.png")));
-		lblTutoBtn.setBounds(70, 308, 283, 27);
+		lblTutoBtn.setBounds(86, 292, 283, 27);
 		pnlMed.add(lblTutoBtn);
 
 		JLabel lblEmp = new JLabel("Empresas");
-		lblEmp.setBounds(70, 371, 283, 27);
+		lblEmp.setBounds(86, 351, 283, 27);
 		pnlMed.add(lblEmp);
 		lblEmp.setHorizontalAlignment(SwingConstants.CENTER);
 		lblEmp.setForeground(Color.WHITE);
@@ -427,11 +286,11 @@ public class MenuVista extends JFrame {
 		});
 
 		lblEmpBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/Btn.png")));
-		lblEmpBtn.setBounds(70, 371, 283, 27);
+		lblEmpBtn.setBounds(86, 351, 283, 27);
 		pnlMed.add(lblEmpBtn);
 
 		JLabel lblAl = new JLabel("Alumnos");
-		lblAl.setBounds(70, 436, 283, 27);
+		lblAl.setBounds(86, 419, 283, 27);
 		pnlMed.add(lblAl);
 		lblAl.setHorizontalAlignment(SwingConstants.CENTER);
 		lblAl.setForeground(Color.WHITE);
@@ -467,16 +326,16 @@ public class MenuVista extends JFrame {
 		});
 
 		lblAlmnBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/Btn.png")));
-		lblAlmnBtn.setBounds(70, 436, 283, 27);
+		lblAlmnBtn.setBounds(86, 419, 283, 27);
 		pnlMed.add(lblAlmnBtn);
 
 		JLabel lblLogo1 = new JLabel("");
-		lblLogo1.setBounds(111, 49, 202, 148);
+		lblLogo1.setBounds(124, 39, 202, 148);
 		pnlMed.add(lblLogo1);
 		lblLogo1.setIcon(new ImageIcon(imgLogo1));
 
 		JLabel lblGrup = new JLabel("Grupos");
-		lblGrup.setBounds(70, 505, 283, 27);
+		lblGrup.setBounds(86, 476, 283, 27);
 		pnlMed.add(lblGrup);
 		lblGrup.setHorizontalAlignment(SwingConstants.CENTER);
 		lblGrup.setForeground(Color.WHITE);
@@ -516,12 +375,12 @@ public class MenuVista extends JFrame {
 		lblEstadist.setForeground(Color.WHITE);
 		lblEstadist.setFont(new Font("Century Gothic", Font.BOLD, 13));
 		lblEstadist.setBackground(new Color(43, 43, 43));
-		lblEstadist.setBounds(70, 561, 283, 27);
+		lblEstadist.setBounds(86, 543, 283, 27);
 		pnlMed.add(lblEstadist);
 
 		lblStatsBtn = new JLabel("");
 		lblStatsBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/Btn.png")));
-		lblStatsBtn.setBounds(70, 561, 283, 27);
+		lblStatsBtn.setBounds(86, 543, 283, 27);
 		pnlMed.add(lblStatsBtn);
 		lblStatsBtn.addMouseListener(new MouseAdapter() {
 			@Override
@@ -557,7 +416,7 @@ public class MenuVista extends JFrame {
 		});
 
 		lblGrupBtn.setIcon(new ImageIcon(MenuVista.class.getResource("/img/Btn.png")));
-		lblGrupBtn.setBounds(70, 505, 283, 27);
+		lblGrupBtn.setBounds(86, 476, 283, 27);
 		pnlMed.add(lblGrupBtn);
 
 		JLabel lblBg = new JLabel("");

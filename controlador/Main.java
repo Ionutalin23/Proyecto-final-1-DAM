@@ -15,6 +15,7 @@ import vista.Ventana_Conf_Anexo;
 import vista.Ventana_Login;
 import vista.Ventana_Login_Config;
 import vista.Ventana_Mensaje_ERROR;
+//import vista.Ventana_config_User;
 import vista.Vista_Info_Alumno;
 import vista.Vista_Info_Empresa;
 import vista.Vista_Info_Grupo;
@@ -129,6 +130,7 @@ public class Main {
 		
 		ventana_conf_anexo.setControlador(miControlador);
 		ventana_conf_anexo.setModelo(miModelo);
+		
 		
 		vista_ventana_login.setVisible(true);
 		

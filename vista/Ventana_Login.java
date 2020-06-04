@@ -109,21 +109,41 @@ public class Ventana_Login extends JFrame {
 		getContentPane().setLayout(null);
 //		POSICIONAR VENTANA EN EL CENTRO DE LA PANTALLA
 		setLocationRelativeTo(null);
+				
+						txtPassword = new JPasswordField();
+						txtPassword.setBounds(332, 321, 173, 36);
+						getContentPane().add(txtPassword);
+						txtPassword.addKeyListener(new KeyAdapter() {
+							@Override
+							public void keyPressed(KeyEvent e) {
+								if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+									miModelo.soundButton();
+									miModelo.ConexionBBDD();
+									miControlador.rol();
+									miControlador.login();
+								}
+							}
+						});
+		
+				txtUsuario = new JTextField();
+				txtUsuario.setBounds(328, 239, 177, 36);
+				getContentPane().add(txtUsuario);
+				txtUsuario.setColumns(10);
 
 		lblRespuesta = new JLabel("");
 		lblRespuesta.setBounds(290, 363, 215, 27);
 		getContentPane().add(lblRespuesta);
-
-		panel = new JPanel();
-		panel.setBackground(Color.WHITE);
-		panel.setBounds(290, 239, 215, 36);
-		getContentPane().add(panel);
-		panel.setLayout(null);
-
-		lblIconUsr = new JLabel("");
-		lblIconUsr.setBounds(0, 0, 40, 36);
-		panel.add(lblIconUsr);
-		lblIconUsr.setIcon(new ImageIcon(img_usr));
+		
+				panel = new JPanel();
+				panel.setBackground(Color.WHITE);
+				panel.setBounds(290, 239, 215, 36);
+				getContentPane().add(panel);
+				panel.setLayout(null);
+				
+						lblIconUsr = new JLabel("");
+						lblIconUsr.setBounds(0, 0, 40, 36);
+						panel.add(lblIconUsr);
+						lblIconUsr.setIcon(new ImageIcon(img_usr));
 
 		panel_1 = new JPanel();
 		panel_1.setBackground(Color.WHITE);
@@ -453,32 +473,12 @@ public class Ventana_Login extends JFrame {
 		lblConfig.setBounds(465, 396, 40, 36);
 		getContentPane().add(lblConfig);
 		lblConfig.setIcon(new ImageIcon(img_config));
-
-		txtUsuario = new JTextField();
-		txtUsuario.setBounds(328, 239, 177, 36);
-		getContentPane().add(txtUsuario);
-		txtUsuario.setColumns(10);
-
-		txtPassword = new JPasswordField();
-		txtPassword.setBounds(332, 321, 173, 36);
-		getContentPane().add(txtPassword);
 		
 //		BACKGROUND ========================
 		JLabel lblBgColor = new JLabel("");
 		lblBgColor.setBounds(0, 0, 784, 511);
 		getContentPane().add(lblBgColor);
 		lblBgColor.setIcon(new ImageIcon(img_bg));
-		txtPassword.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent e) {
-				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-					miModelo.soundButton();
-					miModelo.ConexionBBDD();
-					miControlador.rol();
-					miControlador.login();
-				}
-			}
-		});
 
 	}
 
@@ -540,6 +540,7 @@ public class Ventana_Login extends JFrame {
 		if (resultado.equals("EXISTENTE")) {
 			lblRespuesta_1.setText("El Usuario ya existe");
 		} else if (resultado.equals("EXITO")) {
+			lblRegisterBtn.setEnabled(false);
 			lblRespuesta_1.setText("Usuario añadido con éxito");
 			clearFields();
 		} else if (resultado.equals("VACIO")) {
