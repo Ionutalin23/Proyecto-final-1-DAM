@@ -15,6 +15,8 @@ import modelo.modelo;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
@@ -47,6 +49,8 @@ public class Busqueda_Alumnos extends JFrame {
 	private JLabel SearchBtn;
 	private JLabel lblUser;
 	private JLabel lblSelcc;
+	private int selected;
+	private int selectFilter;
 	private String NomTabla = "alumno";
 	private String NomClave = "num_EXP";
 	private boolean modificar = false;
@@ -225,18 +229,18 @@ public class Busqueda_Alumnos extends JFrame {
 			}
 
 			public void mouseClicked(MouseEvent e) {
-				modificar=true;
-				
-				int seleccion=table.getSelectedRow();
-				String dni=String.valueOf(table.getValueAt(seleccion, 0));
-				String nombre=String.valueOf(table.getValueAt(seleccion, 1));
-				String apellidos=String.valueOf(table.getValueAt(seleccion, 2));
-				String expe=String.valueOf(table.getValueAt(seleccion, 3));
-				String nacim=String.valueOf(table.getValueAt(seleccion, 5));
-				String nacionalidad=String.valueOf(table.getValueAt(seleccion, 4));
+				modificar = true;
+
+				int seleccion = table.getSelectedRow();
+				String dni = String.valueOf(table.getValueAt(seleccion, 0));
+				String nombre = String.valueOf(table.getValueAt(seleccion, 1));
+				String apellidos = String.valueOf(table.getValueAt(seleccion, 2));
+				String expe = String.valueOf(table.getValueAt(seleccion, 3));
+				String nacim = String.valueOf(table.getValueAt(seleccion, 5));
+				String nacionalidad = String.valueOf(table.getValueAt(seleccion, 4));
 				vasAModificar(modificar);
-				miControlador.enviarDatosAlumnos(dni,nombre,apellidos,expe,nacim,nacionalidad);
-				
+				miControlador.enviarDatosAlumnos(dni, nombre, apellidos, expe, nacim, nacionalidad);
+
 			}
 		});
 		ModifyBtn.setBounds(10, 591, 89, 23);
@@ -272,8 +276,7 @@ public class Busqueda_Alumnos extends JFrame {
 					miModelo.setNombreTabla(NomTabla);
 					miModelo.setNombreClave(NomClave);
 					miControlador.ventana_conf_delete();
-					
-					
+
 				}
 
 			}
@@ -289,7 +292,7 @@ public class Busqueda_Alumnos extends JFrame {
 		AñoAcad.setModel(new DefaultComboBoxModel(new String[] { "CURSO-2020", "CURSO-2019" }));
 		AñoAcad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int selected = AñoAcad.getSelectedIndex();
+				selected = AñoAcad.getSelectedIndex();
 				if (selected == 0) {
 					String SQL = miModelo.getSQLalumnos2();
 					table.setModel(miModelo.getTabla(SQL));
@@ -301,9 +304,44 @@ public class Busqueda_Alumnos extends JFrame {
 		});
 		AñoAcad.setBounds(740, 102, 122, 22);
 		contentPane.add(AñoAcad);
+//		Search Filter Combo Box ========================
+		JComboBox FilterComboBox = new JComboBox();
+		FilterComboBox.setForeground(Color.WHITE);
+		FilterComboBox.setBackground(Color.GRAY);
+		FilterComboBox.setModel(new DefaultComboBoxModel(new String[] { "---Selecciona---", "Nombre", "Centro" }));
+		FilterComboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				selectFilter = FilterComboBox.getSelectedIndex();
+				if (selectFilter == 1) {
+
+					String SQL = miModelo.getSQLalumnos();
+					table.setModel(miModelo.getTabla(SQL));
+				} else if (selectFilter == 2) {
+					String SQL = miModelo.getSQLalumnos();
+					table.setModel(miModelo.getTabla(SQL));
+				}
+			}
+		});
+		FilterComboBox.setBounds(367, 103, 104, 22);
+		contentPane.add(FilterComboBox);
 
 //		Search Field ========================
 		SearchField = new JTextField();
+		SearchField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				if (selectFilter == 0) {
+
+				} else if (selectFilter == 1) {
+					String condicion = SearchField.getText();
+					table.setModel(miModelo.getTablaBusquedaAnexos(miModelo.getSQAL_2BUS(), condicion));
+
+				} else if (selectFilter == 2) {
+					String condicion = SearchField.getText();
+					table.setModel(miModelo.getTablaBusquedaAnexos(miModelo.getSQAL_3BUS(), condicion));
+				}
+			}
+		});
 		SearchField.setBounds(10, 103, 271, 23);
 		contentPane.add(SearchField);
 		SearchField.setColumns(10);
@@ -318,14 +356,6 @@ public class Busqueda_Alumnos extends JFrame {
 		SearchBtn.setBounds(282, 103, 25, 23);
 		contentPane.add(SearchBtn);
 		SearchBtn.setIcon(new ImageIcon(img_SearchLupa));
-
-//		Search Filter Combo Box ========================
-		JComboBox FilterComboBox = new JComboBox();
-		FilterComboBox.setForeground(Color.WHITE);
-		FilterComboBox.setBackground(Color.GRAY);
-		FilterComboBox.setModel(new DefaultComboBoxModel(new String[] { "Nombre", "Apellido", "Centro" }));
-		FilterComboBox.setBounds(367, 103, 71, 22);
-		contentPane.add(FilterComboBox);
 
 //		Filter By Label ========================
 		JLabel FilterbyLbl = new JLabel("Filter by:");
@@ -421,11 +451,12 @@ public class Busqueda_Alumnos extends JFrame {
 		lblUser.setText("Logged as: " + miModelo.getUSR());
 
 	}
+
 	public void actualizarDELETE() {
 		lblSelcc.setText("Borrado realizado con ÉXITO");
 		lblSelcc.setVisible(true);
 		ActionListener ocultarLabel = new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				lblSelcc.setVisible(false);
@@ -437,6 +468,7 @@ public class Busqueda_Alumnos extends JFrame {
 	public String getNombreClave() {
 		return NomClave;
 	}
+
 	public void vasAModificar(boolean mod) {
 		miModelo.setmodificar(mod);
 	}

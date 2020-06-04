@@ -254,7 +254,7 @@ INSERT INTO USERS(USR, PWD, ROL) VALUES('Raul Dominguez', 'damexp', 'Tutor');
 INSERT INTO USERS(USR, PWD, ROL) VALUES('Ernesto Ramirez', 'SubnettingPOESIA', 'Tutor');
 INSERT INTO USERS(USR, PWD, ROL) VALUES('Antonio Martin', 'AppFuncionaestupendo', 'Tutor');
 INSERT INTO USERS(USR, PWD, ROL) VALUES('Felipe Delgado', 'Practicas', 'Tutor');
-INSERT INTO USERS(USR, PWD, ROL) VALUES('Ana Manzaneda', 'SuperDirectora', 'Director');
+INSERT INTO USERS(USR, PWD, ROL) VALUES('Ana Manzaneda', '123', 'Director');
 INSERT INTO USERS(USR, PWD, ROL) VALUES('Gloria Martin', 'NosVemosEnJunioo', 'Director');
 
 INSERT INTO empresa(cif, nombre, direccion, telefono, localidad, resp_empresa, email) VALUES('I19000000', 'Sonimar S.A.', 'C/Zabala Nº6', 654737382, 'Madrid','Arturo Velazquez','SArturo@gmail.com');
