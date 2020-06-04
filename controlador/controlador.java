@@ -268,8 +268,10 @@ public class controlador {
 		vista_info_empresa.setTxtLocalidad(localidad);
 		vista_info_empresa.setTxtMail(representante);
 		vista_info_empresa.setTxtRepresentante(email);
+		vista_info_empresa.setModify(true);
 		busquedaEmpresas.setVisible(false);
 		vista_info_empresa.setVisible(true);
+		vista_info_empresa.mostrarBoton();
 	}
 
 	public void nuevoAlumno() {

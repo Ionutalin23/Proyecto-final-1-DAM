@@ -129,6 +129,18 @@ public class Busqueda_Empresas extends JFrame {
 		contentPane.add(TableView);
 
 		table = new JTable();
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				DeleteBtn.setEnabled(true);
+			}
+		});
+		table.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				ModifyBtn.setEnabled(true);
+			}
+		});
 		table.setModel(new DefaultTableModel(new Object[][] { { "Facebook", "Benjamin", "Buford" },
 				{ "Facebook", "Dan", "Taylor" }, { "Facebook", "Jules", "Winnfield" },
 				{ "Facebook", "Vito", "Corleone" }, { "Facebook", "Marty", "McFly" }, { "Google", "Vincent", "Vega" },
@@ -179,6 +191,7 @@ public class Busqueda_Empresas extends JFrame {
 		contentPane.add(ModifyLbl);
 
 		ModifyBtn = new JLabel("");
+		ModifyBtn.setEnabled(false);
 		ModifyBtn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
@@ -205,6 +218,7 @@ public class Busqueda_Empresas extends JFrame {
 		ModifyBtn.setBounds(10, 591, 89, 23);
 		contentPane.add(ModifyBtn);
 		ModifyBtn.setIcon(new ImageIcon(img_ButtonModificar));
+		
 
 //		Delete Button ========================
 		DeleteLbl = new JLabel("Eliminar");
@@ -214,6 +228,7 @@ public class Busqueda_Empresas extends JFrame {
 		contentPane.add(DeleteLbl);
 
 		DeleteBtn = new JLabel("");
+		DeleteBtn.setEnabled(false);
 		DeleteBtn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {

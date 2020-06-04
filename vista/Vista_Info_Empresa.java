@@ -3,6 +3,8 @@ package vista;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -13,6 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.Timer;
 import javax.swing.border.BevelBorder;
 
 import controlador.controlador;
@@ -30,10 +33,17 @@ public class Vista_Info_Empresa extends JFrame {
 	private JLabel lblLogout;
 	private JLabel lblBack;
 	private JTextField txtLocalidad;
+	private boolean modify=false;
 	private JLabel lblUser;
 	private JTextField txtMail;
 	private JTextField txtRepresentante;
+	private int temp = 5000;
 	private JPanel pnlContenido;
+	private JLabel lblMod;
+	private JLabel lblModButton;
+	private JLabel lblCrear;
+	private JLabel lblCrearButton;
+	private JLabel lblRespuesta;
 	
 	public Vista_Info_Empresa() {
 		
@@ -83,6 +93,15 @@ public class Vista_Info_Empresa extends JFrame {
 		lblTitle.setFont(new Font("Century Gothic", Font.BOLD, 24));
 		lblTitle.setBounds(35, 82, 302, 29);
 		pnlContenido.add(lblTitle);
+		
+		lblRespuesta = new JLabel("New label");
+		lblRespuesta.setBackground(Color.WHITE);
+		lblRespuesta.setForeground(Color.WHITE);
+		lblRespuesta.setHorizontalAlignment(SwingConstants.CENTER);
+		lblRespuesta.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblRespuesta.setBounds(55, 532, 247, 29);
+		pnlContenido.add(lblRespuesta);
+		lblRespuesta.setText("");
 		
 		//CIF TEXT FIELD ========================
 		JLabel lblCif = new JLabel("CIF:");
@@ -169,14 +188,14 @@ public class Vista_Info_Empresa extends JFrame {
 		pnlContenido.add(txtRepresentante);
 		
 //		CREATE NEW BUTTON ========================
-		JLabel lblCrear = new JLabel("CREAR");
+		lblCrear = new JLabel("CREAR");
 		lblCrear.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCrear.setForeground(Color.WHITE);
 		lblCrear.setBackground(new Color(205, 92, 92));
-		lblCrear.setBounds(192, 487, 109, 48);
+		lblCrear.setBounds(135, 481, 109, 48);
 		pnlContenido.add(lblCrear);
 		
-		JLabel lblCrearButton = new JLabel("");
+		lblCrearButton = new JLabel("");
 		lblCrearButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
@@ -200,18 +219,18 @@ public class Vista_Info_Empresa extends JFrame {
 			}
 		});
 		
-		lblCrearButton.setBounds(192, 487, 110, 48);
+		lblCrearButton.setBounds(135, 481, 110, 48);
 		pnlContenido.add(lblCrearButton);
 		lblCrearButton.setIcon(new ImageIcon(button1));
-		JLabel lblMod = new JLabel("MODIFICAR");
+		lblMod = new JLabel("MODIFICAR");
 		lblMod.setHorizontalAlignment(SwingConstants.CENTER);
 		lblMod.setForeground(Color.WHITE);
 		lblMod.setBackground(new Color(205, 92, 92));
-		lblMod.setBounds(55, 487, 109, 48);
+		lblMod.setBounds(135, 481, 109, 48);
 		pnlContenido.add(lblMod);
 		
-		JLabel lblModButton = new JLabel("");
-		lblModButton.setBounds(54, 487, 110, 48);
+		lblModButton = new JLabel("");
+		lblModButton.setBounds(134, 481, 110, 48);
 		pnlContenido.add(lblModButton);
 		lblModButton.setIcon(new ImageIcon(button1));
 		lblModButton.addMouseListener(new MouseAdapter() {
@@ -423,4 +442,40 @@ public class Vista_Info_Empresa extends JFrame {
 			}
 		}
 	}
+	public void mostrarBoton() {
+		if (modify) {
+			lblMod.setVisible(true);
+			lblModButton.setVisible(true);
+			lblCrear.setVisible(false);
+			lblCrearButton.setVisible(false);
+		}else {
+			lblMod.setVisible(false);
+			lblModButton.setVisible(false);
+			lblCrear.setVisible(true);
+			lblCrearButton.setVisible(true);
+		}
+	}
+
+	public void setModify(boolean modify) {
+		this.modify = modify;
+	}
+	public void actualizarUpdate() {
+		String resultado=miModelo.getResultadoEmpresa();
+		if(resultado.equals("EXITO")) {
+			lblRespuesta.setText("Tutor modificado con ÉXITO");
+		}else {
+			lblRespuesta.setText("Error,No se ha podido modifcar el tutor");
+		}
+		//lblRespuesta.setVisible(true);
+		ActionListener ocultarLabel = new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//lblRespuesta.setVisible(false);
+				lblRespuesta.setText("");
+			}
+		};
+		new Timer(temp, ocultarLabel).start();
+	}
+	
 }

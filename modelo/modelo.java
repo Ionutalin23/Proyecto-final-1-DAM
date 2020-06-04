@@ -543,17 +543,25 @@ public class modelo {
 		PreparedStatement stmt;
 		try {
 			stmt = conexion.prepareStatement(
-					"UPDATE PI.EMPRESA SET CIF=?, NOMBRE=?, DIRECCION=?, TELEFONO=?, LOCALIDAD=?, EMAIL=?, RESP_EMPRESA=?");
-			stmt.setString(1, cif);
-			stmt.setString(2, nombre);
-			stmt.setString(3, direccion);
-			stmt.setInt(4, i);
-			stmt.setString(5, localidad);
-			stmt.setString(6, email);
-			stmt.setString(7, representante);
+					"UPDATE PI.EMPRESA SET NOMBRE=?, DIRECCION=?, TELEFONO=?, LOCALIDAD=?, EMAIL=?, RESP_EMPRESA=? WHERE CIF=?");
+			
+			stmt.setString(1, nombre);
+			stmt.setString(2, direccion);
+			stmt.setInt(3, i);
+			stmt.setString(4, localidad);
+			stmt.setString(5, email);
+			stmt.setString(6, representante);
+			stmt.setString(7, cif);
 
 			int resul = stmt.executeUpdate();
-		} catch (Exception e) {
+			if (resul>0) {
+				resultadoEmpresa="EXITO";
+				vista_info_empresa.actualizarUpdate();
+			}else {
+				resultadoEmpresa="ERROR";
+				vista_info_empresa.actualizarUpdate();
+			}
+		} catch (SQLException e) {
 
 			e.printStackTrace();
 		}
