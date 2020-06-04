@@ -29,6 +29,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class Busqueda_Grupos extends JFrame {
 
@@ -126,12 +128,16 @@ public class Busqueda_Grupos extends JFrame {
 		contentPane.add(TableView);
 
 		table = new JTable();
+		table.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				ModifyBtn.setEnabled(true);
+			}
+		});
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if (!table.getSelectionModel().isSelectionEmpty()) {
-					ModifyBtn.setEnabled(true);
-				}
+				DeleteBtn.setEnabled(true);
 			}
 		});
 		table.setModel(
@@ -220,6 +226,7 @@ public class Busqueda_Grupos extends JFrame {
 		contentPane.add(DeleteLbl);
 
 		DeleteBtn = new JLabel("");
+		DeleteBtn.setEnabled(false);
 		DeleteBtn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {

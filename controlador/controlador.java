@@ -285,6 +285,8 @@ public class controlador {
 	public void nuevoGrupo() {
 		busquedaGrupos.setVisible(false);
 		vista_info_grupo.setVisible(true);
+		vista_info_grupo.setModify(false);
+		vista_info_grupo.mostrarBoton();
 
 	}
 
@@ -493,8 +495,10 @@ public class controlador {
 		vista_info_grupo.setTxtName(nombre);
 		vista_info_grupo.setTxtClaveCiclo(clave);
 		vista_info_grupo.setTxtNomCiclo(ciclo);
+		vista_info_grupo.setModify(true);
 		busquedaGrupos.setVisible(false);
 		vista_info_grupo.setVisible(true);
+		vista_info_grupo.mostrarBoton();
 	}
 
 	public void enviarDatosAnexo1(String cif,String empresa, String cod_centro, String localidad, String director,String anexo_1) {

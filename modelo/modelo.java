@@ -205,6 +205,7 @@ public class modelo {
 	private String SQLEmp2 = "SELECT EM.CIF, EM.nombre, EM.direccion, EM.telefono, EM.localidad, EM.resp_empresa, EM.email FROM PI.empresa EM, PI.Practica PR WHERE EM.cif = PR.empresa_cif  AND PR.acad = '2019-2020'";
 	
 	
+	
 	private String SQLGrp = "SELECT DISTINCT GR.cod_grupo, GR.nom_grupo, GR.clave_ciclo, GR.nombre_ciclo FROM PI.grupo GR, PI.Pertenece PE WHERE GR.cod_grupo = PE.grupo_cod_grupo AND PE.acad ='2018-2019'  ";
 	private String SQLGrp2 = "SELECT DISTINCT GR.cod_grupo, GR.nom_grupo, GR.clave_ciclo, GR.nombre_ciclo FROM PI.grupo GR, PI.Pertenece PE WHERE GR.cod_grupo = PE.grupo_cod_grupo AND PE.acad ='2019-2020' ";
 

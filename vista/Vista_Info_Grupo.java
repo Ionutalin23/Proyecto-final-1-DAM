@@ -30,6 +30,11 @@ public class Vista_Info_Grupo extends JFrame {
 	private JLabel lblBack;
 	private JLabel lblUser;
 	private JPanel pnlContenido;
+	private boolean modify=false;
+	private JLabel lblMod;
+	private JLabel lblModButton;
+	private JLabel lblCrear;
+	private JLabel lblCrearButton;
 
 	public Vista_Info_Grupo() {
 		setTitle("");
@@ -140,14 +145,14 @@ public class Vista_Info_Grupo extends JFrame {
 		pnlContenido.add(txtClaveCiclo);
 
 //		CREATE BUTTON ========================
-		JLabel lblCrear = new JLabel("CREAR");
+		lblCrear = new JLabel("CREAR");
 		lblCrear.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCrear.setForeground(Color.WHITE);
 		lblCrear.setBackground(new Color(205, 92, 92));
-		lblCrear.setBounds(192, 480, 109, 48);
+		lblCrear.setBounds(128, 448, 109, 48);
 		pnlContenido.add(lblCrear);
 
-		JLabel lblCrearButton = new JLabel("");
+		lblCrearButton = new JLabel("");
 		lblCrearButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
@@ -173,20 +178,22 @@ public class Vista_Info_Grupo extends JFrame {
 				miControlador.insertarGrupo();
 			}
 		});
-		lblCrearButton.setBounds(192, 480, 110, 48);
+		lblCrearButton.setBounds(128, 448, 110, 48);
 		pnlContenido.add(lblCrearButton);
 		lblCrearButton.setIcon(new ImageIcon(button1));
 		
 // 		Boton Modificar
-		JLabel lblMod = new JLabel("MODIFICAR");
+		lblMod = new JLabel("MODIFICAR");
 		lblMod.setHorizontalAlignment(SwingConstants.CENTER);
 		lblMod.setForeground(Color.WHITE);
 		lblMod.setBackground(new Color(205, 92, 92));
-		lblMod.setBounds(43, 480, 109, 48);
+		lblMod.setBounds(128, 448, 109, 48);
 		pnlContenido.add(lblMod);
 		
-		JLabel lblModButton = new JLabel("");
-		lblModButton.setBounds(42, 480, 110, 48);
+		lblModButton = new JLabel("");
+		lblMod.setVisible(false);
+		lblModButton.setVisible(false);
+		lblModButton.setBounds(127, 448, 110, 48);
 		pnlContenido.add(lblModButton);
 		lblModButton.setIcon(new ImageIcon(button1));
 		lblModButton.addMouseListener(new MouseAdapter() {
@@ -390,6 +397,23 @@ public void setTxtCodGrupo(String txtCodGrupo) {
 			JOptionPane.showMessageDialog(this, "Por favor, comprueba todos los campos");
 		}
 		
+	}
+	public void mostrarBoton() {
+		if (modify) {
+			lblMod.setVisible(true);
+			lblModButton.setVisible(true);
+			lblCrear.setVisible(false);
+			lblCrearButton.setVisible(false);
+		}else {
+			lblMod.setVisible(false);
+			lblModButton.setVisible(false);
+			lblCrear.setVisible(true);
+			lblCrearButton.setVisible(true);
+		}
+	}
+
+	public void setModify(boolean modify) {
+		this.modify = modify;
 	}
 	
 	

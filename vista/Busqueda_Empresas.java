@@ -289,6 +289,14 @@ public class Busqueda_Empresas extends JFrame {
 
 //		Search Filter Combo Box ========================
 		JComboBox FilterComboBox = new JComboBox();
+		FilterComboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int selected=FilterComboBox.getSelectedIndex();
+				if(selected==0) {
+					
+				}
+			}
+		});
 		FilterComboBox.setForeground(Color.WHITE);
 		FilterComboBox.setBackground(Color.GRAY);
 		FilterComboBox.setModel(new DefaultComboBoxModel(new String[] { "Empresa", "Nombre", "Apellido" }));
