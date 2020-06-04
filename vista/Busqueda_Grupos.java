@@ -48,6 +48,7 @@ public class Busqueda_Grupos extends JFrame {
 	private JLabel SearchBtn;
 	private JLabel lblUser;
 	private JLabel lblSelcc;
+	private int selectFilter;
 	private int temp = 5000;
 	private String NomTabla = "grupo";
 	private String NomClave = "cod_grupo";
@@ -299,8 +300,20 @@ public class Busqueda_Grupos extends JFrame {
 		JComboBox FilterComboBox = new JComboBox();
 		FilterComboBox.setForeground(Color.WHITE);
 		FilterComboBox.setBackground(Color.GRAY);
-		FilterComboBox.setModel(new DefaultComboBoxModel(new String[] { "Nombre", "Apellido", "Grupo" }));
-		FilterComboBox.setBounds(367, 103, 71, 22);
+		FilterComboBox.setModel(new DefaultComboBoxModel(new String[] { "---Selecciona---" , "ASIR", "2020" }));
+		FilterComboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				 selectFilter = FilterComboBox.getSelectedIndex();
+				if (selectFilter == 1) {
+					String SQL = miModelo.getSQGR_2();
+					table.setModel(miModelo.getTabla(SQL));
+				} else if (selectFilter == 2) {
+					String SQL = miModelo.getSQGR_3();
+					table.setModel(miModelo.getTabla(SQL));
+				}
+			}
+		});
+		FilterComboBox.setBounds(367, 103, 104, 22);
 		contentPane.add(FilterComboBox);
 
 //		Filter By Label ========================

@@ -48,6 +48,7 @@ public class Busqueda_Empresas extends JFrame {
 	private JLabel SearchBtn;
 	private JLabel lblUser;
 	private JLabel lblSelcc;
+	private int selectFilter;
 	private int temp = 5000;
 	private String NomTabla = "empresa";
 	private String NomClave = "cif";
@@ -243,7 +244,25 @@ public class Busqueda_Empresas extends JFrame {
 		DeleteBtn.setBounds(109, 591, 89, 23);
 		contentPane.add(DeleteBtn);
 		DeleteBtn.setIcon(new ImageIcon(img_ButtonEliminar));
-
+//		Search Filter Combo Box ========================
+		JComboBox FilterComboBox = new JComboBox();
+		FilterComboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				 selectFilter = FilterComboBox.getSelectedIndex();
+				if (selectFilter == 1) {
+					String SQL = miModelo.getSQEMP_2();
+					table.setModel(miModelo.getTabla(SQL));
+				} else if (selectFilter == 2) {
+					String SQL = miModelo.getSQEMP_3();
+					table.setModel(miModelo.getTabla(SQL));
+				}
+			}
+		});
+		FilterComboBox.setForeground(Color.WHITE);
+		FilterComboBox.setBackground(Color.GRAY);
+		FilterComboBox.setModel(new DefaultComboBoxModel(new String[] { "---selecciona---" , "Localizacion", "CIF" }));
+		FilterComboBox.setBounds(367, 103, 118, 22);
+		contentPane.add(FilterComboBox);
 //		View Combo Box ========================
 		JComboBox AñoAcad = new JComboBox();
 		AñoAcad.setBackground(Color.GRAY);
@@ -287,21 +306,7 @@ public class Busqueda_Empresas extends JFrame {
 		contentPane.add(SearchBtn);
 		SearchBtn.setIcon(new ImageIcon(img_SearchLupa));
 
-//		Search Filter Combo Box ========================
-		JComboBox FilterComboBox = new JComboBox();
-		FilterComboBox.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int selected=FilterComboBox.getSelectedIndex();
-				if(selected==0) {
-					
-				}
-			}
-		});
-		FilterComboBox.setForeground(Color.WHITE);
-		FilterComboBox.setBackground(Color.GRAY);
-		FilterComboBox.setModel(new DefaultComboBoxModel(new String[] { "Empresa", "Nombre", "Apellido" }));
-		FilterComboBox.setBounds(367, 103, 71, 22);
-		contentPane.add(FilterComboBox);
+
 
 //		Filter By Label ========================
 		JLabel FilterbyLbl = new JLabel("Filter by:");

@@ -357,10 +357,10 @@ public class Busqueda_Tutores extends JFrame {
 		FilterComboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int selected = FilterComboBox.getSelectedIndex();
-				if (selected == 0) {
-					String SQL = miModelo.getSQTUT2();
+				if (selected == 1) {
+					String SQL = miModelo.getSQTUT_2();
 					table.setModel(miModelo.getTabla(SQL));
-				} else if (selected == 1) {
+				} else if (selected == 2) {
 					String SQL = miModelo.getSQTUT_2();
 					table.setModel(miModelo.getTabla(SQL));
 				}
@@ -368,8 +368,8 @@ public class Busqueda_Tutores extends JFrame {
 		});
 		FilterComboBox.setForeground(Color.WHITE);
 		FilterComboBox.setBackground(Color.GRAY);
-		FilterComboBox.setModel(new DefaultComboBoxModel(new String[] { "Nombre", "Grupo" }));
-		FilterComboBox.setBounds(367, 103, 71, 22);
+		FilterComboBox.setModel(new DefaultComboBoxModel(new String[] {"---selecciona--", "Nombre", "Grupo" }));
+		FilterComboBox.setBounds(367, 103, 104, 22);
 		contentPane.add(FilterComboBox);
 
 //		Filter By Label ========================

@@ -47,6 +47,7 @@ public class Busqueda_Alumnos extends JFrame {
 	private JLabel SearchBtn;
 	private JLabel lblUser;
 	private JLabel lblSelcc;
+	private int selectFilter;
 	private String NomTabla = "alumno";
 	private String NomClave = "num_EXP";
 	private boolean modificar = false;
@@ -295,8 +296,20 @@ public class Busqueda_Alumnos extends JFrame {
 		JComboBox FilterComboBox = new JComboBox();
 		FilterComboBox.setForeground(Color.WHITE);
 		FilterComboBox.setBackground(Color.GRAY);
-		FilterComboBox.setModel(new DefaultComboBoxModel(new String[] { "Nombre", "Apellido", "Centro" }));
-		FilterComboBox.setBounds(367, 103, 71, 22);
+		FilterComboBox.setModel(new DefaultComboBoxModel(new String[] { "---Selecciona---" ,  "Nombre", "Centro" }));
+		FilterComboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				 selectFilter = FilterComboBox.getSelectedIndex();
+				if (selectFilter == 1) {
+					String SQL = miModelo.getSQAL_2();
+					table.setModel(miModelo.getTabla(SQL));
+				} else if (selectFilter == 2) {
+					String SQL = miModelo.getSQAL_3();
+					table.setModel(miModelo.getTabla(SQL));
+				}
+			}
+		});
+		FilterComboBox.setBounds(367, 103, 104, 22);
 		contentPane.add(FilterComboBox);
 
 //		Filter By Label ========================
