@@ -30,6 +30,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class Busqueda_Tutores extends JFrame {
 
@@ -329,6 +331,12 @@ public class Busqueda_Tutores extends JFrame {
 
 //		Search Field ========================
 		SearchField = new JTextField();
+		SearchField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				
+			}
+		});
 		SearchField.setBounds(10, 103, 271, 23);
 		contentPane.add(SearchField);
 		SearchField.setColumns(10);

@@ -357,7 +357,7 @@ public class Busqueda_Anexos extends JFrame {
 		ViewComboBox.setBackground(Color.GRAY);
 		ViewComboBox.setForeground(Color.WHITE);
 		ViewComboBox.setModel(new DefaultComboBoxModel(new String[] { "DAM-2020" }));
-		ViewComboBox.setBounds(740, 103, 96, 22);
+		ViewComboBox.setBounds(736, 103, 122, 22);
 		contentPane.add(ViewComboBox);
 
 //		Search Field ========================
