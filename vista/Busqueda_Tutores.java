@@ -30,6 +30,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class Busqueda_Tutores extends JFrame {
 
@@ -46,8 +48,6 @@ public class Busqueda_Tutores extends JFrame {
 	private JLabel ModifyLbl;
 	private JLabel DeleteBtn;
 	private JLabel DeleteLbl;
-	private JLabel CreateViewLbl;
-	private JLabel CreateViewBtn;
 	private JLabel CreateNewLbl;
 	private JLabel CreateNewBtn;
 	private JLabel SearchBtn;
@@ -326,38 +326,17 @@ public class Busqueda_Tutores extends JFrame {
 				}
 			}
 		});
-		AñoAcad.setBounds(648, 104, 96, 22);
+		AñoAcad.setBounds(732, 102, 122, 22);
 		contentPane.add(AñoAcad);
-
-//		Create New View Button ========================
-		CreateViewLbl = new JLabel("Crear Vista");
-		CreateViewLbl.setBounds(775, 104, 71, 23);
-		CreateViewLbl.setFont(new Font("Century Gothic", Font.PLAIN, 12));
-		CreateViewLbl.setForeground(Color.BLACK);
-		contentPane.add(CreateViewLbl);
-
-		CreateViewBtn = new JLabel("");
-		CreateViewBtn.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				CreateViewBtn.setIcon(new ImageIcon(img_default1ButtonHover));
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-				CreateViewBtn.setIcon(new ImageIcon(img_default1Button));
-			}
-
-			public void mouseClicked(MouseEvent e) {
-				// ADD METHOD FOR CREATING VIEW
-			}
-		});
-		CreateViewBtn.setBounds(754, 104, 106, 23);
-		contentPane.add(CreateViewBtn);
-		CreateViewBtn.setIcon(new ImageIcon(img_default1Button));
 
 //		Search Field ========================
 		SearchField = new JTextField();
+		SearchField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				
+			}
+		});
 		SearchField.setBounds(10, 103, 271, 23);
 		contentPane.add(SearchField);
 		SearchField.setColumns(10);

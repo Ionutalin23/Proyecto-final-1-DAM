@@ -16,6 +16,7 @@ import vista.Ventana_Conf_Delete;
 import vista.Ventana_Login;
 import vista.Ventana_Login_Config;
 import vista.Ventana_Mensaje_ERROR;
+import vista.Ventana_config_User;
 import vista.Vista_Info_Alumno;
 import vista.Vista_Info_Empresa;
 import vista.Vista_Info_Grupo;
@@ -40,6 +41,12 @@ public class controlador {
 	private Ventana_Estadisticas ventana_estadisticas;
 	private Ventana_Conf_Delete ventana_conf_delete;
 	private Ventana_Conf_Anexo ventana_conf_anexo;
+	private Ventana_config_User ventana_conf_user;
+	
+
+	public void setVista(Ventana_config_User ventana_conf_user) {
+		this.ventana_conf_user = ventana_conf_user;
+	}
 
 	public void setVista(Busqueda_Alumnos busquedaAlumnos) {
 		this.busquedaAlumnos = busquedaAlumnos;
@@ -278,6 +285,8 @@ public class controlador {
 	public void nuevoGrupo() {
 		busquedaGrupos.setVisible(false);
 		vista_info_grupo.setVisible(true);
+		vista_info_grupo.setModify(false);
+		vista_info_grupo.mostrarBoton();
 
 	}
 
@@ -344,6 +353,11 @@ public class controlador {
 
 	public void back9() {
 		ventana_estadisticas.setVisible(false);
+		vista_ventana_menu.setVisible(true);
+
+	}
+	public void back10() {
+		ventana_conf_user.setVisible(false);
 		vista_ventana_menu.setVisible(true);
 
 	}
@@ -481,8 +495,10 @@ public class controlador {
 		vista_info_grupo.setTxtName(nombre);
 		vista_info_grupo.setTxtClaveCiclo(clave);
 		vista_info_grupo.setTxtNomCiclo(ciclo);
+		vista_info_grupo.setModify(true);
 		busquedaGrupos.setVisible(false);
 		vista_info_grupo.setVisible(true);
+		vista_info_grupo.mostrarBoton();
 	}
 
 	public void enviarDatosAnexo1(String cif,String empresa, String cod_centro, String localidad, String director,String anexo_1) {
@@ -551,6 +567,28 @@ public class controlador {
 	public void graficaBarrasAlumnosEmpresa() {
 		miModelo.alumnosEmpresa();
 		miModelo.dibujargraficaBarrasAlumnosEmpresa();
+	}
+
+	public void graficaBarrasAseguradoras() {
+		miModelo.AlumnosDatosEdad();
+		miModelo.dibujargraficaBarrasAlumnosDatosEdad();
+	}
+
+	public void graficaCircularAseguradoras() {
+		miModelo.AlumnosDatosEdad();
+		miModelo.dibujargraficaCircularAlumnosDatosEdad();
+	}
+
+	public void verPerfil() {
+		vista_ventana_menu.setVisible(false);
+		ventana_conf_user.setVisible(true);
+		miModelo.enviarDatosUsuario();
+		ventana_conf_user.actualizarFoto();
+	}
+
+	public void logout11() {
+		ventana_conf_user.setVisible(false);
+		vista_ventana_login.setVisible(true);
 	}
 
 }

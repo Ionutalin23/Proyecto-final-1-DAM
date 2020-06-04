@@ -53,6 +53,7 @@ import vista.Ventana_Conf_Delete;
 import vista.Ventana_Login;
 import vista.Ventana_Login_Config;
 import vista.Ventana_Mensaje_ERROR;
+import vista.Ventana_config_User;
 import vista.Vista_Info_Alumno;
 import vista.Vista_Info_Empresa;
 import vista.Vista_Info_Grupo;
@@ -86,6 +87,7 @@ public class modelo {
 	private Ventana_Estadisticas ventana_estadisticas;
 	private Ventana_Conf_Delete ventana_conf_delete;
 	private Ventana_Conf_Anexo ventana_conf_anexo;
+	private Ventana_config_User ventana_config_user;
 //  ============================================================================================================================
 
 	public void setVista(Busqueda_Alumnos busquedaAlumnos) {
@@ -147,15 +149,22 @@ public class modelo {
 	public void setVista(Ventana_Conf_Anexo ventana_conf_anexo) {
 		this.ventana_conf_anexo = ventana_conf_anexo;
 	}
+	public void setVista(Ventana_config_User ventana_config_user) {
+		this.ventana_config_user = ventana_config_user;
+	}
 
 //  ========================================================================= MVC ====================================================
 
+	
+
 	private String[] credenciales = new String[3];
+	private String[] credencialesUser = new String[6];
 	private ArrayList<Integer> alumnosEstadisticas = new ArrayList<Integer>();
 	private LinkedHashMap<String, Integer> gruposAlumnos = new LinkedHashMap<String, Integer>();
 	private LinkedHashMap<String, Integer> tutorAlumnos = new LinkedHashMap<String, Integer>();
 	private LinkedHashMap<String, Integer> tutorCiclos = new LinkedHashMap<String, Integer>();
 	private LinkedHashMap<String, Integer> alumnosEmpresa = new LinkedHashMap<String, Integer>();
+	private LinkedHashMap<Integer, Integer> datosAseguradoras = new LinkedHashMap<Integer, Integer>();
 	private String nombreTabla;
 	private String nombreClave;
 	private String clave;
@@ -196,6 +205,7 @@ public class modelo {
 	private String SQLEmp2 = "SELECT EM.CIF, EM.nombre, EM.direccion, EM.telefono, EM.localidad, EM.resp_empresa, EM.email FROM PI.empresa EM, PI.Practica PR WHERE EM.cif = PR.empresa_cif  AND PR.acad = '2019-2020'";
 	
 	
+	
 	private String SQLGrp = "SELECT DISTINCT GR.cod_grupo, GR.nom_grupo, GR.clave_ciclo, GR.nombre_ciclo FROM PI.grupo GR, PI.Pertenece PE WHERE GR.cod_grupo = PE.grupo_cod_grupo AND PE.acad ='2018-2019'  ";
 	private String SQLGrp2 = "SELECT DISTINCT GR.cod_grupo, GR.nom_grupo, GR.clave_ciclo, GR.nombre_ciclo FROM PI.grupo GR, PI.Pertenece PE WHERE GR.cod_grupo = PE.grupo_cod_grupo AND PE.acad ='2019-2020' ";
 
@@ -225,10 +235,21 @@ public class modelo {
 			"PI.empresa E, PI.colabora CO,PI.centro C, PI.tutor T, PI.gestiona G, PI.grupo GR, PI.pertenece P WHERE A.num_exp=PR.alumno_num_exp AND PR.empresa_cif=E.cif\n" + 
 			"AND E.cif=CO.empresa_cif AND CO.centro_cod_centro=C.cod_centro AND C.cod_centro=T.centro_cod_centro AND T.dni_tutor=G.tutor_dni_tutor\n" + 
 			"AND G.grupo_cod_grupo=GR.cod_grupo AND GR.cod_grupo=P.grupo_cod_grupo AND P.alumno_num_exp=A.num_exp";
+	private String SQLinforme5="select PR.acad \"AÑO\", A.num_exp \"EXP.\", A.nombre \"NOMBRE\",GR.nombre_ciclo \"CICLO\",GR.nom_grupo \"GRUPO\",\n" + 
+			"E.nombre \"EMPRESA\", E.localidad \"PROVINCIA\",E.resp_empresa \"RESP.E.\",PR.tutore \"TUTOR E.\",E.telefono \"TLF.\",\n" + 
+			"CONCAT(PR.fecha_ini,CONCAT(',',PR.fecha_fin)) \"F.INI-FIN\",T.nombre \"TUTOR C.\",E.email \"email\" FROM PI.practica PR,\n" + 
+			"PI.alumno A, PI.grupo GR, PI.empresa E,PI.tutor T, PI.gestiona G, PI.pertenece P,PI.centro C,PI.colabora CO WHERE T.dni_tutor=G.tutor_dni_tutor AND G.grupo_cod_grupo=GR.cod_grupo AND GR.cod_grupo=P.grupo_cod_grupo AND P.alumno_num_exp=A.num_exp AND A.num_exp=PR.alumno_num_exp AND PR.empresa_cif=E.cif "
+			+ "AND E.cif=CO.empresa_cif AND CO.centro_cod_centro=C.cod_centro AND C.cod_centro=T.centro_cod_centro";
+	private String SQLinforme6="select PR.acad \"AÑO\", A.num_exp \"EXP.\", A.nombre \"NOMBRE\",GR.nombre_ciclo \"CICLO\",A.dni \"DNI\",E.localidad \"LOCALIDAD\",E.nombre \"EMPRESA\",A.nacionalidad \"NACIONALIDAD\",TRUNC(months_between(sysdate, A.fecha_nacim) /12) \"EDAD\",\n" + 
+			"CONCAT(MONTHS_BETWEEN(PR.fecha_fin, PR.fecha_ini),' Meses') \"PERIODO\" FROM PI.practica PR,\n" + 
+			"PI.alumno A, PI.grupo GR, PI.empresa E,PI.pertenece P WHERE GR.cod_grupo=P.grupo_cod_grupo AND P.alumno_num_exp=A.num_exp AND\n" + 
+			"A.num_exp=PR.alumno_num_exp AND PR.empresa_cif=E.cif";
+	private String SQLEdadesAlumnos="select TRUNC(months_between(sysdate, A.fecha_nacim) /12) \"EDAD\", count(*) \"CANTIDAD\" FROM PI.alumno A group by TRUNC(months_between(sysdate, A.fecha_nacim) /12) HAVING TRUNC(months_between(sysdate, A.fecha_nacim) /12)<18 OR TRUNC(months_between(sysdate, A.fecha_nacim) /12)>18 ORDER BY TRUNC(months_between(sysdate, A.fecha_nacim) /12)";
 	private String SQLTutoresCiclo="SELECT G.acad \"AÑO\", GR.nombre_ciclo \"CICLO\",count(*) \"TUTORES\" FROM PI.grupo GR, PI.gestiona G, PI.tutor T, PI.centro C WHERE GR.cod_grupo=G.grupo_cod_grupo AND G.tutor_dni_tutor=T.dni_tutor AND T.centro_cod_centro=C.cod_Centro\n" + 
 			"group by g.acad,gr.nombre_ciclo";
 	private String SQLAlumnosEmpresa="Select P.acad \"AÑO\", E.nombre \"EMPRESA\",count(*) \"ALUMNOS\" FROM PI.pertenece P, PI.grupo GR, PI.gestiona G, PI.tutor T, PI.colabora CO, PI.empresa E, PI.practica PR, PI.alumno A WHERE A.num_exp=PR.alumno_num_exp AND PR.empresa_cif=E.cif AND"
 			+ " E.cif=CO.empresa_cif AND A.num_Exp=P.alumno_num_exp AND P.grupo_cod_grupo=GR.cod_grupo AND GR.cod_grupo=G.grupo_cod_grupo AND G.tutor_dni_tutor=T.dni_tutor group by P.acad,E.nombre";
+	private String SQLUsuarios="select nombre, apellido, email, USR, PWD, ROL from PI.users where USR LIKE ? ";
 	private JTable tablaTut;
 	private JTable tablaAnx;
 	private ChartPanel barPanelAlumnos;
@@ -242,6 +263,8 @@ public class modelo {
 	private ChartPanel barPanelTutoresCiclo;
 	private ChartPanel CircularPanelAlumnosEmpresa;
 	private ChartPanel barPanelAlumnosEmpresa;
+	private ChartPanel CircularPanelAseguradoras;
+	private ChartPanel barPanelAseguradoras;
 	
 	private String resultadoEmpresa;
 	private String resultadoGrupo;
@@ -1701,6 +1724,14 @@ public class modelo {
 		return SQLinforme4;
 	}
 
+	public String getSQLinforme5() {
+		return SQLinforme5;
+	}
+	public String getSQLinforme6() {
+		return SQLinforme6;
+	}
+	
+
 	public void GruposAlumnosTutor() {
 
 		if (!tutorAlumnos.isEmpty()) {
@@ -1853,8 +1884,7 @@ public class modelo {
 	}
 
 	public void dibujargraficaCircularAlumnosEmpresa() {
-
-
+		
 		DefaultPieDataset circularChart = new DefaultPieDataset();
 			for (int i = 0; i < alumnosEmpresa.size(); i++) {
 				circularChart.setValue(
@@ -1891,6 +1921,116 @@ public class modelo {
 		barPanelAlumnosEmpresa = new ChartPanel(barChart1);
 		ventana_estadisticas.actualizarPanel11();
 	}
+
+	public void AlumnosDatosEdad() {
+		if (!datosAseguradoras.isEmpty()) {
+			datosAseguradoras.clear();
+		}
+		try {
+			PreparedStatement ps = conexion.prepareStatement(SQLEdadesAlumnos);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				datosAseguradoras.put(rs.getInt("EDAD"), rs.getInt("CANTIDAD"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public void dibujargraficaCircularAlumnosDatosEdad() {
+		DefaultPieDataset circularChart = new DefaultPieDataset();
+		for (int i = 0; i < datosAseguradoras.size(); i++) {
+			circularChart.setValue("Edad "+
+					datosAseguradoras.keySet().toArray()[i] + ": " + datosAseguradoras.get(datosAseguradoras.keySet().toArray()[i]),
+					datosAseguradoras.get(datosAseguradoras.keySet().toArray()[i]));
+		}
+	JFreeChart circulo = ChartFactory.createPieChart3D("Edad Alumnos", circularChart, true, true, false);
+	BufferedImage circchrt = circulo.createBufferedImage(785, 460);
+	;
+	CircularPanelAseguradoras = new ChartPanel(circulo);
+	CircularPanelAseguradoras.setBounds(44, 103, 785, 460);
+	ventana_estadisticas.actualizarPanel12();
+	}
+
+	public void dibujargraficaBarrasAlumnosDatosEdad() {
+		DefaultCategoryDataset barChart = new DefaultCategoryDataset();
+		for (int i = 0; i < datosAseguradoras.size(); i++) {
+			barChart.setValue((+datosAseguradoras.get(datosAseguradoras.keySet().toArray()[i])), "cantidad",
+					(Comparable) datosAseguradoras.keySet().toArray()[i]);
+		}
+	JFreeChart barChart1 = ChartFactory.createBarChart3D("Edad alumnos", "Edades", "Cantidad Alumnos", barChart,
+			PlotOrientation.VERTICAL, false, true, false);
+	CategoryPlot barchrt = barChart1.getCategoryPlot();
+	barchrt.setRangeGridlinePaint(Color.orange);
+	barPanelAseguradoras = new ChartPanel(barChart1);
+	ventana_estadisticas.actualizarPanel13();
+	}
+
+	public ChartPanel getCircularPanelAseguradoras() {
+		return CircularPanelAseguradoras;
+	}
+
+	public ChartPanel getBarPanelAseguradoras() {
+		return barPanelAseguradoras;
+	}
+
+	public void enviarDatosUsuario() {
+		String[] array= {"NOMBRE","APELLIDO","EMAIL","USR","PWD","ROL"};
+		try {
+			PreparedStatement ps = conexion.prepareStatement(SQLUsuarios);
+			ps.setString(1, getUSR());
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				for (int i = 0; i < credencialesUser.length; i++) {
+					credencialesUser[i]=rs.getString(array[i]);
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		recibirDatosUsuarios();
+	}
+	public void recibirDatosUsuarios() {
+		ventana_config_user.setTxtNombre(credencialesUser[0]);
+		ventana_config_user.setTxtApellidos(credencialesUser[1]);
+		ventana_config_user.setTxtEmail(credencialesUser[2]);
+		ventana_config_user.setTxtUsuario(credencialesUser[3]);
+		ventana_config_user.setTxtContra(credencialesUser[4]);
+		ventana_config_user.setTxtRol(credencialesUser[5]);
+	}
+
+
+	public void modificarUsuario(String nombre, String apellido, String email, String usuario, String contra, String rol) {
+		PreparedStatement ps;
+		try {
+			ps = conexion.prepareStatement(
+					"UPDATE PI.USERS SET USR = ?, PWD = ?, ROL = ?, EMAIL =?, NOMBRE=?, APELLIDO=? WHERE USR = ?");
+			ps.setString(1, usuario);
+			ps.setString(2, contra);
+			ps.setString(3, rol);
+			ps.setString(4, email);
+			ps.setString(5, nombre);
+			ps.setString(6, apellido);
+			ps.setString(7, getUSR());
+			
+
+			int resul = ps.executeUpdate();
+			if (resul>0) {
+				resultadoUsu="EXITO";
+				ventana_config_user.actualizar2();
+			}else {
+				resultadoUsu="ERROR";
+				ventana_config_user.actualizar2();
+			}
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+		
+	}
+	
 	
 	
 }

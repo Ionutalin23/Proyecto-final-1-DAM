@@ -128,7 +128,7 @@ public class MenuVista extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				miModelo.soundButton();
-				//miControlador.verPerfil();
+				miControlador.verPerfil();
 				
 			}
 		});
