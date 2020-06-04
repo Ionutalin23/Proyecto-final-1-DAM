@@ -642,7 +642,7 @@ public class modelo {
 			ResultSet rs = cons.executeQuery();
 			if (rs.next()) {
 				resultadoAlum = "EXISTENTE";
-				vista_info_alumno.actualizar();
+				vista_info_alumno.actualizarInsert();
 			} else {
 				PreparedStatement ins = conexion.prepareStatement(insert);
 				ins.setString(1, dni);
@@ -654,7 +654,7 @@ public class modelo {
 				int resul = ins.executeUpdate();
 				if (resul > 0) {
 					resultadoAlum = "EXITO";
-					vista_info_alumno.actualizar();
+					vista_info_alumno.actualizarInsert();
 				}
 				cons.close();
 				rs.close();
@@ -664,10 +664,10 @@ public class modelo {
 			if (dni.isEmpty() || nombre.isEmpty() || apellido.isEmpty() || expediente.isEmpty()
 					|| nacionalidad.isEmpty() || fechaNacim.isEmpty()) {
 				resultadoAlum = "VACIO";
-				vista_info_alumno.actualizar();
+				vista_info_alumno.actualizarInsert();
 			} else {
 				resultadoAlum = "ERROR";
-				vista_info_alumno.actualizar();
+				vista_info_alumno.actualizarInsert();
 			}
 
 		}
@@ -1105,10 +1105,10 @@ public class modelo {
 			int resul = stmt.executeUpdate();
 			if (resul > 0) {
 				resultadoUsuarioUpdate = "EXITO";
-				vista_info_alumno.actualizar2();
+				vista_info_alumno.actualizarUpdate();
 			} else {
 				resultadoUsuarioUpdate = "ERROR";
-				vista_info_alumno.actualizar2();
+				vista_info_alumno.actualizarUpdate();
 			}
 		} catch (SQLException | ParseException e) {
 

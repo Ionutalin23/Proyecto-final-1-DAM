@@ -137,7 +137,7 @@ public class Ventana_config_User extends JFrame {
 			}
 
 			public void mouseClicked(MouseEvent e) {
-				miControlador.back5();
+				miControlador.backToMenu();
 			}
 		});
 		
@@ -179,7 +179,7 @@ public class Ventana_config_User extends JFrame {
 			}
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				miControlador.logout11();
+				miControlador.LogoutUSER();
 			}
 		});
 		lblLogout.setHorizontalAlignment(SwingConstants.CENTER);

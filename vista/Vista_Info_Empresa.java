@@ -1,6 +1,7 @@
 package vista;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -38,12 +39,13 @@ public class Vista_Info_Empresa extends JFrame {
 	private JTextField txtMail;
 	private JTextField txtRepresentante;
 	private int temp = 5000;
-	private JPanel pnlContenido;
 	private JLabel lblMod;
 	private JLabel lblModButton;
 	private JLabel lblCrear;
 	private JLabel lblCrearButton;
 	private JLabel lblRespuesta;
+	private JPanel pnlContenido;
+	private JPanel pnlUser;
 	
 	public Vista_Info_Empresa() {
 		
@@ -80,8 +82,7 @@ public class Vista_Info_Empresa extends JFrame {
 		lblLogo.setIcon(img);
 		lblLogo.setBackground(new Color(0, 0, 0));
 		
-//		FORM CONTENT ========================
-		JPanel pnlContenido = new JPanel();
+		pnlContenido = new JPanel();
 		pnlContenido.setBounds(230, 32, 405, 561);
 		panel.add(pnlContenido);
 		pnlContenido.setBackground(new Color(226,106,106,240));
@@ -99,7 +100,7 @@ public class Vista_Info_Empresa extends JFrame {
 		lblRespuesta.setForeground(Color.WHITE);
 		lblRespuesta.setHorizontalAlignment(SwingConstants.CENTER);
 		lblRespuesta.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblRespuesta.setBounds(55, 532, 247, 29);
+		lblRespuesta.setBounds(55, 532, 282, 29);
 		pnlContenido.add(lblRespuesta);
 		lblRespuesta.setText("");
 		
@@ -260,19 +261,40 @@ public class Vista_Info_Empresa extends JFrame {
 		});
 		
 //		LOGGED USER ========================
-		JPanel pnlUser = new JPanel();
-		pnlUser.setForeground(new Color(240, 248, 255));
-		pnlUser.setBackground(new Color(192, 192, 192,190));
-		pnlUser.setBounds(0, 0, 208, 27);
+		pnlUser = new JPanel();
+		pnlUser.setBounds(25, 13, 196, 27);
 		panel.add(pnlUser);
+		pnlUser.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				pnlUser.setBackground(new Color(224, 24, 24, 220));
+				lblUser.setForeground(new Color(255, 255, 255));
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				pnlUser.setBackground(new Color(245, 245, 245, 220));
+				lblUser.setForeground(new Color(139, 0, 0));
+			}
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				miModelo.soundButton();
+				miControlador.verPerfil4();
+			}
+		});
+		pnlUser.setForeground(new Color(255, 0, 0));
+		pnlUser.setBackground(new Color(245, 245, 245));
 		pnlUser.setLayout(null);
-		
+
 		lblUser = new JLabel("Logged as: Pedro Camacho");
-		lblUser.setForeground(new Color(255, 255, 255));
-		lblUser.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblUser.setHorizontalAlignment(SwingConstants.CENTER);
-		lblUser.setBounds(0, 0, 208, 27);
+		lblUser.setBounds(0, 0, 196, 27);
 		pnlUser.add(lblUser);
+		lblUser.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		lblUser.setBackground(new Color(211, 211, 211));
+		lblUser.setForeground(new Color(139, 0, 0));
+		lblUser.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblUser.setHorizontalAlignment(SwingConstants.CENTER);
 		
 //		LOGOUT BUTTON ========================
 		lblLogout = new JLabel("LOGOUT");
@@ -301,6 +323,7 @@ public class Vista_Info_Empresa extends JFrame {
 				lblLogoutButton.setIcon(new ImageIcon(button1));
 			}
 			public void mouseClicked(MouseEvent e) {
+				clearFields();
 				miControlador.logout7();
 			}
 		});
@@ -328,6 +351,7 @@ public class Vista_Info_Empresa extends JFrame {
 				lblBack.setIcon(new ImageIcon(back1));
 			}
 			public void mouseClicked(MouseEvent e) {
+				clearFields();
 				miControlador.back6();
 			}
 		});
@@ -416,16 +440,21 @@ public class Vista_Info_Empresa extends JFrame {
 // 	UPDATE ========================
 	public void actualizar() {
 		String resultado = miModelo.getResultadoEmpresa();
-		if (resultado.equals("EXISTENTE")) {
-			JOptionPane.showMessageDialog(this, "La empresa ya existe");
-		} else if (resultado.equals("EXITO")) {
-			JOptionPane.showMessageDialog(this, "Empresa añadida con éxito");
-			clearFields();
-		}else if(resultado.equals("VACIO")){
-			JOptionPane.showMessageDialog(this, "Por favor, rellene todos los campos");
+		if(resultado.equals("EXITO")) {
+			lblRespuesta.setText("Empresa añadida con ÉXITO");
 		}else {
-			JOptionPane.showMessageDialog(this, "Error, por favor compruebe todos los datos");
+			lblRespuesta.setText("Error,No se ha podido añadir la empresa");
 		}
+		//lblRespuesta.setVisible(true);
+		ActionListener ocultarLabel = new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//lblRespuesta.setVisible(false);
+				lblRespuesta.setText("");
+			}
+		};
+		new Timer(temp, ocultarLabel).start();
 	}
 	
 	//UPDATE LOGGED USER ========================
@@ -462,9 +491,10 @@ public class Vista_Info_Empresa extends JFrame {
 	public void actualizarUpdate() {
 		String resultado=miModelo.getResultadoEmpresa();
 		if(resultado.equals("EXITO")) {
-			lblRespuesta.setText("Tutor modificado con ÉXITO");
+			clearFields();
+			lblRespuesta.setText("Empresa modificada con ÉXITO");
 		}else {
-			lblRespuesta.setText("Error,No se ha podido modifcar el tutor");
+			lblRespuesta.setText("Error,No se ha podido modifcar la empresa");
 		}
 		//lblRespuesta.setVisible(true);
 		ActionListener ocultarLabel = new ActionListener() {

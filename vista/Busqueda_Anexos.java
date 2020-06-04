@@ -1,7 +1,7 @@
 package vista;
 
 import java.awt.Color;
-
+import java.awt.Cursor;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -100,6 +100,7 @@ public class Busqueda_Anexos extends JFrame {
 	private JComboBox FilterComboBox;
 	private JLabel CargarLbl;
 	private JLabel CargarBtn;
+	private JPanel pnlUser;
 	
 
 	public void setControlador(controlador miControlador) {
@@ -154,11 +155,39 @@ public class Busqueda_Anexos extends JFrame {
 
 // 		LOGGED PANEL
 
+		pnlUser = new JPanel();
+		pnlUser.setBounds(572, 11, 196, 27);
+		getContentPane().add(pnlUser);
+		pnlUser.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				pnlUser.setBackground(new Color(224, 24, 24, 220));
+				lblUser.setForeground(new Color(255, 255, 255));
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				pnlUser.setBackground(new Color(245, 245, 245, 220));
+				lblUser.setForeground(new Color(139, 0, 0));
+			}
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				miModelo.soundButton();
+				miControlador.verPerfil10();
+			}
+		});
+		pnlUser.setForeground(new Color(255, 0, 0));
+		pnlUser.setBackground(new Color(245, 245, 245));
+		pnlUser.setLayout(null);
+
 		lblUser = new JLabel("Logged as: Pedro Camacho");
-		lblUser.setBounds(560, 7, 208, 27);
-		contentPane.add(lblUser);
-		lblUser.setForeground(new Color(255, 255, 255));
-		lblUser.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblUser.setBounds(0, 0, 196, 27);
+		pnlUser.add(lblUser);
+		lblUser.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		lblUser.setBackground(new Color(211, 211, 211));
+		lblUser.setForeground(new Color(139, 0, 0));
+		lblUser.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblUser.setHorizontalAlignment(SwingConstants.CENTER);
 
 //		Table View ========================
@@ -549,14 +578,6 @@ public class Busqueda_Anexos extends JFrame {
 		CargarBtn.setIcon(new ImageIcon(img_ButtonModificar));
 		CargarBtn.setBounds(648, 591, 89, 23);
 		contentPane.add(CargarBtn);
-
-//		User Name Label ========================
-		JPanel pnlUser = new JPanel();
-		pnlUser.setForeground(new Color(240, 248, 255));
-		pnlUser.setBackground(new Color(192, 192, 192, 190));
-		pnlUser.setBounds(560, 7, 208, 27);
-		getContentPane().add(pnlUser);
-		pnlUser.setLayout(null);
 
 //		Window Title ========================
 		JLabel WindowTitle = new JLabel("Anexos");

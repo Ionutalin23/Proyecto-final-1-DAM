@@ -1,8 +1,11 @@
 package vista;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -13,6 +16,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.Timer;
 import javax.swing.border.BevelBorder;
 
 import controlador.controlador;
@@ -29,12 +33,16 @@ public class Vista_Info_Grupo extends JFrame {
 	private JLabel lblLogout;
 	private JLabel lblBack;
 	private JLabel lblUser;
-	private JPanel pnlContenido;
 	private boolean modify=false;
+	private int temp = 5000;
 	private JLabel lblMod;
 	private JLabel lblModButton;
 	private JLabel lblCrear;
 	private JLabel lblCrearButton;
+	private JLabel lblRespuesta;
+	private JPanel pnlContenido;
+	private JPanel pnlUser;
+	private JPanel pnlUser_1;
 
 	public Vista_Info_Grupo() {
 		setTitle("");
@@ -57,20 +65,41 @@ public class Vista_Info_Grupo extends JFrame {
 		getContentPane().add(panel);
 		panel.setLayout(null);
 
-		JPanel pnlUser = new JPanel();
-		pnlUser.setForeground(new Color(240, 248, 255));
-		pnlUser.setBackground(new Color(192, 192, 192, 190));
-		pnlUser.setBounds(0, 0, 208, 27);
-		panel.add(pnlUser);
-		pnlUser.setLayout(null);
-
 //		LOGGED AS LBL ========================
+		pnlUser_1 = new JPanel();
+		pnlUser_1.setBounds(25, 13, 196, 27);
+		panel.add(pnlUser_1);
+		pnlUser_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				pnlUser_1.setBackground(new Color(224, 24, 24, 220));
+				pnlUser_1.setForeground(new Color(255, 255, 255));
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				pnlUser_1.setBackground(new Color(245, 245, 245, 220));
+				pnlUser_1.setForeground(new Color(139, 0, 0));
+			}
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				miModelo.soundButton();
+				miControlador.verPerfil3();
+			}
+		});
+		pnlUser_1.setForeground(new Color(255, 0, 0));
+		pnlUser_1.setBackground(new Color(245, 245, 245));
+		pnlUser_1.setLayout(null);
+
 		lblUser = new JLabel("Logged as: Pedro Camacho");
-		lblUser.setForeground(new Color(255, 255, 255));
-		lblUser.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblUser.setBounds(0, 0, 196, 27);
+		pnlUser_1.add(lblUser);
+		lblUser.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		lblUser.setBackground(new Color(211, 211, 211));
+		lblUser.setForeground(new Color(139, 0, 0));
+		lblUser.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblUser.setHorizontalAlignment(SwingConstants.CENTER);
-		lblUser.setBounds(0, 0, 208, 27);
-		pnlUser.add(lblUser);
 
 //		UEM LOGO ========================
 		JLabel lblLogo = new JLabel("");
@@ -82,8 +111,7 @@ public class Vista_Info_Grupo extends JFrame {
 		lblLogo.setIcon(img);
 		lblLogo.setBackground(new Color(0, 0, 0));
 
-//		FORM ========================
-		JPanel pnlContenido = new JPanel();
+		pnlContenido = new JPanel();
 		pnlContenido.setBounds(230, 32, 405, 561);
 		panel.add(pnlContenido);
 		pnlContenido.setBackground(new Color(226, 106, 106, 240));
@@ -143,6 +171,15 @@ public class Vista_Info_Grupo extends JFrame {
 		txtClaveCiclo.setColumns(10);
 		txtClaveCiclo.setBounds(35, 368, 267, 22);
 		pnlContenido.add(txtClaveCiclo);
+		
+		lblRespuesta = new JLabel("New label");
+		lblRespuesta.setBackground(Color.WHITE);
+		lblRespuesta.setForeground(Color.WHITE);
+		lblRespuesta.setHorizontalAlignment(SwingConstants.CENTER);
+		lblRespuesta.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblRespuesta.setBounds(35, 532, 308, 29);
+		pnlContenido.add(lblRespuesta);
+		lblRespuesta.setText("");
 
 //		CREATE BUTTON ========================
 		lblCrear = new JLabel("CREAR");
@@ -253,6 +290,7 @@ public class Vista_Info_Grupo extends JFrame {
 			}
 
 			public void mouseClicked(MouseEvent e) {
+				clearFields();
 				miControlador.logout8();
 			}
 		});
@@ -284,6 +322,7 @@ public class Vista_Info_Grupo extends JFrame {
 			}
 
 			public void mouseClicked(MouseEvent e) {
+				clearFields();
 				miControlador.back7();
 			}
 		});
@@ -361,16 +400,22 @@ public void setTxtCodGrupo(String txtCodGrupo) {
 // 	UPDATE ========================
 	public void actualizar() {
 		String resultado = miModelo.getResultadoGrupo();
-		if (resultado.equals("EXISTENTE")) {
-			JOptionPane.showMessageDialog(this, "El grupo ya existe");
-		} else if (resultado.equals("EXITO")) {
-			JOptionPane.showMessageDialog(this, "Grupo añadido con éxito");
+		if(resultado.equals("EXITO")) {
+			lblRespuesta.setText("Grupo añadido con ÉXITO");
 			clearFields();
-		}else if(resultado.equals("VACIO")){
-			JOptionPane.showMessageDialog(this, "Por favor, rellene todos los campos");
 		}else {
-			JOptionPane.showMessageDialog(this, "Error, por favor compruebe todos los datos");
+			lblRespuesta.setText("Error,No se ha podido añadidir el Grupo");
 		}
+		//lblRespuesta.setVisible(true);
+		ActionListener ocultarLabel = new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//lblRespuesta.setVisible(false);
+				lblRespuesta.setText("");
+			}
+		};
+		new Timer(temp, ocultarLabel).start();
 	}
 	
 //	CLEAR FIELDS ========================
@@ -390,13 +435,22 @@ public void setTxtCodGrupo(String txtCodGrupo) {
 
 	public void actualizar2() {
 		String resultado = miModelo.getResultadoGrupoUpdate();
-		if (resultado.equals("EXITO")) {
-			JOptionPane.showMessageDialog(this, "Grupo modificado con éxito");
-			//clearFields();
-		}else{
-			JOptionPane.showMessageDialog(this, "Por favor, comprueba todos los campos");
+		if(resultado.equals("EXITO")) {
+			lblRespuesta.setText("Grupo modificado con ÉXITO");
+			clearFields();
+		}else {
+			lblRespuesta.setText("Error,No se ha podido modifcar el Grupo");
 		}
-		
+		//lblRespuesta.setVisible(true);
+		ActionListener ocultarLabel = new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//lblRespuesta.setVisible(false);
+				lblRespuesta.setText("");
+			}
+		};
+		new Timer(temp, ocultarLabel).start();
 	}
 	public void mostrarBoton() {
 		if (modify) {
