@@ -45,12 +45,12 @@ public class MenuVista extends JFrame {
 			.getScaledInstance(160, 37, Image.SCALE_SMOOTH);
 	Image buttonMenu3 = new ImageIcon(getClass().getResource("/images/buttonMenu3.png")).getImage()
 			.getScaledInstance(160, 37, Image.SCALE_SMOOTH);
-	Image imgLogo1 = new ImageIcon(getClass().getResource("/img/logo_uem.png")).getImage()
-			.getScaledInstance(202, 148, Image.SCALE_SMOOTH);
-	Image imgPerfil = new ImageIcon(getClass().getResource("/img/perfil.jpg")).getImage()
-			.getScaledInstance(167, 128, Image.SCALE_SMOOTH);
-	Image bgColor = new ImageIcon(getClass().getResource("/img/bg9.jpg")).getImage()
-			.getScaledInstance(254, 617, Image.SCALE_SMOOTH);
+	Image imgLogo1 = new ImageIcon(getClass().getResource("/img/logo_uem.png")).getImage().getScaledInstance(202, 148,
+			Image.SCALE_SMOOTH);
+	Image imgPerfil = new ImageIcon(getClass().getResource("/img/perfil.jpg")).getImage().getScaledInstance(167, 128,
+			Image.SCALE_SMOOTH);
+	Image bgColor = new ImageIcon(getClass().getResource("/img/bg9.jpg")).getImage().getScaledInstance(254, 617,
+			Image.SCALE_SMOOTH);
 	private JLabel lblLogout;
 	private JLabel lblUser;
 	private JLabel lblEstadist;
@@ -68,7 +68,7 @@ public class MenuVista extends JFrame {
 		getContentPane().setLayout(null);
 //		POSICIONAR VENTANA EN EL CENTRO DE LA PANTALLA
 		setLocationRelativeTo(null);
-		
+
 //		-------------------------------------------------------------------------------------------
 
 		lblLogout = new JLabel("LOGOUT");
@@ -113,18 +113,20 @@ public class MenuVista extends JFrame {
 //		------------------------------------------------------------------------------
 
 		pnlUser = new JPanel();
-		pnlUser.setBounds(51, 13, 196, 27);
+		pnlUser.setBounds(40, 13, 196, 27);
 		pnlUser.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent arg0) {
-				pnlUser.setBackground(new Color(224, 24, 24,220));
+				pnlUser.setBackground(new Color(224, 24, 24, 220));
 				lblUser.setForeground(new Color(255, 255, 255));
 			}
+
 			@Override
 			public void mouseExited(MouseEvent e) {
-				pnlUser.setBackground(new Color(245, 245, 245,220));
+				pnlUser.setBackground(new Color(245, 245, 245, 220));
 				lblUser.setForeground(new Color(139, 0, 0));
 			}
+
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				miModelo.soundButton();
@@ -138,10 +140,10 @@ public class MenuVista extends JFrame {
 		pnlUser.setLayout(null);
 
 		lblUser = new JLabel("Logged as: Pedro Camacho");
-		lblUser.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		lblUser.setBackground(new Color(211, 211, 211));
 		lblUser.setBounds(0, 0, 196, 27);
 		pnlUser.add(lblUser);
+		lblUser.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		lblUser.setBackground(new Color(211, 211, 211));
 		lblUser.setForeground(new Color(139, 0, 0));
 		lblUser.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblUser.setHorizontalAlignment(SwingConstants.CENTER);
@@ -453,5 +455,5 @@ public class MenuVista extends JFrame {
 	public void setImgPerfil(Image imgPerfil) {
 		this.imgPerfil = imgPerfil;
 	}
-	
+
 }

@@ -11,6 +11,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JTextField;
 import java.awt.Color;
+import java.awt.Cursor;
+
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 import javax.swing.border.BevelBorder;
@@ -34,9 +36,15 @@ public class Vista_Info_Tutor extends JFrame {
 	private JLabel lblLogout;
 	private JLabel lblBack;
 	private JLabel lblUser;
-	private JPanel pnlContenido;
+	private boolean modify = false;
 	private int temp = 5000;
 	private JLabel lblRespuesta;
+	private JLabel lblModify;
+	private JLabel lblCrearButton;
+	private JLabel lblCrear;
+	private JLabel lblModButton;
+	private JPanel pnlContenido;
+	private JPanel pnlUser;
 
 	public Vista_Info_Tutor() {
 		setTitle("");
@@ -66,20 +74,41 @@ public class Vista_Info_Tutor extends JFrame {
 		getContentPane().add(panel);
 		panel.setLayout(null);
 
-		JPanel pnlUser = new JPanel();
-		pnlUser.setForeground(new Color(240, 248, 255));
-		pnlUser.setBackground(new Color(192, 192, 192, 190));
-		pnlUser.setBounds(0, 0, 208, 27);
+		// LOGGED AS LBL ========================
+		pnlUser = new JPanel();
+		pnlUser.setBounds(25, 13, 196, 27);
 		panel.add(pnlUser);
+		pnlUser.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				pnlUser.setBackground(new Color(224, 24, 24, 220));
+				lblUser.setForeground(new Color(255, 255, 255));
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				pnlUser.setBackground(new Color(245, 245, 245, 220));
+				lblUser.setForeground(new Color(139, 0, 0));
+			}
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				miModelo.soundButton();
+				miControlador.verPerfil2();
+			}
+		});
+		pnlUser.setForeground(new Color(255, 0, 0));
+		pnlUser.setBackground(new Color(245, 245, 245));
 		pnlUser.setLayout(null);
 
-//		LOGGED AS LBL ========================
 		lblUser = new JLabel("Logged as: Pedro Camacho");
-		lblUser.setForeground(new Color(255, 255, 255));
-		lblUser.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblUser.setHorizontalAlignment(SwingConstants.CENTER);
-		lblUser.setBounds(0, 0, 208, 27);
+		lblUser.setBounds(0, 0, 196, 27);
 		pnlUser.add(lblUser);
+		lblUser.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		lblUser.setBackground(new Color(211, 211, 211));
+		lblUser.setForeground(new Color(139, 0, 0));
+		lblUser.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblUser.setHorizontalAlignment(SwingConstants.CENTER);
 
 //		UEM LOGO ========================
 		JLabel lblLogo = new JLabel("");
@@ -91,8 +120,7 @@ public class Vista_Info_Tutor extends JFrame {
 		lblLogo.setIcon(img);
 		lblLogo.setBackground(new Color(0, 0, 0));
 
-//		FORM ========================
-		JPanel pnlContenido = new JPanel();
+		pnlContenido = new JPanel();
 		pnlContenido.setBounds(230, 32, 405, 561);
 		panel.add(pnlContenido);
 		pnlContenido.setBackground(new Color(226, 106, 106, 240));
@@ -154,14 +182,15 @@ public class Vista_Info_Tutor extends JFrame {
 		pnlContenido.add(txtCodCentro);
 
 //		CREAR BUTTON ========================
-		JLabel lblCrear = new JLabel("CREAR");
+		lblCrear = new JLabel("CREAR");
+		lblCrear.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblCrear.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCrear.setForeground(Color.WHITE);
 		lblCrear.setBackground(new Color(205, 92, 92));
-		lblCrear.setBounds(193, 445, 109, 48);
+		lblCrear.setBounds(142, 445, 109, 48);
 		pnlContenido.add(lblCrear);
 
-		JLabel lblCrearButton = new JLabel("");
+		lblCrearButton = new JLabel("");
 		lblCrearButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
@@ -187,19 +216,21 @@ public class Vista_Info_Tutor extends JFrame {
 				miControlador.insertarTutor();
 			}
 		});
-		lblCrearButton.setBounds(192, 445, 110, 48);
+		lblCrearButton.setBounds(141, 445, 110, 48);
 		pnlContenido.add(lblCrearButton);
 		lblCrearButton.setIcon(new ImageIcon(button1));
-		
+
 //		MODIFICAR BUTTON =====================
-		JLabel lblModify = new JLabel("MODIFICAR");
+		lblModify = new JLabel("MODIFICAR");
 		lblModify.setHorizontalAlignment(SwingConstants.CENTER);
 		lblModify.setForeground(Color.WHITE);
 		lblModify.setBackground(new Color(205, 92, 92));
-		lblModify.setBounds(45, 445, 109, 48);
+		lblModify.setBounds(141, 445, 109, 48);
 		pnlContenido.add(lblModify);
 
-		JLabel lblModButton = new JLabel("");
+		lblModButton = new JLabel("");
+		lblModify.setVisible(false);
+		lblModButton.setVisible(false);
 		lblModButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
@@ -222,15 +253,17 @@ public class Vista_Info_Tutor extends JFrame {
 			}
 
 			public void mouseClicked(MouseEvent e) {
-				miModelo.modificarTutor(txtDni.getText(), txtName.getText(), txtApellidos.getText(), Integer.parseInt(txtCodCentro.getText()));
+				miModelo.modificarTutor(txtDni.getText(), txtName.getText(), txtApellidos.getText(),
+						Integer.parseInt(txtCodCentro.getText()));
 			}
 		});
-		lblModButton.setBounds(45, 445, 109, 48);
+		lblModButton.setBounds(141, 445, 109, 48);
 		pnlContenido.add(lblModButton);
 		lblModButton.setIcon(new ImageIcon(button1));
 
 //		LOGOUT BUTTON ========================
 		lblLogout = new JLabel("LOGOUT");
+		lblLogout.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblLogout.setHorizontalAlignment(SwingConstants.CENTER);
 		lblLogout.setForeground(Color.WHITE);
 		lblLogout.setBackground(new Color(205, 92, 92));
@@ -260,6 +293,7 @@ public class Vista_Info_Tutor extends JFrame {
 			}
 
 			public void mouseClicked(MouseEvent e) {
+				clearFields();
 				miControlador.logout9();
 			}
 		});
@@ -291,19 +325,20 @@ public class Vista_Info_Tutor extends JFrame {
 			}
 
 			public void mouseClicked(MouseEvent e) {
+				clearFields();
 				miControlador.back8();
 			}
 		});
 		lblBack.setIcon(new ImageIcon(Vista_Info_Alumno.class.getResource("/images/back1.png")));
 		lblBack.setBounds(35, 13, 24, 24);
 		pnlContenido.add(lblBack);
-		
+
 		lblRespuesta = new JLabel("New label");
 		lblRespuesta.setBackground(Color.WHITE);
 		lblRespuesta.setForeground(Color.WHITE);
 		lblRespuesta.setHorizontalAlignment(SwingConstants.CENTER);
-		lblRespuesta.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblRespuesta.setBounds(55, 509, 247, 29);
+		lblRespuesta.setFont(new Font("Century Gothic", Font.BOLD, 14));
+		lblRespuesta.setBounds(55, 509, 287, 29);
 		pnlContenido.add(lblRespuesta);
 		lblRespuesta.setText("");
 
@@ -350,7 +385,6 @@ public class Vista_Info_Tutor extends JFrame {
 		return txtCodCentro.getText();
 	}
 
-	
 	public void setTxtDni(JTextField txtDni) {
 		this.txtDni = txtDni;
 	}
@@ -367,7 +401,7 @@ public class Vista_Info_Tutor extends JFrame {
 		this.txtCodCentro = txtCodCentro;
 	}
 
-	// 	MCV ========================
+	// MCV ========================
 	public void setControlador(controlador miControlador) {
 		this.miControlador = miControlador;
 	}
@@ -379,30 +413,38 @@ public class Vista_Info_Tutor extends JFrame {
 // 	UPDATE ========================
 	public void actualizar() {
 		String resultado = miModelo.getResultadoTutor();
-		if (resultado.equals("EXISTENTE")) {
-			JOptionPane.showMessageDialog(this, "El tutor ya existe");
-		} else if (resultado.equals("EXITO")) {
-			JOptionPane.showMessageDialog(this, "Tutor añadido con éxito");
+		if (resultado.equals("EXITO")) {
 			clearFields();
-		} else if (resultado.equals("VACIO")) {
-			JOptionPane.showMessageDialog(this, "Por favor, rellene todos los campos");
+			lblRespuesta.setText("Tutor añadido con ÉXITO");
 		} else {
-			JOptionPane.showMessageDialog(this, "Error, por favor compruebe todos los datos");
+			lblRespuesta.setText("Error,No se ha podido añadir el tutor");
 		}
-	}
-	public void actualizarUpdate() {
-		String resultado=miModelo.getResultadoTutor();
-		if(resultado.equals("EXITO")) {
-			lblRespuesta.setText("Tutor modificado con ÉXITO");
-		}else {
-			lblRespuesta.setText("Error,No se ha podido modifcar el tutor");
-		}
-		//lblRespuesta.setVisible(true);
+		// lblRespuesta.setVisible(true);
 		ActionListener ocultarLabel = new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//lblRespuesta.setVisible(false);
+				// lblRespuesta.setVisible(false);
+				lblRespuesta.setText("");
+			}
+		};
+		new Timer(temp, ocultarLabel).start();
+	}
+
+	public void actualizarUpdate() {
+		String resultado = miModelo.getResultadoTutor();
+		if (resultado.equals("EXITO")) {
+			clearFields();
+			lblRespuesta.setText("Tutor modificado con ÉXITO");
+		} else {
+			lblRespuesta.setText("Error,No se ha podido modifcar el tutor");
+		}
+		// lblRespuesta.setVisible(true);
+		ActionListener ocultarLabel = new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// lblRespuesta.setVisible(false);
 				lblRespuesta.setText("");
 			}
 		};
@@ -423,5 +465,23 @@ public class Vista_Info_Tutor extends JFrame {
 
 		lblUser.setText("Logged as: " + miModelo.getUSR());
 
+	}
+
+	public void mostrarBoton() {
+		if (modify) {
+			lblModify.setVisible(true);
+			lblModButton.setVisible(true);
+			lblCrear.setVisible(false);
+			lblCrearButton.setVisible(false);
+		} else {
+			lblModify.setVisible(false);
+			lblModButton.setVisible(false);
+			lblCrear.setVisible(true);
+			lblCrearButton.setVisible(true);
+		}
+	}
+
+	public void setModify(boolean modify) {
+		this.modify = modify;
 	}
 }

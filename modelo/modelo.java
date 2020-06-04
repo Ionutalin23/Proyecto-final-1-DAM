@@ -543,17 +543,25 @@ public class modelo {
 		PreparedStatement stmt;
 		try {
 			stmt = conexion.prepareStatement(
-					"UPDATE PI.EMPRESA SET CIF=?, NOMBRE=?, DIRECCION=?, TELEFONO=?, LOCALIDAD=?, EMAIL=?, RESP_EMPRESA=?");
-			stmt.setString(1, cif);
-			stmt.setString(2, nombre);
-			stmt.setString(3, direccion);
-			stmt.setInt(4, i);
-			stmt.setString(5, localidad);
-			stmt.setString(6, email);
-			stmt.setString(7, representante);
+					"UPDATE PI.EMPRESA SET NOMBRE=?, DIRECCION=?, TELEFONO=?, LOCALIDAD=?, EMAIL=?, RESP_EMPRESA=? WHERE CIF=?");
+			
+			stmt.setString(1, nombre);
+			stmt.setString(2, direccion);
+			stmt.setInt(3, i);
+			stmt.setString(4, localidad);
+			stmt.setString(5, email);
+			stmt.setString(6, representante);
+			stmt.setString(7, cif);
 
 			int resul = stmt.executeUpdate();
-		} catch (Exception e) {
+			if (resul>0) {
+				resultadoEmpresa="EXITO";
+				vista_info_empresa.actualizarUpdate();
+			}else {
+				resultadoEmpresa="ERROR";
+				vista_info_empresa.actualizarUpdate();
+			}
+		} catch (SQLException e) {
 
 			e.printStackTrace();
 		}
@@ -634,7 +642,7 @@ public class modelo {
 			ResultSet rs = cons.executeQuery();
 			if (rs.next()) {
 				resultadoAlum = "EXISTENTE";
-				vista_info_alumno.actualizar();
+				vista_info_alumno.actualizarInsert();
 			} else {
 				PreparedStatement ins = conexion.prepareStatement(insert);
 				ins.setString(1, dni);
@@ -646,7 +654,7 @@ public class modelo {
 				int resul = ins.executeUpdate();
 				if (resul > 0) {
 					resultadoAlum = "EXITO";
-					vista_info_alumno.actualizar();
+					vista_info_alumno.actualizarInsert();
 				}
 				cons.close();
 				rs.close();
@@ -656,10 +664,10 @@ public class modelo {
 			if (dni.isEmpty() || nombre.isEmpty() || apellido.isEmpty() || expediente.isEmpty()
 					|| nacionalidad.isEmpty() || fechaNacim.isEmpty()) {
 				resultadoAlum = "VACIO";
-				vista_info_alumno.actualizar();
+				vista_info_alumno.actualizarInsert();
 			} else {
 				resultadoAlum = "ERROR";
-				vista_info_alumno.actualizar();
+				vista_info_alumno.actualizarInsert();
 			}
 
 		}
@@ -996,7 +1004,7 @@ public class modelo {
 //	NUEVO GRUPO========================
 	public void añadirGrupo(String codGrupo, String nombre, String ciclo, String claveCiclo) {
 		String consulta = "SELECT * FROM PI.grupo WHERE cod_grupo=?";
-		String insert = "insert into PI.empresa values(?,?,?,?)";
+		String insert = "insert into PI.grupo values(?,?,?,?)";
 		try {
 			PreparedStatement cons = conexion.prepareStatement(consulta);
 			cons.setString(1, codGrupo);
@@ -1097,10 +1105,10 @@ public class modelo {
 			int resul = stmt.executeUpdate();
 			if (resul > 0) {
 				resultadoUsuarioUpdate = "EXITO";
-				vista_info_alumno.actualizar2();
+				vista_info_alumno.actualizarUpdate();
 			} else {
 				resultadoUsuarioUpdate = "ERROR";
-				vista_info_alumno.actualizar2();
+				vista_info_alumno.actualizarUpdate();
 			}
 		} catch (SQLException | ParseException e) {
 

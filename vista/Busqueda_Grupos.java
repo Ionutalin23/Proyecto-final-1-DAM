@@ -1,7 +1,7 @@
 package vista;
 
 import java.awt.Color;
-
+import java.awt.Cursor;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -89,6 +89,7 @@ public class Busqueda_Grupos extends JFrame {
 // 	MVC ========================
 	private controlador miControlador;
 	private modelo miModelo;
+	private JPanel pnlUser;
 
 	public void setControlador(controlador miControlador) {
 		this.miControlador = miControlador;
@@ -112,11 +113,38 @@ public class Busqueda_Grupos extends JFrame {
 		setLocationRelativeTo(null);
 
 		lblUser = new JLabel("Logged as: Pedro Camacho");
-		lblUser.setBounds(560, 7, 208, 27);
-		contentPane.add(lblUser);
-		lblUser.setForeground(new Color(255, 255, 255));
-		lblUser.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblUser.setBounds(572, 7, 196, 27);
+		getContentPane().add(lblUser);
+		lblUser.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		lblUser.setBackground(new Color(211, 211, 211));
+		lblUser.setForeground(new Color(139, 0, 0));
+		lblUser.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblUser.setHorizontalAlignment(SwingConstants.CENTER);
+		pnlUser = new JPanel();
+		pnlUser.setBounds(572, 7, 196, 27);
+		getContentPane().add(pnlUser);
+		pnlUser.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				pnlUser.setBackground(new Color(224, 24, 24, 220));
+				lblUser.setForeground(new Color(255, 255, 255));
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				pnlUser.setBackground(new Color(245, 245, 245, 220));
+				lblUser.setForeground(new Color(139, 0, 0));
+			}
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				miModelo.soundButton();
+				miControlador.verPerfil7();
+			}
+		});
+		pnlUser.setForeground(new Color(255, 0, 0));
+		pnlUser.setBackground(new Color(245, 245, 245));
+		pnlUser.setLayout(null);
 // 		label seleccion de fila
 		lblSelcc = new JLabel("No ha seleccionado ninguna fila");
 		lblSelcc.setVisible(false);
@@ -378,14 +406,6 @@ public class Busqueda_Grupos extends JFrame {
 
 		});
 		lblLogoutButton.setIcon(new ImageIcon(button1));
-
-//		User Name Label ========================
-		JPanel pnlUser = new JPanel();
-		pnlUser.setForeground(new Color(240, 248, 255));
-		pnlUser.setBackground(new Color(192, 192, 192, 190));
-		pnlUser.setBounds(560, 7, 208, 27);
-		getContentPane().add(pnlUser);
-		pnlUser.setLayout(null);
 
 //		Window Title ========================
 		JLabel WindowTitle = new JLabel("Grupos");

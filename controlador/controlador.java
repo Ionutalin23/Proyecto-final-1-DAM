@@ -268,18 +268,24 @@ public class controlador {
 		vista_info_empresa.setTxtLocalidad(localidad);
 		vista_info_empresa.setTxtMail(representante);
 		vista_info_empresa.setTxtRepresentante(email);
+		vista_info_empresa.setModify(true);
 		busquedaEmpresas.setVisible(false);
 		vista_info_empresa.setVisible(true);
+		vista_info_empresa.mostrarBoton();
 	}
 
 	public void nuevoAlumno() {
 		busquedaAlumnos.setVisible(false);
 		vista_info_alumno.setVisible(true);
+		vista_info_alumno.setModify(false);
+		vista_info_alumno.mostrarBoton();
 	}
 
 	public void nuevaEmpresa() {
 		busquedaEmpresas.setVisible(false);
 		vista_info_empresa.setVisible(true);
+		vista_info_empresa.setModify(false);
+		vista_info_empresa.mostrarBoton();
 	}
 
 	public void nuevoGrupo() {
@@ -293,6 +299,8 @@ public class controlador {
 	public void nuevoTutor() {
 		busquedaTutores.setVisible(false);
 		vista_info_tutor.setVisible(true);
+		vista_info_tutor.setModify(false);
+		vista_info_tutor.mostrarBoton();
 	}
 
 	public void logout6() {
@@ -356,12 +364,16 @@ public class controlador {
 		vista_ventana_menu.setVisible(true);
 
 	}
-	public void back10() {
+	public void backToMenu() {
 		ventana_conf_user.setVisible(false);
 		vista_ventana_menu.setVisible(true);
 
 	}
+	public void LogoutUSER() {
+		ventana_conf_user.setVisible(false);
+		vista_ventana_login.setVisible(true);
 
+	}
 	public void loginConfig() {
 		ventana_login_config.setVisible(true);
 		vista_ventana_login.setVisible(false);
@@ -475,8 +487,10 @@ public class controlador {
 		vista_info_alumno.setTxtNacionalidad(nacionalidad);
 		vista_info_alumno.setTxtExpediente(expe);
 		vista_info_alumno.setTxtNacim(nacim.substring(0, 10));
+		vista_info_alumno.setModify(true);
 		busquedaAlumnos.setVisible(false);
 		vista_info_alumno.setVisible(true);
+		vista_info_alumno.mostrarBoton();
 
 	}
 
@@ -485,8 +499,10 @@ public class controlador {
 		vista_info_tutor.setTxtApellidos(apellidos);
 		vista_info_tutor.setTxtName(nombre);
 		vista_info_tutor.setTxtCodCentro(CodCentro);
+		vista_info_tutor.setModify(true);
 		busquedaTutores.setVisible(false);
 		vista_info_tutor.setVisible(true);
+		vista_info_tutor.mostrarBoton();
 
 	}
 
@@ -590,5 +606,75 @@ public class controlador {
 		ventana_conf_user.setVisible(false);
 		vista_ventana_login.setVisible(true);
 	}
+
+	public void verPerfil2() {
+		vista_info_tutor.setVisible(false);
+		ventana_conf_user.setVisible(true);
+		miModelo.enviarDatosUsuario();
+		ventana_conf_user.actualizarFoto();
+	}
+
+	public void verPerfil3() {
+		vista_info_grupo.setVisible(false);
+		ventana_conf_user.setVisible(true);
+		miModelo.enviarDatosUsuario();
+		ventana_conf_user.actualizarFoto();
+	}
+
+	public void verPerfil4() {
+		vista_info_grupo.setVisible(false);
+		ventana_conf_user.setVisible(true);
+		miModelo.enviarDatosUsuario();
+		ventana_conf_user.actualizarFoto();
+	}
+
+	public void verPerfil5() {
+		vista_info_alumno.setVisible(false);
+		ventana_conf_user.setVisible(true);
+		miModelo.enviarDatosUsuario();
+		ventana_conf_user.actualizarFoto();
+	}
+
+	public void verPerfil6() {
+		busquedaTutores.setVisible(false);
+		ventana_conf_user.setVisible(true);
+		miModelo.enviarDatosUsuario();
+		ventana_conf_user.actualizarFoto();
+	}
+
+	public void verPerfil7() {
+		busquedaGrupos.setVisible(false);
+		ventana_conf_user.setVisible(true);
+		miModelo.enviarDatosUsuario();
+		ventana_conf_user.actualizarFoto();
+	}
+
+	public void verPerfil8() {
+		busquedaEmpresas.setVisible(false);
+		ventana_conf_user.setVisible(true);
+		miModelo.enviarDatosUsuario();
+		ventana_conf_user.actualizarFoto();
+	}
+
+	public void verPerfil9() {
+		ventana_estadisticas.setVisible(false);
+		ventana_conf_user.setVisible(true);
+		miModelo.enviarDatosUsuario();
+		ventana_conf_user.actualizarFoto();
+	}
+
+	public void verPerfil10() {
+		busquedaAnexos.setVisible(false);
+		ventana_conf_user.setVisible(true);
+		miModelo.enviarDatosUsuario();
+		ventana_conf_user.actualizarFoto();
+	}
+	public void verPerfil11() {
+		busquedaAlumnos.setVisible(false);
+		ventana_conf_user.setVisible(true);
+		miModelo.enviarDatosUsuario();
+		ventana_conf_user.actualizarFoto();
+	}
+	
 
 }

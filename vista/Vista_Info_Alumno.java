@@ -1,8 +1,11 @@
 package vista;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -13,6 +16,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.Timer;
 import javax.swing.border.BevelBorder;
 
 import controlador.controlador;
@@ -35,6 +39,8 @@ public class Vista_Info_Alumno extends JFrame {
 	private JLabel lblResul;
 	private JPanel pnlContenido;
 	private JLabel lblModButton;
+	private boolean modify=false;
+	private int temp = 5000;
 	
 // 	Setting Images ======================== (Check all images are linked to correct folder to avoid null pointer exception)
 	ImageIcon ico = new ImageIcon(getClass().getResource("/images/logo.png"));
@@ -46,6 +52,11 @@ public class Vista_Info_Alumno extends JFrame {
 	Image back1 = new ImageIcon(getClass().getResource("/images/back1.png")).getImage().getScaledInstance(24, 24,Image.SCALE_SMOOTH);
 	Image back2 = new ImageIcon(getClass().getResource("/images/back2.png")).getImage().getScaledInstance(24, 24,Image.SCALE_SMOOTH);
 	Image back3 = new ImageIcon(getClass().getResource("/images/back3.png")).getImage().getScaledInstance(24, 24,Image.SCALE_SMOOTH);
+	private JLabel lblCrear;
+	private JLabel lblCrearButton;
+	private JLabel lblMod;
+	private JLabel lblRespuesta;
+	private JPanel pnlUser;
 
 	public Vista_Info_Alumno() {
 
@@ -65,19 +76,40 @@ public class Vista_Info_Alumno extends JFrame {
 		panel.setLayout(null);
 
 //		LOGGED USER ========================
-		JPanel pnlUser = new JPanel();
-		pnlUser.setForeground(new Color(240, 248, 255));
-		pnlUser.setBackground(new Color(192, 192, 192, 190));
-		pnlUser.setBounds(0, 0, 208, 27);
+		pnlUser = new JPanel();
+		pnlUser.setBounds(25, 13, 196, 27);
 		panel.add(pnlUser);
+		pnlUser.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				pnlUser.setBackground(new Color(224, 24, 24, 220));
+				lblUser.setForeground(new Color(255, 255, 255));
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				pnlUser.setBackground(new Color(245, 245, 245, 220));
+				lblUser.setForeground(new Color(139, 0, 0));
+			}
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				miModelo.soundButton();
+				miControlador.verPerfil5();
+			}
+		});
+		pnlUser.setForeground(new Color(255, 0, 0));
+		pnlUser.setBackground(new Color(245, 245, 245));
 		pnlUser.setLayout(null);
 
 		lblUser = new JLabel("Logged as: Pedro Camacho");
-		lblUser.setForeground(new Color(255, 255, 255));
-		lblUser.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblUser.setHorizontalAlignment(SwingConstants.CENTER);
-		lblUser.setBounds(0, 0, 208, 27);
+		lblUser.setBounds(0, 0, 196, 27);
 		pnlUser.add(lblUser);
+		lblUser.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		lblUser.setBackground(new Color(211, 211, 211));
+		lblUser.setForeground(new Color(139, 0, 0));
+		lblUser.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblUser.setHorizontalAlignment(SwingConstants.CENTER);
 
 //		UEM LOGO ========================
 		JLabel lblLogo = new JLabel("");
@@ -180,7 +212,7 @@ public class Vista_Info_Alumno extends JFrame {
 		lblResul.setForeground(new Color(128, 0, 0));
 		lblResul.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblResul.setHorizontalAlignment(SwingConstants.CENTER);
-		lblResul.setBounds(32, 479, 267, 16);
+		lblResul.setBounds(65, 95, 267, 16);
 		pnlContenido.add(lblResul);
 
 //		LOGOUT BUTTON ========================
@@ -190,6 +222,15 @@ public class Vista_Info_Alumno extends JFrame {
 		lblLogout.setBackground(new Color(205, 92, 92));
 		lblLogout.setBounds(301, 13, 92, 27);
 		pnlContenido.add(lblLogout);
+		
+		lblRespuesta = new JLabel("New label");
+		lblRespuesta.setBackground(Color.WHITE);
+		lblRespuesta.setForeground(Color.WHITE);
+		lblRespuesta.setHorizontalAlignment(SwingConstants.CENTER);
+		lblRespuesta.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblRespuesta.setBounds(35, 532, 308, 29);
+		pnlContenido.add(lblRespuesta);
+		lblRespuesta.setText("");
 
 		JLabel lblLogoutButton = new JLabel("");
 		lblLogoutButton.addMouseListener(new MouseAdapter() {
@@ -214,6 +255,7 @@ public class Vista_Info_Alumno extends JFrame {
 			}
 
 			public void mouseClicked(MouseEvent e) {
+				clearFields();
 				miControlador.logout6();
 			}
 		});
@@ -245,6 +287,7 @@ public class Vista_Info_Alumno extends JFrame {
 			}
 
 			public void mouseClicked(MouseEvent e) {
+				clearFields();
 				miControlador.back5();
 			}
 		});
@@ -252,19 +295,14 @@ public class Vista_Info_Alumno extends JFrame {
 		lblBack.setBounds(35, 13, 24, 24);
 		pnlContenido.add(lblBack);
 		
-//		CREATE NEW BUTTON ========================
-		JLabel lblCrear = new JLabel("CREAR");
+		lblCrear = new JLabel("CREAR");
 		lblCrear.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCrear.setForeground(Color.WHITE);
-
 		lblCrear.setBackground(new Color(205, 92, 92));
-		lblCrear.setBounds(208, 500, 109, 48);
-
-		lblCrear.setBackground(new Color(205, 92, 92));
-		lblCrear.setBounds(217, 500, 109, 48);
+		lblCrear.setBounds(133, 479, 109, 48);
 		pnlContenido.add(lblCrear);
 
-		JLabel lblCrearButton = new JLabel("");
+		lblCrearButton = new JLabel("");
 		lblCrearButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
@@ -285,38 +323,29 @@ public class Vista_Info_Alumno extends JFrame {
 			public void mouseExited(MouseEvent e) {
 				lblCrearButton.setIcon(new ImageIcon(button1));
 			}
-
+			
 			public void mouseClicked(MouseEvent e) {
-				
 				miControlador.insertarAlumno();
 			}
 		});
-
-		lblCrearButton.setBounds(208, 500, 110, 48);
-		lblCrearButton.setBounds(216, 500, 110, 48);
+		lblCrearButton.setBounds(133, 479, 110, 48);
 		pnlContenido.add(lblCrearButton);
 		lblCrearButton.setIcon(new ImageIcon(button1));
-		addWindowListener(new java.awt.event.WindowAdapter(){
-
-	        public void windowActivated(java.awt.event.WindowEvent evt){
-	            comprobarMod();
-	        }
-	  });
-
-		lblCrearButton.setIcon(new ImageIcon(button1));
+		
+// 		Boton Modificar
+		lblMod = new JLabel("MODIFICAR");
+		lblMod.setHorizontalAlignment(SwingConstants.CENTER);
+		lblMod.setForeground(Color.WHITE);
+		lblMod.setBackground(new Color(205, 92, 92));
+		lblMod.setBounds(133, 479, 109, 48);
+		pnlContenido.add(lblMod);
 		
 		lblModButton = new JLabel("");
-		JLabel lblModify = new JLabel("MODIFICAR");
-		lblModify.setHorizontalAlignment(SwingConstants.CENTER);
-		lblModify.setForeground(Color.WHITE);
-		lblModify.setBackground(new Color(205, 92, 92));
-		lblModify.setBounds(65, 500, 109, 48);
-		pnlContenido.add(lblModify);
-
-		JLabel lblModButton = new JLabel("");
-		lblModButton.setBounds(53, 500, 110, 48);
-		lblModButton.setIcon(new ImageIcon(button1));
+		lblMod.setVisible(false);
+		lblModButton.setVisible(false);
+		lblModButton.setBounds(132, 479, 110, 48);
 		pnlContenido.add(lblModButton);
+		lblModButton.setIcon(new ImageIcon(button1));
 		lblModButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
@@ -341,11 +370,8 @@ public class Vista_Info_Alumno extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				miModelo.modificarAlumno(txtDni.getText(),txtName.getText(),txtApellidos.getText(),Integer.parseInt(txtExpediente.getText()),txtNacim.getText(),txtNacionalidad.getText() );
 			}
-
 		});
-		lblModButton.setBounds(65, 500, 116, 48);
-		pnlContenido.add(lblModButton);
-		lblModButton.setIcon(new ImageIcon(button1));
+
 
 //		BACKGROUND IMG ========================
 		JLabel lblPortada = new JLabel("");
@@ -424,27 +450,43 @@ public class Vista_Info_Alumno extends JFrame {
 	}
 
 	// 	UPDATE ========================
-	public void actualizar() {
+	public void actualizarInsert() {
 		String resultado = miModelo.getResultadoAlum();
-		if (resultado.equals("EXISTENTE")) {
-			JOptionPane.showMessageDialog(this, "El usuario ya existe");
-		} else if (resultado.equals("EXITO")) {
-			JOptionPane.showMessageDialog(this, "Usuario añadido con éxito");
+		if(resultado.equals("EXITO")) {
 			clearFields();
-		}else if(resultado.equals("VACIO")){
-			JOptionPane.showMessageDialog(this, "Por favor, rellene todos los campos");
+			lblRespuesta.setText("Alumno añadir con ÉXITO");
 		}else {
-			JOptionPane.showMessageDialog(this, "Error, por favor compruebe todos los datos");
+			lblRespuesta.setText("Error,No se ha podido añadir el alumno");
 		}
+		//lblRespuesta.setVisible(true);
+		ActionListener ocultarLabel = new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//lblRespuesta.setVisible(false);
+				lblRespuesta.setText("");
+			}
+		};
+		new Timer(temp, ocultarLabel).start();
 	}
-	public void actualizar2() {
-		String resultado = miModelo.getResultadoUsuarioUpdate();
-		if (resultado.equals("EXITO")) {
-			JOptionPane.showMessageDialog(this, "Usuario modificado con éxito");
+	public void actualizarUpdate() {
+		String resultado=miModelo.getResultadoUsuarioUpdate();
+		if(resultado.equals("EXITO")) {
 			clearFields();
-		}else{
-			JOptionPane.showMessageDialog(this, "Por favor, comprueba todos los campos");
+			lblRespuesta.setText("Alumno modificado con ÉXITO");
+		}else {
+			lblRespuesta.setText("Error,No se ha podido modifcar el Alumno");
 		}
+		//lblRespuesta.setVisible(true);
+		ActionListener ocultarLabel = new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//lblRespuesta.setVisible(false);
+				lblRespuesta.setText("");
+			}
+		};
+		new Timer(temp, ocultarLabel).start();
 	}
 
 //	CLEAR FIELDS ========================
@@ -479,39 +521,21 @@ public class Vista_Info_Alumno extends JFrame {
 	public void setTxtExpediente(String txtExpediente) {
 		this.txtExpediente.setText(txtExpediente);
 	}
-	public void comprobarMod() {
-		if (miModelo.getmodificar()) {
-			lblModButton.setIcon(new ImageIcon(button1));
-			lblModButton.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mousePressed(MouseEvent e) {
-					lblModButton.setIcon(new ImageIcon(button3));
-				}
-
-				@Override
-				public void mouseReleased(MouseEvent e) {
-					lblModButton.setIcon(new ImageIcon(button2));
-				}
-
-				@Override
-				public void mouseEntered(MouseEvent e) {
-					lblModButton.setIcon(new ImageIcon(button2));
-				}
-
-				@Override
-				public void mouseExited(MouseEvent e) {
-					lblModButton.setIcon(new ImageIcon(button1));
-				}
-
-				public void mouseClicked(MouseEvent e) {
-					comprobarMod();
-					miModelo.modificarAlumno(txtDni.getText(),txtName.getText(),txtApellidos.getText(),Integer.parseInt(txtExpediente.getText()),txtNacim.getText(),txtNacionalidad.getText() );
-				}
-			});
+	public void mostrarBoton() {
+		if (modify) {
+			lblMod.setVisible(true);
+			lblModButton.setVisible(true);
+			lblCrear.setVisible(false);
+			lblCrearButton.setVisible(false);
 		}else {
-			lblModButton.setIcon(new ImageIcon(button4));
-			
+			lblMod.setVisible(false);
+			lblModButton.setVisible(false);
+			lblCrear.setVisible(true);
+			lblCrearButton.setVisible(true);
 		}
-		
+	}
+
+	public void setModify(boolean modify) {
+		this.modify = modify;
 	}
 }
