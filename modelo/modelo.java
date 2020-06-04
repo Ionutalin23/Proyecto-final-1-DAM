@@ -193,27 +193,33 @@ public class modelo {
 
 	private String SQLTut = "SELECT TU.dni_tutor, TU.nombre, TU.apellidos, TU.centro_cod_centro FROM PI.TUTOR TU, PI.GESTIONA GE WHERE TU.dni_tutor= GE.tutor_dni_tutor AND GE.ACAD = '2018-2019' ";
 	private String SQLTut2 = "SELECT TU.dni_tutor, TU.nombre, TU.apellidos, TU.centro_cod_centro FROM PI.TUTOR TU, PI.GESTIONA GE WHERE TU.dni_tutor= GE.tutor_dni_tutor AND GE.ACAD = '2019-2020' ";
-	private String SQLTut_2 = "SELECT nombre, apellidos,clave_ciclo, nombre_ciclo FROM PI.Tutor TU, PI.Grupo GR, PI.Gestiona GE WHERE TU.dni_tutor = GE.tutor_dni_tutor AND GE.grupo_cod_grupo = GR.cod_grupo AND nombre_ciclo ='DAMM'";
+	private String SQLTut_2 = "SELECT nombre, apellidos,clave_ciclo, nombre_ciclo FROM PI.Tutor TU, PI.Grupo GR, PI.Gestiona GE WHERE TU.dni_tutor = GE.tutor_dni_tutor AND GE.grupo_cod_grupo = GR.cod_grupo ";
+	private String SQLTut_2_BUS = "SELECT nombre, apellidos,clave_ciclo, nombre_ciclo FROM PI.Tutor TU, PI.Grupo GR, PI.Gestiona GE WHERE TU.dni_tutor = GE.tutor_dni_tutor AND GE.grupo_cod_grupo = GR.cod_grupo AND TU.nombre LIKE ?";
+	private String SQLTut_3_BUS = "SELECT nombre, apellidos,clave_ciclo, nombre_ciclo FROM PI.Tutor TU, PI.Grupo GR, PI.Gestiona GE , PI.Centro CE WHERE TU.dni_tutor = GE.tutor_dni_tutor AND GE.grupo_cod_grupo = GR.cod_grupo AND CE.cod_centro = TU.centro_cod_centro AND CE.localidad LIKE ?";
 
+	
+	
 	private String SQAlumno = "SELECT AL.dni, AL.nombre, AL.apellidos, AL.num_exp, AL.nacionalidad, AL.fecha_nacim FROM PI.alumno AL, PI.Pertenece PE WHERE AL.num_exp = PE.alumno_num_exp AND PE.acad = '2018-2019'";
 	private String SQLAlumno2 = "SELECT AL.dni, AL.nombre, AL.apellidos, AL.num_exp, AL.nacionalidad, AL.fecha_nacim FROM PI.alumno AL, PI.Pertenece PE WHERE AL.num_exp = PE.alumno_num_exp AND PE.acad = '2019-2020'";
+	private String SQAlumno_2BUS = "SELECT AL.dni, AL.nombre, AL.apellidos, AL.num_exp, AL.nacionalidad, AL.fecha_nacim FROM PI.alumno AL, PI.Pertenece PE WHERE AL.num_exp = PE.alumno_num_exp AND AL.nombre LIKE ? ORDER BY AL.nombre";
+	private String SQAlumno_3BUS = "SELECT AL.dni, AL.nombre, AL.apellidos, AL.num_exp, AL.nacionalidad, AL.fecha_nacim FROM PI.alumno AL, PI.Pertenece PE, PI.Grupo GR WHERE AL.num_exp = PE.alumno_num_exp AND GR.cod_grupo = PE.grupo_cod_grupo AND GR.nombre_ciclo LIKE ?";
 	private String SQAlumno_2 = "SELECT AL.dni, AL.nombre, AL.apellidos, AL.num_exp, AL.nacionalidad, AL.fecha_nacim FROM PI.alumno AL, PI.Pertenece PE WHERE AL.num_exp = PE.alumno_num_exp ORDER BY AL.nombre";
-	private String SQAlumno_3 = "SELECT AL.dni, AL.nombre, AL.apellidos, AL.num_exp, AL.nacionalidad, AL.fecha_nacim FROM PI.alumno AL, PI.Pertenece PE WHERE AL.num_exp = PE.alumno_num_exp AND Pe.grupo_cod_grupo =6";
+	private String SQAlumno_3 = "SELECT AL.dni, AL.nombre, AL.apellidos, AL.num_exp, AL.nacionalidad, AL.fecha_nacim FROM PI.alumno AL, PI.Pertenece PE WHERE AL.num_exp = PE.alumno_num_exp ";
 
-	
 	private String SQLEmp = "SELECT DISTINCT  EM.CIF, EM.nombre, EM.direccion, EM.telefono, EM.localidad, EM.resp_empresa, EM.email FROM PI.empresa EM, PI.Practica PR WHERE EM.cif = PR.empresa_cif  AND PR.acad = '2018-2019'";
 	private String SQLEmp2 = "SELECT  DISTINCT  EM.CIF, EM.nombre, EM.direccion, EM.telefono, EM.localidad, EM.resp_empresa, EM.email FROM PI.empresa EM, PI.Practica PR WHERE EM.cif = PR.empresa_cif  AND PR.acad = '2019-2020'";
-	private String SQLEmp_2 = "SELECT DISTINCT EM.CIF, EM.nombre, EM.direccion, EM.telefono, EM.localidad, EM.resp_empresa, EM.email FROM PI.empresa EM, PI.Practica PR WHERE EM.cif = PR.empresa_cif  AND EM.localidad = 'Madrid'";
-	private String SQLEmp_3 = "	SELECT DISTINCT EM.CIF, EM.nombre, EM.direccion, EM.telefono, EM.localidad, EM.resp_empresa, EM.email FROM PI.empresa EM, PI.Practica PR WHERE EM.cif = PR.empresa_cif  AND EM.CIF LIKE 'S%'";
+	private String SQLEmp_2 = "SELECT DISTINCT EM.CIF, EM.nombre, EM.direccion, EM.telefono, EM.localidad, EM.resp_empresa, EM.email FROM PI.empresa EM, PI.Practica PR WHERE EM.cif = PR.empresa_cif ";
+	private String SQLEmp_3 = "	SELECT DISTINCT EM.CIF, EM.nombre, EM.direccion, EM.telefono, EM.localidad, EM.resp_empresa, EM.email FROM PI.empresa EM, PI.Practica PR WHERE EM.cif = PR.empresa_cif ";
+	private String SQLEmp_2BUS = "SELECT DISTINCT EM.CIF, EM.nombre, EM.direccion, EM.telefono, EM.localidad, EM.resp_empresa, EM.email FROM PI.empresa EM, PI.Practica PR WHERE EM.cif = PR.empresa_cif  AND EM.localidad LIKE ?";
+	private String SQLEmp_3BUS = "	SELECT DISTINCT EM.CIF, EM.nombre, EM.direccion, EM.telefono, EM.localidad, EM.resp_empresa, EM.email FROM PI.empresa EM, PI.Practica PR WHERE EM.cif = PR.empresa_cif  AND EM.CIF LIKE ?";
 
-	
 	private String SQLGrp = "SELECT DISTINCT GR.cod_grupo, GR.nom_grupo, GR.clave_ciclo, GR.nombre_ciclo FROM PI.grupo GR, PI.Pertenece PE WHERE GR.cod_grupo = PE.grupo_cod_grupo AND PE.acad ='2018-2019'  ";
 	private String SQLGrp2 = "SELECT DISTINCT GR.cod_grupo, GR.nom_grupo, GR.clave_ciclo, GR.nombre_ciclo FROM PI.grupo GR, PI.Pertenece PE WHERE GR.cod_grupo = PE.grupo_cod_grupo AND PE.acad ='2019-2020' ";
-	private String SQLGrp_2 = "SELECT DISTINCT GR.cod_grupo, GR.nom_grupo, GR.clave_ciclo, GR.nombre_ciclo FROM PI.grupo GR, PI.Pertenece PE WHERE GR.cod_grupo = PE.grupo_cod_grupo AND GR.nombre_ciclo = 'ASIR'";
-	private String SQLGrp_3 = "SELECT DISTINCT GR.cod_grupo, GR.nom_grupo, GR.clave_ciclo, GR.nombre_ciclo FROM PI.grupo GR, PI.Pertenece PE WHERE GR.cod_grupo = PE.grupo_cod_grupo AND GR.nom_grupo LIKE '%2020'";
+	private String SQLGrp_2 = "SELECT DISTINCT GR.cod_grupo, GR.nom_grupo, GR.clave_ciclo, GR.nombre_ciclo FROM PI.grupo GR, PI.Pertenece PE WHERE GR.cod_grupo = PE.grupo_cod_grupo";
+	private String SQLGrp_3 = "SELECT DISTINCT GR.cod_grupo, GR.nom_grupo, GR.clave_ciclo, GR.nombre_ciclo FROM PI.grupo GR, PI.Pertenece PE WHERE GR.cod_grupo = PE.grupo_cod_grupo AND GR.nom_grupo";
+	private String SQLGrp_2BUS = "SELECT DISTINCT GR.cod_grupo, GR.nom_grupo, GR.clave_ciclo, GR.nombre_ciclo FROM PI.grupo GR, PI.Pertenece PE WHERE GR.cod_grupo = PE.grupo_cod_grupo AND GR.nombre_ciclo LIKE ?";
+	private String SQLGrp_3BUS = "SELECT DISTINCT GR.cod_grupo, GR.nom_grupo, GR.clave_ciclo, GR.nombre_ciclo FROM PI.grupo GR, PI.Pertenece PE WHERE GR.cod_grupo = PE.grupo_cod_grupo AND GR.nom_grupo LIKE ?";
 
-	
-	
 	private String SqlEstadisticasPracticas = "SELECT COUNT(ANEXO_2_1) FROM PI.practica where ? IS NOT NULL";
 	private String SqlEstadisticasPracticas2 = "SELECT COUNT(?) FROM PI.practica where ANEXO_2_1 IS NULL";
 	private String SqlGruposAlumnos = "select nom_grupo \"GRUPO\", count(*) \"ALUMNOS\" from PI.grupo, PI.alumno, PI.pertenece where alumno.num_exp=pertenece.alumno_num_exp AND grupo.cod_grupo=pertenece.grupo_cod_grupo group by grupo.nom_grupo";
@@ -256,19 +262,19 @@ public class modelo {
 	private String SQLinforme3_2 = "Select P.acad \"AÑO\", CO.numconv \"Nºconv\", E.nombre \"EMPRESA\", A.dni, A.nombre, GR.nom_grupo \"GRUPO\", T.nombre \"TUTOR.C\", PR.tutore \"TUTORE\" FROM PI.pertenece P, PI.grupo GR, PI.gestiona G, PI.tutor T, PI.colabora CO, PI.empresa E, PI.practica PR, PI.alumno A "
 			+ "WHERE A.num_exp=PR.alumno_num_exp AND PR.empresa_cif=E.cif AND E.cif=CO.empresa_cif AND A.num_Exp=P.alumno_num_exp AND P.grupo_cod_grupo=GR.cod_grupo AND GR.cod_grupo=G.grupo_cod_grupo AND G.tutor_dni_tutor=T.dni_tutor  AND PR.acad = '2018-2019' order by E.nombre";
 
-	private String SQLinforme4_2="SELECT PR.acad \"AÑO\", T.nombre \"TUTOR C.\",GR.nombre_ciclo \"CICLO\",A.nombre \"ALUMNO\", E.nombre \"EMPRESA\",CO.numconv \"NºCONV\",concat(PR.fecha_ini,concat('-',PR.fecha_fin)) \"FECHAS\", PR.horario \"HORARIO\", PR.tutore \"TUTOR E.\" FROM PI.alumno A, PI.practica PR,\n" + 
-			"PI.empresa E, PI.colabora CO,PI.centro C, PI.tutor T, PI.gestiona G, PI.grupo GR, PI.pertenece P WHERE A.num_exp=PR.alumno_num_exp AND PR.empresa_cif=E.cif\n" + 
-			"AND E.cif=CO.empresa_cif AND CO.centro_cod_centro=C.cod_centro AND C.cod_centro=T.centro_cod_centro AND T.dni_tutor=G.tutor_dni_tutor\n" + 
-			"AND G.grupo_cod_grupo=GR.cod_grupo AND GR.cod_grupo=P.grupo_cod_grupo AND P.alumno_num_exp=A.num_exp AND PR.acad = '2018-2019' ";
-	private String SQLinforme5_2="select PR.acad \"AÑO\", A.num_exp \"EXP.\", A.nombre \"NOMBRE\",GR.nombre_ciclo \"CICLO\",GR.nom_grupo \"GRUPO\",\n" + 
-			"E.nombre \"EMPRESA\", E.localidad \"PROVINCIA\",E.resp_empresa \"RESP.E.\",PR.tutore \"TUTOR E.\",E.telefono \"TLF.\",\n" + 
-			"CONCAT(PR.fecha_ini,CONCAT(',',PR.fecha_fin)) \"F.INI-FIN\",T.nombre \"TUTOR C.\",E.email \"email\" FROM PI.practica PR,\n" + 
-			"PI.alumno A, PI.grupo GR, PI.empresa E,PI.tutor T, PI.gestiona G, PI.pertenece P,PI.centro C,PI.colabora CO WHERE T.dni_tutor=G.tutor_dni_tutor AND G.grupo_cod_grupo=GR.cod_grupo AND GR.cod_grupo=P.grupo_cod_grupo AND P.alumno_num_exp=A.num_exp AND A.num_exp=PR.alumno_num_exp AND PR.empresa_cif=E.cif "
+	private String SQLinforme4_2 = "SELECT PR.acad \"AÑO\", T.nombre \"TUTOR C.\",GR.nombre_ciclo \"CICLO\",A.nombre \"ALUMNO\", E.nombre \"EMPRESA\",CO.numconv \"NºCONV\",concat(PR.fecha_ini,concat('-',PR.fecha_fin)) \"FECHAS\", PR.horario \"HORARIO\", PR.tutore \"TUTOR E.\" FROM PI.alumno A, PI.practica PR,\n"
+			+ "PI.empresa E, PI.colabora CO,PI.centro C, PI.tutor T, PI.gestiona G, PI.grupo GR, PI.pertenece P WHERE A.num_exp=PR.alumno_num_exp AND PR.empresa_cif=E.cif\n"
+			+ "AND E.cif=CO.empresa_cif AND CO.centro_cod_centro=C.cod_centro AND C.cod_centro=T.centro_cod_centro AND T.dni_tutor=G.tutor_dni_tutor\n"
+			+ "AND G.grupo_cod_grupo=GR.cod_grupo AND GR.cod_grupo=P.grupo_cod_grupo AND P.alumno_num_exp=A.num_exp AND PR.acad = '2018-2019' ";
+	private String SQLinforme5_2 = "select PR.acad \"AÑO\", A.num_exp \"EXP.\", A.nombre \"NOMBRE\",GR.nombre_ciclo \"CICLO\",GR.nom_grupo \"GRUPO\",\n"
+			+ "E.nombre \"EMPRESA\", E.localidad \"PROVINCIA\",E.resp_empresa \"RESP.E.\",PR.tutore \"TUTOR E.\",E.telefono \"TLF.\",\n"
+			+ "CONCAT(PR.fecha_ini,CONCAT(',',PR.fecha_fin)) \"F.INI-FIN\",T.nombre \"TUTOR C.\",E.email \"email\" FROM PI.practica PR,\n"
+			+ "PI.alumno A, PI.grupo GR, PI.empresa E,PI.tutor T, PI.gestiona G, PI.pertenece P,PI.centro C,PI.colabora CO WHERE T.dni_tutor=G.tutor_dni_tutor AND G.grupo_cod_grupo=GR.cod_grupo AND GR.cod_grupo=P.grupo_cod_grupo AND P.alumno_num_exp=A.num_exp AND A.num_exp=PR.alumno_num_exp AND PR.empresa_cif=E.cif "
 			+ "AND E.cif=CO.empresa_cif AND CO.centro_cod_centro=C.cod_centro AND C.cod_centro=T.centro_cod_centro AND PR.acad = '2018-2019' ";
-	private String SQLinforme6_2="select PR.acad \"AÑO\", A.num_exp \"EXP.\", A.nombre \"NOMBRE\",GR.nombre_ciclo \"CICLO\",A.dni \"DNI\",E.localidad \"LOCALIDAD\",E.nombre \"EMPRESA\",A.nacionalidad \"NACIONALIDAD\",TRUNC(months_between(sysdate, A.fecha_nacim) /12) \"EDAD\",\n" + 
-			"CONCAT(MONTHS_BETWEEN(PR.fecha_fin, PR.fecha_ini),' Meses') \"PERIODO\" FROM PI.practica PR,\n" + 
-			"PI.alumno A, PI.grupo GR, PI.empresa E,PI.pertenece P WHERE GR.cod_grupo=P.grupo_cod_grupo AND P.alumno_num_exp=A.num_exp AND\n" + 
-			"A.num_exp=PR.alumno_num_exp AND PR.empresa_cif=E.cif AND PR.acad = '2018-2019' ";
+	private String SQLinforme6_2 = "select PR.acad \"AÑO\", A.num_exp \"EXP.\", A.nombre \"NOMBRE\",GR.nombre_ciclo \"CICLO\",A.dni \"DNI\",E.localidad \"LOCALIDAD\",E.nombre \"EMPRESA\",A.nacionalidad \"NACIONALIDAD\",TRUNC(months_between(sysdate, A.fecha_nacim) /12) \"EDAD\",\n"
+			+ "CONCAT(MONTHS_BETWEEN(PR.fecha_fin, PR.fecha_ini),' Meses') \"PERIODO\" FROM PI.practica PR,\n"
+			+ "PI.alumno A, PI.grupo GR, PI.empresa E,PI.pertenece P WHERE GR.cod_grupo=P.grupo_cod_grupo AND P.alumno_num_exp=A.num_exp AND\n"
+			+ "A.num_exp=PR.alumno_num_exp AND PR.empresa_cif=E.cif AND PR.acad = '2018-2019' ";
 
 	private String SQLEdadesAlumnos = "select TRUNC(months_between(sysdate, A.fecha_nacim) /12) \"EDAD\", count(*) \"CANTIDAD\" FROM PI.alumno A group by TRUNC(months_between(sysdate, A.fecha_nacim) /12) HAVING TRUNC(months_between(sysdate, A.fecha_nacim) /12)<18 OR TRUNC(months_between(sysdate, A.fecha_nacim) /12)>18 ORDER BY TRUNC(months_between(sysdate, A.fecha_nacim) /12)";
 	private String SQLTutoresCiclo = "SELECT G.acad \"AÑO\", GR.nombre_ciclo \"CICLO\",count(*) \"TUTORES\" FROM PI.grupo GR, PI.gestiona G, PI.tutor T, PI.centro C WHERE GR.cod_grupo=G.grupo_cod_grupo AND G.tutor_dni_tutor=T.dni_tutor AND T.centro_cod_centro=C.cod_Centro\n"
@@ -2115,5 +2121,46 @@ public class modelo {
 		// TODO Auto-generated method stub
 		return SQLGrp_3;
 	}
+
+	public String getSQAL_2BUS() {
+		// TODO Auto-generated method stub
+		return SQAlumno_2BUS;
+	}
+
+	public String getSQAL_3BUS() {
+		// TODO Auto-generated method stub
+		return SQAlumno_3BUS;
+	}
+
+	public String getSQEMP_2BUS() {
+		// TODO Auto-generated method stub
+		return SQLEmp_2BUS;
+	}
+
+	public String getSQEMP_3BUS() {
+		// TODO Auto-generated method stub
+		return SQLEmp_3BUS;
+	}
+
+	public String getSQgrupo_2BUS() {
+		// TODO Auto-generated method stub
+		return SQLGrp_2BUS;
+	}
+
+	public String getSQgrupo_3BUS() {
+		// TODO Auto-generated method stub
+		return SQLGrp_3BUS;
+	}
+
+	public String getSQTUT_2BUS() {
+		// TODO Auto-generated method stub
+		return SQLTut_2_BUS;
+	}
+
+	public String getSQTUT_3BUS() {
+		// TODO Auto-generated method stub
+		return SQLTut_3_BUS;
+	}
+
 
 }

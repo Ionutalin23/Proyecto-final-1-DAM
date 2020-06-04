@@ -285,12 +285,20 @@ public class Busqueda_Empresas extends JFrame {
 
 //		Search Field ========================
 		SearchField = new JTextField();
-		SearchField.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent e) {
-				
-			}
-		});
+			SearchField.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyReleased(KeyEvent arg0) {
+					if(selectFilter==0) {
+
+					}else if(selectFilter==1) {
+						String condicion=SearchField.getText();
+						table.setModel(miModelo.getTablaBusquedaAnexos(miModelo.getSQEMP_2BUS(), condicion));
+					}else if(selectFilter==2) {
+						String condicion=SearchField.getText();
+						table.setModel(miModelo.getTablaBusquedaAnexos(miModelo.getSQEMP_3BUS(), condicion));
+					}
+				}
+			});
 		SearchField.setBounds(10, 103, 271, 23);
 		contentPane.add(SearchField);
 		SearchField.setColumns(10);

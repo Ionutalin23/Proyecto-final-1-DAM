@@ -53,6 +53,7 @@ public class Busqueda_Tutores extends JFrame {
 	private JLabel SearchBtn;
 	private JLabel lblUser;
 	private JLabel lblSelcc;
+	private int selectFilter;
 	private int temp = 5000;
 	private String NomTabla = "tutor";
 	private String NomClave = "dni_tutor";
@@ -329,12 +330,41 @@ public class Busqueda_Tutores extends JFrame {
 		AñoAcad.setBounds(732, 102, 122, 22);
 		contentPane.add(AñoAcad);
 
+		JComboBox FilterComboBox = new JComboBox();
+		FilterComboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				selectFilter = FilterComboBox.getSelectedIndex();
+				if (selectFilter == 1) {
+					String SQL = miModelo.getSQTUT_2();
+					table.setModel(miModelo.getTabla(SQL));
+				} else if (selectFilter == 2) {
+					String SQL = miModelo.getSQTUT_2();
+					table.setModel(miModelo.getTabla(SQL));
+				}
+			}
+		});
+		FilterComboBox.setForeground(Color.WHITE);
+		FilterComboBox.setBackground(Color.GRAY);
+		FilterComboBox.setModel(new DefaultComboBoxModel(new String[] {"---selecciona--", "Nombre", "Centro" }));
+		FilterComboBox.setBounds(367, 103, 104, 22);
+		contentPane.add(FilterComboBox);
+		
 //		Search Field ========================
 		SearchField = new JTextField();
 		SearchField.addKeyListener(new KeyAdapter() {
 			@Override
-			public void keyReleased(KeyEvent e) {
-				
+			public void keyReleased(KeyEvent arg0) {
+				if (selectFilter == 0) {
+
+				} else if (selectFilter == 1) {
+					String condicion = SearchField.getText();
+					table.setModel(miModelo.getTablaBusquedaAnexos(miModelo.getSQTUT_2BUS(), condicion));
+
+				} else if (selectFilter == 2) {
+					String condicion = SearchField.getText();
+					table.setModel(miModelo.getTablaBusquedaAnexos(miModelo.getSQTUT_3BUS(), condicion));
+
+				}
 			}
 		});
 		SearchField.setBounds(10, 103, 271, 23);
@@ -353,24 +383,7 @@ public class Busqueda_Tutores extends JFrame {
 		SearchBtn.setIcon(new ImageIcon(img_SearchLupa));
 
 //		Search Filter Combo Box ========================
-		JComboBox FilterComboBox = new JComboBox();
-		FilterComboBox.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int selected = FilterComboBox.getSelectedIndex();
-				if (selected == 1) {
-					String SQL = miModelo.getSQTUT_2();
-					table.setModel(miModelo.getTabla(SQL));
-				} else if (selected == 2) {
-					String SQL = miModelo.getSQTUT_2();
-					table.setModel(miModelo.getTabla(SQL));
-				}
-			}
-		});
-		FilterComboBox.setForeground(Color.WHITE);
-		FilterComboBox.setBackground(Color.GRAY);
-		FilterComboBox.setModel(new DefaultComboBoxModel(new String[] {"---selecciona--", "Nombre", "Grupo" }));
-		FilterComboBox.setBounds(367, 103, 104, 22);
-		contentPane.add(FilterComboBox);
+
 
 //		Filter By Label ========================
 		JLabel FilterbyLbl = new JLabel("Filter by:");

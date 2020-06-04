@@ -46,6 +46,7 @@ public class Busqueda_Grupos extends JFrame {
 	private JLabel CreateNewLbl;
 	private JLabel CreateNewBtn;
 	private JLabel SearchBtn;
+	private int selected;
 	private JLabel lblUser;
 	private JLabel lblSelcc;
 	private int selectFilter;
@@ -266,7 +267,7 @@ public class Busqueda_Grupos extends JFrame {
 		AñoAcad.setModel(new DefaultComboBoxModel(new String[] { "CURSO-2020", "CURSO-2019" }));
 		AñoAcad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int selected = AñoAcad.getSelectedIndex();
+				selected = AñoAcad.getSelectedIndex();
 				if (selected == 0) {
 					String SQL = miModelo.getSQLGrp2();
 					table.setModel(miModelo.getTabla(SQL));
@@ -283,6 +284,22 @@ public class Busqueda_Grupos extends JFrame {
 		SearchField = new JTextField();
 		SearchField.setBounds(10, 103, 271, 23);
 		contentPane.add(SearchField);
+		SearchField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				if (selectFilter == 0) {
+
+				} else if (selectFilter == 1) {
+					String condicion = SearchField.getText();
+					table.setModel(miModelo.getTablaBusquedaAnexos(miModelo.getSQgrupo_2BUS(), condicion));
+
+				} else if (selectFilter == 2) {
+					String condicion = SearchField.getText();
+					table.setModel(miModelo.getTablaBusquedaAnexos(miModelo.getSQgrupo_3BUS(), condicion));
+
+				}
+			}
+		});
 		SearchField.setColumns(10);
 
 //		Search Button ========================
@@ -300,10 +317,10 @@ public class Busqueda_Grupos extends JFrame {
 		JComboBox FilterComboBox = new JComboBox();
 		FilterComboBox.setForeground(Color.WHITE);
 		FilterComboBox.setBackground(Color.GRAY);
-		FilterComboBox.setModel(new DefaultComboBoxModel(new String[] { "---Selecciona---" , "ASIR", "2020" }));
+		FilterComboBox.setModel(new DefaultComboBoxModel(new String[] { "---Selecciona---", "Nombre"}));
 		FilterComboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				 selectFilter = FilterComboBox.getSelectedIndex();
+				selectFilter = FilterComboBox.getSelectedIndex();
 				if (selectFilter == 1) {
 					String SQL = miModelo.getSQGR_2();
 					table.setModel(miModelo.getTabla(SQL));

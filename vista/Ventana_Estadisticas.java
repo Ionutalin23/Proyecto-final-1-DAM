@@ -141,6 +141,8 @@ public class Ventana_Estadisticas extends JFrame {
 				Informes.setVisible(true);
 				lblTipo.setVisible(true);
 				tipoGrafica.setVisible(true);
+				lblCurso.setVisible(true);
+				añoAcademico.setVisible(true);
 				windowTitle.setText("Estadisticas");
 				informeBTN.setEnabled(true);
 				lblTituloInformes.setVisible(false);
