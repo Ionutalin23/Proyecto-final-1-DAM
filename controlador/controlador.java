@@ -16,6 +16,7 @@ import vista.Ventana_Conf_Delete;
 import vista.Ventana_Login;
 import vista.Ventana_Login_Config;
 import vista.Ventana_Mensaje_ERROR;
+import vista.Ventana_config_User;
 import vista.Vista_Info_Alumno;
 import vista.Vista_Info_Empresa;
 import vista.Vista_Info_Grupo;
@@ -40,6 +41,12 @@ public class controlador {
 	private Ventana_Estadisticas ventana_estadisticas;
 	private Ventana_Conf_Delete ventana_conf_delete;
 	private Ventana_Conf_Anexo ventana_conf_anexo;
+	private Ventana_config_User ventana_conf_user;
+	
+
+	public void setVista(Ventana_config_User ventana_conf_user) {
+		this.ventana_conf_user = ventana_conf_user;
+	}
 
 	public void setVista(Busqueda_Alumnos busquedaAlumnos) {
 		this.busquedaAlumnos = busquedaAlumnos;
@@ -347,6 +354,11 @@ public class controlador {
 		vista_ventana_menu.setVisible(true);
 
 	}
+	public void back10() {
+		ventana_conf_user.setVisible(false);
+		vista_ventana_menu.setVisible(true);
+
+	}
 
 	public void loginConfig() {
 		ventana_login_config.setVisible(true);
@@ -561,6 +573,18 @@ public class controlador {
 	public void graficaCircularAseguradoras() {
 		miModelo.AlumnosDatosEdad();
 		miModelo.dibujargraficaCircularAlumnosDatosEdad();
+	}
+
+	public void verPerfil() {
+		vista_ventana_menu.setVisible(false);
+		ventana_conf_user.setVisible(true);
+		miModelo.enviarDatosUsuario();
+		ventana_conf_user.actualizarFoto();
+	}
+
+	public void logout11() {
+		ventana_conf_user.setVisible(false);
+		vista_ventana_login.setVisible(true);
 	}
 
 }

@@ -35,7 +35,6 @@ public class Vista_Info_Alumno extends JFrame {
 	private JLabel lblResul;
 	private JPanel pnlContenido;
 	private JLabel lblModButton;
-	private JLabel lblMod;
 	
 // 	Setting Images ======================== (Check all images are linked to correct folder to avoid null pointer exception)
 	ImageIcon ico = new ImageIcon(getClass().getResource("/images/logo.png"));
@@ -305,13 +304,6 @@ public class Vista_Info_Alumno extends JFrame {
 	  });
 
 		lblCrearButton.setIcon(new ImageIcon(button1));
-// 		Boton Modificar
-		lblMod = new JLabel("MODIFICAR");
-		lblMod.setHorizontalAlignment(SwingConstants.CENTER);
-		lblMod.setForeground(Color.WHITE);
-		lblMod.setBackground(new Color(205, 92, 92));
-		lblMod.setBounds(54, 500, 109, 48);
-		pnlContenido.add(lblMod);
 		
 		lblModButton = new JLabel("");
 		JLabel lblModify = new JLabel("MODIFICAR");

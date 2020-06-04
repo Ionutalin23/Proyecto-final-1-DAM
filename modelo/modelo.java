@@ -53,6 +53,7 @@ import vista.Ventana_Conf_Delete;
 import vista.Ventana_Login;
 import vista.Ventana_Login_Config;
 import vista.Ventana_Mensaje_ERROR;
+import vista.Ventana_config_User;
 import vista.Vista_Info_Alumno;
 import vista.Vista_Info_Empresa;
 import vista.Vista_Info_Grupo;
@@ -86,6 +87,7 @@ public class modelo {
 	private Ventana_Estadisticas ventana_estadisticas;
 	private Ventana_Conf_Delete ventana_conf_delete;
 	private Ventana_Conf_Anexo ventana_conf_anexo;
+	private Ventana_config_User ventana_config_user;
 //  ============================================================================================================================
 
 	public void setVista(Busqueda_Alumnos busquedaAlumnos) {
@@ -147,10 +149,16 @@ public class modelo {
 	public void setVista(Ventana_Conf_Anexo ventana_conf_anexo) {
 		this.ventana_conf_anexo = ventana_conf_anexo;
 	}
+	public void setVista(Ventana_config_User ventana_config_user) {
+		this.ventana_config_user = ventana_config_user;
+	}
 
 //  ========================================================================= MVC ====================================================
 
+	
+
 	private String[] credenciales = new String[3];
+	private String[] credencialesUser = new String[6];
 	private ArrayList<Integer> alumnosEstadisticas = new ArrayList<Integer>();
 	private LinkedHashMap<String, Integer> gruposAlumnos = new LinkedHashMap<String, Integer>();
 	private LinkedHashMap<String, Integer> tutorAlumnos = new LinkedHashMap<String, Integer>();
@@ -240,6 +248,7 @@ public class modelo {
 			"group by g.acad,gr.nombre_ciclo";
 	private String SQLAlumnosEmpresa="Select P.acad \"AÑO\", E.nombre \"EMPRESA\",count(*) \"ALUMNOS\" FROM PI.pertenece P, PI.grupo GR, PI.gestiona G, PI.tutor T, PI.colabora CO, PI.empresa E, PI.practica PR, PI.alumno A WHERE A.num_exp=PR.alumno_num_exp AND PR.empresa_cif=E.cif AND"
 			+ " E.cif=CO.empresa_cif AND A.num_Exp=P.alumno_num_exp AND P.grupo_cod_grupo=GR.cod_grupo AND GR.cod_grupo=G.grupo_cod_grupo AND G.tutor_dni_tutor=T.dni_tutor group by P.acad,E.nombre";
+	private String SQLUsuarios="select nombre, apellido, email, USR, PWD, ROL from PI.users where USR LIKE ? ";
 	private JTable tablaTut;
 	private JTable tablaAnx;
 	private ChartPanel barPanelAlumnos;
@@ -1964,6 +1973,63 @@ public class modelo {
 	public ChartPanel getBarPanelAseguradoras() {
 		return barPanelAseguradoras;
 	}
+
+	public void enviarDatosUsuario() {
+		String[] array= {"NOMBRE","APELLIDO","EMAIL","USR","PWD","ROL"};
+		try {
+			PreparedStatement ps = conexion.prepareStatement(SQLUsuarios);
+			ps.setString(1, getUSR());
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				for (int i = 0; i < credencialesUser.length; i++) {
+					credencialesUser[i]=rs.getString(array[i]);
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		recibirDatosUsuarios();
+	}
+	public void recibirDatosUsuarios() {
+		ventana_config_user.setTxtNombre(credencialesUser[0]);
+		ventana_config_user.setTxtApellidos(credencialesUser[1]);
+		ventana_config_user.setTxtEmail(credencialesUser[2]);
+		ventana_config_user.setTxtUsuario(credencialesUser[3]);
+		ventana_config_user.setTxtContra(credencialesUser[4]);
+		ventana_config_user.setTxtRol(credencialesUser[5]);
+	}
+
+
+	public void modificarUsuario(String nombre, String apellido, String email, String usuario, String contra, String rol) {
+		PreparedStatement ps;
+		try {
+			ps = conexion.prepareStatement(
+					"UPDATE PI.USERS SET USR = ?, PWD = ?, ROL = ?, EMAIL =?, NOMBRE=?, APELLIDO=? WHERE USR = ?");
+			ps.setString(1, usuario);
+			ps.setString(2, contra);
+			ps.setString(3, rol);
+			ps.setString(4, email);
+			ps.setString(5, nombre);
+			ps.setString(6, apellido);
+			ps.setString(7, getUSR());
+			
+
+			int resul = ps.executeUpdate();
+			if (resul>0) {
+				resultadoUsu="EXITO";
+				ventana_config_user.actualizar2();
+			}else {
+				resultadoUsu="ERROR";
+				ventana_config_user.actualizar2();
+			}
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+		
+	}
+	
 	
 	
 }

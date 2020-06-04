@@ -15,6 +15,7 @@ import vista.Ventana_Conf_Anexo;
 import vista.Ventana_Login;
 import vista.Ventana_Login_Config;
 import vista.Ventana_Mensaje_ERROR;
+import vista.Ventana_config_User;
 import vista.Vista_Info_Alumno;
 import vista.Vista_Info_Empresa;
 import vista.Vista_Info_Grupo;
@@ -46,6 +47,7 @@ public class Main {
 		Ventana_Mensaje_ERROR ventana_mensaje_error= new Ventana_Mensaje_ERROR();
 		Ventana_Conf_Delete ventana_Conf_Delete = new Ventana_Conf_Delete();
 		Ventana_Conf_Anexo ventana_conf_anexo = new Ventana_Conf_Anexo();
+		Ventana_config_User ventana_config_user= new Ventana_config_User();
 		
 		miControlador.setModelo(miModelo);
 		miControlador.setVista(vista_ventana_login);
@@ -64,6 +66,7 @@ public class Main {
 		miControlador.setVista(ventana_estadisticas);
 		miControlador.setVista(ventana_Conf_Delete);
 		miControlador.setVista(ventana_conf_anexo);
+		miControlador.setVista(ventana_config_user);
 		
 		miModelo.setVista(vista_ventana_login);
 		miModelo.setVista(vista_ventana_menu);
@@ -81,6 +84,7 @@ public class Main {
 		miModelo.setVista(ventana_estadisticas);
 		miModelo.setVista(ventana_Conf_Delete);
 		miModelo.setVista(ventana_conf_anexo);
+		miModelo.setVista(ventana_config_user);
 		
 		vista_info_grupo.setControlador(miControlador);
 		vista_info_grupo.setModelo(miModelo);
@@ -129,6 +133,9 @@ public class Main {
 		
 		ventana_conf_anexo.setControlador(miControlador);
 		ventana_conf_anexo.setModelo(miModelo);
+		
+		ventana_config_user.setControlador(miControlador);
+		ventana_config_user.setModelo(miModelo);
 		
 		vista_ventana_login.setVisible(true);
 		
