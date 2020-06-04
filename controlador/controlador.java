@@ -553,4 +553,14 @@ public class controlador {
 		miModelo.dibujargraficaBarrasAlumnosEmpresa();
 	}
 
+	public void graficaBarrasAseguradoras() {
+		miModelo.AlumnosDatosEdad();
+		miModelo.dibujargraficaBarrasAlumnosDatosEdad();
+	}
+
+	public void graficaCircularAseguradoras() {
+		miModelo.AlumnosDatosEdad();
+		miModelo.dibujargraficaCircularAlumnosDatosEdad();
+	}
+
 }

@@ -156,6 +156,7 @@ public class modelo {
 	private LinkedHashMap<String, Integer> tutorAlumnos = new LinkedHashMap<String, Integer>();
 	private LinkedHashMap<String, Integer> tutorCiclos = new LinkedHashMap<String, Integer>();
 	private LinkedHashMap<String, Integer> alumnosEmpresa = new LinkedHashMap<String, Integer>();
+	private LinkedHashMap<Integer, Integer> datosAseguradoras = new LinkedHashMap<Integer, Integer>();
 	private String nombreTabla;
 	private String nombreClave;
 	private String clave;
@@ -230,6 +231,11 @@ public class modelo {
 			"CONCAT(PR.fecha_ini,CONCAT(',',PR.fecha_fin)) \"F.INI-FIN\",T.nombre \"TUTOR C.\",E.email \"email\" FROM PI.practica PR,\n" + 
 			"PI.alumno A, PI.grupo GR, PI.empresa E,PI.tutor T, PI.gestiona G, PI.pertenece P,PI.centro C,PI.colabora CO WHERE T.dni_tutor=G.tutor_dni_tutor AND G.grupo_cod_grupo=GR.cod_grupo AND GR.cod_grupo=P.grupo_cod_grupo AND P.alumno_num_exp=A.num_exp AND A.num_exp=PR.alumno_num_exp AND PR.empresa_cif=E.cif "
 			+ "AND E.cif=CO.empresa_cif AND CO.centro_cod_centro=C.cod_centro AND C.cod_centro=T.centro_cod_centro";
+	private String SQLinforme6="select PR.acad \"AÑO\", A.num_exp \"EXP.\", A.nombre \"NOMBRE\",GR.nombre_ciclo \"CICLO\",A.dni \"DNI\",E.localidad \"LOCALIDAD\",E.nombre \"EMPRESA\",A.nacionalidad \"NACIONALIDAD\",TRUNC(months_between(sysdate, A.fecha_nacim) /12) \"EDAD\",\n" + 
+			"CONCAT(MONTHS_BETWEEN(PR.fecha_fin, PR.fecha_ini),' Meses') \"PERIODO\" FROM PI.practica PR,\n" + 
+			"PI.alumno A, PI.grupo GR, PI.empresa E,PI.pertenece P WHERE GR.cod_grupo=P.grupo_cod_grupo AND P.alumno_num_exp=A.num_exp AND\n" + 
+			"A.num_exp=PR.alumno_num_exp AND PR.empresa_cif=E.cif";
+	private String SQLEdadesAlumnos="select TRUNC(months_between(sysdate, A.fecha_nacim) /12) \"EDAD\", count(*) \"CANTIDAD\" FROM PI.alumno A group by TRUNC(months_between(sysdate, A.fecha_nacim) /12) HAVING TRUNC(months_between(sysdate, A.fecha_nacim) /12)<18 OR TRUNC(months_between(sysdate, A.fecha_nacim) /12)>18 ORDER BY TRUNC(months_between(sysdate, A.fecha_nacim) /12)";
 	private String SQLTutoresCiclo="SELECT G.acad \"AÑO\", GR.nombre_ciclo \"CICLO\",count(*) \"TUTORES\" FROM PI.grupo GR, PI.gestiona G, PI.tutor T, PI.centro C WHERE GR.cod_grupo=G.grupo_cod_grupo AND G.tutor_dni_tutor=T.dni_tutor AND T.centro_cod_centro=C.cod_Centro\n" + 
 			"group by g.acad,gr.nombre_ciclo";
 	private String SQLAlumnosEmpresa="Select P.acad \"AÑO\", E.nombre \"EMPRESA\",count(*) \"ALUMNOS\" FROM PI.pertenece P, PI.grupo GR, PI.gestiona G, PI.tutor T, PI.colabora CO, PI.empresa E, PI.practica PR, PI.alumno A WHERE A.num_exp=PR.alumno_num_exp AND PR.empresa_cif=E.cif AND"
@@ -247,6 +253,8 @@ public class modelo {
 	private ChartPanel barPanelTutoresCiclo;
 	private ChartPanel CircularPanelAlumnosEmpresa;
 	private ChartPanel barPanelAlumnosEmpresa;
+	private ChartPanel CircularPanelAseguradoras;
+	private ChartPanel barPanelAseguradoras;
 	
 	private String resultadoEmpresa;
 	private String resultadoGrupo;
@@ -1709,6 +1717,10 @@ public class modelo {
 	public String getSQLinforme5() {
 		return SQLinforme5;
 	}
+	public String getSQLinforme6() {
+		return SQLinforme6;
+	}
+	
 
 	public void GruposAlumnosTutor() {
 
@@ -1862,8 +1874,7 @@ public class modelo {
 	}
 
 	public void dibujargraficaCircularAlumnosEmpresa() {
-
-
+		
 		DefaultPieDataset circularChart = new DefaultPieDataset();
 			for (int i = 0; i < alumnosEmpresa.size(); i++) {
 				circularChart.setValue(
@@ -1899,6 +1910,59 @@ public class modelo {
 		barchrt.setRangeGridlinePaint(Color.orange);
 		barPanelAlumnosEmpresa = new ChartPanel(barChart1);
 		ventana_estadisticas.actualizarPanel11();
+	}
+
+	public void AlumnosDatosEdad() {
+		if (!datosAseguradoras.isEmpty()) {
+			datosAseguradoras.clear();
+		}
+		try {
+			PreparedStatement ps = conexion.prepareStatement(SQLEdadesAlumnos);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				datosAseguradoras.put(rs.getInt("EDAD"), rs.getInt("CANTIDAD"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public void dibujargraficaCircularAlumnosDatosEdad() {
+		DefaultPieDataset circularChart = new DefaultPieDataset();
+		for (int i = 0; i < datosAseguradoras.size(); i++) {
+			circularChart.setValue("Edad "+
+					datosAseguradoras.keySet().toArray()[i] + ": " + datosAseguradoras.get(datosAseguradoras.keySet().toArray()[i]),
+					datosAseguradoras.get(datosAseguradoras.keySet().toArray()[i]));
+		}
+	JFreeChart circulo = ChartFactory.createPieChart3D("Edad Alumnos", circularChart, true, true, false);
+	BufferedImage circchrt = circulo.createBufferedImage(785, 460);
+	;
+	CircularPanelAseguradoras = new ChartPanel(circulo);
+	CircularPanelAseguradoras.setBounds(44, 103, 785, 460);
+	ventana_estadisticas.actualizarPanel12();
+	}
+
+	public void dibujargraficaBarrasAlumnosDatosEdad() {
+		DefaultCategoryDataset barChart = new DefaultCategoryDataset();
+		for (int i = 0; i < datosAseguradoras.size(); i++) {
+			barChart.setValue((+datosAseguradoras.get(datosAseguradoras.keySet().toArray()[i])), "cantidad",
+					(Comparable) datosAseguradoras.keySet().toArray()[i]);
+		}
+	JFreeChart barChart1 = ChartFactory.createBarChart3D("Edad alumnos", "Edades", "Cantidad Alumnos", barChart,
+			PlotOrientation.VERTICAL, false, true, false);
+	CategoryPlot barchrt = barChart1.getCategoryPlot();
+	barchrt.setRangeGridlinePaint(Color.orange);
+	barPanelAseguradoras = new ChartPanel(barChart1);
+	ventana_estadisticas.actualizarPanel13();
+	}
+
+	public ChartPanel getCircularPanelAseguradoras() {
+		return CircularPanelAseguradoras;
+	}
+
+	public ChartPanel getBarPanelAseguradoras() {
+		return barPanelAseguradoras;
 	}
 	
 	
