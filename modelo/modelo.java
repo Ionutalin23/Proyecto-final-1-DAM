@@ -171,7 +171,8 @@ public class modelo {
 	private String resultadoDEL;
 	private String USR;
 	private String rol;
-	private String SQLanexo2_1 = "SELECT num_exp \"EXPEDIENTE\",nombre, apellidos, anexo_2_1 FROM PI.alumno, PI.practica WHERE num_exp=alumno_num_exp";
+
+	private String SQLanexo2_1 = "SELECT A.num_exp \"EXPEDIENTE\",A.nombre, A.apellidos, PR.anexo_2_1 FROM PI.alumno A, PI.practica PR WHERE A.num_exp=PR.alumno_num_exp";
 	private String SQLanexo1 = "SELECT E.cif, E.nombre \"Empresa\",C.cod_centro, C.localidad, C.director, CO.anexo_1 FROM PI.centro C, PI.colabora CO, PI.empresa E WHERE CO.centro_cod_centro=C.cod_centro AND  CO.empresa_cif=E.cif";
 	private String SQLanexo2_2 = "SELECT A.num_Exp,A.nombre, A.apellidos,CONCAT(GR.nom_grupo,CONCAT(',',GR.cod_grupo)) \"GRUPO\", CONCAT(E.nombre,CONCAT(',',E.cif)) \"EMPRESA\", PR.horario, G.Anexo_2_2 FROM PI.alumno A, PI.pertenece P, PI.grupo GR, PI.gestiona G, PI.Tutor T, PI.centro C, "
 			+ "PI.colabora CO, PI.Empresa E, PI.practica PR WHERE A.num_exp=P.alumno_num_exp AND T.dni_tutor=G.tutor_dni_tutor AND C.cod_centro=T.centro_cod_centro AND CO.empresa_cif=E.cif "
@@ -181,31 +182,26 @@ public class modelo {
 	private String SQLanexo7 = "SELECT A.num_exp, A.nombre, A.apellidos, PR.anexo_7 FROM PI.alumno A, PI.practica PR WHERE A.num_exp=PR.alumno_num_exp";
 	private String SQLanexo8 = "SELECT A.num_exp, A.nombre, A.apellidos,CONCAT(C.localidad,CONCAT(',',C.cod_centro)) \"CENTRO\", CONCAT(E.nombre,CONCAT(',',E.cif)) \"EMPRESA\", PR.anexo_8 FROM PI.alumno A, PI.practica PR, PI.empresa E, PI.centro C, PI.colabora CO WHERE num_exp=alumno_num_exp AND PR.empresa_cif=E.cif\n"
 			+ "AND CO.empresa_cif=E.cif AND C.cod_centro=CO.centro_cod_centro";
-	
-	
+
 	private String SQLTut = "SELECT TU.dni_tutor, TU.nombre, TU.apellidos, TU.centro_cod_centro FROM PI.TUTOR TU, PI.GESTIONA GE WHERE TU.dni_tutor= GE.tutor_dni_tutor AND GE.ACAD = '2018-2019' ";
 	private String SQLTut2 = "SELECT TU.dni_tutor, TU.nombre, TU.apellidos, TU.centro_cod_centro FROM PI.TUTOR TU, PI.GESTIONA GE WHERE TU.dni_tutor= GE.tutor_dni_tutor AND GE.ACAD = '2019-2020' ";
-	
+
 	private String SQLTut_2 = "SELECT nombre, apellidos,clave_ciclo, nombre_ciclo FROM PI.Tutor TU, PI.Grupo GR, PI.Gestiona GE WHERE TU.dni_tutor = GE.tutor_dni_tutor AND GE.grupo_cod_grupo = GR.cod_grupo AND nombre_ciclo ='DAMM'";
-	
-	
+
 	private String SQAlumno = "SELECT AL.dni, AL.nombre, AL.apellidos, AL.num_exp, AL.nacionalidad, AL.fecha_nacim FROM PI.alumno AL, PI.Pertenece PE WHERE AL.num_exp = PE.alumno_num_exp AND PE.acad = '2018-2019'";
-	private String SQLAlumno2= "SELECT AL.dni, AL.nombre, AL.apellidos, AL.num_exp, AL.nacionalidad, AL.fecha_nacim FROM PI.alumno AL, PI.Pertenece PE WHERE AL.num_exp = PE.alumno_num_exp AND PE.acad = '2019-2020'";
-	
+	private String SQLAlumno2 = "SELECT AL.dni, AL.nombre, AL.apellidos, AL.num_exp, AL.nacionalidad, AL.fecha_nacim FROM PI.alumno AL, PI.Pertenece PE WHERE AL.num_exp = PE.alumno_num_exp AND PE.acad = '2019-2020'";
+
 	private String SQLEmp = "SELECT EM.CIF, EM.nombre, EM.direccion, EM.telefono, EM.localidad, EM.resp_empresa, EM.email FROM PI.empresa EM, PI.Practica PR WHERE EM.cif = PR.empresa_cif  AND PR.acad = '2018-2019'";
 	private String SQLEmp2 = "SELECT EM.CIF, EM.nombre, EM.direccion, EM.telefono, EM.localidad, EM.resp_empresa, EM.email FROM PI.empresa EM, PI.Practica PR WHERE EM.cif = PR.empresa_cif  AND PR.acad = '2019-2020'";
-	
-	
+
 	private String SQLGrp = "SELECT DISTINCT GR.cod_grupo, GR.nom_grupo, GR.clave_ciclo, GR.nombre_ciclo FROM PI.grupo GR, PI.Pertenece PE WHERE GR.cod_grupo = PE.grupo_cod_grupo AND PE.acad ='2018-2019'  ";
 	private String SQLGrp2 = "SELECT DISTINCT GR.cod_grupo, GR.nom_grupo, GR.clave_ciclo, GR.nombre_ciclo FROM PI.grupo GR, PI.Pertenece PE WHERE GR.cod_grupo = PE.grupo_cod_grupo AND PE.acad ='2019-2020' ";
 
-	
-	
 	private String SqlEstadisticasPracticas = "SELECT COUNT(ANEXO_2_1) FROM PI.practica where ? IS NOT NULL";
 	private String SqlEstadisticasPracticas2 = "SELECT COUNT(?) FROM PI.practica where ANEXO_2_1 IS NULL";
 	private String SqlGruposAlumnos = "select nom_grupo \"GRUPO\", count(*) \"ALUMNOS\" from PI.grupo, PI.alumno, PI.pertenece where alumno.num_exp=pertenece.alumno_num_exp AND grupo.cod_grupo=pertenece.grupo_cod_grupo group by grupo.nom_grupo";
-	private String SqlAlumnosTutor="SELECT G.acad \"AÑO\", concat(t.nombre,concat('-->',gr.nombre_ciclo)) \"TUTOR\",count(*) \"Alumnos\" FROM PI.grupo GR, PI.gestiona G, PI.tutor T, PI.alumno A, PI.pertenece P WHERE GR.cod_grupo=G.grupo_cod_grupo AND G.tutor_dni_tutor=T.dni_tutor\n" + 
-			"AND A.num_exp=P.alumno_num_exp AND P.grupo_cod_grupo=GR.cod_grupo group by G.acad, T.nombre, GR.nombre_ciclo";
+	private String SqlAlumnosTutor = "SELECT G.acad \"AÑO\", concat(t.nombre,concat('-->',gr.nombre_ciclo)) \"TUTOR\",count(*) \"Alumnos\" FROM PI.grupo GR, PI.gestiona G, PI.tutor T, PI.alumno A, PI.pertenece P WHERE GR.cod_grupo=G.grupo_cod_grupo AND G.tutor_dni_tutor=T.dni_tutor\n"
+			+ "AND A.num_exp=P.alumno_num_exp AND P.grupo_cod_grupo=GR.cod_grupo group by G.acad, T.nombre, GR.nombre_ciclo";
 	private String SQLanexo1Busqueda = "SELECT E.cif, E.nombre \"Empresa\",C.cod_centro, C.localidad, C.director, CO.anexo_1 FROM PI.centro C, PI.colabora CO, PI.empresa E WHERE CO.centro_cod_centro=C.cod_centro AND  CO.empresa_cif=E.cif AND E.nombre LIKE ?";
 	private String SQLanexo2_1Busqueda = "SELECT num_exp \"EXPEDIENTE\",nombre, apellidos, anexo_2_1 FROM PI.alumno, PI.practica WHERE num_exp=alumno_num_exp AND nombre LIKE ?";
 	private String SQLanexo2_2Busqueda = "SELECT A.num_Exp,A.nombre, A.apellidos,CONCAT(GR.nom_grupo,CONCAT(',',GR.cod_grupo)) \"GRUPO\", CONCAT(E.nombre,CONCAT(',',E.cif)) \"EMPRESA\", PR.horario, G.Anexo_2_2 FROM PI.alumno A, PI.pertenece P, PI.grupo GR, PI.gestiona G, PI.Tutor T, PI.centro C, "
@@ -216,19 +212,20 @@ public class modelo {
 	private String SQLanexo7Busqueda = "SELECT A.num_exp, A.nombre, A.apellidos, PR.anexo_7 FROM PI.alumno A, PI.practica PR WHERE A.num_exp=PR.alumno_num_exp AND A.nombre LIKE ?";
 	private String SQLanexo8Busqueda = "SELECT A.num_exp, A.nombre, A.apellidos,CONCAT(C.localidad,CONCAT(',',C.cod_centro)) \"CENTRO\", CONCAT(E.nombre,CONCAT(',',E.cif)) \"EMPRESA\", PR.anexo_8 FROM PI.alumno A, PI.practica PR, PI.empresa E, PI.centro C, PI.colabora CO WHERE num_exp=alumno_num_exp AND PR.empresa_cif=E.cif\n"
 			+ "AND CO.empresa_cif=E.cif AND C.cod_centro=CO.centro_cod_centro AND A.nombre LIKE ?";
-	private String SQLinforme1 = "SELECT G.acad \"AÑO\", T.nombre \"TUTOR\", GR.nombre_ciclo \"Ciclo\", count(*) \"Alumnos\", E.nombre \"EMPRESA\", PR.anexo_2_1 \"Anexo 2.1\",PR.anexo_3 \"Anexo 3\",PR.anexo_7 \"Anexo 7\", PR.anexo_8 \"Anexo 8\" FROM PI.grupo GR, PI.gestiona G, PI.tutor T, PI.alumno A, PI.pertenece P, PI.practica PR, PI.empresa E WHERE GR.cod_grupo=G.grupo_cod_grupo AND G.tutor_dni_tutor=T.dni_tutor\n" + 
-			"AND A.num_exp=P.alumno_num_exp AND P.grupo_cod_grupo=GR.cod_grupo AND A.num_exp=PR.alumno_num_exp AND PR.empresa_cif=E.cif group by G.acad, T.nombre, GR.nombre_ciclo,E.nombre, PR.anexo_2_1, PR.anexo_3, PR.anexo_7, PR.anexo_8";
-	private String SQLinforme2 ="SELECT G.acad \"AÑO\", GR.nombre_ciclo \"CICLO\", T.dni_tutor \"DNI\", T.nombre, T.apellidos, C.Localidad \"CENTRO\", GR.nom_grupo \"GRUPO\" FROM PI.grupo GR, PI.gestiona G, PI.tutor T, PI.centro C WHERE GR.cod_grupo=G.grupo_cod_grupo AND G.tutor_dni_tutor=T.dni_tutor AND T.centro_cod_centro=C.cod_Centro";
-	private String SQLinforme3 ="Select P.acad \"AÑO\", CO.numconv \"Nºconv\", E.nombre \"EMPRESA\", A.dni, A.nombre, GR.nom_grupo \"GRUPO\", T.nombre \"TUTOR.C\", PR.tutore \"TUTORE\" FROM PI.pertenece P, PI.grupo GR, PI.gestiona G, PI.tutor T, PI.colabora CO, PI.empresa E, PI.practica PR, PI.alumno A "
+	private String SQLinforme1 = "SELECT G.acad \"AÑO\", T.nombre \"TUTOR\", GR.nombre_ciclo \"Ciclo\", count(*) \"Alumnos\", E.nombre \"EMPRESA\", PR.anexo_2_1 \"Anexo 2.1\",PR.anexo_3 \"Anexo 3\",PR.anexo_7 \"Anexo 7\", PR.anexo_8 \"Anexo 8\" FROM PI.grupo GR, PI.gestiona G, PI.tutor T, PI.alumno A, PI.pertenece P, PI.practica PR, PI.empresa E WHERE GR.cod_grupo=G.grupo_cod_grupo AND G.tutor_dni_tutor=T.dni_tutor\n"
+			+ "AND A.num_exp=P.alumno_num_exp AND P.grupo_cod_grupo=GR.cod_grupo AND A.num_exp=PR.alumno_num_exp AND PR.empresa_cif=E.cif group by G.acad, T.nombre, GR.nombre_ciclo,E.nombre, PR.anexo_2_1, PR.anexo_3, PR.anexo_7, PR.anexo_8";
+	private String SQLinforme2 = "SELECT G.acad \"AÑO\", GR.nombre_ciclo \"CICLO\", T.dni_tutor \"DNI\", T.nombre, T.apellidos, C.Localidad \"CENTRO\", GR.nom_grupo \"GRUPO\" FROM PI.grupo GR, PI.gestiona G, PI.tutor T, PI.centro C WHERE GR.cod_grupo=G.grupo_cod_grupo AND G.tutor_dni_tutor=T.dni_tutor AND T.centro_cod_centro=C.cod_Centro";
+	private String SQLinforme3 = "Select P.acad \"AÑO\", CO.numconv \"Nºconv\", E.nombre \"EMPRESA\", A.dni, A.nombre, GR.nom_grupo \"GRUPO\", T.nombre \"TUTOR.C\", PR.tutore \"TUTORE\" FROM PI.pertenece P, PI.grupo GR, PI.gestiona G, PI.tutor T, PI.colabora CO, PI.empresa E, PI.practica PR, PI.alumno A "
 			+ "WHERE A.num_exp=PR.alumno_num_exp AND PR.empresa_cif=E.cif AND E.cif=CO.empresa_cif AND A.num_Exp=P.alumno_num_exp AND P.grupo_cod_grupo=GR.cod_grupo AND GR.cod_grupo=G.grupo_cod_grupo AND G.tutor_dni_tutor=T.dni_tutor order by E.nombre";
-	private String SQLinforme4="SELECT PR.acad \"AÑO\", T.nombre \"TUTOR C.\",GR.nombre_ciclo \"CICLO\",A.nombre \"ALUMNO\", E.nombre \"EMPRESA\",CO.numconv \"NºCONV\",concat(PR.fecha_ini,concat('-',PR.fecha_fin)) \"FECHAS\", PR.horario \"HORARIO\", PR.tutore \"TUTOR E.\" FROM PI.alumno A, PI.practica PR,\n" + 
-			"PI.empresa E, PI.colabora CO,PI.centro C, PI.tutor T, PI.gestiona G, PI.grupo GR, PI.pertenece P WHERE A.num_exp=PR.alumno_num_exp AND PR.empresa_cif=E.cif\n" + 
-			"AND E.cif=CO.empresa_cif AND CO.centro_cod_centro=C.cod_centro AND C.cod_centro=T.centro_cod_centro AND T.dni_tutor=G.tutor_dni_tutor\n" + 
-			"AND G.grupo_cod_grupo=GR.cod_grupo AND GR.cod_grupo=P.grupo_cod_grupo AND P.alumno_num_exp=A.num_exp";
-	private String SQLTutoresCiclo="SELECT G.acad \"AÑO\", GR.nombre_ciclo \"CICLO\",count(*) \"TUTORES\" FROM PI.grupo GR, PI.gestiona G, PI.tutor T, PI.centro C WHERE GR.cod_grupo=G.grupo_cod_grupo AND G.tutor_dni_tutor=T.dni_tutor AND T.centro_cod_centro=C.cod_Centro\n" + 
-			"group by g.acad,gr.nombre_ciclo";
-	private String SQLAlumnosEmpresa="Select P.acad \"AÑO\", E.nombre \"EMPRESA\",count(*) \"ALUMNOS\" FROM PI.pertenece P, PI.grupo GR, PI.gestiona G, PI.tutor T, PI.colabora CO, PI.empresa E, PI.practica PR, PI.alumno A WHERE A.num_exp=PR.alumno_num_exp AND PR.empresa_cif=E.cif AND"
+	private String SQLinforme4 = "SELECT PR.acad \"AÑO\", T.nombre \"TUTOR C.\",GR.nombre_ciclo \"CICLO\",A.nombre \"ALUMNO\", E.nombre \"EMPRESA\",CO.numconv \"NºCONV\",concat(PR.fecha_ini,concat('-',PR.fecha_fin)) \"FECHAS\", PR.horario \"HORARIO\", PR.tutore \"TUTOR E.\" FROM PI.alumno A, PI.practica PR,\n"
+			+ "PI.empresa E, PI.colabora CO,PI.centro C, PI.tutor T, PI.gestiona G, PI.grupo GR, PI.pertenece P WHERE A.num_exp=PR.alumno_num_exp AND PR.empresa_cif=E.cif\n"
+			+ "AND E.cif=CO.empresa_cif AND CO.centro_cod_centro=C.cod_centro AND C.cod_centro=T.centro_cod_centro AND T.dni_tutor=G.tutor_dni_tutor\n"
+			+ "AND G.grupo_cod_grupo=GR.cod_grupo AND GR.cod_grupo=P.grupo_cod_grupo AND P.alumno_num_exp=A.num_exp";
+	private String SQLTutoresCiclo = "SELECT G.acad \"AÑO\", GR.nombre_ciclo \"CICLO\",count(*) \"TUTORES\" FROM PI.grupo GR, PI.gestiona G, PI.tutor T, PI.centro C WHERE GR.cod_grupo=G.grupo_cod_grupo AND G.tutor_dni_tutor=T.dni_tutor AND T.centro_cod_centro=C.cod_Centro\n"
+			+ "group by g.acad,gr.nombre_ciclo";
+	private String SQLAlumnosEmpresa = "Select P.acad \"AÑO\", E.nombre \"EMPRESA\",count(*) \"ALUMNOS\" FROM PI.pertenece P, PI.grupo GR, PI.gestiona G, PI.tutor T, PI.colabora CO, PI.empresa E, PI.practica PR, PI.alumno A WHERE A.num_exp=PR.alumno_num_exp AND PR.empresa_cif=E.cif AND"
 			+ " E.cif=CO.empresa_cif AND A.num_Exp=P.alumno_num_exp AND P.grupo_cod_grupo=GR.cod_grupo AND GR.cod_grupo=G.grupo_cod_grupo AND G.tutor_dni_tutor=T.dni_tutor group by P.acad,E.nombre";
+	
 	private JTable tablaTut;
 	private JTable tablaAnx;
 	private ChartPanel barPanelAlumnos;
@@ -242,7 +239,7 @@ public class modelo {
 	private ChartPanel barPanelTutoresCiclo;
 	private ChartPanel CircularPanelAlumnosEmpresa;
 	private ChartPanel barPanelAlumnosEmpresa;
-	
+
 	private String resultadoEmpresa;
 	private String resultadoGrupo;
 	private String resultadoTutor;
@@ -363,6 +360,7 @@ public class modelo {
 	public String getSQTUT() {
 		return SQLTut;
 	}
+
 	public String getSQTUT2() {
 		return SQLTut2;
 	}
@@ -390,6 +388,7 @@ public class modelo {
 	public String getSQLalumnos() {
 		return SQAlumno;
 	}
+
 	public String getSQLalumnos2() {
 		return SQLAlumno2;
 	}
@@ -397,6 +396,7 @@ public class modelo {
 	public String getSQLGrp() {
 		return SQLGrp;
 	}
+
 	public String getSQLGrp2() {
 		return SQLGrp2;
 	}
@@ -462,6 +462,7 @@ public class modelo {
 	public String getSQLEmp() {
 		return SQLEmp;
 	}
+
 	public String getSQLEmp2() {
 		return SQLEmp2;
 	}
@@ -1097,11 +1098,11 @@ public class modelo {
 			ps.setString(4, dni);
 
 			int resul = ps.executeUpdate();
-			if (resul>0) {
-				resultadoTutor="EXITO";
+			if (resul > 0) {
+				resultadoTutor = "EXITO";
 				vista_info_tutor.actualizarUpdate();
-			}else {
-				resultadoTutor="ERROR";
+			} else {
+				resultadoTutor = "ERROR";
 				vista_info_tutor.actualizarUpdate();
 			}
 		} catch (SQLException e) {
@@ -1687,7 +1688,6 @@ public class modelo {
 	public String getSQLinforme1() {
 		return SQLinforme1;
 	}
-	
 
 	public String getSQLinforme2() {
 		return SQLinforme2;
@@ -1762,6 +1762,7 @@ public class modelo {
 		barPanelAlumnosTutor = new ChartPanel(barChart1);
 		ventana_estadisticas.actualizarPanel7();
 	}
+
 	public ChartPanel getBarPanelAlumnosTutor() {
 		return barPanelAlumnosTutor;
 	}
@@ -1831,7 +1832,7 @@ public class modelo {
 		barchrt.setRangeGridlinePaint(Color.orange);
 		barPanelTutoresCiclo = new ChartPanel(barChart1);
 		ventana_estadisticas.actualizarPanel9();
-	
+
 	}
 
 	public void alumnosEmpresa() {
@@ -1848,19 +1849,18 @@ public class modelo {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	
-		
+
 	}
 
 	public void dibujargraficaCircularAlumnosEmpresa() {
 
-
 		DefaultPieDataset circularChart = new DefaultPieDataset();
-			for (int i = 0; i < alumnosEmpresa.size(); i++) {
-				circularChart.setValue(
-						alumnosEmpresa.keySet().toArray()[i] + ": " + alumnosEmpresa.get(alumnosEmpresa.keySet().toArray()[i]),
-						alumnosEmpresa.get(alumnosEmpresa.keySet().toArray()[i]));
-			}
+		for (int i = 0; i < alumnosEmpresa.size(); i++) {
+			circularChart.setValue(
+					alumnosEmpresa.keySet().toArray()[i] + ": "
+							+ alumnosEmpresa.get(alumnosEmpresa.keySet().toArray()[i]),
+					alumnosEmpresa.get(alumnosEmpresa.keySet().toArray()[i]));
+		}
 		JFreeChart circulo = ChartFactory.createPieChart3D("Alumnos Empresa", circularChart, true, true, false);
 		BufferedImage circchrt = circulo.createBufferedImage(785, 460);
 		;
@@ -1872,18 +1872,18 @@ public class modelo {
 	public ChartPanel getCircularPanelAlumnosEmpresa() {
 		return CircularPanelAlumnosEmpresa;
 	}
+
 	public ChartPanel getBarPanelAlumnosEmpresa() {
 		return barPanelAlumnosEmpresa;
 	}
 
 	public void dibujargraficaBarrasAlumnosEmpresa() {
 
-
 		DefaultCategoryDataset barChart = new DefaultCategoryDataset();
-			for (int i = 0; i < alumnosEmpresa.size(); i++) {
-				barChart.setValue((alumnosEmpresa.get(alumnosEmpresa.keySet().toArray()[i])), "cantidad",
-						(Comparable) alumnosEmpresa.keySet().toArray()[i]);
-			}
+		for (int i = 0; i < alumnosEmpresa.size(); i++) {
+			barChart.setValue((alumnosEmpresa.get(alumnosEmpresa.keySet().toArray()[i])), "cantidad",
+					(Comparable) alumnosEmpresa.keySet().toArray()[i]);
+		}
 		JFreeChart barChart1 = ChartFactory.createBarChart3D("Alumnos Empresa", "", "Cantidad Alumnos", barChart,
 				PlotOrientation.VERTICAL, false, true, false);
 		CategoryPlot barchrt = barChart1.getCategoryPlot();
@@ -1891,6 +1891,5 @@ public class modelo {
 		barPanelAlumnosEmpresa = new ChartPanel(barChart1);
 		ventana_estadisticas.actualizarPanel11();
 	}
-	
-	
+
 }

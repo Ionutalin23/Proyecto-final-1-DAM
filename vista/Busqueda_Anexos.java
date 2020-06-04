@@ -59,7 +59,7 @@ public class Busqueda_Anexos extends JFrame {
 	private JLabel SearchBtn;
 	private JLabel lblUser;
 	private int selected;
-
+	
 // 	Setting Images ======================== (Check all images are linked to correct folder to avoid null pointer exception)
 	private Image img_bg = new ImageIcon(getClass().getResource("/img/bg9.jpg")).getImage().getScaledInstance(888, 664,
 			Image.SCALE_SMOOTH);
@@ -353,12 +353,12 @@ public class Busqueda_Anexos extends JFrame {
 		DeleteBtn.setIcon(new ImageIcon(img_ButtonEliminar));
 
 //		View Combo Box ========================
-		JComboBox ViewComboBox = new JComboBox();
-		ViewComboBox.setBackground(Color.GRAY);
-		ViewComboBox.setForeground(Color.WHITE);
-		ViewComboBox.setModel(new DefaultComboBoxModel(new String[] { "DAM-2020" }));
-		ViewComboBox.setBounds(740, 103, 96, 22);
-		contentPane.add(ViewComboBox);
+		JComboBox AñoAcad = new JComboBox();
+		AñoAcad.setBackground(Color.GRAY);
+		AñoAcad.setForeground(Color.WHITE);
+		AñoAcad.setModel(new DefaultComboBoxModel(new String[] { "CURSO-2020", "CURSO-2019" }));
+		AñoAcad.setBounds(687, 103, 149, 22);
+		contentPane.add(AñoAcad);
 
 //		Search Field ========================
 		SearchField = new JTextField();
@@ -415,25 +415,49 @@ public class Busqueda_Anexos extends JFrame {
 				DeleteBtn.setEnabled(false);
 				ModifyBtn.setEnabled(false);
 				selected = FilterComboBox.getSelectedIndex();
-				if (selected == 0) {
-					String SQL = miModelo.getSQLanexo1();
-					table.setModel(miModelo.getTabla(SQL));
-				} else if (selected == 1) {
-					String SQL = miModelo.getSQLanexo2_1();
-					table.setModel(miModelo.getTabla(SQL));
-				} else if (selected == 2) {
-					String SQL = miModelo.getSQLanexo2_2();
-					table.setModel(miModelo.getTabla(SQL));
-				} else if (selected == 3) {
-					String SQL = miModelo.getSQLanexo3();
-					table.setModel(miModelo.getTabla(SQL));
-				} else if (selected == 4) {
-					String SQL = miModelo.getSQLanexo7();
-					table.setModel(miModelo.getTabla(SQL));
-				} else if (selected == 5) {
-					String SQL = miModelo.getSQLanexo8();
-					table.setModel(miModelo.getTabla(SQL));
+				int seleccion = AñoAcad.getSelectedIndex();
+				if (seleccion == 0) {
+					if (selected == 0) {
+						String SQL = miModelo.getSQLanexo1();
+						table.setModel(miModelo.getTabla(SQL));
+					} else if (selected == 1) {
+						String SQL = miModelo.getSQLanexo2_1() + " AND PR.acad = '2019-2020'";
+						table.setModel(miModelo.getTabla(SQL));
+					} else if (selected == 2) {
+						String SQL = miModelo.getSQLanexo2_2()  + " AND PR.acad = '2019-2020'";
+						table.setModel(miModelo.getTabla(SQL));
+					} else if (selected == 3) {
+						String SQL = miModelo.getSQLanexo3()  + " AND PR.acad = '2019-2020'";
+						table.setModel(miModelo.getTabla(SQL));
+					} else if (selected == 4) {
+						String SQL = miModelo.getSQLanexo7()  + " AND PR.acad = '2019-2020'";
+						table.setModel(miModelo.getTabla(SQL));
+					} else if (selected == 5) {
+						String SQL = miModelo.getSQLanexo8()  + " AND PR.acad = '2019-2020'";
+						table.setModel(miModelo.getTabla(SQL));
+					}
+				}else {
+					if (selected == 0) {
+						String SQL = miModelo.getSQLanexo1();
+						table.setModel(miModelo.getTabla(SQL));
+					} else if (selected == 1) {
+						String SQL = miModelo.getSQLanexo2_1() + " AND PR.acad = '2018-2019'";
+						table.setModel(miModelo.getTabla(SQL));
+					} else if (selected == 2) {
+						String SQL = miModelo.getSQLanexo2_2()  + " AND PR.acad = '2018-2019'";
+						table.setModel(miModelo.getTabla(SQL));
+					} else if (selected == 3) {
+						String SQL = miModelo.getSQLanexo3()  + " AND PR.acad = '2018-2019'";
+						table.setModel(miModelo.getTabla(SQL));
+					} else if (selected == 4) {
+						String SQL = miModelo.getSQLanexo7()  + " AND PR.acad = '2018-2019'";
+						table.setModel(miModelo.getTabla(SQL));
+					} else if (selected == 5) {
+						String SQL = miModelo.getSQLanexo8()  + " AND PR.acad = '2018-2019'";
+						table.setModel(miModelo.getTabla(SQL));
+					}
 				}
+
 			}
 		});
 		FilterComboBox.setForeground(Color.WHITE);

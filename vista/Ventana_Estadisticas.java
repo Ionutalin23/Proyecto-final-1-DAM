@@ -64,8 +64,8 @@ public class Ventana_Estadisticas extends JFrame {
 			.getImage().getScaledInstance(147, 23, Image.SCALE_SMOOTH);
 	private JPanel panelGrafos;
 	private JLabel lblUser;
-	private JComboBox FilterComboBox2;
-	private JComboBox FilterComboBox;
+	private JComboBox Informes;
+	private JComboBox tipoGrafica;
 	private JLabel lblTipo;
 	private JLabel lblInforme;
 	private JLabel informeBTN;
@@ -77,7 +77,7 @@ public class Ventana_Estadisticas extends JFrame {
 	private JLabel informeCerrarBTN;
 	private JLabel lblGrafica;
 	private JLabel windowTitle;
-
+	private JComboBox añoAcademico;
 
 	public Ventana_Estadisticas() {
 		getContentPane().setBackground(Color.LIGHT_GRAY);
@@ -111,11 +111,11 @@ public class Ventana_Estadisticas extends JFrame {
 				miControlador.back9();
 			}
 		});
-		
+
 		lblTipo = new JLabel("TIPO:");
 		lblTipo.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblTipo.setVisible(false);
-		
+
 		informeCerrarBTN = new JLabel("");
 		informeCerrarBTN.addMouseListener(new MouseAdapter() {
 			@Override
@@ -134,27 +134,27 @@ public class Ventana_Estadisticas extends JFrame {
 				lblCerrarInforme.setVisible(false);
 				informeCerrarBTN.setVisible(false);
 				lblGrafica.setVisible(true);
-				FilterComboBox2.setVisible(true);
+				Informes.setVisible(true);
 				lblTipo.setVisible(true);
-				FilterComboBox.setVisible(true);
+				tipoGrafica.setVisible(true);
 				windowTitle.setText("Estadisticas");
 			}
 		});
-		
+
 		lblCerrarInforme = new JLabel("Cerrar Informe");
 		lblCerrarInforme.setVisible(false);
 		informeCerrarBTN.setVisible(false);
-		
+
 		panelInformes = new JPanel();
 		panelInformes.setBounds(44, 104, 785, 460);
 		panelInformes.setVisible(false);
 		getContentPane().add(panelInformes);
 		panelInformes.setLayout(null);
-		
+
 		scrollPane = new JScrollPane();
 		scrollPane.setBounds(0, 0, 785, 460);
 		panelInformes.add(scrollPane);
-		
+
 		table = new JTable();
 		scrollPane.setViewportView(table);
 		lblCerrarInforme.setHorizontalAlignment(SwingConstants.CENTER);
@@ -169,14 +169,14 @@ public class Ventana_Estadisticas extends JFrame {
 		lblTipo.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblTipo.setBounds(581, 67, 76, 22);
 		getContentPane().add(lblTipo);
-		
+
 		lblGrafica = new JLabel("GRAFICA:");
 		lblGrafica.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblGrafica.setHorizontalAlignment(SwingConstants.CENTER);
 		lblGrafica.setForeground(Color.WHITE);
 		lblGrafica.setBounds(44, 67, 76, 22);
 		getContentPane().add(lblGrafica);
-		
+
 		lblUser = new JLabel("Logged as: Pedro Camacho");
 		lblUser.setBounds(560, 7, 208, 27);
 		getContentPane().add(lblUser);
@@ -234,115 +234,122 @@ public class Ventana_Estadisticas extends JFrame {
 		});
 		lblLogoutButton.setIcon(new ImageIcon(button1));
 
-		
 		// Search Filter Combo Box ========================
 
-		FilterComboBox2 = new JComboBox();
-		FilterComboBox2.setForeground(Color.WHITE);
-		FilterComboBox2.setBackground(Color.GRAY);
-		FilterComboBox2.setModel(new DefaultComboBoxModel(new String[] { "--Selecciona--","Alumnos por tutor","Tutores por ciclo","Alumnos por empresa","Alumnos en Practicas", "Total Grupos" }));
-		FilterComboBox2.setBounds(122, 68, 222, 22);
-		getContentPane().add(FilterComboBox2);
-		FilterComboBox = new JComboBox();
-		FilterComboBox2.addActionListener(new ActionListener() {
-		
+		Informes = new JComboBox();
+		Informes.setForeground(Color.WHITE);
+		Informes.setBackground(Color.GRAY);
+		Informes.setModel(new DefaultComboBoxModel(new String[] { "--Selecciona--", "Alumnos por tutor",
+				"Tutores por ciclo", "Alumnos por empresa", "Alumnos en Practicas", "Total Grupos" }));
+		Informes.setBounds(122, 68, 222, 22);
+		getContentPane().add(Informes);
+		tipoGrafica = new JComboBox();
+		Informes.addActionListener(new ActionListener() {
+
 			public void actionPerformed(ActionEvent e) {
-				selected2 = FilterComboBox2.getSelectedIndex();
-				if(selected2==0) {
+				selected2 = Informes.getSelectedIndex();
+				if (selected2 == 0) {
 					lblInforme.setVisible(false);
 					informeBTN.setVisible(false);
 				}
-				if(selected2==1) {
+				if (selected2 == 1) {
 					lblInforme.setVisible(true);
 					informeBTN.setVisible(true);
-					FilterComboBox.setVisible(true);
+					tipoGrafica.setVisible(true);
 					lblTipo.setVisible(true);
-					FilterComboBox.setModel(new DefaultComboBoxModel(new String[] { "--Selecciona--", "Circular", "Barras" }));
+					tipoGrafica.setModel(
+							new DefaultComboBoxModel(new String[] { "--Selecciona--", "Circular", "Barras" }));
 				}
-				if(selected2==2) {
+				if (selected2 == 2) {
 					lblInforme.setVisible(true);
 					informeBTN.setVisible(true);
-					FilterComboBox.setVisible(true);
+					tipoGrafica.setVisible(true);
 					lblTipo.setVisible(true);
-					FilterComboBox.setModel(new DefaultComboBoxModel(new String[] { "--Selecciona--", "Circular", "Barras" }));
+					tipoGrafica.setModel(
+							new DefaultComboBoxModel(new String[] { "--Selecciona--", "Circular", "Barras" }));
 				}
-				if(selected2==3) {
+				if (selected2 == 3) {
 					lblInforme.setVisible(true);
 					informeBTN.setVisible(true);
-					FilterComboBox.setVisible(true);
+					tipoGrafica.setVisible(true);
 					lblTipo.setVisible(true);
-					FilterComboBox.setModel(new DefaultComboBoxModel(new String[] { "--Selecciona--", "Circular", "Barras" }));
+					tipoGrafica.setModel(
+							new DefaultComboBoxModel(new String[] { "--Selecciona--", "Circular", "Barras" }));
 				}
-				if(selected2==4) {
+				if (selected2 == 4) {
 					lblInforme.setVisible(true);
 					informeBTN.setVisible(true);
-					FilterComboBox.setVisible(true);
+					tipoGrafica.setVisible(true);
 					lblTipo.setVisible(true);
-					FilterComboBox.setModel(new DefaultComboBoxModel(new String[] { "--Selecciona--","Lineal", "Circular", "Barras" }));
+					tipoGrafica.setModel(new DefaultComboBoxModel(
+							new String[] { "--Selecciona--", "Lineal", "Circular", "Barras" }));
 				}
-				if(selected2==5) {
-					FilterComboBox.setVisible(true);
+				if (selected2 == 5) {
+					tipoGrafica.setVisible(true);
 					lblTipo.setVisible(true);
-					FilterComboBox.setModel(new DefaultComboBoxModel(new String[] { "--Selecciona--", "Circular", "Barras" }));
+					tipoGrafica.setModel(
+							new DefaultComboBoxModel(new String[] { "--Selecciona--", "Circular", "Barras" }));
 				}
-				int selected=FilterComboBox.getSelectedIndex();
-				if(selected==1&&selected2==1) {
+				int selected = tipoGrafica.getSelectedIndex();
+				if (selected == 1 && selected2 == 1) {
 					miControlador.graficaCircularAlumnosTutor();
-				}else if(selected==2&&selected2==1) {
+				} else if (selected == 2 && selected2 == 1) {
 					miControlador.graficaBarrasAlumnosTutor();
-				}else if(selected==1&&selected2==2) {
+				} else if (selected == 1 && selected2 == 2) {
 					miControlador.graficaCircularTutoresCiclo();
-				}else if(selected==2&&selected2==2) {
+				} else if (selected == 2 && selected2 == 2) {
 					miControlador.graficaBarrasTutoresCiclo();
-				}else if(selected==1&&selected2==3) {
+				} else if (selected == 1 && selected2 == 3) {
 					miControlador.graficaCircularAlumnosEmpresa();
-				}else if(selected==2&&selected2==3) {
+				} else if (selected == 2 && selected2 == 3) {
 					miControlador.graficaBarrasAlumnosEmpresa();
-				}else if(selected==1&&selected2==4) {
+				} else if (selected == 1 && selected2 == 4) {
 					miControlador.graficaLinealPracticas();
-				}else if(selected==2&&selected2==4) {
+				} else if (selected == 2 && selected2 == 4) {
 					miControlador.graficaCircularPracticas();
-				}else if(selected==3 &&selected2==4) {
+				} else if (selected == 3 && selected2 == 4) {
 					miControlador.graficaBarrasPracticas();
-				}else if(selected==1 && selected2==5) {
+				} else if (selected == 1 && selected2 == 5) {
 					miControlador.graficaCircularGrupos();
-				}else if(selected==2 && selected2==5) {
+				} else if (selected == 2 && selected2 == 5) {
 					miControlador.graficaBarrasGrupos();
-				}}
+				}
+			}
 		});
-		FilterComboBox.addActionListener(new ActionListener() {
+		tipoGrafica.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int selected2= FilterComboBox2.getSelectedIndex();
-				int selected=FilterComboBox.getSelectedIndex();
-				if(selected==1&&selected2==1) {
+				int selected2 = Informes.getSelectedIndex();
+				int selected = tipoGrafica.getSelectedIndex();
+				if (selected == 1 && selected2 == 1) {
 					miControlador.graficaCircularAlumnosTutor();
-				}else if(selected==2&&selected2==1) {
+				} else if (selected == 2 && selected2 == 1) {
 					miControlador.graficaBarrasAlumnosTutor();
-				}else if(selected==1&&selected2==2) {
+				} else if (selected == 1 && selected2 == 2) {
 					miControlador.graficaCircularTutoresCiclo();
-				}else if(selected==2&&selected2==2) {
+				} else if (selected == 2 && selected2 == 2) {
 					miControlador.graficaBarrasTutoresCiclo();
-				}else if(selected==1&&selected2==3) {
+				} else if (selected == 1 && selected2 == 3) {
 					miControlador.graficaCircularAlumnosEmpresa();
-				}else if(selected==2&&selected2==3) {
+				} else if (selected == 2 && selected2 == 3) {
 					miControlador.graficaBarrasAlumnosEmpresa();
-				}else if(selected==1&&selected2==4) {
+				} else if (selected == 1 && selected2 == 4) {
 					miControlador.graficaLinealPracticas();
-				}else if(selected==2&&selected2==4) {
+				} else if (selected == 2 && selected2 == 4) {
 					miControlador.graficaCircularPracticas();
-				}else if(selected==3 &&selected2==4) {
+				} else if (selected == 3 && selected2 == 4) {
 					miControlador.graficaBarrasPracticas();
-				}else if(selected==1 && selected2==5) {
+				} else if (selected == 1 && selected2 == 5) {
 					miControlador.graficaCircularGrupos();
-				}else if(selected==2 && selected2==5) {
+				} else if (selected == 2 && selected2 == 5) {
 					miControlador.graficaBarrasGrupos();
-				}}
+				}
+			}
 		});
-		FilterComboBox.setForeground(Color.WHITE);
-		FilterComboBox.setBackground(Color.GRAY);
-		FilterComboBox.setVisible(false);
-		FilterComboBox.setBounds(669, 68, 160, 22);
-		getContentPane().add(FilterComboBox);
+		tipoGrafica.setForeground(Color.WHITE);
+		tipoGrafica.setBackground(Color.GRAY);
+		tipoGrafica.setVisible(false);
+		tipoGrafica.setBounds(669, 68, 160, 22);
+		getContentPane().add(tipoGrafica);
 //=================================================== BTN INFORME ==================================== 
 		lblInforme = new JLabel("Ver informe");
 		lblInforme.setVisible(false);
@@ -367,35 +374,50 @@ public class Ventana_Estadisticas extends JFrame {
 
 			public void mouseClicked(MouseEvent e) {
 				windowTitle.setText("Informes");
-				if(selected2==1) {
+				if (selected2 == 1) {
 					String SQL = miModelo.getSQLinforme1();
 					table.setModel(miModelo.getTabla(SQL));
 					mostrarPanelInformes();
-				}else if(selected2==2) {
+				} else if (selected2 == 2) {
 					String SQL = miModelo.getSQLinforme2();
 					table.setModel(miModelo.getTabla(SQL));
 					mostrarPanelInformes();
-				}else if(selected2==3) {
+				} else if (selected2 == 3) {
 					String SQL = miModelo.getSQLinforme3();
 					table.setModel(miModelo.getTabla(SQL));
 					mostrarPanelInformes();
-				}else if(selected2==4) {
+				} else if (selected2 == 4) {
 					String SQL = miModelo.getSQLinforme4();
 					table.setModel(miModelo.getTabla(SQL));
 					mostrarPanelInformes();
 				}
-				
+
 			}
 		});
 		informeBTN.setBounds(44, 576, 147, 23);
 		getContentPane().add(informeBTN);
 		informeBTN.setIcon(new ImageIcon(img_ButtonVer));
 
-
 		panelGrafos = new JPanel();
 		panelGrafos.setBackground(Color.WHITE);
 		panelGrafos.setBounds(44, 103, 785, 460);
 		getContentPane().add(panelGrafos);
+
+//		label curso academico		
+		JLabel lblCurso = new JLabel("CURSO:");
+		lblCurso.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCurso.setForeground(Color.WHITE);
+		lblCurso.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblCurso.setBounds(431, 69, 76, 22);
+		getContentPane().add(lblCurso);
+
+//		año academico		
+		añoAcademico = new JComboBox();
+		añoAcademico.setBounds(504, 69, 99, 22);
+		añoAcademico.setBackground(Color.GRAY);
+		añoAcademico.setForeground(Color.WHITE);
+		añoAcademico.setModel(new DefaultComboBoxModel(new String[] { "--Seleccionar--", "CURSO-2020", "CURSO-2019" }));
+		getContentPane().add(añoAcademico);
 
 		windowTitle = new JLabel("Estadisticas");
 		windowTitle.setForeground(Color.WHITE);
@@ -412,25 +434,28 @@ public class Ventana_Estadisticas extends JFrame {
 		setLocationRelativeTo(null);
 
 	}
+
 	public void mostrarPanelInformes() {
 		panelGrafos.setVisible(false);
 		panelInformes.setVisible(true);
 		lblCerrarInforme.setVisible(true);
 		informeCerrarBTN.setVisible(true);
 		lblGrafica.setVisible(false);
-		FilterComboBox2.setVisible(false);
+		Informes.setVisible(false);
 		lblTipo.setVisible(false);
-		FilterComboBox.setVisible(false);
+		tipoGrafica.setVisible(false);
 	}
 
 	public void actualizarLogged() {
 		lblUser.setText("Logged as: " + miModelo.getUSR());
 	}
+
 	public void actualizarPanel() {
 		panelGrafos.removeAll();
 		panelGrafos.add(miModelo.getBarPanelAlumnos(), BorderLayout.CENTER);
 		panelGrafos.validate();
 	}
+
 	public void actualizarPanel2() {
 		panelGrafos.removeAll();
 		panelGrafos.add(miModelo.getCircularPanelAlumnos(), BorderLayout.CENTER);
@@ -448,31 +473,37 @@ public class Ventana_Estadisticas extends JFrame {
 		panelGrafos.add(miModelo.getBarPanelGrupos(), BorderLayout.CENTER);
 		panelGrafos.validate();
 	}
+
 	public void actualizarPanel5() {
 		panelGrafos.removeAll();
 		panelGrafos.add(miModelo.getCircularGrupos(), BorderLayout.CENTER);
 		panelGrafos.validate();
 	}
+
 	public void actualizarPanel6() {
 		panelGrafos.removeAll();
 		panelGrafos.add(miModelo.getCircularPanelAlumnosTutor(), BorderLayout.CENTER);
 		panelGrafos.validate();
 	}
+
 	public void actualizarPanel7() {
 		panelGrafos.removeAll();
 		panelGrafos.add(miModelo.getBarPanelAlumnosTutor(), BorderLayout.CENTER);
 		panelGrafos.validate();
 	}
+
 	public void actualizarPanel8() {
 		panelGrafos.removeAll();
 		panelGrafos.add(miModelo.getCircularPanelTutoresCiclo(), BorderLayout.CENTER);
 		panelGrafos.validate();
 	}
+
 	public void actualizarPanel9() {
 		panelGrafos.removeAll();
 		panelGrafos.add(miModelo.getBarPanelTutoresCiclo(), BorderLayout.CENTER);
 		panelGrafos.validate();
 	}
+
 	public void actualizarPanel10() {
 		panelGrafos.removeAll();
 		panelGrafos.add(miModelo.getCircularPanelAlumnosEmpresa(), BorderLayout.CENTER);
@@ -485,4 +516,3 @@ public class Ventana_Estadisticas extends JFrame {
 		panelGrafos.validate();
 	}
 }
-
